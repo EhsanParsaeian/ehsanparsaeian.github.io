@@ -98,7 +98,7 @@
   }
 
   html { 
-    font-size: 16px; 
+    font-size: 14.5px; /* global zoom-out optimization for clean dashboard feel */
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
   }
@@ -343,7 +343,29 @@
     transition: background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   }
 
-  
+  .profile-card {
+    border-bottom: 1px solid var(--glass-border-inner);
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    transition: border-color 0.4s ease;
+  }
+
+  .profile-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  html[lang="fa"] .profile-name { letter-spacing: normal; }
+
+  .profile-title {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
 
   .contact-list {
     list-style: none;
@@ -715,25 +737,27 @@
 
   /* ── CLEAN MEDIA QUERIES & MOBILE ADJUSTMENTS ── */
   @media (max-width: 968px) {
+    html { font-size: 13px; } /* Crisp dynamic zoom-out for mid-tier screens */
+
     #layout-wrapper { 
       flex-direction: column; 
-      gap: 20px; 
+      gap: 16px; 
       padding: 0 16px;
-      margin: 20px auto 80px auto;
+      margin: 16px auto 60px auto;
     }
     
     #sidebar { 
       width: 100%; 
       position: static !important; 
       border-top: none;
-      padding: 24px 20px;
+      padding: 20px 16px;
       border-radius: 16px;
       margin-top: 0;
       top: auto;
     }
 
     #content-workspace {
-      padding: 24px 20px;
+      padding: 20px 16px;
       border-radius: 16px;
     }
 
@@ -753,13 +777,21 @@
     #topnav nav::-webkit-scrollbar { display: none; }
     #topnav nav { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* Dynamic Profile and Contact styling inside About section on Mobile */
+    #about .profile-card {
+      margin-top: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--glass-border-inner);
+    }
     
-      margin-top: 40px;
-      padding-top: 24px;
+    #about .contact-list {
+      margin-top: 30px;
+      padding-top: 20px;
       border-top: 1px solid var(--glass-border-inner);
     }
 
-    h2 { font-size: 1.4rem; margin-bottom: 20px; }
+    h2 { font-size: 1.35rem; margin-bottom: 16px; }
     
     /* Text Typography Fixes for Mobile */
     p, .entry-bullets li, .skill-items { 
@@ -767,7 +799,7 @@
     }
     
     html[lang="fa"] p, html[lang="fa"] .entry-bullets li, html[lang="fa"] .skill-items {
-      line-height: 1.9;
+      line-height: 1.8;
     }
 
     .entry-header {
@@ -782,12 +814,12 @@
       margin-inline-start: 0;
     }
     .entry-title { font-size: 1.05rem; }
-    .entry-block { padding: 18px 16px; border-radius: 12px; }
+    .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
     
     .skill-row {
       flex-direction: column;
       gap: 6px;
-      padding: 14px 16px;
+      padding: 12px 14px;
       border-radius: 12px;
     }
     .skill-row:hover { transform: none; }
@@ -797,30 +829,31 @@
     .section-rule { margin: 16px 0; }
 
     .metric-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 10px;
+      grid-template-columns: repeat(3, 1fr) !important; /* Changed from 2 to 3 columns to reveal more fields at first sight */
+      gap: 8px;
     }
     .metric-card { 
-      padding: 16px 10px; 
+      padding: 14px 8px; 
       border-radius: 12px;
     }
-    .metric-value { font-size: 1.55rem; }
+    .metric-value { font-size: 1.45rem; }
   }
 
   @media (max-width: 480px) {
+    html { font-size: 11.5px; } /* Deeper clean scaling for absolute tiny mobile screens to avoid text crowding */
     #layout-wrapper {
-      padding: 0 12px;
+      padding: 0 10px;
     }
     #content-workspace {
-      padding: 20px 16px;
+      padding: 16px 12px;
     }
     #sidebar {
-      padding: 20px 16px;
+      padding: 16px 12px;
     }
-    h2 { font-size: 1.25rem; }
-    .entry-block { padding: 14px 14px; }
-    .metric-card { padding: 14px 8px; }
-    .metric-value { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
+    .entry-block { padding: 12px 10px; }
+    .metric-card { padding: 12px 4px; }
+    .metric-value { font-size: 1.3rem; }
   }
 
   /* ── EXECUTIVE PRINT MODE CONFIGURATION ── */
@@ -880,6 +913,26 @@
       border-radius: 0 !important;
     }
     
+    .profile-card { 
+      border: none !important; 
+      padding-bottom: 0 !important; 
+      margin-bottom: 14pt !important; 
+    }
+    
+    .profile-name { 
+      font-size: 16pt !important; 
+      font-weight: 700 !important;
+      color: #111111 !important;
+      line-height: 1.2 !important;
+      letter-spacing: -0.02em !important;
+    }
+    
+    .profile-title { 
+      font-size: 9pt !important; 
+      color: #444444 !important;
+      margin-top: 4pt !important;
+      line-height: 1.4 !important;
+    }
     
     .contact-list { 
       display: flex !important;
@@ -1112,6 +1165,17 @@
 
   <div id="layout-wrapper">
     <aside id="sidebar">
+      <div class="profile-card">
+        <h1 class="profile-name">
+          <span class="en">Seyed Ehsan Parsaeian</span>
+          <span class="fa">سید احسان پارسائیان</span>
+        </h1>
+        <p class="profile-title">
+          <span class="en">AI Specialist & Prompt Engineer</span>
+          <span class="fa">متخصص هوش مصنوعی و مهندس پرامپت</span>
+        </p>
+      </div>
+      
       <ul class="contact-list">
         <li>
           <a href="mailto:ehsan.parsaeian@gmail.com" aria-label="Email">
@@ -1508,17 +1572,26 @@
     function rearrangeLayout() {
       const sidebar = document.getElementById('sidebar');
       const aboutSection = document.getElementById('about');
+      const profileCard = document.querySelector('.profile-card');
       const contactList = document.querySelector('.contact-list');
       
-      if (!sidebar || !aboutSection || !contactList) return;
+      if (!sidebar || !aboutSection || !profileCard || !contactList) return;
+      
+      const aboutTitle = aboutSection.querySelector('h2');
 
       if (window.innerWidth <= 968) {
-        // On mobile: Move Contact info to BOTTOM of About section.
+        // On mobile: Move Name+Title to TOP of About section, and Contact info to BOTTOM.
+        if (profileCard.parentElement !== aboutSection) {
+          aboutSection.insertBefore(profileCard, aboutTitle);
+        }
         if (contactList.parentElement !== aboutSection) {
           aboutSection.appendChild(contactList);
         }
       } else {
-        // On desktop: Move contact list back to the fixed sidebar.
+        // On desktop: Move everything back to the fixed sidebar.
+        if (profileCard.parentElement !== sidebar) {
+          sidebar.insertBefore(profileCard, sidebar.firstChild);
+        }
         if (contactList.parentElement !== sidebar) {
           sidebar.appendChild(contactList);
         }
@@ -1530,8 +1603,10 @@
     
     window.addEventListener('beforeprint', () => {
       const sidebar = document.getElementById('sidebar');
+      const profileCard = document.querySelector('.profile-card');
       const contactList = document.querySelector('.contact-list');
-      if (contactList && sidebar) {
+      if (profileCard && contactList && sidebar) {
+         sidebar.insertBefore(profileCard, sidebar.firstChild);
          sidebar.appendChild(contactList);
       }
     });
@@ -1846,7 +1921,7 @@
         if(e.touches.length > 0) {
           const rect = canvas.getBoundingClientRect();
           mouse.x = e.touches[0].clientX - rect.left;
-          mouse.y = e.touches[0].clientY - rect.top;
+          mouse.y = e.touches[0].top;
         }
       }, { passive: true });
 
