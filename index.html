@@ -1,1 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seyed Ehsan Parsaeian — AI Portfolio & Research CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  // Core Progressive Enhancement: Immediate evaluation to prevent FOUC
+  document.documentElement.classList.add('js-enabled');
+  // Load saved language instantly to prevent layout shift
+  const savedLang = localStorage.getItem('lang') || 'en';
+  document.documentElement.setAttribute('lang', savedLang);
+  document.documentElement.setAttribute('dir', savedLang === 'fa' ? 'rtl' : 'ltr');
+</script>
+<style>
+  /* ══════════════════════════════════════════════════════════════
+     GLASSMORPHISM DESIGN SYSTEM — MODERN 2025 EDITION
+     Light & Dark, RTL/LTR, Fully Responsive
+  ══════════════════════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    /* ── Core Palette (Light) ── */
+    --bg: #eef2ff;
+    --text: #0f172a;
+    --p-text: #1e293b;
+    --muted: #475569;
+    --accent: #4f46e5;
+    --accent-rgb: 79, 70, 229;
+    --border: rgba(255, 255, 255, 0.55);
+
+    /* ── Glass Layer (Light) ── */
+    --glass-bg: rgba(255, 255, 255, 0.52);
+    --glass-bg-strong: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.65);
+    --glass-border-inner: rgba(255, 255, 255, 0.90);
+    --glass-shadow: 0 8px 32px rgba(79, 70, 229, 0.08), 0 2px 8px rgba(0,0,0,0.06);
+    --glass-shadow-hover: 0 16px 48px rgba(79, 70, 229, 0.14), 0 4px 16px rgba(0,0,0,0.08);
+    --glass-shadow-nav: 0 4px 24px rgba(79, 70, 229, 0.10), 0 1px 4px rgba(0,0,0,0.06);
+    --glass-blur: blur(20px) saturate(190%);
+    --glass-blur-strong: blur(28px) saturate(200%);
+
+    /* ── Background Gradient Mesh ── */
+    --mesh-1: radial-gradient(ellipse 70% 55% at 15% 5%,  rgba(99,102,241,0.22) 0%, transparent 65%);
+    --mesh-2: radial-gradient(ellipse 55% 70% at 85% 85%, rgba(16,185,129,0.15) 0%, transparent 65%);
+    --mesh-3: radial-gradient(ellipse 65% 45% at 55% 45%, rgba(245,158,11,0.10) 0%, transparent 65%);
+    --mesh-4: radial-gradient(ellipse 50% 60% at 30% 80%, rgba(236,72,153,0.10) 0%, transparent 60%);
+    --mesh-base: #dde4f8;
+
+    /* ── Nav ── */
+    --nav-bg: rgba(240, 244, 255, 0.75);
+    --nav-border: rgba(255,255,255,0.70);
+
+    /* ── Legacy tokens (kept for JS/print compat) ── */
+    --card-bg: rgba(255,255,255,0.52);
+    --sidebar-w: 280px;
+    --nav-h: 60px;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  [data-theme="dark"] {
+    /* ── Core Palette (Dark) ── */
+    --bg: #060b18;
+    --text: #f1f5f9;
+    --p-text: #cbd5e1;
+    --muted: #7c8fb0;
+    --accent: #818cf8;
+    --accent-rgb: 129, 140, 248;
+    --border: rgba(255,255,255,0.07);
+
+    /* ── Glass Layer (Dark) ── */
+    --glass-bg: rgba(12, 20, 44, 0.48);
+    --glass-bg-strong: rgba(16, 26, 56, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-inner: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.20);
+    --glass-shadow-hover: 0 16px 48px rgba(0,0,0,0.50), 0 4px 16px rgba(0,0,0,0.30);
+    --glass-shadow-nav: 0 4px 24px rgba(0,0,0,0.40), 0 1px 4px rgba(0,0,0,0.25);
+    --glass-blur: blur(22px) saturate(170%);
+    --glass-blur-strong: blur(30px) saturate(180%);
+
+    /* ── Background Gradient Mesh (Dark) ── */
+    --mesh-1: radial-gradient(ellipse 70% 55% at 15% 5%,  rgba(99,102,241,0.28) 0%, transparent 65%);
+    --mesh-2: radial-gradient(ellipse 55% 70% at 85% 85%, rgba(16,185,129,0.18) 0%, transparent 65%);
+    --mesh-3: radial-gradient(ellipse 65% 45% at 55% 45%, rgba(245,158,11,0.12) 0%, transparent 65%);
+    --mesh-4: radial-gradient(ellipse 50% 60% at 30% 80%, rgba(129,140,248,0.15) 0%, transparent 60%);
+    --mesh-base: #060b18;
+
+    /* ── Nav ── */
+    --nav-bg: rgba(8, 14, 30, 0.72);
+    --nav-border: rgba(255,255,255,0.08);
+
+    /* Legacy */
+    --card-bg: rgba(12,20,44,0.48);
+  }
+
+  html { 
+    font-size: 16px; 
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background: var(--mesh-base);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: background-color 0.5s ease, color 0.4s ease;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── GRADIENT MESH BACKGROUND (enables glass blur) ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      var(--mesh-1),
+      var(--mesh-2),
+      var(--mesh-3),
+      var(--mesh-4),
+      var(--mesh-base);
+    transition: background 0.5s ease;
+    pointer-events: none;
+  }
+
+  /* Language Specific Adjustments */
+  html[lang="en"] .fa { display: none !important; }
+  html[lang="fa"] .en { display: none !important; }
+  
+  html[lang="fa"] body {
+    font-family: 'Vazirmatn', var(--font-sans);
+    line-height: 1.8;
+  }
+
+  a { 
+    color: var(--accent); 
+    text-decoration: none; 
+    transition: color 0.2s ease;
+  }
+  
+  a:hover { 
+    color: var(--text); 
+  }
+
+  .contact-list li a {
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+  .contact-list li a:hover {
+    color: var(--accent);
+  }
+
+  /* ── ENHANCED ACCESSIBILITY OUTLINES ── */
+  a:focus-visible, button:focus-visible, [role="tab"]:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* ── HERO CANVAS BANNER — UNTOUCHED ── */
+  #hero-banner {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #000000;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    cursor: crosshair;
+  }
+  
+  #neural-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: block;
+  }
+  
+  .hero-text-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    pointer-events: none;
+    z-index: 2;
+    gap: 8px;
+    user-select: none;
+  }
+  
+  .hero-text-overlay h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.95);
+    letter-spacing: -0.01em;
+  }
+  
+  .hero-text-overlay p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.80); 
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  html[lang="fa"] .hero-text-overlay p {
+    letter-spacing: normal;
+  }
+
+  /* ── FIXED TOP NAVIGATION BAR — GLASS ── */
+  #topnav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: var(--nav-h);
+    background: var(--nav-bg);
+    backdrop-filter: var(--glass-blur-strong);
+    -webkit-backdrop-filter: var(--glass-blur-strong);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: var(--glass-shadow-nav);
+    z-index: 100;
+    transition: background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .nav-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  #topnav nav {
+    display: flex;
+    height: 100%;
+    margin-inline-start: calc(var(--sidebar-w) + 60px - 16px);
+  }
+
+  #topnav nav a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+
+  #topnav nav a:hover {
+    color: var(--text);
+  }
+
+  #topnav nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    inset-inline-start: 16px;
+    inset-inline-end: 16px;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #topnav nav a.active {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  #topnav nav a.active::after {
+    transform: scaleX(1);
+  }
+
+  /* ── GLASS ACCENT BADGE on active nav ── */
+  #topnav nav a.active {
+    background: rgba(var(--accent-rgb), 0.08);
+    border-radius: 6px;
+  }
+
+  .nav-actions {
+    display: flex;
+    gap: 8px;
+    margin-inline-start: auto;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    gap: 6px;
+  }
+  
+  .nav-btn:hover {
+    background: rgba(255,255,255,0.30);
+    border-color: var(--glass-border);
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  [data-theme="dark"] .nav-btn:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ── SCREEN LAYOUT ── */
+  #layout-wrapper {
+    max-width: 1200px;
+    margin: 36px auto 100px auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 32px;
+  }
+
+  #sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--nav-h) + 40px);
+    height: fit-content;
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur-strong);
+    -webkit-backdrop-filter: var(--glass-blur-strong);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    padding: 20px 20px;
+    transition: background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  
+
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .contact-list li a, .contact-list li span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.875rem;
+    text-decoration: none;
+    color: var(--muted);
+  }
+
+  .contact-list svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    flex-shrink: 0;
+  }
+
+  #content-workspace {
+    flex-grow: 1;
+    min-width: 0;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 36px 40px;
+    box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-border-inner);
+    transition: background 0.5s ease, border-color 0.4s ease;
+  }
+
+  /* ── SMOOTH SECTION ANIMATION (GPU ACCELERATED) ── */
+  .page-section {
+    display: none;
+    margin-bottom: 60px;
+  }
+
+  .js-enabled .page-section.visible {
+    display: block;
+    animation: fadeSlideUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    position: relative;
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: linear-gradient(
+      to right,
+      rgba(var(--accent-rgb), 0.55),
+      rgba(var(--accent-rgb), 0.20) 45%,
+      transparent 100%
+    );
+  }
+
+  html[dir="rtl"] h2::after {
+    background: linear-gradient(
+      to left,
+      rgba(var(--accent-rgb), 0.55),
+      rgba(var(--accent-rgb), 0.20) 45%,
+      transparent 100%
+    );
+  }
+  
+  html[lang="fa"] h2 { letter-spacing: normal; }
+
+  /* ── GLASS CONTACT LIST ITEMS ── */
+  .contact-list li {
+    background: rgba(255,255,255,0.22);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  [data-theme="dark"] .contact-list li {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .contact-list li:hover {
+    background: rgba(255,255,255,0.40);
+    transform: translateX(3px);
+  }
+
+  [data-theme="dark"] .contact-list li:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  html[dir="rtl"] .contact-list li:hover {
+    transform: translateX(-3px);
+  }
+
+  /* Remove padding from last special item to avoid double-styling */
+  .contact-list li:last-child {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-top: 8px;
+    border-top: 1px dashed var(--glass-border);
+    padding-top: 12px;
+    border-radius: 0;
+  }
+
+  .contact-list li:last-child:hover {
+    background: transparent;
+    transform: none;
+  }
+
+  /* ── AMBIENT FLOATING GRADIENT BLOBS (subtle depth) ── */
+  @keyframes ambientFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(3%, 2%) scale(1.04); }
+    66% { transform: translate(-2%, 3%) scale(0.97); }
+  }
+
+  @keyframes ambientFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-4%, -2%) scale(1.06); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    body::before {
+      animation: ambientFloat1 18s ease-in-out infinite alternate;
+    }
+  }
+
+  p {
+    color: var(--p-text);
+    margin-bottom: 20px;
+    font-size: 1rem;
+    text-align: justify;
+  }
+
+  .section-rule {
+    border: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    display: none;
+  }
+
+  .entry-block {
+    margin-bottom: 28px;
+    background: rgba(255,255,255,0.28);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04), inset 0 1px 0 var(--glass-border-inner);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .entry-block {
+    background: rgba(255,255,255,0.04);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.20), inset 0 1px 0 var(--glass-border-inner);
+  }
+
+  .entry-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border-inner), transparent);
+  }
+
+  .entry-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.07), inset 0 1px 0 var(--glass-border-inner);
+    background: rgba(255,255,255,0.42);
+  }
+
+  [data-theme="dark"] .entry-block:hover {
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.30), inset 0 1px 0 var(--glass-border-inner);
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .entry-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
+  }
+  
+  html[lang="fa"] .entry-title { letter-spacing: normal; }
+
+  .entry-meta {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-align: end;
+    flex-shrink: 0;
+    margin-inline-start: 16px;
+  }
+
+  .entry-bullets {
+    list-style-type: none;
+  }
+
+  .entry-bullets li {
+    position: relative;
+    padding-inline-start: 20px;
+    margin-bottom: 10px;
+    color: var(--p-text);
+    font-size: 0.95rem;
+  }
+
+  .entry-bullets li::before {
+    content: "•";
+    position: absolute;
+    inset-inline-start: 4px;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .skill-matrix {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .skill-row {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.25);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: inset 0 1px 0 var(--glass-border-inner);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  [data-theme="dark"] .skill-row {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .skill-row:hover {
+    transform: translateX(3px);
+    background: rgba(255,255,255,0.40);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 var(--glass-border-inner);
+  }
+
+  [data-theme="dark"] .skill-row:hover {
+    background: rgba(255,255,255,0.07);
+  }
+
+  html[dir="rtl"] .skill-row:hover {
+    transform: translateX(-3px);
+  }
+
+  .skill-cat {
+    width: 200px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+  
+  html[lang="fa"] .skill-cat { letter-spacing: normal; }
+
+  .skill-items {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .metric-card {
+    background: rgba(255,255,255,0.30);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.06), inset 0 1px 0 var(--glass-border-inner);
+    padding: 24px 16px;
+    border-radius: 16px;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  [data-theme="dark"] .metric-card {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border-inner), transparent);
+    opacity: 0.8;
+  }
+
+  .metric-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.12), inset 0 1px 0 var(--glass-border-inner);
+    background: rgba(255,255,255,0.45);
+  }
+
+  [data-theme="dark"] .metric-card:hover {
+    background: rgba(255,255,255,0.09);
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  html[lang="fa"] .metric-label { letter-spacing: normal; }
+
+  /* ── CLEAN MEDIA QUERIES & MOBILE ADJUSTMENTS ── */
+  @media (max-width: 968px) {
+    #layout-wrapper { 
+      flex-direction: column; 
+      gap: 20px; 
+      padding: 0 16px;
+      margin: 20px auto 80px auto;
+    }
+    
+    #sidebar { 
+      width: 100%; 
+      position: static !important; 
+      border-top: none;
+      padding: 24px 20px;
+      border-radius: 16px;
+      margin-top: 0;
+      top: auto;
+    }
+
+    #content-workspace {
+      padding: 24px 20px;
+      border-radius: 16px;
+    }
+
+    #topnav { padding: 0; }
+    .nav-wrapper { padding: 0 16px; }
+    
+    #topnav nav {
+      display: flex;
+      margin-inline-start: 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+      margin-inline-end: 15px;
+      scroll-behavior: smooth;
+    }
+    #topnav nav::-webkit-scrollbar { display: none; }
+    #topnav nav { -ms-overflow-style: none; scrollbar-width: none; }
+
+    
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--glass-border-inner);
+    }
+
+    h2 { font-size: 1.4rem; margin-bottom: 20px; }
+    
+    /* Text Typography Fixes for Mobile */
+    p, .entry-bullets li, .skill-items { 
+      text-align: start;
+    }
+    
+    html[lang="fa"] p, html[lang="fa"] .entry-bullets li, html[lang="fa"] .skill-items {
+      line-height: 1.9;
+    }
+
+    .entry-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .entry-meta {
+      text-align: start;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-inline-start: 0;
+    }
+    .entry-title { font-size: 1.05rem; }
+    .entry-block { padding: 18px 16px; border-radius: 12px; }
+    
+    .skill-row {
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 16px;
+      border-radius: 12px;
+    }
+    .skill-row:hover { transform: none; }
+    .skill-cat {
+      width: 100%;
+    }
+    .section-rule { margin: 16px 0; }
+
+    .metric-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px;
+    }
+    .metric-card { 
+      padding: 16px 10px; 
+      border-radius: 12px;
+    }
+    .metric-value { font-size: 1.55rem; }
+  }
+
+  @media (max-width: 480px) {
+    #layout-wrapper {
+      padding: 0 12px;
+    }
+    #content-workspace {
+      padding: 20px 16px;
+    }
+    #sidebar {
+      padding: 20px 16px;
+    }
+    h2 { font-size: 1.25rem; }
+    .entry-block { padding: 14px 14px; }
+    .metric-card { padding: 14px 8px; }
+    .metric-value { font-size: 1.4rem; }
+  }
+
+  /* ── EXECUTIVE PRINT MODE CONFIGURATION ── */
+  @media print {
+    @page { 
+      size: A4; 
+      margin: 20mm 16mm 20mm 16mm; 
+    }
+    
+    body { 
+      background: #ffffff !important; 
+      color: #111111 !important; 
+      font-size: 10pt !important; 
+      line-height: 1.5 !important;
+      -webkit-font-smoothing: subpixel-antialiased;
+    }
+
+    body::before { display: none !important; }
+    
+    #hero-banner, #topnav, .nav-actions, .contact-list li:last-child { 
+      display: none !important; 
+    }
+    
+    #layout-wrapper { 
+      display: grid !important;
+      grid-template-columns: 180pt 1fr !important;
+      gap: 24pt !important;
+      max-width: 100% !important; 
+      margin: 0 !important; 
+      padding: 0 !important; 
+    }
+    
+    #sidebar { 
+      display: block !important; 
+      width: 100% !important; 
+      position: static !important; 
+      border-inline-end: 1px solid #e2e8f0 !important;
+      border-radius: 0 !important;
+      padding-inline-end: 14pt !important;
+      padding: 0 14pt 0 0 !important;
+      height: auto !important;
+      border-top: none !important;
+      margin-top: 0 !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      border-inline-end: 1px solid #e2e8f0 !important;
+    }
+
+    #content-workspace {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+    
+    
+    .contact-list { 
+      display: flex !important;
+      flex-direction: column !important; 
+      gap: 8pt !important; 
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      border-top: none !important;
+    }
+    
+    .contact-list li a, .contact-list li span { 
+      color: #1d4ed8 !important; 
+      font-size: 8.5pt !important; 
+      font-weight: 500 !important;
+    }
+    
+    .contact-list svg {
+      display: inline-block !important;
+      width: 11pt !important;
+      height: 11pt !important;
+      stroke: #444444 !important;
+    }
+    
+    #content-workspace { 
+      width: 100% !important; 
+    }
+    
+    .page-section { 
+      display: block !important; 
+      opacity: 1 !important; 
+      transform: none !important; 
+      animation: none !important;
+      margin-bottom: 20pt !important;
+      page-break-inside: auto !important;
+    }
+    
+    h2 { 
+      font-size: 12pt !important; 
+      font-weight: 700 !important;
+      color: #111111 !important; 
+      text-transform: uppercase !important;
+      letter-spacing: 0.04em !important;
+      border-bottom: 1px solid #111111 !important;
+      padding-bottom: 2pt !important;
+      margin-bottom: 10pt !important; 
+      page-break-after: avoid !important;
+    }
+
+    h2::after { display: none !important; }
+    
+    .entry-block { 
+      page-break-inside: avoid !important; 
+      margin-bottom: 14pt !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+      border-radius: 0 !important;
+      padding: 0 0 10pt 0 !important;
+    }
+
+    .entry-block::before { display: none !important; }
+
+    .skill-row {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+    }
+
+    .skill-row:hover { transform: none !important; }
+    
+    .entry-header { 
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      margin-bottom: 4pt !important;
+    }
+    
+    .entry-title { 
+      font-size: 10.5pt !important; 
+      font-weight: 600 !important;
+      color: #111111 !important;
+    }
+    
+    .entry-meta { 
+      font-size: 8.5pt !important; 
+      color: #555555 !important; 
+      text-align: end !important;
+      margin-inline-start: 0 !important;
+    }
+    
+    .entry-bullets li { 
+      padding-inline-start: 12pt !important;
+      margin-bottom: 3pt !important;
+      color: #2d3748 !important;
+      font-size: 9pt !important;
+    }
+    
+    p { 
+      color: #2d3748 !important; 
+      font-size: 9pt !important;
+      margin-bottom: 8pt !important;
+    }
+    
+    .metric-grid { 
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important; 
+      gap: 8pt !important;
+      margin-bottom: 14pt !important;
+    }
+    
+    .metric-card { 
+      border: 1px solid #e2e8f0 !important; 
+      background: #f8fafc !important; 
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      padding: 8pt 2pt !important; 
+      border-radius: 4px !important;
+    }
+
+    .metric-card::before { display: none !important; }
+    
+    .metric-value { 
+      font-size: 12pt !important; 
+      color: #1d4ed8 !important;
+    }
+    
+    .metric-label { 
+      font-size: 6.5pt !important; 
+    }
+    
+    .skill-matrix { 
+      gap: 10pt !important; 
+    }
+    
+    .skill-row { 
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 14pt !important;
+      page-break-inside: avoid !important;
+    }
+    
+    .skill-cat { 
+      width: 100pt !important; 
+      font-size: 8pt !important; 
+    }
+    
+    .skill-items { 
+      font-size: 9pt !important; 
+    }
+    
+    .section-rule { 
+      display: none !important; 
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div id="hero-banner">
+    <canvas id="neural-canvas"></canvas>
+    <div class="hero-text-overlay">
+      <h2>
+        <span class="en">Seyed Ehsan Parsaeian</span>
+        <span class="fa">سید احسان پارسائیان</span>
+      </h2>
+      <p>
+        <span class="en">LLM Prompt Engineering · Human-AI Interaction · Cognitive Science · AI Project Management</span>
+        <span class="fa">مهندسی پرامپت · تعامل انسان و هوش مصنوعی · علوم شناختی · مدیریت پروژه‌های AI</span>
+      </p>
+    </div>
+  </div>
+
+  <header id="topnav">
+    <div class="nav-wrapper">
+      <nav role="tablist" aria-label="Resume Sections">
+        <a href="#about" id="nav-about" role="tab" aria-selected="true" aria-controls="about" class="active" tabindex="0">
+          <span class="en">About Me</span><span class="fa">درباره من</span>
+        </a>
+        <a href="#experience" id="nav-experience" role="tab" aria-selected="false" aria-controls="experience" tabindex="-1">
+          <span class="en">Experience</span><span class="fa">سوابق حرفه‌ای</span>
+        </a>
+        <a href="#education" id="nav-education" role="tab" aria-selected="false" aria-controls="education" tabindex="-1">
+          <span class="en">Education</span><span class="fa">تحصیلات</span>
+        </a>
+        <a href="#teaching" id="nav-teaching" role="tab" aria-selected="false" aria-controls="teaching" tabindex="-1">
+          <span class="en">Teaching</span><span class="fa">سوابق تدریس</span>
+        </a>
+        <a href="#skills" id="nav-skills" role="tab" aria-selected="false" aria-controls="skills" tabindex="-1">
+          <span class="en">Skills</span><span class="fa">حوزه‌های تخصصی</span>
+        </a>
+        <a href="#consulting" id="nav-consulting" role="tab" aria-selected="false" aria-controls="consulting" tabindex="-1">
+          <span class="en">Consulting & Research</span><span class="fa">مشاوره و پروژه‌ها</span>
+        </a>
+      </nav>
+      
+      <div class="nav-actions">
+        <button id="lang-toggle" class="nav-btn" aria-label="Toggle Language" title="Switch Language">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </button>
+
+        <button id="theme-toggle" class="nav-btn" aria-label="Toggle Dark Mode" title="Switch theme">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" style="display:none" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="layout-wrapper">
+    <aside id="sidebar">
+      <ul class="contact-list">
+        <li>
+          <a href="mailto:ehsan.parsaeian@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            ehsan.parsaeian@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="tel:+989137248050" aria-label="Phone">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="en" dir="ltr">+98 913 724 8050</span>
+            <span class="fa" dir="ltr">09137248050</span>
+          </a>
+        </li>
+        <li>
+          <span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span class="en">Yazd, Iran</span>
+            <span class="fa">ایران، یزد</span>
+          </span>
+        </li>
+        <li>
+          <span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <span class="en">English: C1 (Advanced)</span>
+            <span class="fa">انگلیسی: C1 (پیشرفته)</span>
+          </span>
+        </li>
+        <li>
+          <span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span class="en">Military Service: Completed</span>
+            <span class="fa">وضعیت نظام وظیفه: پایان خدمت</span>
+          </span>
+        </li>
+        <li style="margin-top: 0; border-top: none; padding-top: 0;">
+          <a href="#" onclick="window.print(); return false;" style="color: var(--accent); font-weight: 600;" aria-label="Export Resume">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+            <span class="en">Export PDF Resume</span>
+            <span class="fa">دانلود رزومه (PDF)</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <main id="content-workspace">
+      <section id="about" class="page-section visible" role="tabpanel" aria-labelledby="nav-about">
+        <h2>
+          <span class="en">About Me</span>
+          <span class="fa">درباره من</span>
+        </h2>
+        
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-value" data-target="4" data-suffix="+">0</div>
+            <div class="metric-label"><span class="en">Years AI Teaching</span><span class="fa">سال تدریس تخصصی AI</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" data-target="6" data-suffix="+">0</div>
+            <div class="metric-label"><span class="en">AI Project Mgmt</span><span class="fa">مدیریت پروژه AI</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" data-target="10" data-suffix="+">0</div>
+            <div class="metric-label"><span class="en">Org Consulting</span><span class="fa">مشاوره سازمانی</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" data-target="800" data-suffix="+">0</div>
+            <div class="metric-label"><span class="en">Teaching Hours</span><span class="fa">ساعت تدریس</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" data-target="300" data-suffix="+">0</div>
+            <div class="metric-label"><span class="en">Students Mentored</span><span class="fa">دانشجو</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" data-target="15" data-suffix="+">0</div>
+            <div class="metric-label"><span class="en">Custom Courses</span><span class="fa">دوره آموزشی</span></div>
+          </div>
+        </div>
+
+        <p class="en">AI, Vibe Coding, and Prompt Engineering specialist focusing on Large Language Models (LLMs), Small Language Models (SLMs), and developing Agentic AI solutions for enterprise process automation.</p>
+        <p class="fa">متخصص هوش مصنوعی، Vibe Coding و Prompt Engineering با تمرکز بر مدل‌های زبانی بزرگ (LLM)، مدل‌های زبانی کوچک (SLM) و توسعه راهکارهای Agentic AI برای اتوماسیون و هوشمندسازی فرایندهای سازمانی.</p>
+        
+        <p class="en">Experienced in designing AI-driven systems for data analysis, enterprise knowledge management, workflow redesign, administrative correspondence automation, and business process optimization utilizing state-of-the-art AI tools.</p>
+        <p class="fa">طراحی سیستم‌های مبتنی بر هوش مصنوعی در حوزه‌های تحلیل داده، تحقیق و پژوهش، مدیریت دانش سازمانی، بهبود و بازطراحی فرایندهای سازمانی، اتوماسیون مکاتبات اداری و بهینه‌سازی فرایندهای کسب‌وکار با استفاده از ابزارها و مدل‌های نوین AI.</p>
+        
+        <p class="en">Over 4 years of specialized teaching and curriculum development experience covering AI, artificial neural networks, prompt engineering, Vibe Coding, and applied LLM frameworks across universities, higher education institutes, and private academic centers.</p>
+        <p class="fa">بیش از ۴ سال سابقه تدریس تخصصی در حوزه‌های هوش مصنوعی، شبکه‌های عصبی، مهندسی پرامپت، Vibe Coding و کاربرد مدل‌های زبانی در دانشگاه‌ها، مؤسسات آموزش عالی و مراکز آموزشی خصوصی را در کارنامه خود دارم.</p>
+      </section>
+
+      <section id="experience" class="page-section" role="tabpanel" aria-labelledby="nav-experience">
+        <h2>
+          <span class="en">Work Experience</span>
+          <span class="fa">سوابق حرفه‌ای</span>
+        </h2>
+        
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">Senior Project Control & AI Development Specialist</span>
+                <span class="fa">کارشناس ارشد کنترل پروژه و توسعه هوش مصنوعی</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Afarinesh Holding (Largest private multi-company holding)</span>
+                <span class="fa">هلدینگ آفرینش — بزرگ‌ترین هلدینگ خصوصی مولتی‌کمپانی کشور</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div><span class="en">Tehran, Iran</span><span class="fa">تهران</span></div>
+              <div dir="ltr"><span class="en">2025 — 2026</span><span class="fa">۱۴۰۴ — ۱۴۰۵</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Deployed LLM-based solutions for enterprise workflows and project control systems.</li>
+            <li class="fa">ارائه راهکارهای مبتنی بر LLM در فرایندهای سازمانی و کنترل پروژه.</li>
+            <li class="en">Developed AI-Assisted Decision Making systems to support executive management operations.</li>
+            <li class="fa">توسعه سامانه‌های پشتیبان تصمیم‌گیری (AI-Assisted Decision Making) برای مدیریت ارشد.</li>
+            <li class="en">Implemented intelligent workflow automation and administrative correspondence tools.</li>
+            <li class="fa">پیاده‌سازی ابزارهای هوشمندسازی گردش‌کار و اتوماسیون مکاتبات اداری.</li>
+            <li class="en">Delivered comprehensive management dashboards and analytical reports using Power BI and Qlik Sense.</li>
+            <li class="fa">ارائه داشبوردهای مدیریتی و گزارش‌های تحلیلی با Power BI و Qlik Sense.</li>
+          </ul>
+        </div>
+
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">Executive Manager</span>
+                <span class="fa">مدیر اجرایی مرکز هوش مصنوعی</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Ariana AI Center (Largest private AI center in the province)</span>
+                <span class="fa">مرکز هوش مصنوعی آریانا — بزرگ‌ترین مرکز خصوصی آموزش AI استان</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div><span class="en">Yazd, Iran</span><span class="fa">یزد</span></div>
+              <div dir="ltr"><span class="en">2023 — 2025</span><span class="fa">۱۴۰۲ — ۱۴۰۴</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Directed and managed the executive execution of specialized AI and LLM educational programs.</li>
+            <li class="fa">راهبری و مدیریت اجرایی برنامه‌های آموزشی تخصصی حوزه AI و LLM.</li>
+            <li class="en">Designed and conducted courses on Prompt Engineering, Artificial Neural Networks, and Cognitive Sciences.</li>
+            <li class="fa">طراحی و برگزاری دوره‌های مهندسی پرامپت، شبکه‌های عصبی و علوم شناختی.</li>
+            <li class="en">Developed strategic partnerships with universities, governmental organizations, and knowledge-based enterprises.</li>
+            <li class="fa">توسعه همکاری‌های استراتژیک با دانشگاه‌ها، سازمان‌ها و شرکت‌های دانش‌بنیان.</li>
+          </ul>
+        </div>
+
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">AI Lead — AI & Robotics Center</span>
+                <span class="fa">مسئول هوش مصنوعی — مرکز هوش مصنوعی و رباتیک</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Islamic Azad University of Yazd</span>
+                <span class="fa">دانشگاه آزاد اسلامی واحد یزد</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div><span class="en">Yazd, Iran</span><span class="fa">یزد</span></div>
+              <div dir="ltr"><span class="en">2019 — 2022</span><span class="fa">۱۳۹۸ — ۱۴۰۱</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Participated directly in Artificial Intelligence Research and Development (R&D) projects.</li>
+            <li class="fa">مشارکت در پروژه‌های تحقیق و توسعه (R&D) حوزه هوش مصنوعی.</li>
+            <li class="en">Designed and executed specialized training programs for undergraduate students and academic faculty.</li>
+            <li class="fa">طراحی و اجرای برنامه‌های آموزشی تخصصی برای دانشجویان و اساتید.</li>
+          </ul>
+        </div>
+
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">IT Manager</span>
+                <span class="fa">مسئول فناوری اطلاعات</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Caspian Med Apadana Holding</span>
+                <span class="fa">هلدینگ کاسپین مد آپادانا</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div><span class="en">Isfahan, Iran</span><span class="fa">اصفهان</span></div>
+              <div dir="ltr"><span class="en">2015 — 2017</span><span class="fa">۱۳۹۴ — ۱۳۹۶</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Managed robust IT infrastructure and continuously supported critical enterprise operational systems.</li>
+            <li class="fa">مدیریت زیرساخت‌های IT و پشتیبانی سامانه‌های سازمانی.</li>
+            <li class="en">Processed and analyzed core financial data ledgers to present graphical analytics reports to senior management.</li>
+            <li class="fa">پردازش و تحلیل داده‌های مالی با ارائه گزارش‌های گرافیکی به مدیریت ارشد.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="education" class="page-section" role="tabpanel" aria-labelledby="nav-education">
+        <h2>
+          <span class="en">Education</span>
+          <span class="fa">تحصیلات</span>
+        </h2>
+        
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">Bachelor of Science in Software Engineering</span>
+                <span class="fa">کارشناسی مهندسی نرم‌افزار</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Focus on AI & Vibe Coding | Islamic Azad University of Yazd</span>
+                <span class="fa">تمرکز بر هوش مصنوعی و وایب کدینگ | دانشگاه آزاد اسلامی یزد</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div><span class="en">GPA:</span><span class="fa">معدل:</span> <span dir="ltr">19.72 / 20.00</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="teaching" class="page-section" role="tabpanel" aria-labelledby="nav-teaching">
+        <h2>
+          <span class="en">Teaching Experience</span>
+          <span class="fa">سوابق تدریس و آموزش</span>
+        </h2>
+        
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">Specialized AI Instructor</span>
+                <span class="fa">مدرس تخصصی هوش مصنوعی</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Universities & Higher Education Institutes</span>
+                <span class="fa">دانشگاه‌ها و مؤسسات آموزش عالی خصوصی</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div dir="ltr"><span class="en">2019 — Present</span><span class="fa">۱۳۹۸ — اکنون</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Taught Artificial Neural Networks (ANN, CNN, RNN) and advanced computing architectures to CS undergraduate and graduate students.</li>
+            <li class="fa">تدریس تخصصی شبکه‌های عصبی مصنوعی (ANN، CNN، RNN) و معماری‌های پیشرفته برای دانشجویان کارشناسی و کارشناسی ارشد مهندسی کامپیوتر.</li>
+            <li class="en">Instructed on LLMs/SLMs including Transformer architecture, Attention mechanisms, Pre-training, Fine-tuning, and Transfer Learning methodologies.</li>
+            <li class="fa">آموزش مدل‌های زبانی بزرگ (LLM) و کوچک (SLM)؛ شامل معماری Transformer، مکانیزم Attention و انواع روش‌های آموزش مدل از جمله Pre-training، Fine-tuning و Transfer Learning.</li>
+            <li class="en">Covered specialized AI optimization techniques: RLHF, LoRA, PEFT, and hallucination mitigation strategies.</li>
+            <li class="fa">تدریس روش‌های تخصصی بهینه‌سازی مدل‌های زبانی: RLHF، LoRA، PEFT و تکنیک‌های کاهش Hallucination.</li>
+            <li class="en">Designed modern academic syllabi based on state-of-the-art AI advancements coupled with practical technical projects.</li>
+            <li class="fa">طراحی سرفصل‌های درسی به‌روز منطبق با آخرین پیشرفت‌های حوزه هوش مصنوعی و ارائه پروژه‌های عملی کاربردی.</li>
+          </ul>
+        </div>
+
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">In-Service Training Instructor</span>
+                <span class="fa">مدرس آموزش ضمن‌خدمت سازمان‌ها</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">Government Agencies & Private Sector</span>
+                <span class="fa">ادارات و ارگان‌های دولتی و خصوصی استان یزد</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div dir="ltr"><span class="en">2023 — Present</span><span class="fa">۱۴۰۲ — اکنون</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Designed practical AI application courses strictly optimized for enterprise employee workflow integrations.</li>
+            <li class="fa">طراحی و اجرای دوره‌های آموزشی ضمن‌خدمت ویژه کارمندان سازمان‌ها با تمرکز بر کاربرد عملی هوش مصنوعی در محیط کار.</li>
+            <li class="en">Taught applied Prompt Engineering paradigms including Prompt Chaining and Few-shot Learning techniques.</li>
+            <li class="fa">تدریس مهندسی پرامپت (Prompt Engineering) کاربردی؛ شامل Prompt Chaining، Few-shot Learning و طراحی دستورالعمل‌های مؤثر برای مدل‌های زبانی.</li>
+            <li class="en">Instructed modern Data Analysis & BI tools (Power BI, Qlik Sense, Excel Analytics) for generating management insights.</li>
+            <li class="fa">آموزش ابزارهای تحلیل داده و هوش تجاری: Power BI، Qlik Sense و Excel Analytics برای تهیه گزارش‌های مدیریتی.</li>
+            <li class="en">Trained administrative staff on workflow and correspondence automation directly leveraging customized LLM interfaces.</li>
+            <li class="fa">آموزش اتوماسیون فرایندهای اداری و مکاتبات سازمانی با استفاده از ابزارهای مبتنی بر LLM.</li>
+          </ul>
+        </div>
+
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">Kids & Teens AI Instructor</span>
+                <span class="fa">مدرس هوش مصنوعی کودکان و نوجوانان</span>
+              </h3>
+              <div style="font-weight: 500; color: var(--muted);">
+                <span class="en">AI4Kids Methodology Centers</span>
+                <span class="fa">مراکز آموزشی تخصصی · متدولوژی AI4Kids</span>
+              </div>
+            </div>
+            <div class="entry-meta">
+              <div dir="ltr"><span class="en">2022 — Present</span><span class="fa">۱۴۰۱ — اکنون</span></div>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">Taught Python programming and foundational AI concepts to adolescents (ages 12-18) based on AI4Kids methodology.</li>
+            <li class="fa">تدریس هوش مصنوعی و برنامه‌نویسی پایتون برای کودکان و نوجوانان ۱۲ تا ۱۸ سال بر اساس متدولوژی AI4Kids.</li>
+            <li class="en">Educated students on Vibe Coding techniques and deployed creative AI projects utilizing engaging, gamified approaches.</li>
+            <li class="fa">آموزش Vibe Coding و توسعه پروژه‌های خلاقانه با هوش مصنوعی در رده‌های سنی مختلف با رویکرد بازی‌محور و پروژه‌محور.</li>
+            <li class="en">Designed appropriately tiered educational content spanning from foundational concepts to hands-on Python implementations.</li>
+            <li class="fa">طراحی محتوای آموزشی سطح‌بندی‌شده متناسب با گروه‌های سنی مختلف؛ از مفاهیم پایه تا پیاده‌سازی پروژه‌های ساده با Python.</li>
+            <li class="en">Curated highly interactive learning environments emphasizing computational thinking logic and programmatic problem-solving.</li>
+            <li class="fa">ایجاد فضای یادگیری تعاملی با تأکید بر تفکر محاسباتی، حل مسئله و آشنایی عملی با ابزارهای هوش مصنوعی روز.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="skills" class="page-section" role="tabpanel" aria-labelledby="nav-skills">
+        <h2>
+          <span class="en">Technical Skills</span>
+          <span class="fa">حوزه‌های تخصصی</span>
+        </h2>
+        
+        <div class="skill-matrix">
+          <div class="skill-row">
+            <div class="skill-cat"><span class="en">Programming</span><span class="fa">زبان‌های برنامه‌نویسی</span></div>
+            <div class="skill-items" dir="ltr">Python · JavaScript · TypeScript</div>
+          </div>
+          <hr class="section-rule">
+          <div class="skill-row">
+            <div class="skill-cat"><span class="en">Artificial Intelligence</span><span class="fa">هوش مصنوعی</span></div>
+            <div class="skill-items" dir="ltr">LLM Prompt Engineering · Prompt Chaining · Agentic AI · RAG · NLP · Context Engineering · Multi-Agent Systems · Hallucination Mitigation</div>
+          </div>
+          <hr class="section-rule">
+          <div class="skill-row">
+            <div class="skill-cat"><span class="en">Tools & Models</span><span class="fa">ابزارها و مدل‌ها</span></div>
+            <div class="skill-items" dir="ltr">ChatGPT · Claude · Gemini · Grok · N8N · Google NotebookLM</div>
+          </div>
+          <hr class="section-rule">
+          <div class="skill-row">
+            <div class="skill-cat"><span class="en">Data & BI</span><span class="fa">داده و BI</span></div>
+            <div class="skill-items" dir="ltr">Power BI · Qlik Sense · QlikView · SPSS · Excel Analytics · Excel</div>
+          </div>
+          <hr class="section-rule">
+          <div class="skill-row">
+            <div class="skill-cat"><span class="en">Project Management</span><span class="fa">مدیریت پروژه</span></div>
+            <div class="skill-items" dir="ltr">Microsoft Project · Primavera · Jira · Trello</div>
+          </div>
+          <hr class="section-rule">
+          <div class="skill-row">
+            <div class="skill-cat"><span class="en">Software</span><span class="fa">نرم‌افزاری</span></div>
+            <div class="skill-items" dir="ltr">Microsoft Office · Google Workspace · Teams / Zoom · Microsoft Visio</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="consulting" class="page-section" role="tabpanel" aria-labelledby="nav-consulting">
+        <h2>
+          <span class="en">Consulting & Research</span>
+          <span class="fa">مشاوره و پروژه‌ها</span>
+        </h2>
+        
+        <div class="entry-block">
+          <div class="entry-header">
+            <div>
+              <h3 class="entry-title">
+                <span class="en">Professional Activities</span>
+                <span class="fa">فعالیت‌های حرفه‌ای و مشاوره</span>
+              </h3>
+            </div>
+          </div>
+          <ul class="entry-bullets">
+            <li class="en">AI and Business Intelligence Instructor for government agencies and local administrations in Yazd.</li>
+            <li class="fa">مدرس هوش مصنوعی و هوش تجاری ضمن‌خدمت ارگان‌های دولتی و ادارات استان یزد.</li>
+            <li class="en">Artificial Intelligence Instructor at universities and private higher education institutes.</li>
+            <li class="fa">مدرس هوش مصنوعی در دانشگاه و موسسات آموزش عالی خصوصی.</li>
+            <li class="en">Lead Consultant for integrating Large Language Models (LLMs) deeply with enterprise ERP systems.</li>
+            <li class="fa">مشاور تلفیق مدل‌های زبانی بزرگ (LLM) با سامانه‌های ERP سازمانی.</li>
+            <li class="en">AI Consultant specializing in Computational Social Science methodologies.</li>
+            <li class="fa">مشاور هوش مصنوعی در حوزه Computational Social Science.</li>
+            <li class="en">AI Consultant for advanced health and psychometrics projects (collaborating with Yazd University faculty).</li>
+            <li class="fa">مشاور هوش مصنوعی در پروژه‌های سلامت و روان‌شناسی (اساتید دانشگاه یزد).</li>
+            <li class="en">AI and R&D Lead for knowledge-based enterprises positioned within the University Technology Incubator.</li>
+            <li class="fa">مسئول هوش مصنوعی و R&D شرکت‌های دانش‌بنیان مرکز رشد دانشگاه آزاد.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    /* ── DYNAMIC MOBILE LAYOUT REARRANGEMENT ── */
+    function rearrangeLayout() {
+      const sidebar = document.getElementById('sidebar');
+      const aboutSection = document.getElementById('about');
+      const contactList = document.querySelector('.contact-list');
+      
+      if (!sidebar || !aboutSection || !contactList) return;
+
+      if (window.innerWidth <= 968) {
+        // On mobile: Move Contact info to BOTTOM of About section.
+        if (contactList.parentElement !== aboutSection) {
+          aboutSection.appendChild(contactList);
+        }
+      } else {
+        // On desktop: Move contact list back to the fixed sidebar.
+        if (contactList.parentElement !== sidebar) {
+          sidebar.appendChild(contactList);
+        }
+      }
+    }
+    
+    window.addEventListener('resize', rearrangeLayout);
+    document.addEventListener('DOMContentLoaded', rearrangeLayout);
+    
+    window.addEventListener('beforeprint', () => {
+      const sidebar = document.getElementById('sidebar');
+      const contactList = document.querySelector('.contact-list');
+      if (contactList && sidebar) {
+         sidebar.appendChild(contactList);
+      }
+    });
+    window.addEventListener('afterprint', rearrangeLayout);
+
+    /* ── TABS ROUTING LAYER ── */
+    const tabsOrder = ['about', 'experience', 'education', 'teaching', 'skills', 'consulting'];
+
+    // Ultra-optimized modern scroll alignment (Fixes RTL scrollbar issues automatically)
+    function centerActiveTab(tab) {
+      if (!tab) return;
+      // ScrollIntoView logically aligns the item based on reading direction (LTR/RTL) 
+      tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    function handleRouting() {
+      if (!document.documentElement.classList.contains('js-enabled')) return;
+
+      let hash = window.location.hash.replace('#', '');
+      if (!hash || !document.getElementById(hash)) {
+        hash = 'about';
+        if (window.location.hash !== '#about') {
+          history.replaceState(null, null, '#about');
+        }
+      }
+      const targetSection = document.getElementById(hash);
+      if (!targetSection) return;
+
+      document.querySelectorAll('.page-section').forEach(s => {
+        s.classList.remove('visible');
+      });
+
+      // The addition of this class triggers the smooth lightweight CSS Animation defined above
+      targetSection.classList.add('visible');
+
+      let activeTabElement = null;
+      document.querySelectorAll('#topnav nav a').forEach(a => {
+        const isActive = a.getAttribute('href') === `#${hash}`;
+        a.classList.toggle('active', isActive);
+        a.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        a.setAttribute('tabindex', isActive ? '0' : '-1');
+        if (isActive) activeTabElement = a;
+      });
+      
+      // Auto-scroll mobile nav menu so active tab is always correctly positioned
+      if (window.innerWidth <= 968 && activeTabElement) {
+        setTimeout(() => centerActiveTab(activeTabElement), 50);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('hashchange', handleRouting);
+    window.addEventListener('load', handleRouting);
+
+    /* ── WAI-ARIA KEYBOARD TABLIST NAVIGATION ── */
+    const tablist = document.querySelector('#topnav nav');
+    const tabs = document.querySelectorAll('#topnav nav a');
+
+    if (tablist) {
+      tablist.addEventListener('keydown', e => {
+        let currentHash = window.location.hash.replace('#', '') || 'about';
+        let currentIndex = tabsOrder.indexOf(currentHash);
+        if (currentIndex === -1) currentIndex = 0;
+        
+        let newIndex = currentIndex;
+        
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          newIndex = (currentIndex + 1) % tabsOrder.length;
+          e.preventDefault();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          newIndex = (currentIndex - 1 + tabsOrder.length) % tabsOrder.length;
+          e.preventDefault();
+        } else if (e.key === 'Home') {
+          newIndex = 0;
+          e.preventDefault();
+        } else if (e.key === 'End') {
+          newIndex = tabsOrder.length - 1;
+          e.preventDefault();
+        }
+        
+        if (newIndex !== currentIndex) {
+          const targetTab = tabs[newIndex];
+          if (targetTab) {
+            window.location.hash = targetTab.getAttribute('href');
+            setTimeout(() => targetTab.focus(), 10);
+          }
+        }
+      });
+    }
+
+    /* ── TOUCH RESPONSIVE SWIPE NAVIGATION ── */
+    (function initSwipeNavigation() {
+      let touchStartX = 0;
+      let touchStartY = 0;
+      const workspace = document.getElementById('layout-wrapper');
+      if (!workspace) return;
+
+      workspace.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      workspace.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const touchEndY = e.changedTouches[0].screenY;
+        
+        if (window.innerWidth >= 968) return; 
+        
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+        
+        // Reverse swipe logic for RTL layout
+        const isRTL = document.documentElement.dir === 'rtl';
+        const effectiveDiffX = isRTL ? -diffX : diffX;
+
+        if (Math.abs(effectiveDiffX) > 65 && Math.abs(diffY) < 45) {
+          let currentHash = window.location.hash.replace('#', '') || 'about';
+          let currentIndex = tabsOrder.indexOf(currentHash);
+          if (currentIndex === -1) currentIndex = 0;
+
+          if (effectiveDiffX < 0) {
+            if (currentIndex < tabsOrder.length - 1) {
+              window.location.hash = '#' + tabsOrder[currentIndex + 1];
+            }
+          } else {
+            if (currentIndex > 0) {
+              window.location.hash = '#' + tabsOrder[currentIndex - 1];
+            }
+          }
+        }
+      }, { passive: true });
+    })();
+
+    /* ── DARK THEME MANAGEMENT ── */
+    const sunIcon = document.querySelector('#theme-toggle .sun-icon');
+    const moonIcon = document.querySelector('#theme-toggle .moon-icon');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+      root.setAttribute('data-theme', 'dark');
+      if (sunIcon && moonIcon) {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'inline-block';
+      }
+    } else {
+      root.setAttribute('data-theme', 'light');
+      if (sunIcon && moonIcon) {
+        sunIcon.style.display = 'inline-block';
+        moonIcon.style.display = 'none';
+      }
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        root.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        sunIcon.style.display = 'inline-block';
+        moonIcon.style.display = 'none';
+      } else {
+        root.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'inline-block';
+      }
+    });
+
+    /* ── LANGUAGE TOGGLE MANAGEMENT ── */
+    const langToggleBtn = document.getElementById('lang-toggle');
+    
+    function setDocumentLanguage(lang) {
+      root.setAttribute('lang', lang);
+      root.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+      localStorage.setItem('lang', lang);
+      
+      if(lang === 'fa') {
+        document.title = "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی";
+      } else {
+        document.title = "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
+      }
+    }
+
+    langToggleBtn.addEventListener('click', () => {
+      const currentLang = root.getAttribute('lang') || 'en';
+      setDocumentLanguage(currentLang === 'en' ? 'fa' : 'en');
+      
+      // Auto-re-center active tab logically (works around browser RTL scroll bugs)
+      setTimeout(() => {
+        const activeTab = document.querySelector('#topnav nav a.active');
+        if (activeTab && window.innerWidth <= 968) {
+          centerActiveTab(activeTab);
+        }
+      }, 50);
+    });
+
+    /* ── INTERACTIVE QUANTITATIVE METRIC COUNTERS ── */
+    const metricElements = document.querySelectorAll('.metric-value');
+    const countObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const targetEl = entry.target;
+          const targetValue = parseFloat(targetEl.getAttribute('data-target'));
+          const suffix = targetEl.getAttribute('data-suffix') || '';
+          
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            targetEl.innerText = targetValue.toLocaleString() + suffix;
+            observer.unobserve(targetEl);
+            return;
+          }
+
+          const duration = 2000;
+          const start = performance.now();
+          
+          function updateCounter(currentTime) {
+            const elapsed = currentTime - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            
+            let currentCount;
+            if(targetValue % 1 !== 0) {
+              currentCount = (easeProgress * targetValue).toFixed(2);
+            } else {
+              currentCount = Math.floor(easeProgress * targetValue);
+            }
+            
+            targetEl.innerText = currentCount.toLocaleString() + suffix;
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              targetEl.innerText = targetValue.toLocaleString() + suffix;
+            }
+          }
+          requestAnimationFrame(updateCounter);
+          observer.unobserve(targetEl);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    metricElements.forEach(el => countObserver.observe(el));
+
+    /* ── HIGH-DPI & MOTION SENSITIVE NEURAL CANVAS ACCELERATION ── */
+    (function initNeuralCanvas() {
+      const canvas = document.getElementById('neural-canvas');
+      const banner = document.getElementById('hero-banner');
+      if (!canvas || !banner) return;
+      const ctx    = canvas.getContext('2d');
+
+      let W, H;
+      let NODE_COUNT = window.innerWidth < 768 ? 22 : 60;
+      let MAX_DIST   = window.innerWidth < 768 ? 110 : 170;
+      let nodes = [];
+      let animationFrameId = null;
+      
+      let mouse = { x: null, y: null, radius: 120 };
+
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let isMotionReduced = motionQuery.matches;
+
+      function generateNodes() {
+        nodes.length = 0;
+        for (let i = 0; i < NODE_COUNT; i++) {
+          nodes.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            baseR: Math.random() * 2 + 1.5,
+            r: 0,
+            hue: Math.random() * 360,
+            connections: []
+          });
+        }
+      }
+
+      function resize() {
+        const rect = banner.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        
+        W = rect.width;
+        H = rect.height;
+        
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.scale(dpr, dpr);
+        
+        const prevMobile = NODE_COUNT === 22;
+        const currMobile = window.innerWidth < 768;
+        if (prevMobile !== currMobile) {
+          NODE_COUNT = currMobile ? 22 : 60;
+          MAX_DIST   = currMobile ? 110 : 170;
+        }
+        generateNodes();
+      }
+      
+      banner.addEventListener('mousemove', (e) => {
+        if (isMotionReduced) return;
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      banner.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      banner.addEventListener('touchmove', (e) => {
+        if (isMotionReduced) return;
+        if(e.touches.length > 0) {
+          const rect = canvas.getBoundingClientRect();
+          mouse.x = e.touches[0].clientX - rect.left;
+          mouse.y = e.touches[0].clientY - rect.top;
+        }
+      }, { passive: true });
+
+      banner.addEventListener('touchend', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      window.addEventListener('resize', resize);
+      
+      motionQuery.addEventListener('change', () => {
+        isMotionReduced = motionQuery.matches;
+        if (isMotionReduced) {
+          if (animationFrameId) cancelAnimationFrame(animationFrameId);
+          renderStatic();
+        } else {
+          resize();
+          animationFrameId = requestAnimationFrame(loop);
+        }
+      });
+
+      const pulses = [];
+
+      function renderStatic() {
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, W, H);
+        
+        for (let i = 0; i < NODE_COUNT; i++) {
+          for (let j = i + 1; j < NODE_COUNT; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < MAX_DIST) {
+              ctx.strokeStyle = `hsla(${nodes[i].hue}, 70%, 50%, ${0.15 - dist/MAX_DIST/2})`;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        
+        nodes.forEach(n => {
+          ctx.fillStyle = `hsl(${n.hue}, 70%, 50%)`;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.baseR, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      function loop(time) {
+        if (isMotionReduced) {
+          renderStatic();
+          return;
+        }
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, W, H);
+
+        nodes.forEach((n, i) => {
+          n.x += n.vx;
+          n.y += n.vy;
+          
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+
+          const pulseFactor = Math.sin(time / 300 + i) * 0.5 + 1;
+          n.r = n.baseR * pulseFactor;
+          n.connections = [];
+
+          if (mouse.x !== null && mouse.y !== null) {
+            let dx = mouse.x - n.x;
+            let dy = mouse.y - n.y;
+            let dist = Math.hypot(dx, dy);
+            if (dist < mouse.radius) {
+              let force = (mouse.radius - dist) / mouse.radius;
+              n.x += (dx / dist) * force * 0.5;
+              n.y += (dy / dist) * force * 0.5;
+              
+              ctx.strokeStyle = `hsla(${n.hue}, 80%, 70%, ${0.2 * force})`;
+              ctx.beginPath();
+              ctx.moveTo(n.x, n.y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.stroke();
+            }
+          }
+        });
+
+        for (let i = 0; i < NODE_COUNT; i++) {
+          for (let j = i + 1; j < NODE_COUNT; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.hypot(dx, dy);
+
+            if (dist < MAX_DIST) {
+              nodes[i].connections.push(j);
+              nodes[j].connections.push(i);
+
+              ctx.strokeStyle = `hsla(${nodes[i].hue}, 80%, 60%, ${0.25 - dist/MAX_DIST/2})`;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        if (Math.random() < 0.08 && nodes.length > 0) {
+          const startNode = nodes[Math.floor(Math.random() * nodes.length)];
+          if (startNode && startNode.connections && startNode.connections.length > 0) {
+            const randomConnection = startNode.connections[Math.floor(Math.random() * startNode.connections.length)];
+            const targetNode = nodes[randomConnection];
+            if (targetNode) {
+              pulses.push({ start: startNode, end: targetNode, progress: 0 });
+            }
+          }
+        }
+
+        for (let i = 0; i < pulses.length; i++) {
+          const p = pulses[i];
+          p.progress += 0.02;
+          const x = p.start.x + (p.end.x - p.start.x) * p.progress;
+          const y = p.start.y + (p.end.y - p.start.y) * p.progress;
+
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (p.progress >= 1) {
+            pulses.splice(i, 1);
+            i--;
+          }
+        }
+
+        nodes.forEach(n => {
+          ctx.fillStyle = `hsl(${n.hue}, 80%, 60%)`;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        animationFrameId = requestAnimationFrame(loop);
+      }
+
+      resize();
+      if (isMotionReduced) {
+        renderStatic();
+      } else {
+        animationFrameId = requestAnimationFrame(loop);
+      }
+    })();
+  </script>
+</body>
+</html>
