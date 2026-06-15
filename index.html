@@ -203,11 +203,11 @@
   }
   
   .hero-text-overlay p {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.80); 
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 1.0rem;
+    color: rgba(255,255,255,0.88); 
+    letter-spacing: 0.10em;
     font-weight: 600;
+    text-align: center;
   }
   
   html[lang="fa"] .hero-text-overlay p {
@@ -351,15 +351,18 @@
   }
 
   .profile-name {
-    font-size: 1.6rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
     line-height: 1.2;
     margin-bottom: 8px;
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  html[lang="fa"] .profile-name { letter-spacing: normal; }
+  html[lang="fa"] .profile-name { letter-spacing: normal; white-space: nowrap; }
 
   .profile-title {
     font-size: 0.9rem;
@@ -489,20 +492,34 @@
     transform: translateX(-3px);
   }
 
-  /* Remove padding from last special item to avoid double-styling */
+  /* ── GREEN ACCENT FOR EXPORT / PRINT BUTTON ── */
   .contact-list li:last-child {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin-top: 8px;
-    border-top: 1px dashed var(--glass-border);
-    padding-top: 12px;
-    border-radius: 0;
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.35);
   }
-
+  .contact-list li:last-child a {
+    color: #059669 !important;
+    font-weight: 600;
+  }
+  .contact-list li:last-child svg {
+    stroke: #059669;
+  }
   .contact-list li:last-child:hover {
-    background: transparent;
-    transform: none;
+    background: rgba(16, 185, 129, 0.22);
+    border-color: rgba(16, 185, 129, 0.55);
+  }
+  [data-theme="dark"] .contact-list li:last-child {
+    background: rgba(16, 185, 129, 0.10);
+    border-color: rgba(16, 185, 129, 0.28);
+  }
+  [data-theme="dark"] .contact-list li:last-child a {
+    color: #34d399 !important;
+  }
+  [data-theme="dark"] .contact-list li:last-child svg {
+    stroke: #34d399;
+  }
+  [data-theme="dark"] .contact-list li:last-child:hover {
+    background: rgba(16, 185, 129, 0.18);
   }
 
   /* ── AMBIENT FLOATING GRADIENT BLOBS (subtle depth) ── */
@@ -679,7 +696,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 20px;
-    margin-bottom: 32px;
+    margin-top: 28px;
+    margin-bottom: 0;
   }
 
   .metric-card {
@@ -738,6 +756,9 @@
   /* ── CLEAN MEDIA QUERIES & MOBILE ADJUSTMENTS ── */
   @media (max-width: 968px) {
     html { font-size: 13px; } /* Crisp dynamic zoom-out for mid-tier screens */
+
+    .hero-sep { display: none; }
+    .hero-phrase { display: block; text-align: center; line-height: 1.9; }
 
     #layout-wrapper { 
       flex-direction: column; 
@@ -1100,13 +1121,9 @@
   <div id="hero-banner">
     <canvas id="neural-canvas"></canvas>
     <div class="hero-text-overlay">
-      <h2>
-        <span class="en">Seyed Ehsan Parsaeian</span>
-        <span class="fa">سید احسان پارسائیان</span>
-      </h2>
       <p>
-        <span class="en">LLM Prompt Engineering · Human-AI Interaction · Cognitive Science · AI Project Management</span>
-        <span class="fa">مهندسی پرامپت · تعامل انسان و هوش مصنوعی · علوم شناختی · مدیریت پروژه‌های AI</span>
+        <span class="en"><span class="hero-phrase">Human-Computer Interaction</span><span class="hero-sep"> · </span><span class="hero-phrase">Cognitive Science</span><span class="hero-sep"> · </span><span class="hero-phrase">Context Engineering</span></span>
+        <span class="fa"><span class="hero-phrase">تعامل انسان-رایانه</span><span class="hero-sep"> · </span><span class="hero-phrase">علوم شناختی</span><span class="hero-sep"> · </span><span class="hero-phrase">مهندسی زمینه</span></span>
       </p>
     </div>
   </div>
@@ -1205,14 +1222,7 @@
           </span>
         </li>
         <li>
-          <span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            <span class="en">Military Service: Completed</span>
-            <span class="fa">وضعیت نظام وظیفه: پایان خدمت</span>
-          </span>
-        </li>
-        <li style="margin-top: 0; border-top: none; padding-top: 0;">
-          <a href="#" onclick="window.print(); return false;" style="color: var(--accent); font-weight: 600;" aria-label="Export Resume">
+          <a href="#" onclick="window.print(); return false;" aria-label="Export Resume">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
             <span class="en">Export PDF Resume</span>
             <span class="fa">دانلود رزومه (PDF)</span>
@@ -1228,6 +1238,15 @@
           <span class="fa">درباره من</span>
         </h2>
         
+        <p class="en">AI, Vibe Coding, and Prompt Engineering specialist focusing on Large Language Models (LLMs), Small Language Models (SLMs), and developing Agentic AI solutions for enterprise process automation.</p>
+        <p class="fa">متخصص هوش مصنوعی، Vibe Coding و Prompt Engineering با تمرکز بر مدل‌های زبانی بزرگ (LLM)، مدل‌های زبانی کوچک (SLM) و توسعه راهکارهای Agentic AI برای اتوماسیون و هوشمندسازی فرایندهای سازمانی.</p>
+        
+        <p class="en">Experienced in designing AI-driven systems for data analysis, enterprise knowledge management, workflow redesign, administrative correspondence automation, and business process optimization utilizing state-of-the-art AI tools.</p>
+        <p class="fa">طراحی سیستم‌های مبتنی بر هوش مصنوعی در حوزه‌های تحلیل داده، تحقیق و پژوهش، مدیریت دانش سازمانی، بهبود و بازطراحی فرایندهای سازمانی، اتوماسیون مکاتبات اداری و بهینه‌سازی فرایندهای کسب‌وکار با استفاده از ابزارها و مدل‌های نوین AI.</p>
+        
+        <p class="en">Over 4 years of specialized teaching and curriculum development experience covering AI, artificial neural networks, prompt engineering, Vibe Coding, and applied LLM frameworks across universities, higher education institutes, and private academic centers.</p>
+        <p class="fa">بیش از ۴ سال سابقه تدریس تخصصی در حوزه‌های هوش مصنوعی، شبکه‌های عصبی، مهندسی پرامپت، Vibe Coding و کاربرد مدل‌های زبانی در دانشگاه‌ها، مؤسسات آموزش عالی و مراکز آموزشی خصوصی را در کارنامه خود دارم.</p>
+
         <div class="metric-grid">
           <div class="metric-card">
             <div class="metric-value" data-target="4" data-suffix="+">0</div>
@@ -1254,15 +1273,6 @@
             <div class="metric-label"><span class="en">Custom Courses</span><span class="fa">دوره آموزشی</span></div>
           </div>
         </div>
-
-        <p class="en">AI, Vibe Coding, and Prompt Engineering specialist focusing on Large Language Models (LLMs), Small Language Models (SLMs), and developing Agentic AI solutions for enterprise process automation.</p>
-        <p class="fa">متخصص هوش مصنوعی، Vibe Coding و Prompt Engineering با تمرکز بر مدل‌های زبانی بزرگ (LLM)، مدل‌های زبانی کوچک (SLM) و توسعه راهکارهای Agentic AI برای اتوماسیون و هوشمندسازی فرایندهای سازمانی.</p>
-        
-        <p class="en">Experienced in designing AI-driven systems for data analysis, enterprise knowledge management, workflow redesign, administrative correspondence automation, and business process optimization utilizing state-of-the-art AI tools.</p>
-        <p class="fa">طراحی سیستم‌های مبتنی بر هوش مصنوعی در حوزه‌های تحلیل داده، تحقیق و پژوهش، مدیریت دانش سازمانی، بهبود و بازطراحی فرایندهای سازمانی، اتوماسیون مکاتبات اداری و بهینه‌سازی فرایندهای کسب‌وکار با استفاده از ابزارها و مدل‌های نوین AI.</p>
-        
-        <p class="en">Over 4 years of specialized teaching and curriculum development experience covering AI, artificial neural networks, prompt engineering, Vibe Coding, and applied LLM frameworks across universities, higher education institutes, and private academic centers.</p>
-        <p class="fa">بیش از ۴ سال سابقه تدریس تخصصی در حوزه‌های هوش مصنوعی، شبکه‌های عصبی، مهندسی پرامپت، Vibe Coding و کاربرد مدل‌های زبانی در دانشگاه‌ها، مؤسسات آموزش عالی و مراکز آموزشی خصوصی را در کارنامه خود دارم.</p>
       </section>
 
       <section id="experience" class="page-section" role="tabpanel" aria-labelledby="nav-experience">
@@ -1587,8 +1597,11 @@
         if (contactList.parentElement !== aboutSection) {
           aboutSection.appendChild(contactList);
         }
+        // Hide the now-empty sidebar shell on mobile
+        sidebar.style.display = 'none';
       } else {
         // On desktop: Move everything back to the fixed sidebar.
+        sidebar.style.display = '';
         if (profileCard.parentElement !== sidebar) {
           sidebar.insertBefore(profileCard, sidebar.firstChild);
         }
