@@ -644,7 +644,7 @@
         html[lang="fa"] .radar-title { letter-spacing: normal; }
 
         .radar-stage { position: relative; width: 100%; max-width: 360px; aspect-ratio: 1 / 1; margin: 0 auto; }
-        .ngon-frame { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 62%; aspect-ratio: 1 / 1; }
+        .ngon-frame { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 62%; aspect-ratio: 1 / 1; pointer-events: none; }
 
         .ngon-frame-inner {
             position: absolute; inset: 0; pointer-events: none;
@@ -2436,9 +2436,7 @@ function initSiteScripts() {
                 function buildMatrixData() {
                     const rows = [];
                     const sections = [
-                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' },
-                        { id: 'teaching', labelEn: 'Teaching', labelFa: 'تدریس', selector: '#teaching .workshop-category' },
-                        { id: 'skills', labelEn: 'Skills', labelFa: 'مهارت‌ها', selector: '#skills .workshop-category' }
+                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' }
                     ];
 
                     sections.forEach(sec => {
@@ -2546,11 +2544,9 @@ function initSiteScripts() {
                 }
 
                 function renderSummary() {
-                    const sections = ['workshops', 'teaching', 'skills'];
+                    const sections = ['workshops'];
                     const sectionLabels = {
-                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' },
-                        teaching: { en: 'Teaching', fa: 'تدریس' },
-                        skills: { en: 'Skills', fa: 'مهارت‌ها' }
+                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' }
                     };
                     const sectionCounts = {};
                     sections.forEach(s => sectionCounts[s] = 0);
