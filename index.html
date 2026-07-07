@@ -308,7 +308,7 @@
         ::selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
         ::-moz-selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
 
-        /* ۱. اصلاح پس‌زمینه (حذف انیمیشن حرکت مش برای استراحت موتور رندر در دسکتاپ) */
+        /* ۱. اصلاح پس‌زمینه (حذف انیمیشن لوپ بی‌انتهای مش جهت استراحت موتور رندر دسکتاپ) */
         body::before {
             content: '';
             position: fixed;
@@ -408,11 +408,10 @@
             outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px;
         }
 
-        /* دسته سوم: کاهش ارتفاع هدر نسخه دسکتاپ جهت قرارگیری المان‌های اصلی در کادر اول ورود */
+        /* طراحی محصول: بهینه‌سازی ارتفاع برای افزایش فضا و دیده شدن بخش‌های اصلی بدون نیاز به اسکرول */
         #hero-banner {
             position: relative; height: 160px; overflow: hidden;
             background: #000000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); cursor: crosshair;
-            transition: height 0.4s var(--ease-smooth);
         }
         #hero-banner::before {
             content: '';
@@ -483,22 +482,6 @@
 
         .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; align-items: center; }
 
-        /* استایل اختصاصی دکمه براق فراخوان به اقدام (CTA) در تاپ‌بار چسبان */
-        .nav-cta-btn {
-            background: linear-gradient(135deg, var(--accent) 0%, #10b981 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; padding: 7px 16px;
-            color: #ffffff !important; font-weight: 600; font-size: 0.8rem; display: flex; align-items: center;
-            justify-content: center; border-radius: 20px; box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
-            transition: transform 0.3s var(--ease-elastic), box-shadow 0.3s ease, background 0.3s ease;
-            gap: 6px; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); will-change: transform;
-        }
-        .nav-cta-btn:hover {
-            transform: scale(1.05) translateY(-1px);
-            box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.4), 0 0 12px rgba(16, 185, 129, 0.4);
-            background: linear-gradient(135deg, #5c54f2 0%, #059669 100%);
-        }
-        html[lang="fa"] .nav-cta-btn { font-family: var(--font-persian); font-size: 0.78rem; }
-
         .nav-btn {
             background: transparent; border: 1px solid transparent; cursor: pointer; padding: 8px;
             color: var(--text); display: flex; align-items: center; justify-content: center;
@@ -510,6 +493,21 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         [data-theme="dark"] .nav-btn:hover { background: rgba(255, 255, 255, 0.08); }
+
+        /* استایل اختصاصی دکمه فراخوان به اقدام (Call to Action) در منوی چسبان دسکتاپ */
+        .cta-btn-active {
+            background: var(--accent) !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            padding: 8px 16px !important;
+            border-radius: 20px !important;
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        .cta-btn-active:hover {
+            transform: translateY(-2px) scale(1.03) !important;
+            box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.5) !important;
+        }
 
         #layout-wrapper { max-width: 1200px; margin: 36px auto 100px auto; padding: 0 40px; display: flex; align-items: flex-start; gap: 32px; }
         #sidebar {
@@ -527,6 +525,28 @@
             perspective: 1000px;
             position: relative;
             overflow: hidden;
+        }
+
+        /* افکت گلو و لایه‌بندی انیمیشن راداری هوشمند روی کارت‌ها */
+        .highlight-glow {
+            box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.4) !important;
+            border-color: var(--accent) !important;
+            transform: translateY(-4px) scale(1.02) !important;
+            z-index: 10;
+        }
+
+        /* برچسب مخاطبین هدف کارگاه‌ها برای افزایش تفکیک‌پذیری سرفصل‌ها */
+        .target-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: rgba(var(--accent-rgb), 0.12);
+            color: var(--accent);
+            margin-inline-start: 8px;
+            vertical-align: middle;
         }
 
         .profile-info-card::before, .entry-block::before, .skill-row::before, .timeline-content::before {
@@ -557,7 +577,6 @@
             transition: background 0.5s ease, border-color 0.4s ease;
         }
 
-        /* بهینه‌سازی بارگذاری تنبل نیتیو: مرورگر چیدمان سکشن‌های مخفی را تا زمان نمایش نادیده می‌گیرد */
         .page-section { display: none; margin-bottom: 60px; }
         .js-enabled .page-section.visible { display: block; content-visibility: visible !important; }
         .js-enabled .page-section:not(.visible) { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
@@ -569,7 +588,7 @@
             font-variation-settings: "wght" 700; transition: font-variation-settings 0.3s ease;
         }
         
-        /* ۲. ثابت کردن گرادینت متن‌ها */
+        /* ۲. ثابت کردن گرادینت متن‌ها (حذف تگ انیمیشن لوپ بی‌پایان جهت بازرسم سبک کاراکترها در سکون) */
         h2 span {
             background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
@@ -587,14 +606,7 @@
 
         p { font-size: clamp(0.875rem, 2vw, 1.125rem); line-height: clamp(1.4, 1.5vw, 1.8); color: var(--p-text); margin-bottom: 16px; text-align: start; }
         html[lang="fa"] p { line-height: 1.75; }
-        .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-
-        /* استایل تگ‌های سطحی مخاطب هدف داخل آکاردئون‌ها */
-        .badge-target-pill {
-            display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 6px;
-            font-size: 0.72rem; font-weight: 600; background: rgba(var(--accent-rgb), 0.1);
-            color: var(--accent); border: 1px solid rgba(var(--accent-rgb), 0.15);
-        }
+        .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; }
 
         .entry-block {
             margin-bottom: 28px; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -657,10 +669,9 @@
         .ngon-glow-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
         .ngon-outline { fill: none; stroke: var(--glass-border-inner); stroke-width: 1; opacity: 0.55; vector-effect: non-scaling-stroke; }
 
-        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
-        /* ۳. بهینه‌سازی نویز لایه‌ها */
         .profile-info-card::after {
             content: ''; position: absolute; inset: 0; border-radius: inherit;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -668,6 +679,7 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
+        /* ۱. اصلاح کامل باگ بستن تگ کامنت CSS برای کامپایل بدون نقص تمام استایل‌های زیرین */
         .entry-block::after {
             content: none !important;
         }
@@ -755,18 +767,12 @@
 
         .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; perspective: 1000px; }
         
-        .bento-item {
-            position: relative; background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
-            border-radius: 20px; padding: 32px; overflow: hidden; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); transform: translateZ(0);
-        }
-        .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
-        
-        /* ۴. حل تداخل انیمیشن سه‌بعدی بنتو گرید */
+        /* ۴. حل کامل تداخل ترنسفورم‌های CSS در هاور بنتوگرید و سپردن انیمیشن‌های چرخشی محوری به ماوس ترکر */
         .bento-item:hover {
             transform: translateY(-4px) scale(1.01);
             box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15), inset 0 1px 0 var(--glass-border-inner);
         }
+        .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
         .bento-item:hover::before { opacity: 1; }
         .bento-item.large { grid-column: span 2; }
 
@@ -792,23 +798,26 @@
             p, .entry-bullets li { text-align: start; } html[lang="fa"] p, html[lang="fa"] .entry-bullets li { line-height: 1.8; }
             .entry-header { flex-direction: column; align-items: flex-start; gap: 4px; } .entry-meta { text-align: start; font-size: 0.85rem; margin-inline-start: 0; } .entry-title { font-size: 1.05rem; } .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
             .skill-row { flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; } .skill-cat { width: 100%; }
+            #nav-cta { display: none !important; } /* دکمه CTA در نسخه موبایل مخفی می‌شود */
         }
         @media (max-width: 480px) {
             html { font-size: 11.5px; } #layout-wrapper { padding: 0 10px; } #content-workspace { padding: 16px 12px; } #sidebar { padding: 16px 12px; } h2 { font-size: 1.1rem; } .entry-block { padding: 12px 10px; }
         }
 
-        /* دسته دوم: استایل اختصاصی باکس جستجوی زنده ماتریس */
-        .matrix-search-input {
-            width: 100%; max-width: 320px; padding: 8px 16px; background: rgba(255, 255, 255, 0.15);
-            border: 1px solid var(--glass-border); border-radius: 12px; font-family: inherit; font-size: 0.85rem;
-            color: var(--text); outline: none; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04); transition: all 0.3s ease;
+        /* استایل مینی‌مال نوار جستجوی متنی زنده (Live Search Input) در بالای ماتریس */
+        .matrix-search-field {
+            width: 100%; padding: 12px 16px 12px 42px; background: rgba(255, 255, 255, 0.15);
+            border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text);
+            font-family: inherit; font-size: 0.9rem; outline: none; transition: all 0.3s ease;
+            box-shadow: inset 0 1px 0 var(--glass-border-inner);
         }
-        [data-theme="dark"] .matrix-search-input { background: rgba(0, 0, 0, 0.2); }
-        .matrix-search-input:focus { border-color: var(--accent); background: var(--glass-bg-strong); box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.2); }
-        html[lang="fa"] .matrix-search-input { font-family: var(--font-persian); }
+        html[dir="rtl"] .matrix-search-field { padding: 12px 42px 12px 16px; }
+        .matrix-search-field:focus {
+            background: rgba(255, 255, 255, 0.3); border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2), inset 0 1px 0 var(--glass-border-inner);
+        }
 
-        .matrix-toolbar { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); align-items: center; justify-content: space-between; }
+        .matrix-toolbar { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); }
         .matrix-filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .matrix-filter-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
         html[lang="fa"] .matrix-filter-label { letter-spacing: normal; }
@@ -833,7 +842,7 @@
         .matrix-table tbody tr { transition: background 0.15s ease; cursor: pointer; }
         .matrix-table tbody tr:hover { background: rgba(var(--accent-rgb), 0.05); }
         .matrix-table tbody tr:last-child td { border-bottom: none; }
-        .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; border-radius: 4px; padding: 2px 6px; }
+        .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; cursor: help; }
         .matrix-title-cell { font-weight: 600; color: var(--text); max-width: 320px; }
         .matrix-depth-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.74rem; font-weight: 600; white-space: nowrap; }
         .matrix-depth-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -853,14 +862,6 @@
         .matrix-section-cell { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
         html[lang="fa"] .matrix-section-cell { letter-spacing: normal; }
         .matrix-empty { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 0.9rem; }
-
-        /* کلاس انیمیشن شتاب‌یافته گرافیکی هایلایت متقاطع زنده زنده از روی نمودارها */
-        .aura-highlight-active {
-            transform: scale(1.02) translateZ(0) !important;
-            border-color: var(--accent) !important;
-            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
-            box-shadow: 0 12px 32px rgba(var(--accent-rgb), 0.25), 0 0 0 1px var(--accent) !important;
-        }
 
         @media print {
             @page { size: A4; margin: 20mm 16mm 20mm 16mm; } body { background: #ffffff !important; color: #111111 !important; font-size: 10pt !important; line-height: 1.5 !important; -webkit-font-smoothing: subpixel-antialiased; } body::before { display: none !important; } #hero-banner, #topnav, .nav-actions, .contact-list li:last-child { display: none !important; }
@@ -884,7 +885,7 @@
             .matrix-cat-cell { color: #1d4ed8 !important; }
             .matrix-section-cell { color: #555555 !important; }
             .matrix-empty { display: none !important; } .skill-row { flex-direction: row !important; gap: 14pt !important; page-break-inside: avoid !important; } .skill-cat { width: 100pt !important; font-size: 8pt !important; }
-            .workshop-category { border: 1px solid #e2e8f0 !important; border-radius: 4pt !important; margin-bottom: 8pt !important; padding: 0 !important; background: none !important; backdrop-filter: none !important; box-shadow: none !important; }
+            .workshop-category { border: 1px solid #e2e8f0 !important; border-radius: 4pt !important; margin-bottom: 8pt !important; padding: 0 !important; background: none !important; backdrop-filter: none !important; box-shadow: none !important; border: none !important; }
             .ws-cat-header { padding: 4pt 8pt !important; background: #f1f5f9 !important; border: none !important; border-radius: 0 !important; font-size: 9pt !important; cursor: default !important; }
             .ws-cat-header .ws-cat-intro { display: block !important; }
             html[lang="en"] .ws-cat-header .ws-cat-intro.en { display: block !important; } html[lang="fa"] .ws-cat-header .ws-cat-intro.fa { display: block !important; }
@@ -1014,7 +1015,6 @@
             }
             #hero-banner {
                 background: #060b18 !important;
-                height: 120px !important;
             }
         }
         @media (pointer: coarse) {
@@ -1059,12 +1059,8 @@
 </div>
 </nav>
 <div class="nav-actions">
-<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-cta-btn" id="nav-cta-link">
-    <svg fill="none" height="15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-        <polyline points="22,6 12,13 2,6"></polyline>
-    </svg>
-    <span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
+<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-btn cta-btn-active" id="nav-cta">
+<span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
 </a>
 <button aria-label="Toggle Language" class="nav-btn" id="lang-toggle" title="Switch Language">
 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -1099,7 +1095,7 @@
 <span class="en">About Me</span>
 <span class="fa">درباره من</span>
 </h2><div class="radar-grid">
-<div class="radar-card reveal-card" data-axis-mapping="skills">
+<div class="radar-card reveal-card">
 <h3 class="radar-title"><span class="en">Skill Proficiency</span><span class="fa">سطح مهارت‌ها</span></h3>
 <div class="radar-stage">
 <div class="ngon-frame">
@@ -1111,7 +1107,7 @@
 <canvas aria-label="Skill proficiency radar chart, generated live from the Skills section" class="radar-canvas" id="radarSkillCanvas" role="img"></canvas>
 </div>
 </div>
-<div class="radar-card reveal-card" data-axis-mapping="experience">
+<div class="radar-card reveal-card">
 <h3 class="radar-title"><span class="en">Experience Profile</span><span class="fa">نمایه تجربه</span></h3>
 <div class="radar-stage">
 <div class="ngon-frame">
@@ -1177,6 +1173,9 @@
 <p class="en">Every module across the Workshops, Teaching, and Skills sections — at a glance. Filter by category or depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
 <p class="fa">هر ماژول در سراسر بخش‌های کارگاه‌ها، تدریس و مهارت‌ها — در یک نگاه. بر اساس دسته یا عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
 <div class="matrix-toolbar">
+<div class="matrix-filter-group" style="width: 100%; margin-bottom: 8px;">
+    <input type="text" id="matrix-search-input" class="matrix-search-field" placeholder="Search modules, skills, or workshops...">
+</div>
 <div aria-label="Filter by category" class="matrix-filter-group" role="group">
 <span class="matrix-filter-label en">Category</span>
 <span class="matrix-filter-label fa">دسته</span>
@@ -1187,7 +1186,6 @@
 <span class="matrix-filter-label fa">عمق</span>
 <div class="matrix-filter-chips" id="matrix-filter-depths"></div>
 </div>
-<input type="text" id="matrix-search-bar" class="matrix-search-input" placeholder="Search modules... / جستجو در ماژول‌ها...">
 </div>
 <div class="matrix-summary" id="matrix-summary"></div>
 <div class="matrix-container">
@@ -1357,6 +1355,22 @@
     function buildEntryBlock(mod, opts) {
         opts = opts || {};
         let titleHtml;
+        
+        // طراحی محصول: تولید خودکار برچسب‌های تفکیک مخاطب هدف برای کاهش بار شناختی کاربران کارگاه‌ها
+        let badgesHtml = '';
+        if (mod.bullets && mod.bullets.length) {
+            const joinedText = mod.bullets.map(b => b.en + ' ' + b.fa).join(' ').toLowerCase();
+            if (joinedText.includes('manager') || joinedText.includes('مدیر')) {
+                badgesHtml += `<span class="target-badge"><span class="en">Managers</span><span class="fa">مدیران</span></span>`;
+            }
+            if (joinedText.includes('developer') || joinedText.includes('توسعه')) {
+                badgesHtml += `<span class="target-badge"><span class="en">Developers</span><span class="fa">توسعه‌دهندگان</span></span>`;
+            }
+            if (joinedText.includes('researcher') || joinedText.includes('پژوهش')) {
+                badgesHtml += `<span class="target-badge"><span class="en">Researchers</span><span class="fa">پژوهشگران</span></span>`;
+            }
+        }
+
         if (mod.title.link) {
             const link = mod.title.link;
             const targetAttr = link.target ? ` target="${esc(link.target)}"` : '';
@@ -1367,26 +1381,18 @@
                         <span class="en">${esc(mod.title.en)}</span>
                         <span class="fa">${esc(mod.title.fa)}</span>
                     </a>
+                    ${badgesHtml}
                 </h3>`;
         } else {
             titleHtml = `
                 <h3 class="entry-title kinetic-text">
                     <span class="en">${esc(mod.title.en)}</span>
                     <span class="fa">${esc(mod.title.fa)}</span>
+                    ${badgesHtml}
                 </h3>`;
         }
 
-        // دسته سوم: استخراج و تفکیک سطح/مخاطب کارگاه و رندر مدال‌های رنگی تفکیک تخصص در کادر زیر عنوان
-        let audienceBadge = '';
-        if (mod.meta && mod.meta.length > 1) {
-            const audEn = mod.meta[1].en || '';
-            const audFa = mod.meta[1].fa || '';
-            if (audEn) {
-                audienceBadge = `<span class="badge-target-pill"><span class="en">${esc(audEn)}</span><span class="fa">${esc(audFa)}</span></span>`;
-            }
-        }
-
-        const subtitleHtml = mod.subtitle ? `<div class="entry-subtitle">${bilingual(mod.subtitle)} ${audienceBadge}</div>` : '';
+        const subtitleHtml = mod.subtitle ? `<div class="entry-subtitle">${bilingual(mod.subtitle)}</div>` : '';
         const metaHtml = mod.meta && mod.meta.length ? `<div class="entry-meta">${buildMetaDivs(mod.meta)}</div>` : '';
         const bulletsHtml = buildBullets(mod.bullets);
         const dataCatAttr = opts.dataCategory ? ` data-category="${esc(opts.dataCategory)}"` : '';
@@ -1428,7 +1434,7 @@
                             ${cat.skillRows.map(row => {
                                 const gridDir = row.gridDir ? ` dir="${row.gridDir}"` : '';
                                 return `
-                                    <div class="skill-row bento-item reveal-card" data-matrix-row-code="${esc(cat.code)}">
+                                    <div class="skill-row bento-item reveal-card">
                                         <div class="skill-cat">${bilingual(row.category)}</div>
                                         <div class="skill-grid"${gridDir}>
                                             ${row.badges.map(b => `
@@ -1510,6 +1516,17 @@
         section.insertAdjacentHTML('beforeend', html);
     }
 
+    function renderConsulting(data) {
+        const section = document.getElementById('consulting');
+        if (!section) return;
+        const h2 = section.querySelector('h2');
+        while (h2 && h2.nextSibling) {
+            section.removeChild(h2.nextSibling);
+        }
+        const html = buildEntryBlock(data, {});
+        section.insertAdjacentHTML('beforeend', html);
+    }
+
     function renderAll(data) {
         renderSidebarNav(data.sidebarNav || []);
         renderSidebarContact(data.sidebarContact || { items: [] });
@@ -1521,7 +1538,7 @@
         renderServices(data.services || { items: [], introParagraphs: [], outroParagraphs: [] });
         renderCategories('skills', data.skills || [], 'skills');
         renderPublications(data.publications || []);
-        if (data.consulting) renderConsulting(data.consulting);
+        renderConsulting(data.consulting);
     }
 
     window.__renderSite = renderAll;
@@ -1536,7 +1553,7 @@ function initSiteScripts() {
 
             const root = document.documentElement;
             const sidebarEl = document.getElementById('sidebar');
-            const profileInfoCardEls = Array.from(document.querySelectorAll('.profile-info-card')).filter(el => !el.classList.contains('nav-cta-btn') && !el.classList.contains('ws-visual-map-pill'));
+            const profileInfoCardEls = Array.from(document.querySelectorAll('.profile-info-card')).filter(el => !el.classList.contains('ws-visual-map-pill'));
             const aboutSectionEl = document.getElementById('about');
             const tablistEl = document.querySelector('#topnav nav div[role="tablist"]');
             const tabEls = tablistEl ? Array.from(tablistEl.querySelectorAll('a')) : [];
@@ -1626,7 +1643,6 @@ function initSiteScripts() {
                 return i === -1 ? 0 : i;
             }
 
-            // دسته سوم: بازنویسی سیستم روتر جهت لود یکپارچه تمام اجزای رزومه (About, Experience, Education, Teaching, Skills) زیر هم هنگام انتخاب تب درباره من
             function handleRouting() {
                 if (!root.classList.contains('js-enabled')) return;
 
@@ -1638,23 +1654,14 @@ function initSiteScripts() {
                 const targetSection = document.getElementById(hash);
                 if (!targetSection) return;
 
-                const isAboutTabActive = (hash === 'about');
-
+                const cards = targetSection.querySelectorAll('.reveal-card');
                 startViewTransition(() => {
                     document.querySelectorAll('.page-section').forEach(s => {
-                        const sid = s.getAttribute('id');
-                        // اگر تب درباره من فشرده شد، تمامی سکشن‌های رزومه به صورت متوالی و یکپارچه نمایان شوند
-                        if (isAboutTabActive && ['about', 'experience', 'education', 'teaching', 'skills'].includes(sid)) {
-                            s.classList.add('visible');
-                        } else if (sid === hash) {
-                            s.classList.add('visible');
-                        } else {
-                            s.classList.remove('visible');
-                            s.querySelectorAll('.reveal-card').forEach(c => c.classList.remove('reveal-in'));
-                        }
+                        s.classList.remove('visible');
+                        s.querySelectorAll('.reveal-card').forEach(c => c.classList.remove('reveal-in'));
                     });
-
-                    const cards = targetSection.querySelectorAll('.reveal-card');
+                    targetSection.classList.add('visible');
+                    
                     if (window.innerWidth >= 968) {
                         cards.forEach((card, index) => {
                             setTimeout(() => card.classList.add('reveal-in'), 30 + (index * 40));
@@ -1666,8 +1673,7 @@ function initSiteScripts() {
 
                 let activeTabElement = null;
                 tabEls.forEach(a => {
-                    const hrefHash = a.getAttribute('href').replace('#', '');
-                    const isActive = (hrefHash === hash) || (isAboutTabActive && hrefHash === 'about');
+                    const isActive = a.getAttribute('href') === `#${hash}`;
                     a.classList.toggle('active', isActive);
                     a.setAttribute('aria-selected', isActive ? 'true' : 'false');
                     a.setAttribute('tabindex', isActive ? '0' : '-1');
@@ -1774,6 +1780,12 @@ function initSiteScripts() {
                 document.title = lang === 'fa'
                     ? "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی"
                     : "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
+                
+                // به‌روزرسانی نوار جستجوی زنده ماتریس سرفصل‌ها متناسب با زبان پویای سیستم
+                const searchInput = document.getElementById('matrix-search-input');
+                if (searchInput) {
+                    searchInput.placeholder = lang === 'fa' ? "جستجو در ماژول‌ها، مهارت‌ها یا کارگاه‌ها..." : "Search modules, skills, or workshops...";
+                }
             }
 
             langToggleBtn.addEventListener('click', () => {
@@ -1973,6 +1985,7 @@ function initSiteScripts() {
                     });
                 }
 
+                /* ۲. بهینه‌سازی کامل Throttling در مانیتورهای فرکانس بالا (High-Refresh) برای خواب واقعی CPU و صرفه‌جویی باتری */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -1990,6 +2003,7 @@ function initSiteScripts() {
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
+                    /* لوپ کنترلی دقیق: اگر بازه زمانی فریم جدید فرانرسیده، بدون تخصیص بار پردازشی جدید خارج شو */
                     if (elapsed < fpsInterval) {
                         animationFrameId = requestAnimationFrame(loop);
                         return;
@@ -2003,6 +2017,7 @@ function initSiteScripts() {
                         frameCount = 0;
                         lastFpsUpdate = timestamp;
 
+                        /* ۳. پایش پویای عملکرد و مقیاس‌دهی خودکار گره‌ها جهت تضمین ثبات فریم دسکتاپ */
                         if (currentFps < 50 && NODE_COUNT > 25) {
                             NODE_COUNT = Math.max(25, Math.floor(NODE_COUNT * 0.8));
                             MAX_DIST = distBudget(window.innerWidth < 768);
@@ -2113,7 +2128,7 @@ function initSiteScripts() {
 
                     return raw.map(r => {
                         const label = shortLabel[r.enCat] || { en: r.enCat.split(' ').slice(0, 2).join(' '), fa: r.faCat };
-                        return { en: label.en, fa: label.fa, value: scale(r.count, max), rawCode: r.enCat };
+                        return { en: label.en, fa: label.fa, value: scale(r.count, max) };
                     });
                 }
 
@@ -2132,18 +2147,18 @@ function initSiteScripts() {
                     if (!workCount && !teachCount && !eduCount) return [];
 
                     return [
-                        { en: 'Years Active', fa: 'سال فعالیت', value: scale(yearsActive, 10), targetId: 'experience' },
-                        { en: 'Work Roles', fa: 'سوابق کاری', value: scale(workCount, 5), targetId: 'experience' },
-                        { en: 'Teaching', fa: 'سوابق تدریس', value: scale(teachCount, 5), targetId: 'teaching' },
-                        { en: 'Education', fa: 'تحصیلات', value: scale(eduCount, 3), targetId: 'education' },
-                        { en: 'Orgs', fa: 'سازمان‌ها', value: scale(orgSet.size, 8), targetId: 'experience' },
-                        { en: 'Highlights', fa: 'دستاوردها', value: scale(bulletCount, 25), targetId: 'experience' }
+                        { en: 'Years Active', fa: 'سال فعالیت', value: scale(yearsActive, 10) },
+                        { en: 'Work Roles', fa: 'سوابق کاری', value: scale(workCount, 5) },
+                        { en: 'Teaching', fa: 'سوابق تدریس', value: scale(teachCount, 5) },
+                        { en: 'Education', fa: 'تحصیلات', value: scale(eduCount, 3) },
+                        { en: 'Orgs', fa: 'سازمان‌ها', value: scale(orgSet.size, 8) },
+                        { en: 'Highlights', fa: 'دستاوردها', value: scale(bulletCount, 25) }
                     ];
                 }
 
                 const charts = [
-                    { canvasId: 'radarSkillCanvas', build: buildSkillAxes, type: 'skills' },
-                    { canvasId: 'radarExperienceCanvas', build: buildExperienceAxes, type: 'experience' }
+                    { canvasId: 'radarSkillCanvas', build: buildSkillAxes },
+                    { canvasId: 'radarExperienceCanvas', build: buildExperienceAxes }
                 ];
 
                 function readColor(name, fallback) {
@@ -2174,8 +2189,7 @@ function initSiteScripts() {
 
                 const FRAME_RATIO = 0.62;
 
-                // دسته سوم: توسعه مکانیزم هایلایت متقاطع زنده (Interactive Mapping) با هوور روی شاخه‌ها و محورهای نمودار راداری Canvas
-                function drawChart(canvas, axes, chartType) {
+                function drawChart(canvas, axes) {
                     if (!canvas) return;
                     const stage = canvas.closest('.radar-stage');
                     const rect = canvas.getBoundingClientRect();
@@ -2283,52 +2297,45 @@ function initSiteScripts() {
                         ctx.fillText(isFa ? axis.fa : axis.en, lx, ly);
                     });
 
-                    // لیسنر اختصاصی هوور روی محور کارت گرافیکی کانواس جهت شتاب‌دهی هایلایت متقاطع زنده المان‌های متناظر
-                    if (!canvas.dataset.listenerAttached) {
-                        canvas.dataset.listenerAttached = "true";
-                        canvas.addEventListener('mousemove', (e) => {
-                            const rectBox = canvas.getBoundingClientRect();
-                            const mx = e.clientX - rectBox.left;
-                            const my = e.clientY - rectBox.top;
-                            
-                            // محاسبه زاویه نقطه ماوس نسبت به مرکز چارت راداری
-                            const dx = mx - cx;
-                            const dy = my - cy;
+                    /* طراحی محصول: پیاده‌سازی اتصال تعاملی هوشمند نمودار راداری به بدنه برای هایلایت آنی حوزه‌های مرتبط */
+                    canvas.addEventListener('mousemove', (ev) => {
+                        const cRect = canvas.getBoundingClientRect();
+                        const mx = ev.clientX - cRect.left;
+                        const my = ev.clientY - cRect.top;
+                        const ccx = cRect.width / 2;
+                        const ccy = cRect.height / 2;
+                        const dx = mx - ccx;
+                        const dy = my - ccy;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        document.querySelectorAll('.highlight-glow').forEach(el => el.classList.remove('highlight-glow'));
+
+                        if (distance > 15 && distance < Math.min(cRect.width, cRect.height) * 0.5) {
                             let angle = Math.atan2(dy, dx) + Math.PI / 2;
                             if (angle < 0) angle += Math.PI * 2;
+                            const totalAxes = axes.length;
+                            const radStep = (Math.PI * 2) / totalAxes;
+                            let nearestIndex = Math.round(angle / radStep) % totalAxes;
                             
-                            // پیدا کردن نزدیک‌ترین شاخه بر اساس زاویه ریاضی
-                            let closestIndex = Math.round(angle / step) % n;
-                            const targetAxis = axes[closestIndex];
-                            
-                            // حذف هایلایت قبلی
-                            document.querySelectorAll('.aura-highlight-active').forEach(el => el.classList.remove('aura-highlight-active'));
-                            
-                            if (chartType === 'skills' && targetAxis.rawCode) {
-                                // اگر روی مهارت هوور شد، کارت‌های مهارت یا ردیف‌های ماتریس فیلتر و براق شوند
-                                const codeMap = { 'Artificial Intelligence': 'AI', 'AI Tools & Models': 'TL', 'Data & BI': 'BI', 'AI Project Management': 'PM' };
-                                const TargetShortCode = codeMap[targetAxis.rawCode];
-                                if (TargetShortCode) {
-                                    document.querySelectorAll(`[data-matrix-row-code="${TargetShortCode}"], [data-matrix-item-code="${TargetShortCode}"]`).forEach(el => {
-                                        el.classList.add('aura-highlight-active');
-                                    });
-                                }
-                            } else if (chartType === 'experience' && targetAxis.targetId) {
-                                // اگر روی المان‌های تجربه هوور شد، تمام کارت‌های تایم‌لاین متناظر براق شوند
-                                document.querySelectorAll(`#${targetAxis.targetId} .timeline-content, #${targetAxis.targetId} .entry-block`).forEach(el => {
-                                    el.classList.add('aura-highlight-active');
+                            const targetAxis = axes[nearestIndex];
+                            if (targetAxis) {
+                                const searchTerm = (isFa ? targetAxis.fa : targetAxis.en).toLowerCase();
+                                document.querySelectorAll('.entry-block, .skill-row, .workshop-category').forEach(el => {
+                                    if (el.textContent.toLowerCase().includes(searchTerm)) {
+                                        el.classList.add('highlight-glow');
+                                    }
                                 });
                             }
-                        });
+                        }
+                    });
 
-                        canvas.addEventListener('mouseleave', () => {
-                            document.querySelectorAll('.aura-highlight-active').forEach(el => el.classList.remove('aura-highlight-active'));
-                        });
-                    }
+                    canvas.addEventListener('mouseleave', () => {
+                        document.querySelectorAll('.highlight-glow').forEach(el => el.classList.remove('highlight-glow'));
+                    });
                 }
 
                 function drawAll() {
-                    charts.forEach(c => drawChart(document.getElementById(c.canvasId), c.build(), c.type));
+                    charts.forEach(c => drawChart(document.getElementById(c.canvasId), c.build()));
                 }
 
                 let radarRAF = null;
@@ -2366,9 +2373,9 @@ function initSiteScripts() {
                 const summaryEl = document.getElementById('matrix-summary');
                 const catFilterEl = document.getElementById('matrix-filter-categories');
                 const depthFilterEl = document.getElementById('matrix-filter-depths');
-                const searchBarEl = document.getElementById('matrix-search-bar');
                 const emptyEl = document.getElementById('matrix-empty');
                 const emptyFaEl = document.getElementById('matrix-empty-fa');
+                const searchInput = document.getElementById('matrix-search-input');
                 if (!tableEl || !theadEl || !tbodyEl) return;
 
                 const isFa = () => root.getAttribute('lang') === 'fa';
@@ -2377,14 +2384,18 @@ function initSiteScripts() {
                 const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444' };
                 const depthOrder = ['foundational', 'intermediate', 'advanced'];
 
-                // دسته دوم: دیکشنری پویا جهت تبدیل کدهای مخفف فنی به برچسب‌های متنی خوانای انسانی کاملاً بومی
-                const humanCategoryNames = {
-                    'AI': { en: 'Artificial Intelligence Core', fa: 'هوش مصنوعی پایه' },
-                    'TL': { en: 'AI Tools & Models Expansion', fa: 'ابزارها و مدل‌های نوین AI' },
-                    'BI': { en: 'Data Intelligence & BI Systems', fa: 'هوشمندی داده و سیستم‌های BI' },
-                    'PM': { en: 'AI Project Management Frameworks', fa: 'مدیریت پروژه‌های آوانگارد AI' },
-                    'CF': { en: 'Cognitive Foundations & Human-AI', fa: 'مبانی شناختی و تعامل انسان و هوش مصنوعی' }
-                };
+                let allRows = [];
+                let activeCategories = new Set();
+                let activeDepths = new Set();
+                let searchQuery = '';
+
+                /* مانیتور زنده تغییرات نوار جستجوی متنی ماتریس سرفصل‌ها */
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        searchQuery = e.target.value.toLowerCase().trim();
+                        render();
+                    });
+                }
 
                 function normalizeDepth(raw) {
                     const r = (raw || '').toLowerCase();
@@ -2453,40 +2464,37 @@ function initSiteScripts() {
                     return rows;
                 }
 
-                let allRows = [];
-                let activeCategories = new Set();
-                let activeDepths = new Set();
-
                 function render() {
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
                     theadEl.innerHTML = '<tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>';
 
-                    const searchQuery = searchBarEl ? searchBarEl.value.toLowerCase().trim() : '';
-
-                    // دسته دوم: ادغام متد فیلترینگ متنی باکس جستجو به صورت آنی روی فیلتر ردیف‌های جدول ماتریس سرفصل‌ها
+                    /* منطق فیلترینگ هیبریدی: ترکیب وضعیت چیپ‌های فیلتر با نوار جستجوی متنی */
                     const filtered = allRows.filter(r => {
-                        const matchesCategory = (activeCategories.size === 0 || activeCategories.has(r.catCode));
+                        const matchesCat = (activeCategories.size === 0 || activeCategories.has(r.catCode));
                         const matchesDepth = (activeDepths.size === 0 || activeDepths.has(r.depth));
                         
-                        let matchesSearch = true;
-                        if (searchQuery) {
-                            const targetTextPool = `${r.titleEn} ${r.titleFa} ${r.catCode} ${r.audienceEn} ${r.audienceFa}`.toLowerCase();
-                            matchesSearch = targetTextPool.includes(searchQuery);
-                        }
+                        const titleText = (isFa() ? r.titleFa : r.titleEn).toLowerCase();
+                        const catLabelText = r.catCode.toLowerCase();
+                        const catFullText = (isFa() ? r.catNameFa : r.catNameEn).toLowerCase();
+                        const audienceText = (isFa() ? r.audienceFa : r.audienceEn).toLowerCase();
                         
-                        return matchesCategory && matchesDepth && matchesSearch;
+                        const matchesSearch = !searchQuery || 
+                            titleText.includes(searchQuery) || 
+                            catLabelText.includes(searchQuery) || 
+                            catFullText.includes(searchQuery) || 
+                            audienceText.includes(searchQuery);
+
+                        return matchesCat && matchesDepth && matchesSearch;
                     });
 
                     tbodyEl.innerHTML = filtered.map(r => {
                         const secLabel = isFa() ? r.section.labelFa : r.section.labelEn;
                         const catLabel = r.catCode;
+                        const catFullTitle = isFa() ? r.catNameFa : r.catNameEn;
                         const title = isFa() ? r.titleFa : r.titleEn;
                         const audience = isFa() ? (r.audienceFa || r.audienceEn) : (r.audienceEn || r.audienceFa);
                         const d = r.depth;
                         const dLabel = depthLabel(d);
-
-                        // دسته دوم: استخراج نام کامل بومی تخصص جهت ست کردن تایتل تولتیپ بومی مرورگر روی مخفف‌های ۲ حرفی ردیف‌ها
-                        const resolvedFullName = humanCategoryNames[catLabel] ? (isFa() ? humanCategoryNames[catLabel].fa : humanCategoryNames[catLabel].en) : catLabel;
 
                         const pill = '<span class="matrix-depth-pill ' + d + '"><span class="dot" style="background:' + (depthColors[d] || 'var(--muted)') + '"></span>' + dLabel + '</span>';
 
@@ -2497,10 +2505,10 @@ function initSiteScripts() {
                         });
                         barHtml += '</span>';
 
-                        return '<tr data-target="' + r.target + '" data-matrix-item-code="' + catLabel + '">' +
+                        /* تخصص در کنار سادگی کاربری: آی‌دی ۲ حرفی مینی‌مال حفظ شده، اما مجهز به Tooltip هوشمند تایتل برای نمایش نام دقیق بخش است */
+                        return '<tr data-target="' + r.target + '">' +
                             '<td class="matrix-section-cell">' + secLabel + '</td>' +
-                            // ست شدن تایتل تولتیپ برای خوانایی دسکتاپ بر روی کدهای فشرده ۲ حرفی داخل ستون جدول
-                            '<td class="matrix-cat-cell" title="' + esc(resolvedFullName) + '">' + catLabel + '</td>' +
+                            '<td class="matrix-cat-cell" title="' + esc(catFullTitle) + '">' + catLabel + '</td>' +
                             '<td class="matrix-title-cell">' + title + '</td>' +
                             '<td>' + pill + '</td>' +
                             '<td>' + barHtml + '</td>' +
@@ -2550,18 +2558,17 @@ function initSiteScripts() {
                 function renderFilters() {
                     const catSet = new Map();
                     allRows.forEach(r => {
-                        if (!catSet.has(r.catCode)) catSet.set(r.catCode, { code: r.catCode, count: 0 });
+                        if (!catSet.has(r.catCode)) catSet.set(r.catCode, { code: r.catCode, count: 0, nameEn: r.catNameEn, nameFa: r.catNameFa });
                         catSet.get(r.catCode).count++;
                     });
                     const cats = Array.from(catSet.values());
                     
-                    // دسته دوم: رندر نام کامل و گویای انسانی برای چیپ‌های نوار ابزار بالا متناسب با زبان پویای لود شده
+                    /* انسانی کردن فیلترها: در چیپ‌های نوار ابزار بالا به جای آی‌دی ۲ حرفی فنی از اسم دقیق و روان ماژول استفاده می‌شود */
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
-                        const resolvedChipName = humanCategoryNames[c.code] ? (isFa() ? humanCategoryNames[c.code].fa : humanCategoryNames[c.code].en) : c.code;
-                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' + resolvedChipName + '<span class="chip-count">' + c.count + '</span></span>';
+                        const labelText = isFa() ? c.nameFa : c.nameEn;
+                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' + esc(labelText) + ' <span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
-                    
                     catFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
                         const code = chip.getAttribute('data-cat');
                         const toggle = () => {
@@ -2595,13 +2602,6 @@ function initSiteScripts() {
                         };
                         chip.addEventListener('click', toggle);
                         chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
-                    });
-                }
-
-                // بایند کردن رویداد سرچ متنی برای اعمال تغییرات آنی ردیف‌ها حین تایپ کاربر
-                if (searchBarEl) {
-                    searchBarEl.addEventListener('input', () => {
-                        render();
                     });
                 }
 
@@ -2674,6 +2674,7 @@ function initSiteScripts() {
         new window.MagneticButtonEffect();
     }
 
+    /* ماژول ری‌اینیشیالایز زنده کش برای نوسازی آنی رندرهای متقاطع و چارت‌ها بدون رفرش */
     window.__reinitDynamicComponents = function() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
@@ -2681,6 +2682,7 @@ function initSiteScripts() {
     };
 }
 
+/* مدیریت بهینه ذخیره‌سازی محلی و لود آنی داده با مدل معماری الاستیک زنده Stale-While-Revalidate */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2689,6 +2691,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
+            /* فچ پس‌زمینه: به محض ثبت تغییر در فایل JSON اصلی، محتوا بدون فلش خوردن یا نیاز به لود دوم، به صورت زنده آپدیت می‌شود */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
