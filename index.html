@@ -7,6 +7,7 @@
 <link href="https://parsaeian.ai#en" hreflang="en" rel="alternate"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV</title>
+<!-- SEO & Social Meta Tags -->
 <meta content="Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV. Specialist in LLM Prompt Engineering, Human-AI Interaction, and Cognitive Science." name="description"/>
 <meta content="Seyed Ehsan Parsaeian" name="author"/>
 <meta content="website" property="og:type"/>
@@ -30,6 +31,7 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link as="font" crossorigin="" href="https://fonts.gstatic.com/s/estedad/v12/estedad-variable.woff2" rel="preload" type="font/woff2"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Estedad:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- JSON-LD Structured Data for SEO -->
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -92,7 +94,7 @@
 
         class ScrollTellingEngine {
             constructor() {
-                this.setupScrollTriggers();
+                if (window.innerWidth >= 968) this.setupScrollTriggers();
             }
 
             setupScrollTriggers() {
@@ -122,7 +124,7 @@
                 this.rAF = null;
                 this.activeBtn = null;
                 this.lastEvt = null;
-                this.setupMagneticButtons();
+                if (window.innerWidth >= 968) this.setupMagneticButtons();
             }
 
             setupMagneticButtons() {
@@ -511,7 +513,9 @@
         .profile-info-card, .entry-block, .skill-row, .timeline-content {
             transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--ty)) scale(var(--s));
             transition: transform 0.4s var(--ease-smooth), opacity 0.6s var(--ease-smooth), filter 0.6s var(--ease-smooth), background 0.3s ease, box-shadow 0.4s var(--ease-smooth);
-            will-change: transform, opacity, filter;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            perspective: 1000px;
             position: relative;
             overflow: hidden;
         }
@@ -900,28 +904,60 @@
         .ws-cv-panel .ws-panel-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; padding: 0 4px; }
         html[lang="fa"] .ws-cv-panel .ws-panel-title { letter-spacing: normal; }
 
-        /* ── PERFORMANCE FIXES FOR TABLET & MOBILE (UNDER 968PX) ── */
+        /* ── DEEP PERFORMANCE FIXES FOR TABLET & MOBILE (UNDER 968PX) ── */
         @media (max-width: 968px) {
             :root, [data-theme="dark"] {
                 --glass-blur: none !important;
                 --glass-blur-strong: none !important;
             }
             :root {
-                --glass-bg: rgba(255, 255, 255, 0.92) !important;
-                --glass-bg-strong: rgba(255, 255, 255, 0.96) !important;
+                --glass-bg: rgba(255, 255, 255, 0.94) !important;
+                --glass-bg-strong: rgba(255, 255, 255, 0.97) !important;
             }
             [data-theme="dark"] {
-                --glass-bg: rgba(15, 23, 42, 0.90) !important;
-                --glass-bg-strong: rgba(15, 23, 42, 0.95) !important;
+                --glass-bg: rgba(11, 18, 38, 0.94) !important;
+                --glass-bg-strong: rgba(15, 25, 52, 0.97) !important;
             }
+            
+            /* Kill layer overuse and hardware acceleration bottlenecks on dozens of cards */
+            .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content {
+                will-change: auto !important;
+                transform: none !important;
+                perspective: none !important;
+                animation: none !important;
+                opacity: 1 !important;
+            }
+            
+            /* Remove complex multi-layered shadows to speed up mobile layout repaints */
             .entry-block, .profile-info-card, .bento-item {
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
             }
             [data-theme="dark"] .entry-block, [data-theme="dark"] .profile-info-card, [data-theme="dark"] .bento-item {
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
             }
-            .entry-block:hover, .bento-item:hover {
+            .entry-block:hover, .bento-item:hover, .profile-info-card:hover {
                 transform: none !important;
+            }
+
+            /* Stop infinite layout repaints from looping text/shadow graphics */
+            h2 span, .hero-text-overlay h2 span {
+                animation: none !important;
+                background: none !important;
+                -webkit-text-fill-color: var(--accent) !important;
+                color: var(--accent) !important;
+            }
+            .hero-text-overlay h2 {
+                animation: none !important;
+                text-shadow: none !important;
+                transform: none !important;
+            }
+            
+            /* Drop canvas completely from GPU memory allocation */
+            #neural-canvas, #hero-banner::before {
+                display: none !important;
+            }
+            #hero-banner {
+                background: #060b18 !important;
             }
         }
         @media (pointer: coarse) {
@@ -1544,9 +1580,13 @@ function initSiteScripts() {
                         s.querySelectorAll('.reveal-card').forEach(c => c.classList.remove('reveal-in'));
                     });
                     targetSection.classList.add('visible');
-                    cards.forEach((card, index) => {
-                        setTimeout(() => card.classList.add('reveal-in'), 30 + (index * 40));
-                    });
+                    
+                    // Stagger on tab routing is skipped on mobile for raw instant snappiness
+                    if (window.innerWidth >= 968) {
+                        cards.forEach((card, index) => {
+                            setTimeout(() => card.classList.add('reveal-in'), 30 + (index * 40));
+                        });
+                    }
                 });
 
                 if (hash === 'graph' && window.__refitGraph) window.__refitGraph();
@@ -1682,6 +1722,13 @@ function initSiteScripts() {
                 const canvas = document.getElementById('neural-canvas');
                 const banner = document.getElementById('hero-banner');
                 if (!canvas || !banner) return;
+                
+                // Absolute escape hatch for mobile layout to completely free up GPU/RAM allocation
+                if (window.innerWidth < 968) {
+                    canvas.style.display = 'none';
+                    return;
+                }
+                
                 const ctx = canvas.getContext('2d');
 
                 const isSaveData = !!(navigator.connection && navigator.connection.saveData);
@@ -1855,7 +1902,6 @@ function initSiteScripts() {
 
                 function loop() {
                     if (window.innerWidth < 968) { 
-                        renderStatic(); 
                         animationFrameId = null; 
                         return; 
                     }
@@ -2002,6 +2048,7 @@ function initSiteScripts() {
                     return (v && v.trim()) || fallback;
                 }
 
+                // builds a CSS clip-path polygon whose vertices land exactly on the same
                 function ngonVertices(n) {
                     const pts = [];
                     for (let i = 0; i < n; i++) {
@@ -2409,6 +2456,13 @@ function initSiteScripts() {
                         revealTimers = [];
 
                         if (!isOpen) {
+                            
+                            // Stagger logic bypassed on mobile to avoid layout task queuing jank
+                            if (window.innerWidth < 968) {
+                                cards.forEach(card => card.classList.add('reveal-in'));
+                                return;
+                            }
+                            
                             const staggerLimit = 12;
                             cards.forEach((card, index) => {
                                 card.classList.remove('reveal-in');
