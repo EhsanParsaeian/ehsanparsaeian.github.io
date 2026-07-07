@@ -1,0 +1,2170 @@
+{
+  "sidebarNav": [
+    {
+      "href": "#experience",
+      "ariaLabel": "Experience",
+      "svgInner": "<rect height=\"14\" rx=\"2\" ry=\"2\" width=\"20\" x=\"2\" y=\"7\"></rect><path d=\"M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\"></path>",
+      "text": {
+        "en": "Experience",
+        "fa": "سوابق حرفه‌ای"
+      }
+    },
+    {
+      "href": "#education",
+      "ariaLabel": "Education",
+      "svgInner": "<path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"></path><path d=\"M6 12v5c3 3 9 3 12 0v-5\"></path>",
+      "text": {
+        "en": "Education",
+        "fa": "تحصیلات"
+      }
+    },
+    {
+      "href": "#teaching",
+      "ariaLabel": "Teaching",
+      "svgInner": "<path d=\"M12 14l9-5-9-5-9 5 9 5z\"></path><path d=\"M12 14l6.16-3.422a12.083 12.083 0 0 1 .665 6.479A11.952 11.952 0 0 0 12 20.055a11.952 11.952 0 0 0-6.824-2.998 12.078 12.078 0 0 1 .665-6.479L12 14z\"></path>",
+      "text": {
+        "en": "Teaching",
+        "fa": "سوابق تدریس"
+      }
+    },
+    {
+      "href": "#skills",
+      "ariaLabel": "Skills",
+      "svgInner": "<polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"></polygon>",
+      "text": {
+        "en": "Skills",
+        "fa": "حوزه‌های تخصصی"
+      }
+    },
+    {
+      "href": "#consulting",
+      "ariaLabel": "Consulting",
+      "svgInner": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"></path><circle cx=\"8.5\" cy=\"7\" r=\"4\"></circle><path d=\"M20 8v6M23 11h-6\"></path>",
+      "text": {
+        "en": "Consulting",
+        "fa": "مشاوره و پروژه‌ها"
+      }
+    }
+  ],
+  "sidebarContact": {
+    "items": [
+      {
+        "type": "link",
+        "href": "mailto:ehsan.parsaeian@gmail.com",
+        "ariaLabel": "Email",
+        "onclick": "",
+        "svgInner": "\n<path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"></path>\n<polyline points=\"22,6 12,13 2,6\"></polyline>\n",
+        "plainText": "ehsan.parsaeian@gmail.com"
+      },
+      {
+        "type": "link",
+        "href": "tel:+989137248050",
+        "ariaLabel": "Phone",
+        "onclick": "",
+        "svgInner": "\n<path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z\"></path>\n",
+        "en": "+98 913 724 8050",
+        "fa": "09137248050",
+        "enDir": "ltr",
+        "faDir": "ltr"
+      },
+      {
+        "type": "static",
+        "svgInner": "\n<circle cx=\"12\" cy=\"12\" r=\"10\"></circle>\n<line x1=\"2\" x2=\"22\" y1=\"12\" y2=\"12\"></line>\n<path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"></path>\n",
+        "en": "English: C1 (Advanced)",
+        "fa": "انگلیسی: C1 (پیشرفته)"
+      },
+      {
+        "type": "link",
+        "href": "#",
+        "ariaLabel": "Export Resume",
+        "onclick": "window.print(); return false;",
+        "svgInner": "\n<path d=\"M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2\"></path>\n<path d=\"M6 14h12v8H6z\"></path>\n",
+        "en": "Export PDF Resume",
+        "fa": "دانلود رزومه (PDF)",
+        "enDir": "",
+        "faDir": ""
+      }
+    ]
+  },
+  "about": [
+    {
+      "en": "AI, Vibe Coding, and Prompt Engineering specialist focusing on Large Language Models (LLMs), Small Language Models (SLMs), and developing Agentic AI solutions for enterprise process automation.",
+      "fa": "متخصص هوش مصنوعی، Vibe Coding و Prompt Engineering با تمرکز بر مدل‌های زبانی بزرگ (LLM)، مدل‌های زبانی کوچک (SLM) و توسعه راهکارهای Agentic AI برای اتوماسیون و هوشمندسازی فرایندهای سازمانی."
+    },
+    {
+      "en": "Experienced in designing AI-driven systems for data analysis, enterprise knowledge management, workflow redesign, administrative correspondence automation, and business process optimization utilizing state-of-the-art AI tools.",
+      "fa": "طراحی سیستم‌های مبتنی بر هوش مصنوعی در حوزه‌های تحلیل داده، تحقیق و پژوهش، مدیریت دانش سازمانی، بهبود و بازطراحی فرایندهای سازمانی، اتوماسیون مکاتبات اداری و بهینه‌سازی فرایندهای کسب‌وکار با استفاده از ابزارها و مدل‌های نوین AI."
+    },
+    {
+      "en": "Over 4 years of specialized teaching and curriculum development experience covering AI, artificial neural networks, prompt engineering, Vibe Coding, and applied LLM frameworks across universities, higher education institutes, and private academic centers.",
+      "fa": "بیش از ۴ سال سابقه تدریس تخصصی در حوزه‌های هوش مصنوعی، شبکه‌های عصبی، مهندسی پرامپت، Vibe Coding و کاربرد مدل‌های زبانی در دانشگاه‌ها، مؤسسات آموزش عالی و مراکز آموزشی خصوصی را در کارنامه خود دارم."
+    }
+  ],
+  "experience": [
+    {
+      "title": {
+        "en": "Senior Project Control & AI Development Specialist",
+        "fa": "کارشناس ارشد کنترل پروژه و توسعه هوش مصنوعی"
+      },
+      "subtitle": {
+        "en": "Afarinesh Holding (Largest private multi-company holding)",
+        "fa": "هلدینگ آفرینش — بزرگ‌ترین هلدینگ خصوصی مولتی‌کمپانی کشور"
+      },
+      "meta": [
+        {
+          "en": "Tehran, Iran",
+          "fa": "تهران",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": ""
+        },
+        {
+          "en": "2025 — 2026",
+          "fa": "۱۴۰۴ — ۱۴۰۵",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": ""
+        }
+      ],
+      "bullets": [
+        {
+          "en": "Deployed LLM-based solutions for enterprise workflows and project control systems.",
+          "fa": "ارائه راهکارهای مبتنی بر LLM در فرایندهای سازمانی و کنترل پروژه."
+        },
+        {
+          "en": "Developed AI-Assisted Decision Making systems to support executive management operations.",
+          "fa": "توسعه سامانه‌های پشتیبان تصمیم‌گیری (AI-Assisted Decision Making) برای مدیریت ارشد."
+        },
+        {
+          "en": "Implemented intelligent workflow automation and administrative correspondence tools.",
+          "fa": "پیاده‌سازی ابزارهای هوشمندسازی گردش‌کار و اتوماسیون مکاتبات اداری."
+        },
+        {
+          "en": "Delivered comprehensive management dashboards and analytical reports using Power BI and Qlik Sense.",
+          "fa": "ارائه داشبوردهای مدیریتی و گزارش‌های تحلیلی با Power BI و Qlik Sense."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Executive Manager",
+        "fa": "مدیر اجرایی مرکز هوش مصنوعی"
+      },
+      "subtitle": {
+        "en": "Ariana AI Center (Largest private AI center in the province)",
+        "fa": "مرکز هوش مصنوعی آریانا — بزرگ‌ترین مرکز خصوصی آموزش AI استان"
+      },
+      "meta": [
+        {
+          "en": "Yazd, Iran",
+          "fa": "یزد",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": ""
+        },
+        {
+          "en": "2023 — 2025",
+          "fa": "۱۴۰۲ — ۱۴۰۴",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": ""
+        }
+      ],
+      "bullets": [
+        {
+          "en": "Directed and managed the executive execution of specialized AI and LLM educational programs.",
+          "fa": "راهبری و مدیریت اجرایی برنامه‌های آموزشی تخصصی حوزه AI و LLM."
+        },
+        {
+          "en": "Designed and conducted courses on Prompt Engineering, Artificial Neural Networks, and Cognitive Sciences.",
+          "fa": "طراحی و برگزاری دوره‌های مهندسی پرامپت، شبکه‌های عصبی و علوم شناختی."
+        },
+        {
+          "en": "Developed strategic partnerships with universities, governmental organizations, and knowledge-based enterprises.",
+          "fa": "توسعه همکاری‌های استراتژیک با دانشگاه‌ها، سازمان‌ها و شرکت‌های دانش‌بنیان."
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "AI Lead — AI & Robotics Center",
+        "fa": "مسئول هوش مصنوعی — مرکز هوش مصنوعی و رباتیک"
+      },
+      "subtitle": {
+        "en": "Islamic Azad University of Yazd",
+        "fa": "دانشگاه آزاد اسلامی واحد یزد"
+      },
+      "meta": [
+        {
+          "en": "Yazd, Iran",
+          "fa": "یزد",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": ""
+        },
+        {
+          "en": "2019 — 2022",
+          "fa": "۱۳۹۸ — ۱۴۰۱",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": ""
+        }
+      ],
+      "bullets": [
+        {
+          "en": "Participated directly in Artificial Intelligence Research and Development (R&D) projects.",
+          "fa": "مشارکت در پروژه‌های تحقیق و توسعه (R&D) حوزه هوش مصنوعی."
+        },
+        {
+          "en": "Designed and executed specialized training programs for undergraduate students and academic faculty.",
+          "fa": "طراحی و اجرای برنامه‌های آموزشی تخصصی برای دانشجویان و اساتید."
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": {
+        "en": "Bachelor of Science in Software Engineering",
+        "fa": "کارشناسی مهندسی نرم‌افزار"
+      },
+      "subtitle": {
+        "en": "Focus on AI & Vibe Coding | Islamic Azad University of Yazd",
+        "fa": "تمرکز بر هوش مصنوعی و وایب کدینگ | دانشگاه آزاد اسلامی یزد"
+      },
+      "meta": [
+        {
+          "en": "GPA:",
+          "fa": "معدل:",
+          "enDir": "",
+          "faDir": "",
+          "extraLtr": "19.72 / 20.00"
+        }
+      ],
+      "bullets": []
+    }
+  ],
+  "teaching": [
+    {
+      "code": "TCH-01",
+      "panelId": "ws-panel-TCH-01",
+      "introEnHtml": "<strong>TCH-01 — Universities &amp; Higher Education.</strong> Specialized AI instruction for CS undergraduate and graduate students across universities and private institutes.",
+      "introFaHtml": "<strong>TCH-01 — دانشگاه‌ها و مؤسسات آموزش عالی.</strong> تدریس تخصصی هوش مصنوعی برای دانشجویان کارشناسی و کارشناسی ارشد در دانشگاه‌ها و مؤسسات خصوصی.",
+      "modules": [
+        {
+          "title": {
+            "en": "Specialized AI Instructor",
+            "fa": "مدرس تخصصی هوش مصنوعی",
+            "link": null
+          },
+          "subtitle": {
+            "en": "Universities & Higher Education Institutes",
+            "fa": "دانشگاه‌ها و مؤسسات آموزش عالی خصوصی"
+          },
+          "meta": [
+            {
+              "en": "2019 — Present",
+              "fa": "۱۳۹۸ — اکنون",
+              "dir": "ltr"
+            }
+          ],
+          "bullets": [
+            {
+              "en": "Taught Artificial Neural Networks (ANN, CNN, RNN) and advanced computing architectures to CS undergraduate and graduate students.",
+              "fa": "تدریس تخصصی شبکه‌های عصبی مصنوعی (ANN، CNN، RNN) و معماری‌های پیشرفته برای دانشجویان کارشناسی و کارشناسی ارشد مهندسی کامپیوتر."
+            },
+            {
+              "en": "Instructed on LLMs/SLMs including Transformer architecture, Attention mechanisms, Pre-training, Fine-tuning, and Transfer Learning methodologies.",
+              "fa": "آموزش مدل‌های زبانی بزرگ (LLM) و کوچک (SLM)؛ شامل معماری Transformer، مکانیزم Attention و انواع روش‌های آموزش مدل از جمله Pre-training، Fine-tuning و Transfer Learning."
+            },
+            {
+              "en": "Covered specialized AI optimization techniques: RLHF, LoRA, PEFT, and hallucination mitigation strategies.",
+              "fa": "تدریس روش‌های تخصصی بهینه‌سازی مدل‌های زبانی: RLHF، LoRA، PEFT و تکنیک‌های کاهش Hallucination."
+            },
+            {
+              "en": "Designed modern academic syllabi based on state-of-the-art AI advancements coupled with practical technical projects.",
+              "fa": "طراحی سرفصل‌های درسی به‌روز منطبق با آخرین پیشرفت‌های حوزه هوش مصنوعی و ارائه پروژه‌های عملی کاربردی."
+            }
+          ],
+          "dataCategory": ""
+        }
+      ]
+    },
+    {
+      "code": "TCH-02",
+      "panelId": "ws-panel-TCH-02",
+      "introEnHtml": "<strong>TCH-02 — In-Service Training for Organizations.</strong> Applied AI courses for government agencies and private-sector employees, focused on real workflow integration.",
+      "introFaHtml": "<strong>TCH-02 — آموزش ضمن‌خدمت سازمان‌ها.</strong> دوره‌های کاربردی هوش مصنوعی برای ادارات دولتی و کارمندان بخش خصوصی با تمرکز بر یکپارچه‌سازی در گردش کار واقعی.",
+      "modules": [
+        {
+          "title": {
+            "en": "In-Service Training Instructor",
+            "fa": "مدرس آموزش ضمن‌خدمت سازمان‌ها",
+            "link": null
+          },
+          "subtitle": {
+            "en": "Government Agencies & Private Sector",
+            "fa": "ادارات و ارگان‌های دولتی و خصوصی استان یزد"
+          },
+          "meta": [
+            {
+              "en": "2023 — Present",
+              "fa": "۱۴۰۲ — اکنون",
+              "dir": "ltr"
+            }
+          ],
+          "bullets": [
+            {
+              "en": "Designed practical AI application courses strictly optimized for enterprise employee workflow integrations.",
+              "fa": "طراحی و اجرای دوره‌های آموزشی ضمن‌خدمت ویژه کارمندان سازمان‌ها با تمرکز بر کاربرد عملی هوش مصنوعی در محیط کار."
+            },
+            {
+              "en": "Taught applied Prompt Engineering paradigms including Prompt Chaining and Few-shot Learning techniques.",
+              "fa": "تدریس مهندسی پرامپت (Prompt Engineering) کاربردی؛ شامل Prompt Chaining، Few-shot Learning و طراحی دستورالعمل‌های مؤثر برای مدل‌های زبانی."
+            },
+            {
+              "en": "Instructed modern Data Analysis & BI tools (Power BI, Qlik Sense, Excel Analytics) for generating management insights.",
+              "fa": "آموزش ابزارهای تحلیل داده و هوش تجاری: Power BI، Qlik Sense و Excel Analytics برای تهیه گزارش‌های مدیریتی."
+            },
+            {
+              "en": "Trained administrative staff on workflow and correspondence automation directly leveraging customized LLM interfaces.",
+              "fa": "آموزش اتوماسیون فرایندهای اداری و مکاتبات سازمانی با استفاده از ابزارهای مبتنی بر LLM."
+            }
+          ],
+          "dataCategory": ""
+        }
+      ]
+    },
+    {
+      "code": "TCH-03",
+      "panelId": "ws-panel-TCH-03",
+      "introEnHtml": "<strong>TCH-03 — Kids &amp; Teens AI Education.</strong> Python and foundational AI for adolescents (ages 12–18) via the AI4Kids methodology, with gamified creative projects.",
+      "introFaHtml": "<strong>TCH-03 — آموزش هوش مصنوعی کودکان و نوجوانان.</strong> برنامه‌نویسی پایتون و مفاهیم پایه هوش مصنوعی برای نوجوانان ۱۲ تا ۱۸ سال با متدولوژی AI4Kids و پروژه‌های خلاقانه بازی‌محور.",
+      "modules": [
+        {
+          "title": {
+            "en": "Kids & Teens AI Instructor",
+            "fa": "مدرس هوش مصنوعی کودکان و نوجوانان",
+            "link": null
+          },
+          "subtitle": {
+            "en": "AI4Kids Methodology Centers",
+            "fa": "مراکز آموزشی تخصصی · متدولوژی AI4Kids"
+          },
+          "meta": [
+            {
+              "en": "2022 — Present",
+              "fa": "۱۴۰۱ — اکنون",
+              "dir": "ltr"
+            }
+          ],
+          "bullets": [
+            {
+              "en": "Taught Python programming and foundational AI concepts to adolescents (ages 12-18) based on AI4Kids methodology.",
+              "fa": "تدریس هوش مصنوعی و برنامه‌نویسی پایتون برای کودکان و نوجوانان ۱۲ تا ۱۸ سال بر اساس متدولوژی AI4Kids."
+            },
+            {
+              "en": "Educated students on Vibe Coding techniques and deployed creative AI projects utilizing engaging, gamified approaches.",
+              "fa": "آموزش Vibe Coding و توسعه پروژه‌های خلاقانه با هوش مصنوعی در رده‌های سنی مختلف با رویکرد بازی‌محور و پروژه‌محور."
+            },
+            {
+              "en": "Designed appropriately tiered educational content spanning from foundational concepts to hands-on Python implementations.",
+              "fa": "طراحی محتوای آموزشی سطح‌بندی‌شده متناسب با گروه‌های سنی مختلف؛ از مفاهیم پایه تا پیاده‌سازی پروژه‌های ساده با Python."
+            },
+            {
+              "en": "Curated highly interactive learning environments emphasizing computational thinking logic and programmatic problem-solving.",
+              "fa": "ایجاد فضای یادگیری تعاملی با تأکید بر تفکر محاسباتی، حل مسئله و آشنایی عملی با ابزارهای هوش مصنوعی روز."
+            }
+          ],
+          "dataCategory": ""
+        }
+      ]
+    }
+  ],
+  "workshops": {
+    "introParagraphs": [
+      {
+        "en": "This is a menu, not a fixed course. Browse the modules below, organized by domain, and select the topics most relevant to you or your team. Then contact Ehsan to scope the format, depth, and investment for your specific context. Each module is drawn from a living knowledge architecture that can be combined, expanded, or tailored to your audience — the same structural system underlies executive briefings, cohort programs, and organizational training alike.",
+        "fa": "این یک فهرست انتخابی است، نه یک دوره ثابت. ماژول‌های زیر را که بر اساس حوزه سازمان‌دهی شده‌اند مرور کنید و موضوعات مرتبط با خود یا تیم خود را انتخاب کنید. سپس برای تعیین قالب، عمق و هزینه متناسب با شرایط خاص خود با احسان در تماس باشید. هر ماژول از یک معماری دانش زنده استخراج شده است که می‌تواند برای مخاطب شما ترکیب، بسط یا سفارشی شود — همان سیستم ساختاریِ زیربنایی، جلسات مدیریتی، برنامه‌های گروهی و آموزش سازمانی را پشتیبانی می‌کند."
+      },
+      {
+        "en": "Each module lists what you will be able to do afterward, who it suits best, and a relative depth (Foundational · Intermediate · Advanced). Hour counts and pricing are set per engagement — Ehsan scopes them with you after selection, in 6, 8, 12, or 20-hour blocks as the content and audience require.",
+        "fa": "هر ماژول نشان می‌دهد که پس از آن چه توانایی‌هایی خواهید داشت، برای چه مخاطبی مناسب‌تر است و عمق نسبی آن (پایه · متوسط · پیشرفته) چیست. تعداد ساعت و قیمت به‌صورت موردی تعیین می‌شود — احسان پس از انتخاب ماژول‌ها، آن‌ها را همراه با شما و در قالب‌های ۶، ۸، ۱۲ یا ۲۰ ساعته متناسب با محتوا و مخاطب تعیین می‌کند."
+      }
+    ],
+    "categories": [
+      {
+        "code": "CF",
+        "panelId": "ws-panel-CF",
+        "introEnHtml": "<strong>CF — Cognitive Foundations.</strong> The distinctive starting point: understanding human attention, memory, and learning before diving into AI technique. Most providers skip this layer entirely — which is exactly why their graduates cannot generalize.",
+        "introFaHtml": "<strong>CF — مبانی شناختی.</strong> نقطه شروع متمایز: درک توجه، حافظه و یادگیری انسانی پیش از ورود به فنون هوش مصنوعی. بیشتر ارائه‌دهندگان این لایه را کاملاً نادیده می‌گیرند — و دقیقاً به همین دلیل فارغ‌التحصیلانشان نمی‌توانند آموخته‌ها را تعمیم دهند.",
+        "modules": [
+          {
+            "title": {
+              "en": "CF-01 · How Intelligence Works",
+              "fa": "CF-01 · چگونه هوش کار می‌کند",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Human cognition meets AI — attention, memory, and learning as the foundation for using AI well.",
+              "fa": "شناخت انسانی در تقابل با هوش مصنوعی — توجه، حافظه و یادگیری به‌عنوان پایه استفاده مؤثر از AI."
+            },
+            "meta": [
+              {
+                "en": "Foundational",
+                "fa": "پایه",
+                "dir": ""
+              },
+              {
+                "en": "All audiences",
+                "fa": "همه مخاطبان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Explain why understanding human attention and memory makes your AI use more reliable.",
+                "fa": "توضیح دهید که چرا درک توجه و حافظه انسانی، استفاده شما از هوش مصنوعی را قابل‌اعتمادتر می‌کند."
+              },
+              {
+                "en": "Identify where AI complements — and where it conflicts with — human cognitive strengths.",
+                "fa": "شناسایی نقاطی که هوش مصنوعی نقاط قوت شناختی انسان را تکمیل یا تضعیف می‌کند."
+              }
+            ],
+            "dataCategory": "CF"
+          },
+          {
+            "title": {
+              "en": "CF-02 · Why AI Feels Intelligent",
+              "fa": "CF-02 · چرا هوش مصنوعی باهوش به نظر می‌رسد",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Where the human–machine analogy holds and where it breaks; dismantling anthropomorphic misconceptions that lead to overtrust.",
+              "fa": "کجا تشابه انسان–ماشین برقرار است و کجا فرومی‌ریزد؛ برخورد با تصورات انسان‌انگارانه‌ای که به اعتماد بی‌رویه می‌انجامند."
+            },
+            "meta": [
+              {
+                "en": "Foundational",
+                "fa": "پایه",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, educators",
+                "fa": "مدیران، مربیان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Separate genuine reasoning from persuasive fluency in AI output.",
+                "fa": "تفکیک استدلال واقعی از روانی متقاعدکننده در خروجی هوش مصنوعی."
+              },
+              {
+                "en": "Build a calibrated mental model of what AI is actually doing.",
+                "fa": "ساخت یک مدل ذهنی کالیبره‌شده از آنچه هوش مصنوعی واقعاً انجام می‌دهد."
+              }
+            ],
+            "dataCategory": "CF"
+          },
+          {
+            "title": {
+              "en": "CF-03 · Cognitive Amplification",
+              "fa": "CF-03 · تقویت شناختی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Designing how you think with AI — extended mind, cognitive offloading, and co-thinking that amplifies rather than replaces judgment.",
+              "fa": "طراحی نحوه تفکر با هوش مصنوعی — ذهن گسترده، تخلیه شناختی و هم‌اندیشی که قضاوت را تقویت می‌کند نه جایگزین."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Consultants, researchers",
+                "fa": "مشاوران، پژوهشگران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Decide which cognitive tasks to delegate and which to keep human-centered.",
+                "fa": "تصمیم‌گیری درباره اینکه کدام وظایف شناختی واگذار و کدام انسان‌محور نگه‌داری شوند."
+              },
+              {
+                "en": "Design personal workflows that compound your judgment over time.",
+                "fa": "طراحی گردشکارهای شخصی که قضاوت شما را در طول زمان افزایش می‌دهند."
+              }
+            ],
+            "dataCategory": "CF"
+          }
+        ]
+      },
+      {
+        "code": "AF",
+        "panelId": "ws-panel-AF",
+        "introEnHtml": "<strong>AF — How AI Actually Works.</strong> The probability layer. A decision-maker who does not understand that AI is a probability engine will make structurally wrong choices about where and how to deploy it.",
+        "introFaHtml": "<strong>TH — چگونه هوش مصنوعی واقعاً کار می‌کند.</strong> لایه احتمال. تصمیم‌گیری که نداند هوش مصنوعی یک موتور احتمال است، انتخاب‌هایی ساختاریاً نادرست درباره محل و نحوه استقرار آن خواهد گرفت.",
+        "modules": [
+          {
+            "title": {
+              "en": "AF-01 · The Probability Engine",
+              "fa": "AF-01 · موتور احتمال",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Why AI is not a knowledge base — tokens, temperature, and next-token prediction; why fluent output can be factually wrong.",
+              "fa": "چرا هوش مصنوعی یک پایگاه دانش نیست — توکن، دما و پیش‌بینی توکن بعدی؛ چرا خروجی روان می‌تواند از نظر واقعی نادرست باشد."
+            },
+            "meta": [
+              {
+                "en": "Foundational",
+                "fa": "پایه",
+                "dir": ""
+              },
+              {
+                "en": "All audiences",
+                "fa": "همه مخاطبان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Evaluate AI vendor claims against how the technology actually behaves.",
+                "fa": "ارزیابی ادعاهای ارائه‌دهندگان هوش مصنوعی در برابر رفتار واقعی فناوری."
+              },
+              {
+                "en": "Explain to your team, in plain terms, why AI is not magic.",
+                "fa": "توضیح ساده برای تیم خود که چرا هوش مصنوعی جادو نیست."
+              }
+            ],
+            "dataCategory": "AF"
+          },
+          {
+            "title": {
+              "en": "AF-02 · The Attention Mechanism, Without the Math",
+              "fa": "AF-02 · مکانیزم توجه، بدون ریاضیات",
+              "link": null
+            },
+            "subtitle": {
+              "en": "How structure in your input changes the reasoning in the output — why format is a cognitive constraint, not decoration.",
+              "fa": "چگونه ساختار ورودی شما، استدلال خروجی را تغییر می‌دهد — چرا قالب یک محدودیت شناختی است، نه تزئین."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, managers",
+                "fa": "تحلیل‌گران، مدیران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Predict how restructuring an input will change the quality of the output.",
+                "fa": "پیش‌بینی اینکه بازآرایی یک ورودی چگونه کیفیت خروجی را تغییر می‌دهد."
+              },
+              {
+                "en": "Diagnose why a specific AI interaction produced a poor result.",
+                "fa": "تشخیص اینکه چرا یک تعامل خاص با هوش مصنوعی نتیجه ضعیفی داشته است."
+              }
+            ],
+            "dataCategory": "AF"
+          },
+          {
+            "title": {
+              "en": "AF-03 · Model Selection Strategy & Multi-Model Workflows",
+              "fa": "AF-03 · استراتژی انتخاب مدل و گردشکارهای چندمدلی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "When to use which model — GPT, Claude, Gemini, DeepSeek — and the cost-vs-reasoning tradeoffs of reasoning-effort settings. A named decision skill for 2026.",
+              "fa": "چه زمان از کدام مدل استفاده کنید — GPT، Claude، Gemini، DeepSeek — و مبادلات هزینه-در-برابر-استدلال در تنظیمات reasoning-effort. یک مهارت تصمیم‌گیری نام‌گذاری‌شده برای ۲۰۲۶."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "All professionals",
+                "fa": "همه متخصصان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Match the right model to the right task instead of defaulting to one.",
+                "fa": "تطبیق مدل درست با وظیفه درست، به‌جای تکیه بر یک مدل پیش‌فرض."
+              },
+              {
+                "en": "Combine multiple models in a single workflow for better results at lower cost.",
+                "fa": "ترکیب چند مدل در یک گردشکار واحد برای نتایج بهتر با هزینه کمتر."
+              }
+            ],
+            "dataCategory": "AF"
+          }
+        ]
+      },
+      {
+        "code": "ID",
+        "panelId": "ws-panel-ID",
+        "introEnHtml": "<strong>ID — Designing Reliable AI Interaction.</strong> The attention layer. Most professionals use AI conversationally rather than architecturally; this domain is the structural design of inputs to produce predictable, high-quality outputs.",
+        "introFaHtml": "<strong>TH — طراحی تعامل قابل‌اعتماد با هوش مصنوعی.</strong> لایه توجه. بیشتر متخصصان هوش مصنوعی را محاوره‌ای به‌کار می‌گیرند نه معمارانه؛ این حوزه به طراحی ساختاری ورودی‌ها برای تولید خروجی‌های پیش‌بینی‌پذیر و باکیفیت می‌پردازد.",
+        "modules": [
+          {
+            "title": {
+              "en": "ID-01 · Architectural Prompting",
+              "fa": "ID-01 · پرامپت‌نویسی معمارانه",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Beyond \"write me a...\" — role, task, context, format, and constraint as structural elements; the five-element framework.",
+              "fa": "فراتر از «برایم بنویس...» — نقش، وظیفه، بستر، قالب و محدودیت به‌عنوان عناصر ساختاری؛ چارچوب پنج‌عنصری."
+            },
+            "meta": [
+              {
+                "en": "Foundational",
+                "fa": "پایه",
+                "dir": ""
+              },
+              {
+                "en": "All audiences",
+                "fa": "همه مخاطبان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Construct prompts from repeatable structural elements, not improvisation.",
+                "fa": "ساخت پرامپت از عناصر ساختاری تکرارپذیر، نه بداهه‌سازی."
+              },
+              {
+                "en": "Build a personal library of reusable, version-controlled templates.",
+                "fa": "ساخت یک کتابخانه شخصی از قالب‌های قابل‌استفاده مجدد و کنترل‌شده با نسخه."
+              }
+            ],
+            "dataCategory": "ID"
+          },
+          {
+            "title": {
+              "en": "ID-02 · Output Architecture",
+              "fa": "ID-02 · معماری خروجی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Controlling what you receive, not only what you request — format as a reasoning constraint; structured outputs, tables, schemas, and prefill.",
+              "fa": "کنترل آنچه دریافت می‌کنید، نه فقط آنچه درخواست می‌کنید — قالب به‌عنوان محدودیت استدلال؛ خروجی‌های ساختاریافته، جداول، schema و prefill."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, project managers",
+                "fa": "تحلیل‌گران، مدیران پروژه",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Choose output formats that improve the analysis, not just the presentation.",
+                "fa": "انتخاب قالب‌های خروجی که تحلیل را بهبود می‌بخشند، نه فقط نمایش را."
+              },
+              {
+                "en": "Produce consistent, machine-readable results from AI every time.",
+                "fa": "تولید نتایج سازگار و ماشین‌خوان از هوش مصنوعی در هر بار استفاده."
+              }
+            ],
+            "dataCategory": "ID"
+          },
+          {
+            "title": {
+              "en": "ID-03 · Persona & Role Engineering",
+              "fa": "ID-03 · مهندسی پرسونا و نقش",
+              "link": null
+            },
+            "subtitle": {
+              "en": "The distinction between \"behave like\" and \"is\" — multi-role review, and when personas help versus when they bias the output.",
+              "fa": "تفاوت «مانِ... رفتار کن» و «هستی...» — بازبینی چندنقشی، و اینکه چه زمانی پرسونا کمک می‌کند و چه زمانی خروجی را سوگیری می‌کند."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Consultants, researchers",
+                "fa": "مشاوران، پژوهشگران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Deploy multiple AI personas to review a decision from opposing angles.",
+                "fa": "استقرار چند پرسونای هوش مصنوعی برای بازبینی یک تصمیم از زوایای مخالف."
+              },
+              {
+                "en": "Recognize and counter the bias that persona framing introduces.",
+                "fa": "شناسایی و خنثی‌سازی سوگیری‌ای که قالب‌بندی پرسونا وارد می‌کند."
+              }
+            ],
+            "dataCategory": "ID"
+          },
+          {
+            "title": {
+              "en": "ID-04 · Decomposition Patterns",
+              "fa": "ID-04 · الگوهای تجزیه",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Splitting complex tasks that defeat a single pass — least-to-most, tree-of-thought, and map-reduce patterns, for non-developers.",
+              "fa": "تجزیه وظایف پیچیده‌ای که در یک مرحله شکست می‌خورند — الگوهای کم‌به‌زیاد، درخت تفکر و map-reduce، برای غیربرنامه‌نویسان."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, strategists",
+                "fa": "تحلیل‌گران، استراتژیست‌ها",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Break a hard problem into AI steps that each succeed reliably.",
+                "fa": "تجزیه یک مسئله دشوار به گام‌های هوش مصنوعی که هر کدام به‌طور قابل‌اعتماد موفق می‌شوند."
+              },
+              {
+                "en": "Know when decomposition helps and when it adds unnecessary cost.",
+                "fa": "دانستن اینکه تجزیه چه زمانی کمک می‌کند و چه زمانی هزینه زائد می‌افزاید."
+              }
+            ],
+            "dataCategory": "ID"
+          }
+        ]
+      },
+      {
+        "code": "CE",
+        "panelId": "ws-panel-CE",
+        "introEnHtml": "<strong>CE — Context Engineering.</strong> The discipline most providers never name. The context window is working memory with specific capacity, degradation patterns, and failure modes — and managing it is the difference between AI that is reliable and AI that is chaotic.",
+        "introFaHtml": "<strong>TH — مهندسی بستر.</strong> نظمی که بیشتر ارائه‌دهندگان هرگز نام نمی‌برند. پنجره بستر حافظه کاری با ظرفیت، الگوهای تخریب و حالت‌های شکست مشخص است — و مدیریت آن، تفاوت میان هوش مصنوعی قابل‌اعتماد و آشفته است.",
+        "modules": [
+          {
+            "title": {
+              "en": "CE-01 · The Context Window as Working Memory",
+              "fa": "CE-01 · پنجره بستر به‌عنوان حافظه کاری",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Capacity, degradation, lost-in-the-middle, and attention decay — diagnosing context rot before it silently ruins your results.",
+              "fa": "ظرفیت، تخریب، پدیده گم‌شدن در میانه و افت توجه — تشخیص پوسیدگی بستر پیش از آنکه بی‌صدا نتایج شما را خراب کند."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, project managers",
+                "fa": "تحلیل‌گران، مدیران پروژه",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Recognize the silent failure modes of long conversations and long documents.",
+                "fa": "شناخت حالت‌های شکست خاموش در مکالمات و اسناد طولانی."
+              },
+              {
+                "en": "Structure inputs so the most important information keeps its weight.",
+                "fa": "ساختاردهی ورودی‌ها به‌گونه‌ای که مهم‌ترین اطلاعات وزن خود را حفظ کنند."
+              }
+            ],
+            "dataCategory": "CE"
+          },
+          {
+            "title": {
+              "en": "CE-02 · Document Architecture",
+              "fa": "CE-02 · معماری اسناد",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Feeding AI your real work — structured ingestion, metadata, and citation discipline so every claim traces back to a source.",
+              "fa": "تغذیه هوش مصنوعی با کار واقعی خود — دریافت ساختاریافته، فراداده و انضباط ارجاع تا هر ادعا به یک منبع ردیابی شود."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, researchers",
+                "fa": "تحلیل‌گران، پژوهشگران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Ingest contracts, reports, and datasets so the AI grounds every answer in them.",
+                "fa": "دریافت قراردادها، گزارش‌ها و مجموعه‌داده‌ها به‌گونه‌ای که هوش مصنوعی هر پاسخ را به آن‌ها استناد دهد."
+              },
+              {
+                "en": "Build a multi-document audit pipeline you can reuse.",
+                "fa": "ساخت یک خط لوله بازبینی چندسندی قابل استفاده مجدد."
+              }
+            ],
+            "dataCategory": "CE"
+          },
+          {
+            "title": {
+              "en": "CE-03 · Conversation State & Clean Resets",
+              "fa": "CE-03 · وضعیت مکالمه و بازنشانی تمیز",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Managing memory across turns — handoff documents and the discipline of knowing when to start fresh.",
+              "fa": "مدیریت حافظه در طول مکالمه — اسناد تحویلی و انضباط دانستن اینکه چه زمان باید از نو شروع کرد."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Project managers, consultants",
+                "fa": "مدیران پروژه، مشاوران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Carry context forward without polluting it with stale instructions.",
+                "fa": "انتقال بستر به‌جلو بدون آلودگی با دستورالعمل‌های کهنه."
+              },
+              {
+                "en": "Hand off an AI session to a colleague without losing the thread.",
+                "fa": "تحویل یک جلسه هوش مصنوعی به همکار بدون از دست دادن مسیر بحث."
+              }
+            ],
+            "dataCategory": "CE"
+          },
+          {
+            "title": {
+              "en": "CE-04 · System Prompts: The Initialization Layer",
+              "fa": "CE-04 · پرامپت‌های سیستمی: لایه مقداردهی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Building layered, reusable system instructions that govern all subsequent inference — a persistent operating layer for a role or team.",
+              "fa": "ساخت دستورالعمل‌های سیستمی لایه‌ای و قابل‌استفاده مجدد که بر تمام استنتاج بعدی حاکم‌اند — یک لایه عملیاتی پایدار برای یک نقش یا تیم."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Team leads, operations",
+                "fa": "راهبران تیم، عملیات",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Design a system prompt that gives a whole team consistent AI behavior.",
+                "fa": "طراحی یک پرامپت سیستمی که رفتار هوش مصنوعی یکپارچه به کل تیم می‌دهد."
+              },
+              {
+                "en": "Resolve conflicts between layered instructions deliberately, not by accident.",
+                "fa": "رفع تعارض میان دستورالعمل‌های لایه‌ای به‌صورت آگاهانه، نه تصادفی."
+              }
+            ],
+            "dataCategory": "CE"
+          },
+          {
+            "title": {
+              "en": "CE-05 · Knowledge Grounding: RAG, Agentic RAG & GraphRAG",
+              "fa": "CE-05 · استوارسازی دانش: RAG، Agentic RAG و GraphRAG",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Retrieval as context architecture — when to use RAG versus long context, and how to commission and evaluate grounding systems without writing code.",
+              "fa": "بازیابی به‌عنوان معماری بستر — چه زمان از RAG به‌جای بستر طولانی استفاده کنید، و چگونه سیستم‌های استوارسازی را بدون کدنویسی سفارش و ارزیابی کنید."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, IT directors",
+                "fa": "مدیران، مدیران فناوری",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Decide between RAG, long-context, and knowledge-graph approaches for a given problem.",
+                "fa": "تصمیم‌گیری میان RAG، بستر طولانی و رویکردهای گراف دانش برای یک مسئله مشخص."
+              },
+              {
+                "en": "Specify and evaluate a grounding system your technical team can build.",
+                "fa": "تعیین و ارزیابی یک سیستم استوارسازی که تیم فنی شما می‌تواند بسازد."
+              }
+            ],
+            "dataCategory": "CE"
+          }
+        ]
+      },
+      {
+        "code": "AG",
+        "panelId": "ws-panel-AG",
+        "introEnHtml": "<strong>AG — Agentic Workflows &amp; Orchestration.</strong> The orchestration layer, where single interactions become systematic. This is where capability compounds — and where the field has crystallized into named, reusable patterns.",
+        "introFaHtml": "<strong>TH — گردشکارهای عامل‌محور و رهاسازی.</strong> لایه رهاسازی، جایی که تعاملات منفرد به سیستم تبدیل می‌شوند. اینجاست که توانایی انباشته می‌شود — و میدان به الگوهای نام‌گذاری‌شده و قابل‌استفاده مجدد تبلور یافته است.",
+        "modules": [
+          {
+            "title": {
+              "en": "AG-01 · Agentic Workflow Design Patterns",
+              "fa": "AG-01 · الگوهای طراحی گردشکار عامل‌محور",
+              "link": null
+            },
+            "subtitle": {
+              "en": "The named patterns — chaining, routing, parallelization, orchestrator-worker, reflection, evaluator-optimizer — and how to map each to a real use case.",
+              "fa": "الگوهای نام‌گذاری‌شده — زنجیره‌سازی، مسیریابی، موازی‌سازی، رهبر-اجراکننده، بازاندیشی، ارزیاب-بهینه‌ساز — و چگونگی تطبیق هر یک با یک کاربرد واقعی."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, operations",
+                "fa": "تحلیل‌گران، عملیات",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Speak the shared vocabulary of agentic patterns now used across the field.",
+                "fa": "صحبت با واژگان مشترک الگوهای عامل‌محور که اکنون در سراسر میدان به‌کار می‌رود."
+              },
+              {
+                "en": "Choose the right pattern for a workflow instead of improvising.",
+                "fa": "انتخاب الگوی درست برای یک گردشکار به‌جای بداهه‌سازی."
+              }
+            ],
+            "dataCategory": "AG"
+          },
+          {
+            "title": {
+              "en": "AG-02 · The Refinement Loop",
+              "fa": "AG-02 · حلقه اصلاح",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Generate → critique → revise as a formal, repeatable process — iteration that converges rather than drifts, and knowing when to stop.",
+              "fa": "تولید ← نقد ← بازبینی به‌عنوان فرآیندی رسمی و تکرارپذیر — تکراری که همگرا می‌شود نه سرگردان، و دانستن اینکه چه زمان باید ایستاد."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "All audiences",
+                "fa": "همه مخاطبان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Run a structured critique loop that measurably improves output.",
+                "fa": "اجرای یک حلقه نقد ساختاریافته که خروجی را به‌طور قابل‌سنجش بهبود می‌بخشد."
+              },
+              {
+                "en": "Recognize the diminishing-returns point and stop on time.",
+                "fa": "شناخت نقطه بازدهی کاهشی و توقف به‌موقع."
+              }
+            ],
+            "dataCategory": "AG"
+          },
+          {
+            "title": {
+              "en": "AG-03 · Validation & Self-Consistency",
+              "fa": "AG-03 · اعتبارسنجی و خودسازگاری",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Using AI to check AI — multi-perspective review and adversarial critique; where AI-as-judge works and where it fails.",
+              "fa": "استفاده از هوش مصنوعی برای بررسی هوش مصنوعی — بازبینی چندمنظری و نقد خصمانه؛ کجا قاضی-هوش‌مصنوعی کار می‌کند و کجا شکست می‌خورد."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, compliance",
+                "fa": "تحلیل‌گران، انطباق",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Set up a validation architecture that catches errors before they ship.",
+                "fa": "برپایی یک معماری اعتبارسنجی که خطاها را پیش از تحویل شکار می‌کند."
+              },
+              {
+                "en": "Know which validation methods to trust and which produce false confidence.",
+                "fa": "دانستن کدام روش‌های اعتبارسنجی قابل‌اعتمادند و کدام اعتماد کاذب می‌سازند."
+              }
+            ],
+            "dataCategory": "AG"
+          },
+          {
+            "title": {
+              "en": "AG-04 · Multi-Agent Orchestration",
+              "fa": "AG-04 · رهاسازی چندعاملی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "When and how to deploy multiple AI instances with different roles on the same problem — orchestration concepts without writing code.",
+              "fa": "چه زمان و چگونه چند نمونه هوش مصنوعی با نقش‌های متفاوت را روی یک مسئله مستقر کنید — مفاهیم رهاسازی بدون کدنویسی."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Strategists, operations",
+                "fa": "استراتژیست‌ها، عملیات",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Decide whether a task needs one agent or a team of agents.",
+                "fa": "تصمیم‌گیری که آیا یک وظیفه به یک عامل نیاز دارد یا تیمی از عامل‌ها."
+              },
+              {
+                "en": "Design the roles, handoffs, and review structure of a multi-agent system.",
+                "fa": "طراحی نقش‌ها، تحویل‌ها و ساختار بازبینی یک سیستم چندعاملی."
+              }
+            ],
+            "dataCategory": "AG"
+          },
+          {
+            "title": {
+              "en": "AG-05 · Human-in-the-Loop: Designing the Handoff",
+              "fa": "AG-05 · انسان در حلقه: طراحی تحویل",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Delegation, oversight modes — in-the-loop, on-the-loop, out-of-the-loop — and where to draw trust boundaries for consequential decisions.",
+              "fa": "تفویض، حالت‌های نظارت — در حلقه، روی حلقه، بیرون از حلقه — و کجا مرزهای اعتماد را برای تصمیمات مهم ترسیم کنید."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, managers",
+                "fa": "مدیران ارشد، مدیران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Design the human-AI handoff for a high-stakes workflow in your organization.",
+                "fa": "طراحی تحویل انسان-هوش‌مصنوعی برای یک گردشکار حساس در سازمان شما."
+              },
+              {
+                "en": "Allocate responsibility between human judgment and AI output deliberately.",
+                "fa": "تخصیص آگاهانه مسئولیت میان قضاوت انسانی و خروجی هوش مصنوعی."
+              }
+            ],
+            "dataCategory": "AG"
+          }
+        ]
+      },
+      {
+        "code": "PX",
+        "panelId": "ws-panel-PX",
+        "introEnHtml": "<strong>PX — Agent Infrastructure &amp; Building Real Things.</strong> Where the agentic stack meets reality — the infrastructure that connects agents to tools and data, the agents that act on screens, and the projects that turn all of this into deployed value.",
+        "introFaHtml": "<strong>TH — زیرساخت عامل و ساخت چیزهای واقعی.</strong> جایی که پشته عامل‌محور با واقعیت روبرو می‌شود — زیرسازی که عامل‌ها را به ابزارها و داده متصل می‌کند، عامل‌هایی که روی صفحات عمل می‌کنند، و پروژه‌هایی که همه این‌ها را به ارزش مستقر تبدیل می‌کنند.",
+        "modules": [
+          {
+            "title": {
+              "en": "PX-01 · Agent Infrastructure: MCP, Tools & Interoperability",
+              "fa": "PX-01 · زیرساخت عامل: MCP، ابزارها وهم‌کنش‌پذیری",
+              "link": null
+            },
+            "subtitle": {
+              "en": "The Model Context Protocol and how agents connect to tools and data — the build-vs-buy and vendor-lock-in implications a decision-maker needs to understand.",
+              "fa": "پروتکل مدل بستر و چگونگی اتصال عامل‌ها به ابزارها و داده — پیامدهای ساخت-در-برابر-خرید و قفل‌شدن به ارائه‌دهنده که یک تصمیم‌گیرنده باید بداند."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, IT directors",
+                "fa": "مدیران، مدیران فناوری",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Assess how an agent stack connects to your existing systems and data.",
+                "fa": "ارزیابی اینکه یک پشته عامل چگونه به سیستم‌ها و داده‌های موجود شما متصل می‌شود."
+              },
+              {
+                "en": "Flag lock-in and portability risks before committing to a platform.",
+                "fa": "شناسایی ریسک‌های قفل‌شدن و حمل‌پذیری پیش از تعهد به یک پلتفرم."
+              }
+            ],
+            "dataCategory": "PX"
+          },
+          {
+            "title": {
+              "en": "PX-02 · Computer-Use & Browser Agents",
+              "fa": "PX-02 · عامل‌های استفاده از کامپیوتر و مرورگر",
+              "link": null
+            },
+            "subtitle": {
+              "en": "AI that perceives a screen and acts — Claude Computer Use, ChatGPT Agent, and Claude Cowork — and the governance, security, and ROI questions they raise.",
+              "fa": "هوش مصنوعی که صفحه را ادراک و عمل می‌کند — Claude Computer Use، ChatGPT Agent و Claude Cowork — و پرسش‌های حاکمیتی، امنیتی و بازگشت سرمایه‌ای که مطرح می‌کنند."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, operations",
+                "fa": "مدیران، عملیات",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Evaluate where computer-use agents create value versus risk in your operations.",
+                "fa": "ارزیابی اینکه عامل‌های استفاده از کامپیوتر کجا در عملیات شما ارزش می‌آفرینند و کجا ریسک."
+              },
+              {
+                "en": "Set governance guardrails for agents that act on your behalf.",
+                "fa": "تعیین محافظ‌های حاکمیتی برای عامل‌هایی که از طرف شما عمل می‌کنند."
+              }
+            ],
+            "dataCategory": "PX"
+          },
+          {
+            "title": {
+              "en": "PX-03 · From Idea to Spec: Designing AI Projects",
+              "fa": "PX-03 · از ایده تا مشخصه: طراحی پروژه‌های هوش مصنوعی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Specification design and product thinking — turning a vague AI idea into a scoped project, and commissioning builds you cannot fully read yourself.",
+              "fa": "طراحی مشخصه و تفکر محصولی — تبدیل یک ایده مبهم هوش مصنوعی به پروژه تعیین‌محدوده، و سفارش ساخت‌هایی که خودتان نمی‌توانید کاملاً بخوانید."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Project managers, founders",
+                "fa": "مدیران پروژه، بنیان‌گذاران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Write a clear specification that an AI build can actually be measured against.",
+                "fa": "نوشتن یک مشخصه روشن که یک ساخت هوش مصنوعی واقعاً بتواند با آن سنجیده شود."
+              },
+              {
+                "en": "Scope a project to a size that is achievable and verifiable.",
+                "fa": "تعیین محدوده یک پروژه به اندازه‌ای که دست‌یافتنی و قابل‌اعتبارسنجی باشد."
+              }
+            ],
+            "dataCategory": "PX"
+          },
+          {
+            "title": {
+              "en": "PX-04 · Vibe Coding & AI Coding Agents for Decision-Makers",
+              "fa": "PX-04 · Vibe Coding و عامل‌های کدنویسی برای تصمیم‌گیرندگان",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Cursor, Claude Code, Codex, and Devin — what building without coding really means, how to judge AI-generated code, and when it is safe to ship.",
+              "fa": "Cursor، Claude Code، Codex و Devin — ساخت بدون کدنویسی واقعاً یعنی چه، چگونه کد تولیدشده توسط هوش مصنوعی را داوری کنید، و چه زمان امن است تحویل دهید."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Entrepreneurs, project managers",
+                "fa": "کارآفرینان، مدیران پروژه",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Build a working tool via AI without writing code yourself.",
+                "fa": "ساخت یک ابزار کارآمد با هوش مصنوعی بدون کدنویسی شخصی."
+              },
+              {
+                "en": "Judge whether AI-generated code is safe to deploy in your context.",
+                "fa": "داوری اینکه آیا کد تولیدشده توسط هوش مصنوعی برای استقرار در شرایط شما امن است."
+              }
+            ],
+            "dataCategory": "PX"
+          },
+          {
+            "title": {
+              "en": "PX-05 · Personal AI Stack: Your AI Operating System",
+              "fa": "PX-05 · پشته هوش مصنوعی شخصی: سیستم‌عامل هوش مصنوعی شما",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Assembling Claude or Gemini with your tools, knowledge, and agents into a compounding personal system — NotebookLM, knowledge assistants, and the agentic personal stack.",
+              "fa": "گردآوری Claude یا Gemini با ابزارها، دانش و عامل‌های خود به یک سیستم شخصی انباشت‌شونده — NotebookLM، دستیاران دانشی و پشته شخصی عامل‌محور."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Researchers, consultants",
+                "fa": "پژوهشگران، مشاوران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Assemble a personal AI stack that compounds your capability over time.",
+                "fa": "گردآوری یک پشته هوش مصنوعی شخصی که توانایی شما را در طول زمان می‌افزاید."
+              },
+              {
+                "en": "Connect your knowledge base, tools, and agents into one operating layer.",
+                "fa": "اتصال پایگاه دانش، ابزارها و عامل‌هایتان به یک لایه عملیاتی واحد."
+              }
+            ],
+            "dataCategory": "PX"
+          }
+        ]
+      },
+      {
+        "code": "EV",
+        "panelId": "ws-panel-EV",
+        "introEnHtml": "<strong>EV — Evaluation, Trust &amp; Governance.</strong> The judgment layer. Not how to use AI, but how to make decisions about AI — where to deploy it, how to evaluate it, how to govern it, and how to stay safe.",
+        "introFaHtml": "<strong>TH — ارزیابی، اعتماد و حاکمیت.</strong> لایه قضاوت. نه چگونگی استفاده از هوش مصنوعی، بلکه چگونگی تصمیم‌گیری درباره آن — کجا مستقر کنید، چگونه ارزیابی کنید، چگونه حاکمیت کنید و چگونه ایمن بمانید.",
+        "modules": [
+          {
+            "title": {
+              "en": "EV-01 · Hallucination Diagnosis & Mitigation",
+              "fa": "EV-01 · تشخیص و کاهش توهم",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Types, detection, and prevention — why hallucination happens, what to do about it, and how to stop fearing it without ignoring it.",
+              "fa": "انواع، تشخیص و پیشگیری — چرا توهم رخ می‌دهد، چه باید کرد، و چگونه بدون ترس از آن و بی‌توجهی به آن، با آن برخورد کنید."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "All audiences",
+                "fa": "همه مخاطبان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Diagnose the specific type of hallucination you are encountering.",
+                "fa": "تشخیص نوع خاص توهمی که با آن روبرو هستید."
+              },
+              {
+                "en": "Apply structural mitigations rather than hoping for the best.",
+                "fa": "اعمال کاهشهای ساختاری به‌جای امید به بهترین حالت."
+              }
+            ],
+            "dataCategory": "EV"
+          },
+          {
+            "title": {
+              "en": "EV-02 · Fact-Checking AI Output",
+              "fa": "EV-02 · راستی‌آزمایی خروجی هوش مصنوعی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Source validation, cross-verification, and evidence discipline — practical verification workflows for non-researchers facing consequential outputs.",
+              "fa": "اعتبارسنجی منبع، تأیید متقاطع و انضباط شواهد — گردشکارهای راستی‌آزمایی عملی برای غیرپژوهشگرانی که با خروجی‌های مهم روبرو هستند."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Analysts, compliance",
+                "fa": "تحلیل‌گران، انطباق",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Verify AI output against sources before acting on it.",
+                "fa": "راستی‌آزمایی خروجی هوش مصنوعی در برابر منابع پیش از اقدام بر اساس آن."
+              },
+              {
+                "en": "Build a verification step into every consequential AI workflow.",
+                "fa": "گنجاندن یک گام راستی‌آزمایی در هر گردشکار مهم هوش مصنوعی."
+              }
+            ],
+            "dataCategory": "EV"
+          },
+          {
+            "title": {
+              "en": "EV-03 · Trust Calibration",
+              "fa": "EV-03 · کالیبراسیون اعتماد",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Overtrust versus undertrust — appropriate trust, decision boundaries, and the automation bias that quietly erodes human judgment.",
+              "fa": "اعتماد بیش‌ازحد در برابر اعتماد کم‌ازحد — اعتماد مناسب، مرزهای تصمیم و سوگیری خودکارسازی که بی‌صدا قضاوت انسانی را تحلیل می‌برد."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, managers",
+                "fa": "مدیران ارشد، مدیران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Calibrate how much to trust AI for each class of decision.",
+                "fa": "کالیبره کردن میزان اعتماد به هوش مصنوعی برای هر طبقه تصمیم."
+              },
+              {
+                "en": "Detect and counter automation bias in yourself and your team.",
+                "fa": "شناسایی و خنثی‌سازی سوگیری خودکارسازی در خود و تیمتان."
+              }
+            ],
+            "dataCategory": "EV"
+          },
+          {
+            "title": {
+              "en": "EV-04 · Agent Evaluation & Observability",
+              "fa": "EV-04 · ارزیابی و مشاهده‌پذیری عامل",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Tracing, evals, and regression detection — how to trust agents in production, and what to demand of any agent system before it touches real work.",
+              "fa": "ردیابی، ارزیابی و تشخیص بازگشت — چگونه به عامل‌ها در محیط عملیاتی اعتماد کنید، و چه از هر سیستم عاملی پیش از تماس با کار واقعی بخواهید."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, IT directors",
+                "fa": "مدیران، مدیران فناوری",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Specify the observability any agent system must have before deployment.",
+                "fa": "تعیین مشاهده‌پذیری موردنیاز هر سیستم عامل پیش از استقرار."
+              },
+              {
+                "en": "Set up regression checks that catch agent degradation over time.",
+                "fa": "برپایی بررسی‌های بازگشت که تخریب عامل را در طول زمان شکار می‌کنند."
+              }
+            ],
+            "dataCategory": "EV"
+          },
+          {
+            "title": {
+              "en": "EV-05 · AI Security Fundamentals for Leaders",
+              "fa": "EV-05 · مبانی امنیت هوش مصنوعی برای مدیران",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Prompt injection, data exfiltration via agents, and supply-chain risks — the layered-controls reality every deploying executive inherits.",
+              "fa": "تزریق پرامپت، استخراج داده از طریق عامل‌ها و ریسک‌های زنجیره تأمین — واقعیت کنترل‌های لایه‌ای که هر مدیر مستقرکننده به ارث می‌برد."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, compliance",
+                "fa": "مدیران، انطباق",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Identify the security surface any AI deployment introduces.",
+                "fa": "شناسایی سطح امنیتی که هر استقرار هوش مصنوعی وارد می‌کند."
+              },
+              {
+                "en": "Apply layered controls rather than expecting a single fix.",
+                "fa": "اعمال کنترل‌های لایه‌ای به‌جای انتظار یک راه‌حل واحد."
+              }
+            ],
+            "dataCategory": "EV"
+          },
+          {
+            "title": {
+              "en": "EV-06 · AI Governance & Regulatory Readiness",
+              "fa": "EV-06 · حاکمیت هوش مصنوعی و آمادگی نظارتی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "EU AI Act, NIST AI RMF, and ISO/IEC 42001 — board-ready governance, AI literacy obligations, and how to map frameworks to your organization's decisions.",
+              "fa": "مصوبه هوش مصنوعی اتحادیه اروپا، NIST AI RMF و ISO/IEC 42001 — حاکمیت آماده برای هیئت‌مدیره، تعهدات سواد هوش مصنوعی، و چگونگی تطبیق چارچوب‌ها با تصمیمات سازمان شما."
+            },
+            "meta": [
+              {
+                "en": "Advanced",
+                "fa": "پیشرفته",
+                "dir": ""
+              },
+              {
+                "en": "Leaders, boards",
+                "fa": "مدیران، هیئت‌مدیره",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Map a governance framework onto your organization's real decision points.",
+                "fa": "تطبیق یک چارچوب حاکمیتی با نقاط تصمیم واقعی سازمان شما."
+              },
+              {
+                "en": "Produce a board-ready view of your AI risk and readiness posture.",
+                "fa": "تولید یک نمای آماده برای هیئت‌مدیره از وضعیت ریسک و آمادگی هوش مصنوعی شما."
+              }
+            ],
+            "dataCategory": "EV"
+          }
+        ]
+      },
+      {
+        "code": "TH",
+        "panelId": "ws-panel-TH",
+        "introEnHtml": "<strong>TH — Thinking &amp; Creating With AI.</strong> The layer where AI becomes a partner in your actual intellectual and creative work — not a tool you operate, but a collaborator you design with.",
+        "introFaHtml": "<strong>TH — تفکر و خلق با هوش مصنوعی.</strong> لایه‌ای که هوش مصنوعی به شریک کار فکری و خلاقانه واقعی شما تبدیل می‌شود — نه ابزاری که به‌کار می‌برید، بلکه همکاری که با او طراحی می‌کنید.",
+        "modules": [
+          {
+            "title": {
+              "en": "TH-01 · AI as a Thinking Partner",
+              "fa": "TH-01 · هوش مصنوعی به‌عنوان شریک تفکر",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Co-reasoning and sense-making — using AI for analysis, analogical thinking, and stress-testing your mental models.",
+              "fa": "هم‌استدلال و معناسازی — استفاده از هوش مصنوعی برای تحلیل، تفکر تمثیلی و آزمون مدل‌های ذهنی خود."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Consultants, researchers",
+                "fa": "مشاوران، پژوهشگران",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Use AI to pressure-test a decision before you commit to it.",
+                "fa": "استفاده از هوش مصنوعی برای آزمون یک تصمیم پیش از تعهد به آن."
+              },
+              {
+                "en": "Surface blind spots in your own reasoning through structured dialogue.",
+                "fa": "آشکارسازی نقاط کور استدلال خود از طریق گفت‌وگوی ساختاریافته."
+              }
+            ],
+            "dataCategory": "TH"
+          },
+          {
+            "title": {
+              "en": "TH-02 · Idea Generation & Concept Blending",
+              "fa": "TH-02 · ایده‌پردازی و ترکیب مفاهیم",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Structured divergence with AI — creative constraints, concept blending, and how to evaluate AI-assisted ideas rather than just collect them.",
+              "fa": "واگرایی ساختاریافته با هوش مصنوعی — محدودیت‌های خلاقانه، ترکیب مفاهیم، و چگونگی ارزیابی ایده‌های کمکی هوش مصنوعی به‌جای صرف جمع‌آوری آن‌ها."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Strategists, designers",
+                "fa": "استراتژیست‌ها، طراحان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Generate a wider, higher-quality idea space on demand.",
+                "fa": "تولید فضای ایده‌ای گسترده‌تر و باکیفیت‌تر در صورت نیاز."
+              },
+              {
+                "en": "Filter AI-generated ideas against real constraints, not just novelty.",
+                "fa": "پالایش ایده‌های تولیدشده توسط هوش مصنوعی در برابر محدودیت‌های واقعی، نه فقط نو بودن."
+              }
+            ],
+            "dataCategory": "TH"
+          },
+          {
+            "title": {
+              "en": "TH-03 · AI-Assisted Writing & Content Production",
+              "fa": "TH-03 · نوشتن و تولید محتوا با کمک هوش مصنوعی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Drafting, editing, and voice matching — a quality workflow for producing writing that is distinctly yours, not generically AI.",
+              "fa": "تولید، ویرایش و تطبیق لحن — یک گردشکار کیفی برای تولید نوشته‌هایی که مشخصاً متعلق به شما هستند، نه عموماً هوش مصنوعی."
+            },
+            "meta": [
+              {
+                "en": "Foundational",
+                "fa": "پایه",
+                "dir": ""
+              },
+              {
+                "en": "All audiences",
+                "fa": "همه مخاطبان",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Produce written work faster without losing your voice or accuracy.",
+                "fa": "تولید نوشته‌ها سریع‌تر بدون از دست دادن لحن یا دقت."
+              },
+              {
+                "en": "Build a drafting-and-editing loop that improves every piece.",
+                "fa": "ساخت یک حلقه تولید-و-ویرایش که هر اثر را بهبود می‌بخشد."
+              }
+            ],
+            "dataCategory": "TH"
+          },
+          {
+            "title": {
+              "en": "TH-04 · Workflow Redesign for AI",
+              "fa": "TH-04 · بازطراحی گردشکار برای هوش مصنوعی",
+              "link": null
+            },
+            "subtitle": {
+              "en": "Auditing your current workflows, deciding where AI fits and where it does not, and redesigning processes around human-AI collaboration.",
+              "fa": "بازبینی گردشکارهای فعلی، تصمیم‌گیری درباره اینکه هوش مصنوعی کجا می‌گنجد و کجا نمی‌گنجد، و بازطراحی فرآیندها پیرامون همکاری انسان-هوش‌مصنوعی."
+            },
+            "meta": [
+              {
+                "en": "Intermediate",
+                "fa": "متوسط",
+                "dir": ""
+              },
+              {
+                "en": "Managers, operations",
+                "fa": "مدیران، عملیات",
+                "dir": ""
+              }
+            ],
+            "bullets": [
+              {
+                "en": "Audit a real workflow and identify where AI creates genuine value.",
+                "fa": "بازبینی یک گردشکار واقعی و شناسایی اینکه هوش مصنوعی کجا ارزش واقعی می‌آفریند."
+              },
+              {
+                "en": "Redesign the process so humans and AI each do what they do best.",
+                "fa": "بازطراحی فرآیند به‌گونه‌ای که انسان و هوش مصنوعی هر کدام آنچه را بهتر انجام می‌دهند بر عهده بگیرند."
+              }
+            ],
+            "dataCategory": "TH"
+          }
+        ]
+      }
+    ],
+    "outroParagraphs": [
+      {
+        "en": "After selecting your topics, contact Ehsan to scope hours, depth, audience fit, and pricing. Modules can be combined across domains, sequenced into a pathway, or focused into a single intensive — the structure adapts to your context, not the other way around.",
+        "fa": "پس از انتخاب موضوعات، برای تعیین ساعت، عمق، تناسب مخاطب و قیمت با احسان در تماس باشید. ماژول‌ها می‌توانند میان حوزه‌ها ترکیب، به یک مسیر ترتیب داده، یا در یک دوره فشرده متمرکز شوند — ساختار به شرایط شما سازگار می‌شود، نه برعکس."
+      }
+    ]
+  },
+  "services": {
+    "introParagraphs": [
+      {
+        "en": "Ehsan's practice sits in the structural-architectural middle ground that most providers miss — between commoditized \"AI awareness\" training and developer-focused AI engineering. He works with decision-makers who need to understand how AI systems work well enough to make architectural choices about where and how to deploy them, without needing to become technical. The engagement types below are designed to operate together; most clients begin with one and expand into others as the relationship deepens.",
+        "fa": "رسالت احسان در میانه ساختار-معمارانه‌ای قرار دارد که بیشتر ارائه‌دهندگان از آن غافل‌اند — میان آموزش آگاهی عمومی هوش مصنوعی (که کالایی شده) و مهندسی هوش مصنوعی متمرکز بر توسعه‌دهنده. او با تصمیم‌گیرندگانی کار می‌کند که باید هوش مصنوعی را آن‌قدر درک کنند که بتوانند انتخاب‌های معمارانه درباره محل و نحوه استقرار آن بگیرند، بی‌آنکه فنی شوند. انواع تعامل زیر طوری طراحی شده‌اند که با هم کار کنند؛ بیشتر مشتریان با یکی آغاز می‌کنند و با تعمیق رابطه به موارد دیگر گسترش می‌یابند."
+      },
+      {
+        "en": "Every engagement is scoped individually to the client's context, audience, and objectives. Pricing is quoted per engagement after a scoping conversation — Ehsan calibrates it against the specific organization, format, and depth required, rather than publishing fixed rates.",
+        "fa": "هر تعامل به‌صورت موردی و متناسب با شرایط، مخاطب و اهداف مشتری تعیین محدوده می‌شود. قیمت پس از یک گفت‌وگوی تعیین حوزه، برای هر تعامل نقل می‌شود — احسان آن را بر اساس سازمان، قالب و عمق خاص موردنیاز کالیبره می‌کند، نه نرخ‌های ثابت منتشرشده."
+      }
+    ],
+    "items": [
+      {
+        "title": {
+          "en": "Executive Advisory",
+          "fa": "مشاوره اجرایی",
+          "link": null
+        },
+        "subtitle": {
+          "en": "One-to-one and small leadership-team engagements that produce a Decision Architecture Map — where AI should and should not enter your decision flows.",
+          "fa": "تعامل‌های یک‌به‌یک و با تیم‌های کوچک رهبری که به یک «نقشه معماری تصمیم» ختم می‌شوند — هوش مصنوعی کجا باید و کجا نباید در جریان‌های تصمیم شما وارد شود."
+        },
+        "meta": [
+          {
+            "en": "1:1 Advisory",
+            "fa": "مشاوره فردی",
+            "dir": ""
+          },
+          {
+            "en": "Per engagement",
+            "fa": "هر تعامل",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "A structured diagnostic engagement — typically a few 90-minute sessions — mapping your current decision flows and the structural gaps AI creates or fills.",
+            "fa": "یک تعامل تشخیصی ساختاریافته — معمولاً چند جلسه ۹۰ دقیقه‌ای — که جریان‌های تصمیم فعلی شما و شکاف‌های ساختاری‌ای را که هوش مصنوعی ایجاد یا پر می‌کند، ترسیم می‌کند."
+          },
+          {
+            "en": "Delivered virtually or in person; each session follows a diagnostic pattern with no generic slides or off-the-shelf frameworks.",
+            "fa": "به‌صورت مجازی یا حضوری ارائه می‌شود؛ هر جلسه از یک الگوی تشخیصی پیروی می‌کند بدون اسلاید عمومی یا چارچوب‌های آماده."
+          },
+          {
+            "en": "Best for C-suite executives, department heads, and founders of knowledge-intensive organizations weighing real AI deployment decisions.",
+            "fa": "مناسب‌ترین برای مدیران ارشد، رؤسای واحد و بنیان‌گذاران سازمان‌های دانش‌بنیان که در حال وزن‌کشی تصمیم‌های واقعی استقرار هوش مصنوعی هستند."
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Corporate Retained Advisory",
+          "fa": "مشاوره حضوری سازمانی",
+          "link": null
+        },
+        "subtitle": {
+          "en": "An ongoing relationship in which Ehsan serves as your organization's external AI capability advisor — available on retainer to review decisions, audit outputs, and advise on workflow changes.",
+          "fa": "یک رابطه مستمر که در آن احسان به‌عنوان مشاور توانایی هوش مصنوعی بیرونی سازمان شما عمل می‌کند — در دسترس، برای بازبینی تصمیم‌ها، حسابرسی خروجی‌ها و مشاوره درباره تغییرات گردشکار."
+        },
+        "meta": [
+          {
+            "en": "Recurring",
+            "fa": "مستمر",
+            "dir": ""
+          },
+          {
+            "en": "Monthly retainer",
+            "fa": "حق‌الزحمه ماهانه",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "A fixed monthly allocation of access — including one structured session plus on-demand asynchronous advisory on real questions as they arise.",
+            "fa": "تخصیص ماهانه ثابت دسترسی — شامل یک جلسه ساختاریافته به‌علاوه مشاوره ناهمگام درخواستی بر پرسش‌های واقعی هنگام بروز."
+          },
+          {
+            "en": "Suited to organizations that have completed an advisory engagement and want ongoing access, and to government departments with standing advisory allocations.",
+            "fa": "مناسب سازمان‌هایی که یک تعامل مشاوره‌ای را کامل کرده و دسترسی مستمر می‌خواهند، و ادارات دولتی با تخصیص مشاوره دائمی."
+          },
+          {
+            "en": "Delivered through the communication channels your organization already uses — no new platform required.",
+            "fa": "از طریق کانال‌های ارتباطی‌ای ارائه می‌شود که سازمان شما از پیش به‌کار می‌برد — نیازی به پلتفرم جدید نیست."
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Premium Cohort Programs",
+          "fa": "برنامه‌های گروهی ویژه",
+          "link": null
+        },
+        "subtitle": {
+          "en": "Small-group intensives in which each participant brings their actual professional context and leaves with a tested, deployable artifact.",
+          "fa": "دوره‌های فشرده گروهی که در آن هر مشارکت‌کننده شرایط حرفه‌ای واقعی خود را می‌آورد و با یک مصنوع آزموده‌شده و قابل استقرار خارج می‌شود."
+        },
+        "meta": [
+          {
+            "en": "Cohort",
+            "fa": "گروهی",
+            "dir": ""
+          },
+          {
+            "en": "Per cohort",
+            "fa": "هر گروه",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "A structured multi-week program of live sessions, each producing a specific deliverable — a diagnostic, a workflow, a decision protocol, or an evaluation framework — built from each participant's own context.",
+            "fa": "یک برنامه چند هفته‌ای ساختاریافته از جلسات زنده که هر کدام به یک تحویل‌دادنی مشخص ختم می‌شود — یک تشخیص، یک گردشکار، یک پروتکل تصمیم یا یک چارچوب ارزیابی — ساخته‌شده از شرایط هر مشارکت‌کننده."
+          },
+          {
+            "en": "Designed for mid-to-senior professionals individually, or for organizations sending a group of team members together.",
+            "fa": "برای متخصصان میان‌رده تا ارشد به‌صورت فردی، یا سازمان‌هایی که گروهی از اعضای تیم را با هم می‌فرستند، طراحی شده است."
+          },
+          {
+            "en": "Live virtual sessions with materials shared afterward; each cohort has a clear start and end — no open-ended commitments.",
+            "fa": "جلسات زنده مجازی با اشتراک‌گذاری مواد پس از آن؛ هر گروه آغاز و پایان روشنی دارد — بدون تعهد بی‌پایان."
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Diagnostic Tools",
+          "fa": "ابزارهای تشخیصی",
+          "link": null
+        },
+        "subtitle": {
+          "en": "Productized self-assessment instruments that codify the diagnostic thinking into a format a professional can use without direct involvement.",
+          "fa": "ابزارهای خودارزیابی محصولی‌شده که تفکر تشخیصی را به شکلی کدگذاری می‌کنند که یک متخصص می‌تواند بدون دخالت مستقیم از آن استفاده کند."
+        },
+        "meta": [
+          {
+            "en": "Productized",
+            "fa": "محصولی",
+            "dir": ""
+          },
+          {
+            "en": "Per tool",
+            "fa": "هر ابزار",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "Structured instruments — such as an AI Decision Readiness Audit, a Prompt Architecture Diagnostic, and a Vendor Evaluation Framework — that walk a professional through a self-assessment with concrete recommendations.",
+            "fa": "ابزارهای ساختاریافته — مانند ممیزی آمادگی تصمیم هوش مصنوعی، تشخیص معماری پرامپت و چارچوب ارزیابی ارائه‌دهنده — که یک متخصص را در یک خودارزیابی با توصیه‌های مشخص همراهی می‌کنند."
+          },
+          {
+            "en": "Usable by someone who has never spoken with Ehsan; capped in scope so they stay practical rather than sprawling.",
+            "fa": "قابل استفاده توسط کسی که هرگز با احسان صحبت نکرده؛ از نظر محدوده محدود شده تا عملی بماند نه گسترده."
+          },
+          {
+            "en": "Available individually or under an enterprise license for team-wide distribution as a pre-engagement assessment.",
+            "fa": "به‌صورت فردی یا با مجوز سازمانی برای توزیع تیمی به‌عنوان ارزیابی پیش از تعامل در دسترس است."
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Paid Office Hours",
+          "fa": "ساعات پرسش و پاسخ",
+          "link": null
+        },
+        "subtitle": {
+          "en": "A recurring live group advisory session where members bring real professional challenges and benefit from hearing each other's questions answered.",
+          "fa": "یک جلسه مشاوره گروهی زنده و مستمر که اعضا چالش‌های حرفه‌ای واقعی خود را می‌آورند و از شنیدن پاسخ پرسش‌های یکدیگر بهره می‌برند."
+        },
+        "meta": [
+          {
+            "en": "Subscription",
+            "fa": "اشتراک",
+            "dir": ""
+          },
+          {
+            "en": "Monthly",
+            "fa": "ماهانه",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "Access to a regular live Q&A session plus a private channel for asynchronous questions between sessions.",
+            "fa": "دسترسی به یک جلسه زنده پرسش‌وپاسخ منظم به‌علاوه یک کانال خصوصی برای پرسش‌های ناهمگام میان جلسات."
+          },
+          {
+            "en": "Designed for professionals who want periodic access to expert judgment, and for cohort alumni who want to maintain the connection.",
+            "fa": "برای متخصصانی که دسترسی دوره‌ای به قضاوت تخصصی می‌خواهند، و فارغ‌التحصیلان گروهی که می‌خواهند ارتباط را حفظ کنند، طراحی شده است."
+          },
+          {
+            "en": "A low-friction way to evaluate whether a fuller engagement is right for you.",
+            "fa": "راهی کم‌اصطکاک برای ارزیابی اینکه آیا یک تعامل کامل‌تر برای شما مناسب است."
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Institutional In-Service Contracts",
+          "fa": "قراردادهای آموزش ضمن‌خدمت سازمانی",
+          "link": null
+        },
+        "subtitle": {
+          "en": "Formal contracted engagements with government departments and corporations to develop a unit's AI integration capability — not generic training, but capability building tied to a documented deliverable.",
+          "fa": "تعامل‌های قراردادی رسمی با ادارات دولتی و شرکت‌ها برای توسعه توانایی یک واحد در ادغام هوش مصنوعی — نه آموزش عمومی، بلکه ساخت توانایی وابسته به یک تحویل‌دادنی مستند."
+        },
+        "meta": [
+          {
+            "en": "Institutional",
+            "fa": "سازمانی",
+            "dir": ""
+          },
+          {
+            "en": "Per contract",
+            "fa": "هر قرارداد",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "A structured engagement of half-day sessions customized to the department's operations, each producing a departmental artifact — a decision protocol, a workflow redesign, an AI usage policy, or an evaluation rubric.",
+            "fa": "یک تعامل ساختاریافته از جلسات نیم‌روزی متناسب با عملیات اداره، که هر کدام به یک مصنوع اداری ختم می‌شود — یک پروتکل تصمیم، یک بازطراحی گردشکار، یک سیاست استفاده از هوش مصنوعی یا یک روبریک ارزیابی."
+          },
+          {
+            "en": "Delivered on-site or hybrid, through the organization's standard procurement and contracting process.",
+            "fa": "به‌صورت حضوری یا ترکیبی، از طریق فرآیند استاندارد تأمین و قرارداد سازمان ارائه می‌شود."
+          },
+          {
+            "en": "Suited to government departments with in-service training budgets and corporate L&D functions building real internal capability.",
+            "fa": "مناسب ادارات دولتی با بودجه آموزش ضمن‌خدمت و واحدهای آموزش سازمانی شرکتی که توانایی داخلی واقعی می‌سازند."
+          }
+        ]
+      },
+      {
+        "title": {
+          "en": "Reference Assets",
+          "fa": "منابع مرجع",
+          "link": null
+        },
+        "subtitle": {
+          "en": "Published long-form reference documents that working professionals return to repeatedly — decision frameworks, architectural guides, and technical primers written for non-technical decision-makers.",
+          "fa": "اسناد مرجع بلند منتشرشده که متخصصان کارکردها به‌طور مکرر به آن‌ها بازمی‌گردند — چارچوب‌های تصمیم، راهنماهای معماری و مقدمه‌های فنی نوشته‌شده برای تصمیم‌گیرندگان غیرفنی."
+        },
+        "meta": [
+          {
+            "en": "Reference",
+            "fa": "مرجع",
+            "dir": ""
+          },
+          {
+            "en": "Per document",
+            "fa": "هر سند",
+            "dir": ""
+          }
+        ],
+        "bullets": [
+          {
+            "en": "Standalone references — for example, a technical primer on how AI actually works for decision-makers, and a practical handbook on mapping where AI should and should not enter organizational decision flows.",
+            "fa": "منابع مستقل — برای مثال، یک مقدمه فنی درباره چگونگی واقعی کار هوش مصنوعی برای تصمیم‌گیرندگان، و یک راهنمای عملی برای ترسیم اینکه هوش مصنوعی کجا باید و کجا نباید وارد جریان‌های تصمیم سازمانی شود."
+          },
+          {
+            "en": "For professionals who want a reference they can study and return to, and for organizations building a shared knowledge base across their leadership team.",
+            "fa": "برای متخصصانی که یک مرجع می‌خواهند که مطالعه و به آن بازگردند، و سازمان‌هایی که پایگاه دانش مشترکی در سراسر تیم رهبری خود می‌سازند."
+          },
+          {
+            "en": "Available as individual documents or under an organizational license for internal distribution.",
+            "fa": "به‌صورت اسناد فردی یا با مجوز سازمانی برای توزیع داخلی در دسترس است."
+          }
+        ]
+      }
+    ],
+    "outroParagraphs": [
+      {
+        "en": "If any of these fits your context, the next step is a short scoping conversation. Ehsan will discuss your objectives, audience, and constraints, and propose a tailored engagement with a clear scope and quote. Use the contact details in the sidebar to begin.",
+        "fa": "اگر هر یک از این موارد با شرایط شما سازگار است، گام بعدی یک گفت‌وگوی کوتاه تعیین حوزه است. احسان درباره اهداف، مخاطب و محدودیت‌های شما گفت‌وگو می‌کند و یک تعامل سفارشی با محدوده و نقل روشن پیشنهاد می‌دهد. برای آغاز از اطلاعات تماس در نوار کناری استفاده کنید."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "code": "SKL-01",
+      "panelId": "ws-panel-SKL-01",
+      "introEnHtml": "<strong>SKL-01 — Artificial Intelligence.</strong> Core AI capabilities: prompt engineering, chaining, agentic systems, RAG, context engineering, and hallucination mitigation.",
+      "introFaHtml": "<strong>SKL-01 — هوش مصنوعی.</strong> توانایی‌های اصلی هوش مصنوعی: مهندسی پرامپت، زنجیره‌سازی، سیستم‌های عاملی، RAG، مهندسی بستر و کاهش توهم.",
+      "skillRows": [
+        {
+          "category": {
+            "en": "Artificial Intelligence",
+            "fa": "هوش مصنوعی"
+          },
+          "gridDir": "ltr",
+          "badges": [
+            {
+              "glyph": "◉",
+              "label": "LLM Prompt Engineering"
+            },
+            {
+              "glyph": "◉",
+              "label": "Prompt Chaining"
+            },
+            {
+              "glyph": "◉",
+              "label": "Agentic AI"
+            },
+            {
+              "glyph": "◉",
+              "label": "RAG"
+            },
+            {
+              "glyph": "◉",
+              "label": "NLP"
+            },
+            {
+              "glyph": "◉",
+              "label": "Context Engineering"
+            },
+            {
+              "glyph": "◉",
+              "label": "Multi-Agent Systems"
+            },
+            {
+              "glyph": "◉",
+              "label": "Hallucination Mitigation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SKL-02",
+      "panelId": "ws-panel-SKL-02",
+      "introEnHtml": "<strong>SKL-02 — AI Tools &amp; Models.</strong> Working knowledge of the primary frontier models and platforms used across the practice.",
+      "introFaHtml": "<strong>SKL-02 — ابزارها و مدل‌های هوش مصنوعی.</strong> آشنایی عملی با مدل‌ها و پلتفرم‌های پیشگام اصلی که در سراسر فعالیت‌های حرفه‌ای به‌کار می‌رود.",
+      "skillRows": [
+        {
+          "category": {
+            "en": "AI Tools & Models",
+            "fa": "ابزارها و مدل‌های هوش مصنوعی"
+          },
+          "gridDir": "ltr",
+          "badges": [
+            {
+              "glyph": "◈",
+              "label": "Claude"
+            },
+            {
+              "glyph": "◈",
+              "label": "Gemini"
+            },
+            {
+              "glyph": "◈",
+              "label": "Grok"
+            },
+            {
+              "glyph": "◈",
+              "label": "DeepSeek"
+            },
+            {
+              "glyph": "◈",
+              "label": "Google NotebookLM"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SKL-03",
+      "panelId": "ws-panel-SKL-03",
+      "introEnHtml": "<strong>SKL-03 — Data &amp; Business Intelligence.</strong> Analytical tools for turning data into management insights and dashboards.",
+      "introFaHtml": "<strong>SKL-03 — داده و هوش تجاری.</strong> ابزارهای تحلیلی برای تبدیل داده به بینش‌های مدیریتی و داشبورد.",
+      "skillRows": [
+        {
+          "category": {
+            "en": "Data & BI",
+            "fa": "داده و BI"
+          },
+          "gridDir": "ltr",
+          "badges": [
+            {
+              "glyph": "⬢",
+              "label": "Power BI"
+            },
+            {
+              "glyph": "⬢",
+              "label": "SPSS"
+            },
+            {
+              "glyph": "⬢",
+              "label": "Excel Analytics"
+            },
+            {
+              "glyph": "⬢",
+              "label": "Excel"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "SKL-04",
+      "panelId": "ws-panel-SKL-04",
+      "introEnHtml": "<strong>SKL-04 — AI Project Management.</strong> Tooling for orchestrating AI projects and cross-team delivery.",
+      "introFaHtml": "<strong>SKL-04 — مدیریت پروژه هوش مصنوعی.</strong> ابزارهای هماهنگی پروژه‌های هوش مصنوعی و تحویل میان‌تیمی.",
+      "skillRows": [
+        {
+          "category": {
+            "en": "AI Project Management",
+            "fa": "مدیریت پروژه هوش مصنوعی"
+          },
+          "gridDir": "ltr",
+          "badges": [
+            {
+              "glyph": "⬡",
+              "label": "Jira"
+            },
+            {
+              "glyph": "⬡",
+              "label": "Trello"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "title": {
+        "en": "Spam Detection in Social Networks with Natural Language Processing Based on BERT Network and Generative Adversarial Network (GAN) with Swarm Intelligence in Apache Spark Architecture",
+        "fa": "تشخیص اسپم در شبکه‌های اجتماعی با پردازش زبان طبیعی مبتنی بر شبکه BERT و شبکه مولد تخاصمی (GAN) با هوش ازدحامی در معماری Apache Spark",
+        "link": {
+          "href": "https://drive.google.com/file/d/1yRiTMwVIb36pBh7atai_2-BopYg6Hro3/view?usp=sharing",
+          "target": "_blank",
+          "rel": [
+            "noopener"
+          ]
+        }
+      },
+      "subtitle": {
+        "en": "Springer Journal (Germany)",
+        "fa": "مجله Springer (آلمان)"
+      },
+      "meta": [
+        {
+          "en": "Under Review",
+          "fa": "در دست بررسی",
+          "dir": ""
+        }
+      ],
+      "bullets": []
+    },
+    {
+      "title": {
+        "en": "Local Sequence Alignment with a Parallel Hash Based Model",
+        "fa": "تراز‌بندی توالی محلی با مدل موازی مبتنی بر هش",
+        "link": {
+          "href": "https://www.magiran.com/author/seyed%20ehsan%20parsaeian",
+          "target": "_blank",
+          "rel": [
+            "noopener"
+          ]
+        }
+      },
+      "subtitle": {
+        "en": "International Conference on Distributed Computing and Distributed Systems",
+        "fa": "کنفرانس بین‌المللی محاسبات توزیع‌شده و سیستم‌های توزیع‌شده"
+      },
+      "meta": [
+        {
+          "en": "2022",
+          "fa": "۱۴۰۱",
+          "dir": "ltr"
+        }
+      ],
+      "bullets": []
+    }
+  ],
+  "consulting": {
+    "title": {
+      "en": "Professional Activities",
+      "fa": "فعالیت‌های حرفه‌ای و مشاوره",
+      "link": null
+    },
+    "subtitle": null,
+    "meta": [],
+    "bullets": [
+      {
+        "en": "AI and Business Intelligence Instructor for government agencies and local administrations in Yazd.",
+        "fa": "مدرس هوش مصنوعی و هوش تجاری ضمن‌خدمت ارگان‌های دولتی و ادارات استان یزد."
+      },
+      {
+        "en": "Artificial Intelligence Instructor at universities and private higher education institutes.",
+        "fa": "مدرس هوش مصنوعی در دانشگاه و موسسات آموزش عالی خصوصی."
+      },
+      {
+        "en": "Lead Consultant for integrating Large Language Models (LLMs) deeply with enterprise ERP systems.",
+        "fa": "مشاور تلفیق مدل‌های زبانی بزرگ (LLM) با سامانه‌های ERP سازمانی."
+      },
+      {
+        "en": "AI Consultant specializing in Computational Social Science methodologies.",
+        "fa": "مشاور هوش مصنوعی در حوزه Computational Social Science."
+      },
+      {
+        "en": "AI Consultant for advanced health and psychometrics projects (collaborating with Yazd University faculty).",
+        "fa": "مشاور هوش مصنوعی در پروژه‌های سلامت و روان‌شناسی (اساتید دانشگاه یزد)."
+      },
+      {
+        "en": "AI and R&D Lead for knowledge-based enterprises positioned within the University Technology Incubator.",
+        "fa": "مسئول هوش مصنوعی و R&D شرکت‌های دانش‌بنیان مرکز رشد دانشگاه آزاد."
+      }
+    ]
+  }
+}
