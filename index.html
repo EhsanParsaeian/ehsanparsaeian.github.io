@@ -118,7 +118,7 @@
 
         class MagneticButtonEffect {
             constructor() {
-                this.buttons = Array.from(document.querySelectorAll('button, a[href*="#"]')).filter(el => !el.closest('.profile-info-card') && !el.closest('.ws-cat-header'));
+                this.buttons = Array.from(document.querySelectorAll('button, a[href*="#"], .nav-cta-btn')).filter(el => !el.closest('.profile-info-card') && !el.closest('.ws-cat-header'));
                 this.rAF = null;
                 this.activeBtn = null;
                 this.lastEvt = null;
@@ -158,7 +158,11 @@
                 this.activeBtn = null;
                 btn.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
                 btn.style.transform = 'translate(0, 0) scale(1)';
-                btn.style.boxShadow = '0 0 0px rgba(79, 70, 229, 0)';
+                if(!btn.classList.contains('nav-cta-btn')){
+                    btn.style.boxShadow = '0 0 0px rgba(79, 70, 229, 0)';
+                } else {
+                    btn.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.3)';
+                }
                 setTimeout(() => {
                     btn.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out';
                 }, 300);
@@ -283,7 +287,6 @@
             min-height: 100vh;
         }
 
-        /* ── CUSTOM RAW GLASS SCROLLBAR ── */
         ::-webkit-scrollbar { width: 12px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { 
@@ -308,7 +311,6 @@
         ::selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
         ::-moz-selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
 
-        /* ۱. اصلاح پس‌زمینه (حذف انیمیشن لوپ بی‌انتهای مش جهت استراحت موتور رندر دسکتاپ) */
         body::before {
             content: '';
             position: fixed;
@@ -408,9 +410,8 @@
             outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px;
         }
 
-        /* طراحی محصول: بهینه‌سازی ارتفاع برای افزایش فضا و دیده شدن بخش‌های اصلی بدون نیاز به اسکرول */
         #hero-banner {
-            position: relative; height: 160px; overflow: hidden;
+            position: relative; height: 160px; overflow: hidden; /* Height Reduced for Above the Fold UX */
             background: #000000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); cursor: crosshair;
         }
         #hero-banner::before {
@@ -482,6 +483,26 @@
 
         .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; align-items: center; }
 
+        .nav-cta-btn {
+            background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb), 0.8));
+            color: #ffffff !important;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
+            transition: transform 0.3s var(--ease-elastic), box-shadow 0.2s ease, filter 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-cta-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.4);
+            filter: brightness(1.1);
+        }
+
         .nav-btn {
             background: transparent; border: 1px solid transparent; cursor: pointer; padding: 8px;
             color: var(--text); display: flex; align-items: center; justify-content: center;
@@ -494,21 +515,6 @@
         }
         [data-theme="dark"] .nav-btn:hover { background: rgba(255, 255, 255, 0.08); }
 
-        /* استایل اختصاصی دکمه فراخوان به اقدام (Call to Action) در منوی چسبان دسکتاپ */
-        .cta-btn-active {
-            background: var(--accent) !important;
-            color: #ffffff !important;
-            font-weight: 600 !important;
-            padding: 8px 16px !important;
-            border-radius: 20px !important;
-            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-        .cta-btn-active:hover {
-            transform: translateY(-2px) scale(1.03) !important;
-            box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.5) !important;
-        }
-
         #layout-wrapper { max-width: 1200px; margin: 36px auto 100px auto; padding: 0 40px; display: flex; align-items: flex-start; gap: 32px; }
         #sidebar {
             width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: calc(var(--nav-h) + 40px);
@@ -516,7 +522,6 @@
             background: transparent; border: none; box-shadow: none; padding: 0;
         }
 
-        /* شتاب‌دهی سخت‌افزاری عمیق با GPU برای رندر بی‌نقص افکت شیشه‌ای در دسکتاپ */
         .profile-info-card, .entry-block, .skill-row, .timeline-content, .reveal-card {
             will-change: transform;
             transform: translateZ(0);
@@ -525,28 +530,6 @@
             perspective: 1000px;
             position: relative;
             overflow: hidden;
-        }
-
-        /* افکت گلو و لایه‌بندی انیمیشن راداری هوشمند روی کارت‌ها */
-        .highlight-glow {
-            box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.4) !important;
-            border-color: var(--accent) !important;
-            transform: translateY(-4px) scale(1.02) !important;
-            z-index: 10;
-        }
-
-        /* برچسب مخاطبین هدف کارگاه‌ها برای افزایش تفکیک‌پذیری سرفصل‌ها */
-        .target-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            background: rgba(var(--accent-rgb), 0.12);
-            color: var(--accent);
-            margin-inline-start: 8px;
-            vertical-align: middle;
         }
 
         .profile-info-card::before, .entry-block::before, .skill-row::before, .timeline-content::before {
@@ -588,7 +571,6 @@
             font-variation-settings: "wght" 700; transition: font-variation-settings 0.3s ease;
         }
         
-        /* ۲. ثابت کردن گرادینت متن‌ها (حذف تگ انیمیشن لوپ بی‌پایان جهت بازرسم سبک کاراکترها در سکون) */
         h2 span {
             background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
@@ -606,7 +588,7 @@
 
         p { font-size: clamp(0.875rem, 2vw, 1.125rem); line-height: clamp(1.4, 1.5vw, 1.8); color: var(--p-text); margin-bottom: 16px; text-align: start; }
         html[lang="fa"] p { line-height: 1.75; }
-        .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; }
+        .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
 
         .entry-block {
             margin-bottom: 28px; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -627,12 +609,34 @@
         html[lang="fa"] .entry-title { letter-spacing: normal; }
         .entry-title a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
         .entry-title a:hover { color: var(--accent); }
-        .entry-meta { font-size: 0.85rem; color: var(--muted); font-weight: 500; text-align: end; flex-shrink: 0; margin-inline-start: 16px; }
         
+        .entry-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: flex-start; margin-top: 6px; }
+        
+        /* Targeting Badges Styling */
+        .target-badge {
+            padding: 4px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.05em; text-transform: uppercase;
+            background: rgba(var(--accent-rgb), 0.1); color: var(--accent);
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            display: inline-flex; align-items: center; white-space: nowrap;
+        }
+        html[lang="fa"] .target-badge { letter-spacing: normal; }
+        .target-badge.foundational { background: rgba(16, 185, 129, 0.1); color: #059669; border-color: rgba(16, 185, 129, 0.2); }
+        .target-badge.intermediate { background: rgba(245, 158, 11, 0.1); color: #d97706; border-color: rgba(245, 158, 11, 0.2); }
+        .target-badge.advanced { background: rgba(239, 68, 68, 0.1); color: #dc2626; border-color: rgba(239, 68, 68, 0.2); }
+        [data-theme="dark"] .target-badge.foundational { color: #34d399; }
+        [data-theme="dark"] .target-badge.intermediate { color: #fbbf24; }
+        [data-theme="dark"] .target-badge.advanced { color: #f87171; }
+        
+        @media (min-width: 601px) {
+            .entry-header { flex-wrap: wrap; }
+            .entry-meta { margin-inline-start: auto; margin-top: 0; justify-content: flex-end; }
+        }
         @media (max-width: 600px) {
             .entry-header { flex-direction: column; gap: 8px; }
-            .entry-meta { text-align: start; margin-inline-start: 0; }
+            .entry-meta { margin-inline-start: 0; }
         }
+
         .entry-bullets { list-style-type: none; }
         .entry-bullets li { position: relative; padding-inline-start: 20px; margin-bottom: 8px; color: var(--p-text); font-size: 0.875rem; }
         .entry-bullets li::before { content: "•"; position: absolute; inset-inline-start: 4px; color: var(--accent); font-weight: bold; }
@@ -669,7 +673,7 @@
         .ngon-glow-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
         .ngon-outline { fill: none; stroke: var(--glass-border-inner); stroke-width: 1; opacity: 0.55; vector-effect: non-scaling-stroke; }
 
-        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
+        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 5; cursor: crosshair; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
         .profile-info-card::after {
@@ -679,10 +683,7 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
-        /* ۱. اصلاح کامل باگ بستن تگ کامنت CSS برای کامپایل بدون نقص تمام استایل‌های زیرین */
-        .entry-block::after {
-            content: none !important;
-        }
+        .entry-block::after { content: none !important; }
 
         .entry-block::before, .profile-info-card::before {
             content: ''; position: absolute; left: 0; top: 0; width: 100%;
@@ -697,7 +698,7 @@
         }
         @keyframes shimmerBorder { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
 
-        .entry-block:hover { --ty: -4px; }
+        .entry-block:hover { --ty: -4px; box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.4), 8px 8px 16px rgba(0, 0, 0, 0.15), inset -2px -2px 6px rgba(255, 255, 255, 0.3), inset 2px 2px 6px rgba(0, 0, 0, 0.08); }
         [data-theme="dark"] .entry-block:hover { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(var(--accent-rgb), 0.07)); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 32px rgba(var(--accent-rgb), 0.25), 0 0 0 1px rgba(var(--accent-rgb), 0.25), inset 0 1px 0 var(--glass-border-inner); }
 
         .profile-info-card:hover { --ty: -4px; border-color: var(--accent); }
@@ -708,6 +709,20 @@
             box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.12), 0 0 0 1px rgba(var(--accent-rgb), 0.12), inset 0 1px 0 var(--glass-border-inner);
         }
         [data-theme="dark"] .skill-row:hover { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(var(--accent-rgb), 0.07)); box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.2), 0 0 0 1px rgba(var(--accent-rgb), 0.2), inset 0 1px 0 var(--glass-border-inner); }
+
+        /* Highlight Pulse Animation for Interactive Radar Charts */
+        @keyframes highlightPulseAnim {
+            0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4); border-color: var(--accent); }
+            70% { box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0); border-color: var(--accent); }
+            100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); border-color: var(--glass-border); }
+        }
+        .highlight-pulse {
+            animation: highlightPulseAnim 1.5s infinite !important;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.05)) !important;
+            border-color: var(--accent) !important;
+            transform: scale(1.01) !important;
+            z-index: 10;
+        }
 
         @supports (color: color-mix(in srgb, red, blue)) {
             .entry-block:hover { background: color-mix(in oklch, var(--glass-bg) 85%, var(--accent) 15%); border-color: color-mix(in oklch, var(--accent), transparent 50%); }
@@ -738,15 +753,12 @@
             #content-workspace { container-type: inline-size; }
             @container (max-width: 650px) {
                 .entry-header { flex-direction: column; gap: 6px; }
-                .entry-meta { text-align: start; margin-inline-start: 0; }
-                .timeline-content { padding: 12px 16px; }
             }
             .entry-block { container: entry-card / inline-size; }
             .skill-row { container: skill-card / inline-size; }
 
             @container entry-card (max-width: 380px) {
                 .entry-block .entry-header { flex-direction: column; gap: 6px; }
-                .entry-block .entry-meta { text-align: start; margin-inline-start: 0; }
             }
             @container skill-card (max-width: 360px) {
                 .skill-row { flex-direction: column; gap: 8px; }
@@ -767,12 +779,17 @@
 
         .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; perspective: 1000px; }
         
-        /* ۴. حل کامل تداخل ترنسفورم‌های CSS در هاور بنتوگرید و سپردن انیمیشن‌های چرخشی محوری به ماوس ترکر */
+        .bento-item {
+            position: relative; background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 32px; overflow: hidden; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); transform: translateZ(0);
+        }
+        .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+        
         .bento-item:hover {
             transform: translateY(-4px) scale(1.01);
             box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15), inset 0 1px 0 var(--glass-border-inner);
         }
-        .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
         .bento-item:hover::before { opacity: 1; }
         .bento-item.large { grid-column: span 2; }
 
@@ -780,8 +797,6 @@
 
         :focus-visible { animation: focusPulse 0.6s ease-out; }
         @keyframes focusPulse { 0% { outline-width: 2px; outline-offset: 4px; } 100% { outline-width: 4px; outline-offset: 8px; opacity: 0; } }
-
-        .entry-block:hover { box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.4), 8px 8px 16px rgba(0, 0, 0, 0.15), inset -2px -2px 6px rgba(255, 255, 255, 0.3), inset 2px 2px 6px rgba(0, 0, 0, 0.08); }
 
         @keyframes scrollReveal { 0% { opacity: 0; transform: translateY(40px) rotateX(-10deg); } 100% { opacity: 1; transform: translateY(0) rotateX(0); } }
         .scroll-animated { animation: scrollReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
@@ -796,28 +811,33 @@
             #about .profile-info-card { padding: 16px 14px; border-radius: 12px; margin-bottom: 20px; }
             h2 { font-size: 1.15rem; margin-bottom: 14px; }
             p, .entry-bullets li { text-align: start; } html[lang="fa"] p, html[lang="fa"] .entry-bullets li { line-height: 1.8; }
-            .entry-header { flex-direction: column; align-items: flex-start; gap: 4px; } .entry-meta { text-align: start; font-size: 0.85rem; margin-inline-start: 0; } .entry-title { font-size: 1.05rem; } .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
+            .entry-header { flex-direction: column; align-items: flex-start; gap: 4px; } .entry-title { font-size: 1.05rem; } .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
             .skill-row { flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; } .skill-cat { width: 100%; }
-            #nav-cta { display: none !important; } /* دکمه CTA در نسخه موبایل مخفی می‌شود */
         }
         @media (max-width: 480px) {
             html { font-size: 11.5px; } #layout-wrapper { padding: 0 10px; } #content-workspace { padding: 16px 12px; } #sidebar { padding: 16px 12px; } h2 { font-size: 1.1rem; } .entry-block { padding: 12px 10px; }
         }
 
-        /* استایل مینی‌مال نوار جستجوی متنی زنده (Live Search Input) در بالای ماتریس */
-        .matrix-search-field {
-            width: 100%; padding: 12px 16px 12px 42px; background: rgba(255, 255, 255, 0.15);
-            border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text);
-            font-family: inherit; font-size: 0.9rem; outline: none; transition: all 0.3s ease;
-            box-shadow: inset 0 1px 0 var(--glass-border-inner);
+        .matrix-toolbar { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); }
+        
+        /* Live Search Box Styling */
+        .matrix-search-box { width: 100%; }
+        .matrix-search-box input {
+            width: 100%; padding: 12px 16px; border-radius: 12px;
+            background: rgba(255, 255, 255, 0.4); border: 1px solid var(--glass-border);
+            color: var(--text); font-family: inherit; font-size: 0.9rem; font-weight: 500;
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
         }
-        html[dir="rtl"] .matrix-search-field { padding: 12px 42px 12px 16px; }
-        .matrix-search-field:focus {
-            background: rgba(255, 255, 255, 0.3); border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.2), inset 0 1px 0 var(--glass-border-inner);
+        [data-theme="dark"] .matrix-search-box input { background: rgba(0, 0, 0, 0.2); }
+        .matrix-search-box input:focus {
+            outline: none; border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2), inset 0 2px 4px rgba(0,0,0,0.05);
+            background: var(--glass-bg-strong);
         }
 
-        .matrix-toolbar { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); }
+        .matrix-filters-wrapper { display: flex; flex-wrap: wrap; gap: 20px; width: 100%; }
         .matrix-filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .matrix-filter-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
         html[lang="fa"] .matrix-filter-label { letter-spacing: normal; }
@@ -842,7 +862,9 @@
         .matrix-table tbody tr { transition: background 0.15s ease; cursor: pointer; }
         .matrix-table tbody tr:hover { background: rgba(var(--accent-rgb), 0.05); }
         .matrix-table tbody tr:last-child td { border-bottom: none; }
-        .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; cursor: help; }
+        .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; }
+        /* Tooltip hint cursor for matrix cat cells */
+        .matrix-cat-cell[title] { cursor: help; border-bottom: 1px dashed rgba(var(--accent-rgb), 0.4); }
         .matrix-title-cell { font-weight: 600; color: var(--text); max-width: 320px; }
         .matrix-depth-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.74rem; font-weight: 600; white-space: nowrap; }
         .matrix-depth-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -885,7 +907,7 @@
             .matrix-cat-cell { color: #1d4ed8 !important; }
             .matrix-section-cell { color: #555555 !important; }
             .matrix-empty { display: none !important; } .skill-row { flex-direction: row !important; gap: 14pt !important; page-break-inside: avoid !important; } .skill-cat { width: 100pt !important; font-size: 8pt !important; }
-            .workshop-category { border: 1px solid #e2e8f0 !important; border-radius: 4pt !important; margin-bottom: 8pt !important; padding: 0 !important; background: none !important; backdrop-filter: none !important; box-shadow: none !important; border: none !important; }
+            .workshop-category { border: 1px solid #e2e8f0 !important; border-radius: 4pt !important; margin-bottom: 8pt !important; padding: 0 !important; background: none !important; backdrop-filter: none !important; box-shadow: none !important; }
             .ws-cat-header { padding: 4pt 8pt !important; background: #f1f5f9 !important; border: none !important; border-radius: 0 !important; font-size: 9pt !important; cursor: default !important; }
             .ws-cat-header .ws-cat-intro { display: block !important; }
             html[lang="en"] .ws-cat-header .ws-cat-intro.en { display: block !important; } html[lang="fa"] .ws-cat-header .ws-cat-intro.fa { display: block !important; }
@@ -939,7 +961,6 @@
         .ws-cv-panel .ws-panel-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; padding: 0 4px; }
         html[lang="fa"] .ws-cv-panel .ws-panel-title { letter-spacing: normal; }
 
-        /* ── DEEP PERFORMANCE OBLITERATION OF MOBILE LAG ── */
         @media (max-width: 968px) {
             :root, [data-theme="dark"] {
                 --glass-blur: none !important;
@@ -1059,7 +1080,7 @@
 </div>
 </nav>
 <div class="nav-actions">
-<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-btn cta-btn-active" id="nav-cta">
+<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-cta-btn">
 <span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
 </a>
 <button aria-label="Toggle Language" class="nav-btn" id="lang-toggle" title="Switch Language">
@@ -1173,9 +1194,10 @@
 <p class="en">Every module across the Workshops, Teaching, and Skills sections — at a glance. Filter by category or depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
 <p class="fa">هر ماژول در سراسر بخش‌های کارگاه‌ها، تدریس و مهارت‌ها — در یک نگاه. بر اساس دسته یا عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
 <div class="matrix-toolbar">
-<div class="matrix-filter-group" style="width: 100%; margin-bottom: 8px;">
-    <input type="text" id="matrix-search-input" class="matrix-search-field" placeholder="Search modules, skills, or workshops...">
+<div class="matrix-search-box">
+<input type="text" id="matrix-search-input" placeholder="Live search through modules and categories... / جستجوی زنده در ماژول‌ها و دسته‌ها..." autocomplete="off">
 </div>
+<div class="matrix-filters-wrapper">
 <div aria-label="Filter by category" class="matrix-filter-group" role="group">
 <span class="matrix-filter-label en">Category</span>
 <span class="matrix-filter-label fa">دسته</span>
@@ -1185,6 +1207,7 @@
 <span class="matrix-filter-label en">Depth</span>
 <span class="matrix-filter-label fa">عمق</span>
 <div class="matrix-filter-chips" id="matrix-filter-depths"></div>
+</div>
 </div>
 </div>
 <div class="matrix-summary" id="matrix-summary"></div>
@@ -1310,16 +1333,26 @@
         });
     }
 
+    // UPDATED: Transforms standard meta divs into UX-friendly Targeting Badges when applicable
     function buildMetaDivs(meta) {
+        if (!meta || !meta.length) return '';
         return meta.map(m => {
             const divDir = m.dir ? ` dir="${m.dir}"` : '';
             const enDir = m.enDir ? ` dir="${m.enDir}"` : '';
             const faDir = m.faDir ? ` dir="${m.faDir}"` : '';
+            
+            // Intelligent Badge styling
+            let badgeClass = 'target-badge';
+            const enStr = (m.en || '').toLowerCase();
+            if(enStr.includes('foundational') || enStr.includes('beginner')) badgeClass += ' foundational';
+            else if(enStr.includes('intermediate')) badgeClass += ' intermediate';
+            else if(enStr.includes('advanced') || enStr.includes('expert') || enStr.includes('specialist')) badgeClass += ' advanced';
+            
             let inner = `<span class="en"${enDir}>${esc(m.en)}</span><span class="fa"${faDir}>${esc(m.fa)}</span>`;
             if (m.extraLtr) {
                 inner += ` <span dir="ltr">${esc(m.extraLtr)}</span>`;
             }
-            return `<div${divDir}>${inner}</div>`;
+            return `<div class="${badgeClass}"${divDir}>${inner}</div>`;
         }).join('');
     }
 
@@ -1355,22 +1388,6 @@
     function buildEntryBlock(mod, opts) {
         opts = opts || {};
         let titleHtml;
-        
-        // طراحی محصول: تولید خودکار برچسب‌های تفکیک مخاطب هدف برای کاهش بار شناختی کاربران کارگاه‌ها
-        let badgesHtml = '';
-        if (mod.bullets && mod.bullets.length) {
-            const joinedText = mod.bullets.map(b => b.en + ' ' + b.fa).join(' ').toLowerCase();
-            if (joinedText.includes('manager') || joinedText.includes('مدیر')) {
-                badgesHtml += `<span class="target-badge"><span class="en">Managers</span><span class="fa">مدیران</span></span>`;
-            }
-            if (joinedText.includes('developer') || joinedText.includes('توسعه')) {
-                badgesHtml += `<span class="target-badge"><span class="en">Developers</span><span class="fa">توسعه‌دهندگان</span></span>`;
-            }
-            if (joinedText.includes('researcher') || joinedText.includes('پژوهش')) {
-                badgesHtml += `<span class="target-badge"><span class="en">Researchers</span><span class="fa">پژوهشگران</span></span>`;
-            }
-        }
-
         if (mod.title.link) {
             const link = mod.title.link;
             const targetAttr = link.target ? ` target="${esc(link.target)}"` : '';
@@ -1381,14 +1398,12 @@
                         <span class="en">${esc(mod.title.en)}</span>
                         <span class="fa">${esc(mod.title.fa)}</span>
                     </a>
-                    ${badgesHtml}
                 </h3>`;
         } else {
             titleHtml = `
                 <h3 class="entry-title kinetic-text">
                     <span class="en">${esc(mod.title.en)}</span>
                     <span class="fa">${esc(mod.title.fa)}</span>
-                    ${badgesHtml}
                 </h3>`;
         }
 
@@ -1423,9 +1438,6 @@
     function renderCategories(sectionId, categories, mode) {
         const section = document.getElementById(sectionId);
         if (!section) return;
-
-        // رفع باگ تداخل و تکرار المان ها هنگام رفرش زنده دیتا
-        Array.from(section.querySelectorAll('.workshop-category')).forEach(el => el.remove());
 
         if (mode === 'skills') {
             const html = categories.map(cat => `
@@ -1595,25 +1607,12 @@ function initSiteScripts() {
 
             const tiltResetEls = Array.from(document.querySelectorAll('.entry-block, .profile-info-card'));
             tiltResetEls.forEach(card => {
-                card.dataset.tiltBound = 'true';
                 card.addEventListener('mouseleave', () => {
                     if (interactionRAF) { cancelAnimationFrame(interactionRAF); interactionRAF = null; }
                     card.style.setProperty('--rx', '0deg');
                     card.style.setProperty('--ry', '0deg');
                 });
             });
-            
-            // رفع باگ کار نکردن افکت Tilt روی المان‌های رندر شده پس از آپدیت زنده دیتای JSON
-            window.__attachTiltReset = function() {
-                const newTiltEls = Array.from(document.querySelectorAll('.entry-block:not([data-tilt-bound]), .profile-info-card:not([data-tilt-bound])'));
-                newTiltEls.forEach(card => {
-                    card.dataset.tiltBound = 'true';
-                    card.addEventListener('mouseleave', () => {
-                        card.style.setProperty('--rx', '0deg');
-                        card.style.setProperty('--ry', '0deg');
-                    });
-                });
-            };
 
             let rearrangeRAF = null;
             function rearrangeLayout() {
@@ -1796,12 +1795,6 @@ function initSiteScripts() {
                 document.title = lang === 'fa'
                     ? "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی"
                     : "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
-                
-                // به‌روزرسانی نوار جستجوی زنده ماتریس سرفصل‌ها متناسب با زبان پویای سیستم
-                const searchInput = document.getElementById('matrix-search-input');
-                if (searchInput) {
-                    searchInput.placeholder = lang === 'fa' ? "جستجو در ماژول‌ها، مهارت‌ها یا کارگاه‌ها..." : "Search modules, skills, or workshops...";
-                }
             }
 
             langToggleBtn.addEventListener('click', () => {
@@ -2001,7 +1994,6 @@ function initSiteScripts() {
                     });
                 }
 
-                /* ۲. بهینه‌سازی کامل Throttling در مانیتورهای فرکانس بالا (High-Refresh) برای خواب واقعی CPU و صرفه‌جویی باتری */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -2019,7 +2011,6 @@ function initSiteScripts() {
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
-                    /* لوپ کنترلی دقیق: اگر بازه زمانی فریم جدید فرانرسیده، بدون تخصیص بار پردازشی جدید خارج شو */
                     if (elapsed < fpsInterval) {
                         animationFrameId = requestAnimationFrame(loop);
                         return;
@@ -2033,7 +2024,6 @@ function initSiteScripts() {
                         frameCount = 0;
                         lastFpsUpdate = timestamp;
 
-                        /* ۳. پایش پویای عملکرد و مقیاس‌دهی خودکار گره‌ها جهت تضمین ثبات فریم دسکتاپ */
                         if (currentFps < 50 && NODE_COUNT > 25) {
                             NODE_COUNT = Math.max(25, Math.floor(NODE_COUNT * 0.8));
                             MAX_DIST = distBudget(window.innerWidth < 768);
@@ -2312,47 +2302,73 @@ function initSiteScripts() {
                         ctx.textBaseline = baseline;
                         ctx.fillText(isFa ? axis.fa : axis.en, lx, ly);
                     });
-
-                    /* طراحی محصول: پیاده‌سازی اتصال تعاملی هوشمند نمودار راداری به بدنه برای هایلایت آنی حوزه‌های مرتبط */
-                    // رفع باگ Memory Leak با استفاده از onmousemove به جای addEventListener
-                    canvas.onmousemove = (ev) => {
-                        const cRect = canvas.getBoundingClientRect();
-                        const mx = ev.clientX - cRect.left;
-                        const my = ev.clientY - cRect.top;
-                        const ccx = cRect.width / 2;
-                        const ccy = cRect.height / 2;
-                        const dx = mx - ccx;
-                        const dy = my - ccy;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        document.querySelectorAll('.highlight-glow').forEach(el => el.classList.remove('highlight-glow'));
-
-                        if (distance > 15 && distance < Math.min(cRect.width, cRect.height) * 0.5) {
-                            let angle = Math.atan2(dy, dx) + Math.PI / 2;
-                            if (angle < 0) angle += Math.PI * 2;
-                            const totalAxes = axes.length;
-                            const radStep = (Math.PI * 2) / totalAxes;
-                            let nearestIndex = Math.round(angle / radStep) % totalAxes;
+                }
+                
+                // Add interactivity hover to highlight DOM elements
+                function bindRadarInteractivity(canvasId, getAxesFn) {
+                    const canvas = document.getElementById(canvasId);
+                    if (!canvas) return;
+                    
+                    canvas.addEventListener('mousemove', (e) => {
+                        const axes = getAxesFn();
+                        if (!axes || axes.length === 0) return;
+                        
+                        const rect = canvas.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        const cx = rect.width / 2;
+                        const cy = rect.height / 2;
+                        const angle = Math.atan2(y - cy, x - cx);
+                        
+                        let nearestAxis = null;
+                        let minDiff = Math.PI * 2;
+                        const step = (Math.PI * 2) / axes.length;
+                        
+                        axes.forEach((axis, i) => {
+                            let a = -Math.PI / 2 + i * step;
+                            let diff = Math.abs(angle - a);
+                            while (diff > Math.PI) diff -= Math.PI * 2;
+                            diff = Math.abs(diff);
                             
-                            const targetAxis = axes[nearestIndex];
-                            if (targetAxis) {
-                                const searchTerm = (isFa ? targetAxis.fa : targetAxis.en).toLowerCase();
-                                document.querySelectorAll('.entry-block, .skill-row, .workshop-category').forEach(el => {
-                                    if (el.textContent.toLowerCase().includes(searchTerm)) {
-                                        el.classList.add('highlight-glow');
-                                    }
-                                });
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                nearestAxis = axis;
                             }
+                        });
+                        
+                        document.querySelectorAll('.highlight-pulse').forEach(el => el.classList.remove('highlight-pulse'));
+                        
+                        // If mouse is reasonably close to an axis angle
+                        if (minDiff < step / 2) {
+                            const axisLabelEn = nearestAxis.en.toLowerCase();
+                            
+                            document.querySelectorAll('#skills .skill-row').forEach(row => {
+                                const catEn = (row.querySelector('.skill-cat .en')?.textContent || '').toLowerCase();
+                                if (catEn.includes(axisLabelEn) || axisLabelEn.includes(catEn.split(' ')[0])) {
+                                    row.classList.add('highlight-pulse');
+                                }
+                            });
+                            
+                            document.querySelectorAll('#matrix-table tbody tr').forEach(row => {
+                                const cell = (row.querySelector('.matrix-cat-cell')?.textContent || '').toLowerCase();
+                                if (axisLabelEn.includes(cell) || cell.includes(axisLabelEn)) {
+                                    row.classList.add('highlight-pulse');
+                                }
+                            });
                         }
-                    };
-
-                    canvas.onmouseleave = () => {
-                        document.querySelectorAll('.highlight-glow').forEach(el => el.classList.remove('highlight-glow'));
-                    };
+                    });
+                    
+                    canvas.addEventListener('mouseleave', () => {
+                        document.querySelectorAll('.highlight-pulse').forEach(el => el.classList.remove('highlight-pulse'));
+                    });
                 }
 
                 function drawAll() {
-                    charts.forEach(c => drawChart(document.getElementById(c.canvasId), c.build()));
+                    charts.forEach(c => {
+                        drawChart(document.getElementById(c.canvasId), c.build());
+                        bindRadarInteractivity(c.canvasId, c.build);
+                    });
                 }
 
                 let radarRAF = null;
@@ -2392,7 +2408,7 @@ function initSiteScripts() {
                 const depthFilterEl = document.getElementById('matrix-filter-depths');
                 const emptyEl = document.getElementById('matrix-empty');
                 const emptyFaEl = document.getElementById('matrix-empty-fa');
-                const searchInput = document.getElementById('matrix-search-input');
+                const searchInputEl = document.getElementById('matrix-search-input');
                 if (!tableEl || !theadEl || !tbodyEl) return;
 
                 const isFa = () => root.getAttribute('lang') === 'fa';
@@ -2401,24 +2417,13 @@ function initSiteScripts() {
                 const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444' };
                 const depthOrder = ['foundational', 'intermediate', 'advanced'];
 
-                let allRows = [];
-                let activeCategories = new Set();
-                let activeDepths = new Set();
                 let searchQuery = '';
-
-                /* مانیتور زنده تغییرات نوار جستجوی متنی ماتریس سرفصل‌ها */
-                if (searchInput) {
-                    searchInput.addEventListener('input', (e) => {
-                        searchQuery = e.target.value.toLowerCase().trim();
-                        render();
-                    });
-                }
 
                 function normalizeDepth(raw) {
                     const r = (raw || '').toLowerCase();
-                    if (r.includes('foundational') || r.includes('پایه')) return 'foundational';
+                    if (r.includes('foundational') || r.includes('پایه') || r.includes('beginner')) return 'foundational';
                     if (r.includes('intermediate') || r.includes('متوسط')) return 'intermediate';
-                    if (r.includes('advanced') || r.includes('پیشرفته')) return 'advanced';
+                    if (r.includes('advanced') || r.includes('پیشرفته') || r.includes('expert')) return 'advanced';
                     return 'unknown';
                 }
                 function depthLabel(d) {
@@ -2481,33 +2486,44 @@ function initSiteScripts() {
                     return rows;
                 }
 
+                let allRows = [];
+                let activeCategories = new Set();
+                let activeDepths = new Set();
+
+                // Connect the Live Search input logic
+                if(searchInputEl) {
+                    searchInputEl.addEventListener('input', (e) => {
+                        searchQuery = e.target.value.toLowerCase().trim();
+                        render();
+                    });
+                }
+
                 function render() {
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
                     theadEl.innerHTML = '<tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>';
 
-                    /* منطق فیلترینگ هیبریدی: ترکیب وضعیت چیپ‌های فیلتر با نوار جستجوی متنی */
                     const filtered = allRows.filter(r => {
                         const matchesCat = (activeCategories.size === 0 || activeCategories.has(r.catCode));
                         const matchesDepth = (activeDepths.size === 0 || activeDepths.has(r.depth));
+                        const matchesSearch = searchQuery === '' || 
+                                              (r.titleEn && r.titleEn.toLowerCase().includes(searchQuery)) ||
+                                              (r.titleFa && r.titleFa.toLowerCase().includes(searchQuery)) ||
+                                              (r.catNameEn && r.catNameEn.toLowerCase().includes(searchQuery)) ||
+                                              (r.catNameFa && r.catNameFa.toLowerCase().includes(searchQuery)) ||
+                                              (r.catCode && r.catCode.toLowerCase().includes(searchQuery));
                         
-                        const titleText = (isFa() ? r.titleFa : r.titleEn).toLowerCase();
-                        const catLabelText = r.catCode.toLowerCase();
-                        const catFullText = (isFa() ? r.catNameFa : r.catNameEn).toLowerCase();
-                        const audienceText = (isFa() ? r.audienceFa : r.audienceEn).toLowerCase();
-                        
-                        const matchesSearch = !searchQuery || 
-                            titleText.includes(searchQuery) || 
-                            catLabelText.includes(searchQuery) || 
-                            catFullText.includes(searchQuery) || 
-                            audienceText.includes(searchQuery);
-
                         return matchesCat && matchesDepth && matchesSearch;
                     });
 
                     tbodyEl.innerHTML = filtered.map(r => {
                         const secLabel = isFa() ? r.section.labelFa : r.section.labelEn;
                         const catLabel = r.catCode;
-                        const catFullTitle = isFa() ? r.catNameFa : r.catNameEn;
+                        
+                        // UX Friendly Tooltip Full Names
+                        const fullNameEn = r.catNameEn || r.catCode;
+                        const fullNameFa = r.catNameFa || r.catCode;
+                        const tooltip = isFa() ? fullNameFa : fullNameEn;
+                        
                         const title = isFa() ? r.titleFa : r.titleEn;
                         const audience = isFa() ? (r.audienceFa || r.audienceEn) : (r.audienceEn || r.audienceFa);
                         const d = r.depth;
@@ -2522,10 +2538,9 @@ function initSiteScripts() {
                         });
                         barHtml += '</span>';
 
-                        /* تخصص در کنار سادگی کاربری: آی‌دی ۲ حرفی مینی‌مال حفظ شده، اما مجهز به Tooltip هوشمند تایتل برای نمایش نام دقیق بخش است */
                         return '<tr data-target="' + r.target + '">' +
                             '<td class="matrix-section-cell">' + secLabel + '</td>' +
-                            '<td class="matrix-cat-cell" title="' + esc(catFullTitle) + '">' + catLabel + '</td>' +
+                            '<td class="matrix-cat-cell" title="' + esc(tooltip) + '">' + catLabel + '</td>' +
                             '<td class="matrix-title-cell">' + title + '</td>' +
                             '<td>' + pill + '</td>' +
                             '<td>' + barHtml + '</td>' +
@@ -2566,7 +2581,7 @@ function initSiteScripts() {
                                 (isFa() ? sectionLabels[s].fa : sectionLabels[s].en) + ' <span class="count">' + sectionCounts[s] + '</span></span>';
                         }
                     });
-                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational + '</span></span>';
+                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational > 0 ? depthCounts.foundational : '' + '</span></span>';
                     if (depthCounts.intermediate > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#f59e0b"></span>' + (isFa() ? 'متوسط' : 'Intermediate') + ' <span class="count">' + depthCounts.intermediate + '</span></span>';
                     if (depthCounts.advanced > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#ef4444"></span>' + (isFa() ? 'پیشرفته' : 'Advanced') + ' <span class="count">' + depthCounts.advanced + '</span></span>';
                     summaryEl.innerHTML = html_str;
@@ -2580,12 +2595,13 @@ function initSiteScripts() {
                     });
                     const cats = Array.from(catSet.values());
                     
-                    /* انسانی کردن فیلترها: در چیپ‌های نوار ابزار بالا به جای آی‌دی ۲ حرفی فنی از اسم دقیق و روان ماژول استفاده می‌شود */
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
-                        const labelText = isFa() ? c.nameFa : c.nameEn;
-                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' + esc(labelText) + ' <span class="chip-count">' + c.count + '</span></span>';
+                        // UX Friendly Filter Buttons showing full Category Name based on language
+                        const dispName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
+                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' + dispName + '<span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
+                    
                     catFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
                         const code = chip.getAttribute('data-cat');
                         const toggle = () => {
@@ -2672,14 +2688,13 @@ function initSiteScripts() {
                         }
                     }
 
-                    // رفع باگ تداخل لیسنرهای متعدد هنگام فراخوانی مجدد در بک‌گراند
-                    header.onclick = toggle;
-                    header.onkeydown = function(e) {
+                    header.addEventListener('click', toggle);
+                    header.addEventListener('keydown', e => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             toggle();
                         }
-                    };
+                    });
                 });
             }
             window.__initWorkshopAccordion = initWorkshopAccordion;
@@ -2692,16 +2707,13 @@ function initSiteScripts() {
         new window.MagneticButtonEffect();
     }
 
-    /* ماژول ری‌اینیشیالایز زنده کش برای نوسازی آنی رندرهای متقاطع و چارت‌ها بدون رفرش */
     window.__reinitDynamicComponents = function() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
         if (window.__initWorkshopAccordion) window.__initWorkshopAccordion();
-        if (window.__attachTiltReset) window.__attachTiltReset();
     };
 }
 
-/* مدیریت بهینه ذخیره‌سازی محلی و لود آنی داده با مدل معماری الاستیک زنده Stale-While-Revalidate */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2710,7 +2722,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
-            /* فچ پس‌زمینه: به محض ثبت تغییر در فایل JSON اصلی، محتوا بدون فلش خوردن یا نیاز به لود دوم، به صورت زنده آپدیت می‌شود */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
