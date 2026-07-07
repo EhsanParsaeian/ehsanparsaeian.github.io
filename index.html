@@ -521,6 +521,25 @@
 
         #neural-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; }
 
+        /* Static mobile hero image — hidden on desktop, shown on mobile only.
+           On mobile breakpoints the neural-network canvas animation is disabled
+           (see JS guard in initNeuralCanvas) and this single static <img> takes
+           its place, sized to match the hero banner's full footprint. No canvas,
+           no JS, no animation loop — just a decoded raster. */
+        .hero-mobile-image { display: none; }
+        @media (max-width: 767px) {
+            #neural-canvas { display: none; }
+            .hero-mobile-image {
+                display: block;
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                object-fit: cover;
+                z-index: 0;
+                pointer-events: none;
+            }
+        }
+
         .hero-text-overlay {
             position: absolute; inset: 0; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
@@ -1575,6 +1594,7 @@
 <body>
 <div id="hero-banner">
 <canvas id="neural-canvas"></canvas>
+<img alt="" class="hero-mobile-image" src="https://parsaeian.ai/assets/og-preview.png"/>
 <div class="hero-text-overlay">
 <h2>
 <span class="en">Seyed Ehsan Parsaeian</span>
@@ -2459,6 +2479,14 @@ function initSiteScripts() {
                 const canvas = document.getElementById('neural-canvas');
                 const banner = document.getElementById('hero-banner');
                 if (!canvas || !banner) return;
+                // Mobile guard: at mobile breakpoints the hero neural-network
+                // animation is fully disabled and replaced by a single static
+                // <img class="hero-mobile-image"> (see CSS). Return before any
+                // canvas init, listener registration, or rAF scheduling — zero
+                // animation JS executes on mobile. The rest of this IIFE
+                // (the actual animation logic below) is byte-identical to the
+                // original and runs normally on desktop.
+                if (window.matchMedia('(max-width: 767px)').matches) return;
                 const ctx = canvas.getContext('2d');
 
                 // Respect Data Saver mode (Save-Data) in addition to viewport width —
