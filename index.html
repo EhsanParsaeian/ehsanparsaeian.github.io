@@ -1424,6 +1424,9 @@
         const section = document.getElementById(sectionId);
         if (!section) return;
 
+        // رفع باگ تداخل و تکرار المان ها هنگام رفرش زنده دیتا
+        Array.from(section.querySelectorAll('.workshop-category')).forEach(el => el.remove());
+
         if (mode === 'skills') {
             const html = categories.map(cat => `
                 <div class="workshop-category" data-category="${esc(cat.code)}">
@@ -1592,12 +1595,25 @@ function initSiteScripts() {
 
             const tiltResetEls = Array.from(document.querySelectorAll('.entry-block, .profile-info-card'));
             tiltResetEls.forEach(card => {
+                card.dataset.tiltBound = 'true';
                 card.addEventListener('mouseleave', () => {
                     if (interactionRAF) { cancelAnimationFrame(interactionRAF); interactionRAF = null; }
                     card.style.setProperty('--rx', '0deg');
                     card.style.setProperty('--ry', '0deg');
                 });
             });
+            
+            // رفع باگ کار نکردن افکت Tilt روی المان‌های رندر شده پس از آپدیت زنده دیتای JSON
+            window.__attachTiltReset = function() {
+                const newTiltEls = Array.from(document.querySelectorAll('.entry-block:not([data-tilt-bound]), .profile-info-card:not([data-tilt-bound])'));
+                newTiltEls.forEach(card => {
+                    card.dataset.tiltBound = 'true';
+                    card.addEventListener('mouseleave', () => {
+                        card.style.setProperty('--rx', '0deg');
+                        card.style.setProperty('--ry', '0deg');
+                    });
+                });
+            };
 
             let rearrangeRAF = null;
             function rearrangeLayout() {
@@ -2298,7 +2314,8 @@ function initSiteScripts() {
                     });
 
                     /* طراحی محصول: پیاده‌سازی اتصال تعاملی هوشمند نمودار راداری به بدنه برای هایلایت آنی حوزه‌های مرتبط */
-                    canvas.addEventListener('mousemove', (ev) => {
+                    // رفع باگ Memory Leak با استفاده از onmousemove به جای addEventListener
+                    canvas.onmousemove = (ev) => {
                         const cRect = canvas.getBoundingClientRect();
                         const mx = ev.clientX - cRect.left;
                         const my = ev.clientY - cRect.top;
@@ -2327,11 +2344,11 @@ function initSiteScripts() {
                                 });
                             }
                         }
-                    });
+                    };
 
-                    canvas.addEventListener('mouseleave', () => {
+                    canvas.onmouseleave = () => {
                         document.querySelectorAll('.highlight-glow').forEach(el => el.classList.remove('highlight-glow'));
-                    });
+                    };
                 }
 
                 function drawAll() {
@@ -2655,13 +2672,14 @@ function initSiteScripts() {
                         }
                     }
 
-                    header.addEventListener('click', toggle);
-                    header.addEventListener('keydown', e => {
+                    // رفع باگ تداخل لیسنرهای متعدد هنگام فراخوانی مجدد در بک‌گراند
+                    header.onclick = toggle;
+                    header.onkeydown = function(e) {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             toggle();
                         }
-                    });
+                    };
                 });
             }
             window.__initWorkshopAccordion = initWorkshopAccordion;
@@ -2679,6 +2697,7 @@ function initSiteScripts() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
         if (window.__initWorkshopAccordion) window.__initWorkshopAccordion();
+        if (window.__attachTiltReset) window.__attachTiltReset();
     };
 }
 
