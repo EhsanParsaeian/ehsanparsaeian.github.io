@@ -308,6 +308,7 @@
         ::selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
         ::-moz-selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
 
+        /* ۱. اصلاح پس‌زمینه (حذف انیمیشن حرکت مش برای استراحت موتور رندر در دسکتاپ) */
         body::before {
             content: '';
             position: fixed;
@@ -316,16 +317,8 @@
             background: var(--mesh-1), var(--mesh-2), var(--mesh-3), var(--mesh-4), var(--mesh-base);
             transition: background 0.5s ease;
             pointer-events: none;
-            animation: meshAnimation 20s linear infinite alternate;
         }
 
-        @keyframes meshAnimation {
-            0% { --mesh-pos-1: 15%; --mesh-pos-2: 85%; --mesh-pos-3: 55%; --mesh-pos-4: 30%; }
-            50% { --mesh-pos-1: 30%; --mesh-pos-2: 70%; --mesh-pos-3: 45%; --mesh-pos-4: 45%; }
-            100% { --mesh-pos-1: 5%; --mesh-pos-2: 95%; --mesh-pos-3: 65%; --mesh-pos-4: 15%; }
-        }
-
-        @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
         @media (max-width: 968px) { body::before { animation: none; } }
 
         @media (prefers-reduced-transparency: reduce) {
@@ -452,7 +445,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textGradient 6s linear infinite;
         }
 
         @keyframes heroBreath {
@@ -508,10 +500,11 @@
             background: transparent; border: none; box-shadow: none; padding: 0;
         }
 
-        .profile-info-card, .entry-block, .skill-row, .timeline-content {
-            transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--ty)) scale(var(--s));
+        /* شتاب‌دهی سخت‌افزاری عمیق با GPU برای رندر بی‌نقص افکت شیشه‌ای در دسکتاپ */
+        .profile-info-card, .entry-block, .skill-row, .timeline-content, .reveal-card {
+            will-change: transform;
+            transform: translateZ(0);
             transition: transform 0.4s var(--ease-smooth), opacity 0.6s var(--ease-smooth), filter 0.6s var(--ease-smooth), background 0.3s ease, box-shadow 0.4s var(--ease-smooth);
-            will-change: transform, opacity;
             backface-visibility: hidden;
             perspective: 1000px;
             position: relative;
@@ -546,8 +539,10 @@
             transition: background 0.5s ease, border-color 0.4s ease;
         }
 
+        /* بهینه‌سازی بارگذاری تنبل نیتیو: مرورگر چیدمان سکشن‌های مخفی را تا زمان نمایش نادیده می‌گیرد */
         .page-section { display: none; margin-bottom: 60px; }
-        .js-enabled .page-section.visible { display: block; }
+        .js-enabled .page-section.visible { display: block; content-visibility: visible !important; }
+        .js-enabled .page-section:not(.visible) { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
 
         h2 {
             font-size: clamp(1rem, 0.93rem + 0.35vw, 1.15rem); font-weight: 700; 
@@ -555,14 +550,14 @@
             text-transform: uppercase; letter-spacing: 0.05em; color: var(--text);
             font-variation-settings: "wght" 700; transition: font-variation-settings 0.3s ease;
         }
+        
+        /* ۲. ثابت کردن گرادینت متن‌ها (حذف تگ انیمیشن چرخش رنگ جهت کاهش ترسیم مجدد کاراکترها) */
         h2 span {
             background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent; animation: textGradient 6s linear infinite;
+            -webkit-text-fill-color: transparent;
             display: inline-block; font-size: inherit;
         }
-
-        @keyframes textGradient { to { background-position: 200% center; } }
 
         #content-workspace h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 2px; background: var(--accent); border-radius: 2px; }
         html[dir="rtl"] #content-workspace h2::after { left: auto; right: 0; }
@@ -572,16 +567,15 @@
         .contact-list li { background: rgba(255, 255, 255, 0.22); border: 1px solid var(--glass-border); border-radius: 10px; padding: 8px 10px; transition: background 0.2s ease; }
         [data-theme="dark"] .contact-list li { background: rgba(255, 255, 255, 0.04); }
 
-        @keyframes ambientFloat1 { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(3%, 2%) scale(1.04); } 66% { transform: translate(-2%, 3%) scale(0.97); } }
-        @media (min-width: 969px) and (prefers-reduced-motion: no-preference) { body::before { animation: ambientFloat1 18s ease-in-out infinite alternate; } }
-
-        p { color: var(--p-text); margin-bottom: 16px; text-align: start; }
+        p { font-size: clamp(0.875rem, 2vw, 1.125rem); line-height: clamp(1.4, 1.5vw, 1.8); color: var(--p-text); margin-bottom: 16px; text-align: start; }
         html[lang="fa"] p { line-height: 1.75; }
         .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; }
 
         .entry-block {
             margin-bottom: 28px; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border); border-radius: 16px; padding: 22px 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.3), 6px 6px 12px rgba(0, 0, 0, 0.1), inset -1px -1px 4px rgba(255, 255, 255, 0.2), inset 1px 1px 4px rgba(0, 0, 0, 0.05);
         }
         [data-theme="dark"] .entry-block {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 100%);
@@ -641,14 +635,17 @@
         .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
-        .entry-block::after, .profile-info-card::after {
+        /* ۳. بهینه‌سازی نویز لایه‌ها: نویز فقط روی سایدبار اصلی لود می‌شود و از لایه کارت‌های تکرارشونده برداشته شده است */
+        .profile-info-card::after {
             content: ''; position: absolute; inset: 0; border-radius: inherit;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
             opacity: 0.028; pointer-events: none; mix-blend-mode: soft-light; z-index: 0;
         }
-        [data-theme="dark"] .entry-block::after, [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
+        [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
-        @keyframes shimmerBorder { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+        .entry-block::after {
+            content: none !important;
+        }
 
         .entry-block::before, .profile-info-card::before {
             content: ''; position: absolute; left: 0; top: 0; width: 100%;
@@ -661,6 +658,7 @@
             .entry-block:nth-child(2)::before  { animation-delay: -1.5s; }
             .entry-block:nth-child(3)::before  { animation-delay: -3s; }
         }
+        @keyframes shimmerBorder { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
 
         .entry-block:hover { --ty: -4px; }
         [data-theme="dark"] .entry-block:hover { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(var(--accent-rgb), 0.07)); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 32px rgba(var(--accent-rgb), 0.25), 0 0 0 1px rgba(var(--accent-rgb), 0.25), inset 0 1px 0 var(--glass-border-inner); }
@@ -730,22 +728,20 @@
             .kinetic-text:hover { font-variation-settings: "wght" 700; }
         }
 
-        p { font-size: clamp(0.875rem, 2vw, 1.125rem); line-height: clamp(1.4, 1.5vw, 1.8); }
-
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        }
-
-        .reveal-card, .entry-block, .profile-info-card { will-change: transform, opacity; backface-visibility: hidden; perspective: 1000px; }
-
         .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; perspective: 1000px; }
+        
         .bento-item {
             position: relative; background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.05) 100%);
             backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
             border-radius: 20px; padding: 32px; overflow: hidden; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); transform: translateZ(0);
         }
         .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
-        .bento-item:hover { transform: translateY(-8px) rotateX(5deg) rotateY(-5deg) scale(1.02); box-shadow: 0 20px 60px rgba(79, 70, 229, 0.3), inset 0 1px 0 var(--glass-border-inner); }
+        
+        /* ۴. حل تداخل انیمیشن سه‌بعدی بنتو گرید (سپردن چرخش‌های پیچیده محوری دایینامیک به کدهای جاوااسکریپت) */
+        .bento-item:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15), inset 0 1px 0 var(--glass-border-inner);
+        }
         .bento-item:hover::before { opacity: 1; }
         .bento-item.large { grid-column: span 2; }
 
@@ -754,10 +750,6 @@
         :focus-visible { animation: focusPulse 0.6s ease-out; }
         @keyframes focusPulse { 0% { outline-width: 2px; outline-offset: 4px; } 100% { outline-width: 4px; outline-offset: 8px; opacity: 0; } }
 
-        .entry-block {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-            box-shadow: -6px -6px 12px rgba(255, 255, 255, 0.3), 6px 6px 12px rgba(0, 0, 0, 0.1), inset -1px -1px 4px rgba(255, 255, 255, 0.2), inset 1px 1px 4px rgba(0, 0, 0, 0.05);
-        }
         .entry-block:hover { box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.4), 8px 8px 16px rgba(0, 0, 0, 0.15), inset -2px -2px 6px rgba(255, 255, 255, 0.3), inset 2px 2px 6px rgba(0, 0, 0, 0.08); }
 
         @keyframes scrollReveal { 0% { opacity: 0; transform: translateY(40px) rotateX(-10deg); } 100% { opacity: 1; transform: translateY(0) rotateX(0); } }
@@ -902,7 +894,7 @@
         .ws-cv-panel .ws-panel-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; padding: 0 4px; }
         html[lang="fa"] .ws-cv-panel .ws-panel-title { letter-spacing: normal; }
 
-        /* ── DEEP PERFORMANCE OBLITERATION OF MOBILE LAG (UNDER 968PX) ── */
+        /* ── DEEP PERFORMANCE OBLITERATION OF MOBILE LAG ── */
         @media (max-width: 968px) {
             :root, [data-theme="dark"] {
                 --glass-blur: none !important;
@@ -916,8 +908,6 @@
                 --glass-bg: #0b1226 !important;
                 --glass-bg-strong: #0f1934 !important;
             }
-            
-            /* 1. CRITICAL: Kill infinite shimmer border animations and noise textures on all cards */
             .entry-block::before, .profile-info-card::before,
             .entry-block::after, .profile-info-card::after,
             .skill-row::before, .timeline-content::before {
@@ -925,8 +915,6 @@
                 animation: none !important;
                 display: none !important;
             }
-            
-            /* 2. Completely release heavy layout composition and VRAM layers */
             .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content, .skill-row {
                 will-change: auto !important;
                 transform: none !important;
@@ -935,8 +923,6 @@
                 opacity: 1 !important;
                 background-image: none !important;
             }
-            
-            /* 3. Drop unrendered closed accordion tree to save rendering cycles */
             .ws-cat-panel {
                 display: none !important;
                 grid-template-rows: none !important;
@@ -953,14 +939,10 @@
                 from { opacity: 0; transform: translateY(4px); }
                 to { opacity: 1; transform: translateY(0); }
             }
-
-            /* 4. Leverage browser's layout engine to skip calculation of massive elements */
             .workshop-category {
                 content-visibility: auto;
                 contain-intrinsic-size: 80px;
             }
-            
-            /* 5. Flatten box shadows to make scroll drawing instant for low-end GPUs */
             .entry-block, .profile-info-card, .bento-item, .workshop-category {
                 box-shadow: none !important;
                 border: 1px solid rgba(0, 0, 0, 0.08) !important;
@@ -972,8 +954,6 @@
             .entry-block:hover, .bento-item:hover, .profile-info-card:hover {
                 transform: none !important;
             }
-
-            /* 6. Stop infinite text reflow painting loops */
             h2 span, .hero-text-overlay h2 span {
                 animation: none !important;
                 background: none !important;
@@ -985,8 +965,6 @@
                 text-shadow: none !important;
                 transform: none !important;
             }
-            
-            /* 7. Drop background element tasks completely from mobile pipeline */
             #neural-canvas, #hero-banner::before {
                 display: none !important;
             }
@@ -1932,13 +1910,43 @@ function initSiteScripts() {
                     });
                 }
 
-                function loop() {
+                /* هماهنگ‌سازی و لیمیت فریم هوشمند Canvas روی سقف ۶۰ فریم بر ثانیه + پایش پویای افت فریم و مقیاس‌دهی گره‌ها */
+                let lastTime = 0;
+                const fpsInterval = 1000 / 60; 
+                let frameCount = 0;
+                let lastFpsUpdate = 0;
+                let currentFps = 60;
+
+                function loop(timestamp) {
                     if (window.innerWidth < 968) { 
                         animationFrameId = null; 
                         return; 
                     }
                     if (isMotionReduced) { renderStatic(); return; }
                     if (!isBannerVisible) { animationFrameId = null; return; }
+
+                    animationFrameId = requestAnimationFrame(loop);
+
+                    if (!timestamp) timestamp = performance.now();
+                    const elapsed = timestamp - lastTime;
+
+                    if (elapsed < fpsInterval) return;
+
+                    lastTime = timestamp - (elapsed % fpsInterval);
+
+                    frameCount++;
+                    if (timestamp - lastFpsUpdate >= 1000) {
+                        currentFps = (frameCount * 1000) / (timestamp - lastFpsUpdate);
+                        frameCount = 0;
+                        lastFpsUpdate = timestamp;
+
+                        if (currentFps < 50 && NODE_COUNT > 25) {
+                            NODE_COUNT = Math.max(25, Math.floor(NODE_COUNT * 0.8));
+                            MAX_DIST = distBudget(window.innerWidth < 768);
+                            MAX_DIST_SQ = MAX_DIST * MAX_DIST;
+                            generateNodes();
+                        }
+                    }
 
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
                     ctx.fillRect(0, 0, W, H);
@@ -1993,8 +2001,6 @@ function initSiteScripts() {
                         ctx.fillStyle = `hsla(${n.hue}, 80%, 70%, ${n.z})`;
                         ctx.fill();
                     });
-
-                    animationFrameId = requestAnimationFrame(loop);
                 }
 
                 resize();
@@ -2522,13 +2528,33 @@ function initSiteScripts() {
     }
 }
 
+/* مدیریت بهینه ذخیره‌سازی محلی فایل داده برای تضمین سرعت پاسخ‌دهی آنی و بی‌تاخیر در دسکتاپ و موبایل */
 document.addEventListener('DOMContentLoaded', function() {
+    const cachedData = localStorage.getItem('site_resume_data');
+    if (cachedData) {
+        try {
+            const data = JSON.parse(cachedData);
+            window.__renderSite(data);
+            initSiteScripts();
+            
+            fetch('data/site-data.json')
+                .then(resp => resp.ok ? resp.json() : null)
+                .then(newData => {
+                    if (newData) localStorage.setItem('site_resume_data', JSON.stringify(newData));
+                }).catch(() => {});
+            return;
+        } catch (e) {
+            localStorage.removeItem('site_resume_data');
+        }
+    }
+
     fetch('data/site-data.json')
         .then(function (resp) {
             if (!resp.ok) throw new Error('HTTP ' + resp.status + ' loading site-data.json');
             return resp.json();
         })
         .then(function (data) {
+            localStorage.setItem('site_resume_data', JSON.stringify(data));
             window.__renderSite(data);
             initSiteScripts();
         })
