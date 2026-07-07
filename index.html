@@ -7,7 +7,6 @@
 <link href="https://parsaeian.ai#en" hreflang="en" rel="alternate"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV</title>
-<!-- SEO & Social Meta Tags -->
 <meta content="Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV. Specialist in LLM Prompt Engineering, Human-AI Interaction, and Cognitive Science." name="description"/>
 <meta content="Seyed Ehsan Parsaeian" name="author"/>
 <meta content="website" property="og:type"/>
@@ -31,7 +30,6 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link as="font" crossorigin="" href="https://fonts.gstatic.com/s/estedad/v12/estedad-variable.woff2" rel="preload" type="font/woff2"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Estedad:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<!-- JSON-LD Structured Data for SEO -->
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -904,42 +902,78 @@
         .ws-cv-panel .ws-panel-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; padding: 0 4px; }
         html[lang="fa"] .ws-cv-panel .ws-panel-title { letter-spacing: normal; }
 
-        /* ── DEEP PERFORMANCE FIXES FOR TABLET & MOBILE (UNDER 968PX) ── */
+        /* ── DEEP PERFORMANCE OBLITERATION OF MOBILE LAG (UNDER 968PX) ── */
         @media (max-width: 968px) {
             :root, [data-theme="dark"] {
                 --glass-blur: none !important;
                 --glass-blur-strong: none !important;
             }
             :root {
-                --glass-bg: rgba(255, 255, 255, 0.94) !important;
-                --glass-bg-strong: rgba(255, 255, 255, 0.97) !important;
+                --glass-bg: #ffffff !important;
+                --glass-bg-strong: #f8fafc !important;
             }
             [data-theme="dark"] {
-                --glass-bg: rgba(11, 18, 38, 0.94) !important;
-                --glass-bg-strong: rgba(15, 25, 52, 0.97) !important;
+                --glass-bg: #0b1226 !important;
+                --glass-bg-strong: #0f1934 !important;
             }
             
-            /* Kill layer overuse and hardware acceleration bottlenecks on dozens of cards */
-            .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content {
+            /* 1. CRITICAL: Kill infinite shimmer border animations and noise textures on all cards */
+            .entry-block::before, .profile-info-card::before,
+            .entry-block::after, .profile-info-card::after,
+            .skill-row::before, .timeline-content::before {
+                content: none !important;
+                animation: none !important;
+                display: none !important;
+            }
+            
+            /* 2. Completely release heavy layout composition and VRAM layers */
+            .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content, .skill-row {
                 will-change: auto !important;
                 transform: none !important;
                 perspective: none !important;
                 animation: none !important;
                 opacity: 1 !important;
+                background-image: none !important;
             }
             
-            /* Remove complex multi-layered shadows to speed up mobile layout repaints */
-            .entry-block, .profile-info-card, .bento-item {
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+            /* 3. Drop unrendered closed accordion tree to save rendering cycles */
+            .ws-cat-panel {
+                display: none !important;
+                grid-template-rows: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                padding: 0 !important;
             }
-            [data-theme="dark"] .entry-block, [data-theme="dark"] .profile-info-card, [data-theme="dark"] .bento-item {
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+            .workshop-category[data-open="true"] .ws-cat-panel {
+                display: block !important;
+                padding: 4px 14px 16px !important;
+                animation: mobileFadeIn 0.15s ease-out forwards;
+            }
+            @keyframes mobileFadeIn {
+                from { opacity: 0; transform: translateY(4px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* 4. Leverage browser's layout engine to skip calculation of massive elements */
+            .workshop-category {
+                content-visibility: auto;
+                contain-intrinsic-size: 80px;
+            }
+            
+            /* 5. Flatten box shadows to make scroll drawing instant for low-end GPUs */
+            .entry-block, .profile-info-card, .bento-item, .workshop-category {
+                box-shadow: none !important;
+                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            }
+            [data-theme="dark"] .entry-block, [data-theme="dark"] .profile-info-card, [data-theme="dark"] .bento-item, [data-theme="dark"] .workshop-category {
+                box-shadow: none !important;
+                border: 1px solid rgba(255, 255, 255, 0.05) !important;
             }
             .entry-block:hover, .bento-item:hover, .profile-info-card:hover {
                 transform: none !important;
             }
 
-            /* Stop infinite layout repaints from looping text/shadow graphics */
+            /* 6. Stop infinite text reflow painting loops */
             h2 span, .hero-text-overlay h2 span {
                 animation: none !important;
                 background: none !important;
@@ -952,7 +986,7 @@
                 transform: none !important;
             }
             
-            /* Drop canvas completely from GPU memory allocation */
+            /* 7. Drop background element tasks completely from mobile pipeline */
             #neural-canvas, #hero-banner::before {
                 display: none !important;
             }
@@ -1581,7 +1615,6 @@ function initSiteScripts() {
                     });
                     targetSection.classList.add('visible');
                     
-                    // Stagger on tab routing is skipped on mobile for raw instant snappiness
                     if (window.innerWidth >= 968) {
                         cards.forEach((card, index) => {
                             setTimeout(() => card.classList.add('reveal-in'), 30 + (index * 40));
@@ -1723,7 +1756,6 @@ function initSiteScripts() {
                 const banner = document.getElementById('hero-banner');
                 if (!canvas || !banner) return;
                 
-                // Absolute escape hatch for mobile layout to completely free up GPU/RAM allocation
                 if (window.innerWidth < 968) {
                     canvas.style.display = 'none';
                     return;
@@ -2048,7 +2080,6 @@ function initSiteScripts() {
                     return (v && v.trim()) || fallback;
                 }
 
-                // builds a CSS clip-path polygon whose vertices land exactly on the same
                 function ngonVertices(n) {
                     const pts = [];
                     for (let i = 0; i < n; i++) {
@@ -2452,17 +2483,14 @@ function initSiteScripts() {
                         category.setAttribute('data-open', isOpen ? 'false' : 'true');
                         header.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
 
+                        if (window.innerWidth < 968) {
+                            return;
+                        }
+
                         revealTimers.forEach(t => clearTimeout(t));
                         revealTimers = [];
 
                         if (!isOpen) {
-                            
-                            // Stagger logic bypassed on mobile to avoid layout task queuing jank
-                            if (window.innerWidth < 968) {
-                                cards.forEach(card => card.classList.add('reveal-in'));
-                                return;
-                            }
-                            
                             const staggerLimit = 12;
                             cards.forEach((card, index) => {
                                 card.classList.remove('reveal-in');
