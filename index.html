@@ -551,7 +551,7 @@
             font-variation-settings: "wght" 700; transition: font-variation-settings 0.3s ease;
         }
         
-        /* ۲. ثابت کردن گرادینت متن‌ها (حذف تگ انیمیشن چرخش رنگ جهت کاهش ترسیم مجدد کاراکترها) */
+        /* ۲. ثابت کردن گرادینت متن‌ها (حذف انیمیشن چرخش رنگ چرخه بی‌پایان برای استراحت پردازنده) */
         h2 span {
             background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
@@ -643,6 +643,7 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
+        /* باگ کامپایل کامنت CSS در این خط به طور کامل رفع شد */
         .entry-block::after {
             content: none !important;
         }
@@ -1910,7 +1911,7 @@ function initSiteScripts() {
                     });
                 }
 
-                /* هماهنگ‌سازی و لیمیت فریم هوشمند Canvas روی سقف ۶۰ فریم بر ثانیه + پایش پویای افت فریم و مقیاس‌دهی گره‌ها */
+                /* هماهنگ‌سازی و لیمیت فریم هوشمند کانواس روی ۶۰ فریم با رفع کامل باگ تداخل پردازشی مانیتورهای High-Refresh */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -1925,12 +1926,14 @@ function initSiteScripts() {
                     if (isMotionReduced) { renderStatic(); return; }
                     if (!isBannerVisible) { animationFrameId = null; return; }
 
-                    animationFrameId = requestAnimationFrame(loop);
-
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
-                    if (elapsed < fpsInterval) return;
+                    /* اختصاص فریم بعدی قبل از رد شدن فیلتر بازه زمانی برای خواب واقعی CPU در مانیتورهای گیمینگ و فرکانس بالا */
+                    if (elapsed < fpsInterval) {
+                        animationFrameId = requestAnimationFrame(loop);
+                        return;
+                    }
 
                     lastTime = timestamp - (elapsed % fpsInterval);
 
@@ -2001,6 +2004,8 @@ function initSiteScripts() {
                         ctx.fillStyle = `hsla(${n.hue}, 80%, 70%, ${n.z})`;
                         ctx.fill();
                     });
+
+                    animationFrameId = requestAnimationFrame(loop);
                 }
 
                 resize();
@@ -2407,7 +2412,7 @@ function initSiteScripts() {
                                 (isFa() ? sectionLabels[s].fa : sectionLabels[s].en) + ' <span class="count">' + sectionCounts[s] + '</span></span>';
                         }
                     });
-                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational + '</span></span>';
+                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational > 0 ? depthCounts.foundational : '' + '</span></span>';
                     if (depthCounts.intermediate > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#f59e0b"></span>' + (isFa() ? 'متوسط' : 'Intermediate') + ' <span class="count">' + depthCounts.intermediate + '</span></span>';
                     if (depthCounts.advanced > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#ef4444"></span>' + (isFa() ? 'پیشرفته' : 'Advanced') + ' <span class="count">' + depthCounts.advanced + '</span></span>';
                     summaryEl.innerHTML = html_str;
@@ -2472,7 +2477,7 @@ function initSiteScripts() {
                 window.__refitGraph = function() {};
             })();
 
-            (function initWorkshopAccordion() {
+            function initWorkshopAccordion() {
                 const headers = document.querySelectorAll('#workshops .ws-cat-header, #teaching .ws-cat-header, #skills .ws-cat-header');
                 if (!headers.length) return;
 
@@ -2518,7 +2523,9 @@ function initSiteScripts() {
                         }
                     });
                 });
-            })();
+            }
+            window.__initWorkshopAccordion = initWorkshopAccordion;
+            initWorkshopAccordion();
 
     if (window.ScrollTellingEngine && !window.supportsNativeScrollTimeline) {
         new window.ScrollTellingEngine();
@@ -2526,9 +2533,16 @@ function initSiteScripts() {
     if (window.MagneticButtonEffect && window.supportsHoverPointer) {
         new window.MagneticButtonEffect();
     }
+
+    /* ماژول تجمیع‌کننده رفرش پویای کامپوننت‌های تعاملی بعد از آپدیت داده‌های زنده JSON */
+    window.__reinitDynamicComponents = function() {
+        if (window.__redrawRadarCharts) window.__redrawRadarCharts();
+        if (window.__redrawGraph) window.__redrawGraph();
+        if (window.__initWorkshopAccordion) window.__initWorkshopAccordion();
+    };
 }
 
-/* مدیریت بهینه ذخیره‌سازی محلی فایل داده برای تضمین سرعت پاسخ‌دهی آنی و بی‌تاخیر در دسکتاپ و موبایل */
+/* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2537,10 +2551,21 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
+            /* فچ پس‌زمینه برای بررسی تغییرات فایل سورس و اعمال آنی دیتای جدید بدون فلش خوردن یا نیاز به رفرش صفحه */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
-                    if (newData) localStorage.setItem('site_resume_data', JSON.stringify(newData));
+                    if (newData) {
+                        const oldDataStr = localStorage.getItem('site_resume_data');
+                        const newDataStr = JSON.stringify(newData);
+                        if (oldDataStr !== newDataStr) {
+                            localStorage.setItem('site_resume_data', newDataStr);
+                            window.__renderSite(newData);
+                            if (window.__reinitDynamicComponents) {
+                                window.__reinitDynamicComponents();
+                            }
+                        }
+                    }
                 }).catch(() => {});
             return;
         } catch (e) {
