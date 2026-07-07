@@ -32,7 +32,6 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link as="font" crossorigin="" href="https://fonts.gstatic.com/s/estedad/v12/estedad-variable.woff2" rel="preload" type="font/woff2"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Estedad:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<script src="https://d3js.org/d3.v7.min.js"></script>
 <!-- JSON-LD Structured Data for SEO -->
 <script type="application/ld+json">
     {
@@ -136,37 +135,18 @@
         class MagneticButtonEffect {
             constructor() {
                 this.buttons = Array.from(document.querySelectorAll('button, a[href*="#"]')).filter(el => !el.closest('.profile-info-card') && !el.closest('.ws-cat-header'));
-                this.rects = new Map();
                 this.rAF = null;
                 this.activeBtn = null;
                 this.lastEvt = null;
                 this.setupMagneticButtons();
             }
 
-            refreshRects() {
-                this.buttons.forEach(btn => {
-                    this.rects.set(btn, btn.getBoundingClientRect());
-                });
-            }
-
             setupMagneticButtons() {
-                this.refreshRects();
                 // Set transition once per button (not per-event) — tight transform
                 // tracking for the magnetic pull. Release uses a different easing
                 // via a one-shot inline override in magneticRelease.
                 this.buttons.forEach(btn => {
                     btn.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out';
-                });
-                // Refresh cached rects on resize/scroll (rAF-coalesced)
-                let refreshRAF = null;
-                const scheduleRefresh = () => {
-                    if (refreshRAF) return;
-                    refreshRAF = requestAnimationFrame(() => { refreshRAF = null; this.refreshRects(); });
-                };
-                window.addEventListener('resize', scheduleRefresh);
-                window.addEventListener('scroll', scheduleRefresh, { passive: true });
-
-                this.buttons.forEach(btn => {
                     btn.addEventListener('mousemove', (e) => {
                         this.lastEvt = e;
                         this.activeBtn = btn;
@@ -181,7 +161,11 @@
             }
 
             magneticPull(e, btn) {
-                const rect = this.rects.get(btn) || btn.getBoundingClientRect();
+                // Read rect fresh each frame — one getBoundingClientRect() per rAF
+                // for the single hovered button. Cheaper than maintaining a rect
+                // cache that must be refreshed on every scroll/resize (which caused
+                // forced layouts on all buttons every scroll frame).
+                const rect = btn.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
 
@@ -335,7 +319,6 @@
             -webkit-font-smoothing: antialiased;
             scrollbar-width: thin;
             scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
-            will-change: scroll-position; /* Performance optimization */
         }
 
         body {
@@ -402,6 +385,15 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+            body::before { animation: none; }
+        }
+
+        /* Mobile: disable mesh background animation. The meshAnimation keyframes
+           animate CSS custom properties used inside radial-gradient(), which
+           triggers a full-viewport style recalc + repaint every frame on mobile.
+           Replacing with a static gradient eliminates a major repaint source
+           with negligible visual change (the gradient stops drifting). */
+        @media (max-width: 968px) {
             body::before { animation: none; }
         }
 
@@ -1112,7 +1104,7 @@
             html { font-size: 13px; } .hero-sep { display: none; } .hero-phrase { display: block; text-align: center; line-height: 1.9; }
             #layout-wrapper { flex-direction: column; align-items: stretch; gap: 16px; padding: 0 16px; margin: 16px auto 60px auto; }
             #content-workspace { padding: 20px 16px; border-radius: 16px; } #topnav { padding: 0; } .nav-wrapper { padding: 0 16px; }
-            #topnav nav { margin-inline-start: 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; margin-inline-end: 15px; scroll-behavior: smooth; flex-grow: 1; flex-shrink: 1; min-width: 0; -ms-overflow-style: none; scrollbar-width: none; }
+            #topnav nav { margin-inline-start: 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; margin-inline-end: 15px; flex-grow: 1; flex-shrink: 1; min-width: 0; -ms-overflow-style: none; scrollbar-width: none; }
             #topnav nav::-webkit-scrollbar { display: none; } .nav-actions { flex-shrink: 0; }
             #about .profile-info-card { padding: 16px 14px; border-radius: 12px; margin-bottom: 20px; }
             h2 { font-size: 1.15rem; margin-bottom: 14px; }
@@ -1427,48 +1419,6 @@
             transform: translateY(-4px);
         }
 
-
-        /* ── TASK 4: Visual Map tree depth styling ── */
-        .graph-node.root circle {
-            fill: rgba(var(--accent-rgb), 0.15);
-            stroke: var(--accent);
-            stroke-width: 2.5;
-            filter: drop-shadow(0 4px 12px rgba(var(--accent-rgb), 0.3));
-        }
-        .graph-node.hub circle {
-            fill: rgba(var(--accent-rgb), 0.08);
-            stroke: var(--accent);
-            stroke-width: 2;
-            filter: drop-shadow(0 3px 8px rgba(var(--accent-rgb), 0.2));
-        }
-        .graph-node.collapsed-hub circle {
-            stroke-dasharray: 4 3;
-            cursor: pointer;
-        }
-        .graph-node.collapsed-hub:hover circle {
-            stroke-dasharray: none;
-            fill: rgba(var(--accent-rgb), 0.18);
-        }
-        .graph-node.expanded-hub circle {
-            cursor: pointer;
-        }
-        .graph-node:not(.root):not(.hub) circle {
-            fill: var(--glass-bg);
-            stroke: var(--glass-border);
-            stroke-width: 1.5;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-        }
-        [data-theme="dark"] .graph-node:not(.root):not(.hub) circle {
-            fill: rgba(255, 255, 255, 0.04);
-            stroke: var(--glass-border);
-        }
-        .graph-node.focused circle {
-            fill: rgba(var(--accent-rgb), 0.25) !important;
-            stroke-width: 3 !important;
-        }
-        .graph-node.dimmed { opacity: 0.25; }
-        .graph-link.dimmed { opacity: 0.15; }
-        .graph-link.highlighted { stroke: var(--accent); stroke-opacity: 0.8; stroke-width: 2.5; }
 
         /* ── ITEM 2 FIX: Prevent skill-row badge clipping in narrow bento tracks ──
            Root cause: .bento-grid's minmax(250px,1fr) + .bento-item padding 64px
@@ -2245,45 +2195,49 @@ function initSiteScripts() {
             const sunIcon = document.querySelector('#theme-toggle .sun-icon');
             const moonIcon = document.querySelector('#theme-toggle .moon-icon');
 
-            /* ── SPOTLIGHT EFFECT ──
-               rAF-coalesced mousemove → batched read-then-write. Rects are cached
-               and refreshed only on resize/scroll (rAF-coalesced) — avoids per-frame
-               forced layout. */
-            const spotlightEls = Array.from(document.querySelectorAll('.entry-block, .profile-info-card, .timeline-content, .reveal-card'));
-            let spotlightRAF = null;
-            let lastMouseEvent = null;
-            let spotlightRects = spotlightEls.map(el => el.getBoundingClientRect());
-            // Map for O(1) rect lookup by element (used by 3D tilt to share the cache)
-            const spotlightRectMap = new Map(spotlightEls.map((el, i) => [el, spotlightRects[i]]));
-            function refreshSpotlightRects() {
-                for (let i = 0; i < spotlightEls.length; i++) {
-                    spotlightRects[i] = spotlightEls[i].getBoundingClientRect();
-                    spotlightRectMap.set(spotlightEls[i], spotlightRects[i]);
-                }
-            }
+            /* ── SPOTLIGHT + 3D TILT (event-delegated, no rect cache) ──
+               One document.mousemove listener. closest() finds the single card
+               under the cursor. One getBoundingClientRect() per rAF (only for
+               the hovered card). No rect cache, no scroll/resize refresh —
+               eliminates the 70-element-per-frame write loop and the
+               70-element-per-scroll-frame forced layout that were the main
+               sources of mousemove + scroll jank. */
+            const spotlightSelector = '.entry-block, .profile-info-card, .timeline-content, .reveal-card';
+            const tiltSelector = '.entry-block, .profile-info-card';
+            let interactionRAF = null;
+            let interactionEvent = null;
+            let interactionTarget = null;
             document.addEventListener('mousemove', (e) => {
-                lastMouseEvent = e;
-                if (spotlightRAF) return;
-                spotlightRAF = requestAnimationFrame(() => {
-                    spotlightRAF = null;
-                    const ev = lastMouseEvent;
-                    // Batched: all reads already done (cached rects), only writes here
-                    for (let i = 0; i < spotlightEls.length; i++) {
-                        const rect = spotlightRects[i];
-                        spotlightEls[i].style.setProperty('--mouse-x', `${ev.clientX - rect.left}px`);
-                        spotlightEls[i].style.setProperty('--mouse-y', `${ev.clientY - rect.top}px`);
+                interactionEvent = e;
+                if (interactionRAF) return;
+                interactionRAF = requestAnimationFrame(() => {
+                    interactionRAF = null;
+                    const ev = interactionEvent;
+                    interactionTarget = null;
+                    interactionEvent = null;
+                    if (!ev || !ev.target || !ev.target.closest) return;
+                    const card = ev.target.closest(spotlightSelector);
+                    if (!card) return;
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${ev.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${ev.clientY - rect.top}px`);
+                    if (card.matches(tiltSelector)) {
+                        const cx = rect.width / 2;
+                        const cy = rect.height / 2;
+                        card.style.setProperty('--rx', `${(ev.clientY - rect.top - cy) / cy * -4}deg`);
+                        card.style.setProperty('--ry', `${(ev.clientX - rect.left - cx) / cx * 4}deg`);
                     }
                 });
             });
-            // rAF-coalesced scroll refresh — prevents N×60Hz forced layouts on mobile scroll
-            let scrollRAF = null;
-            function scheduleRefreshRects() {
-                if (scrollRAF) return;
-                scrollRAF = requestAnimationFrame(() => {
-                    scrollRAF = null;
-                    refreshSpotlightRects();
+            // Reset tilt on mouseleave (per-card, only on tilt-enabled cards)
+            const tiltResetEls = Array.from(document.querySelectorAll('.entry-block, .profile-info-card'));
+            tiltResetEls.forEach(card => {
+                card.addEventListener('mouseleave', () => {
+                    if (interactionRAF) { cancelAnimationFrame(interactionRAF); interactionRAF = null; }
+                    card.style.setProperty('--rx', '0deg');
+                    card.style.setProperty('--ry', '0deg');
                 });
-            }
+            });
 
             /* ── DYNAMIC MOBILE LAYOUT REARRANGEMENT ──
                rAF-coalesced on resize to avoid DOM moves at full resize-event rate. */
@@ -2302,8 +2256,6 @@ function initSiteScripts() {
                         if (card.parentElement !== sidebarEl) sidebarEl.appendChild(card);
                     });
                 }
-                // Rects are stale after DOM moves — refresh spotlight cache
-                refreshSpotlightRects();
             }
             function scheduleRearrange() {
                 if (rearrangeRAF) return;
@@ -2314,7 +2266,6 @@ function initSiteScripts() {
             }
 
             window.addEventListener('resize', scheduleRearrange);
-            window.addEventListener('scroll', scheduleRefreshRects, { passive: true });
             document.addEventListener('DOMContentLoaded', rearrangeLayout);
 
             window.addEventListener('beforeprint', () => {
@@ -2369,10 +2320,6 @@ function initSiteScripts() {
                 // When #graph becomes visible, re-measure its container and re-fit
                 // the viewport (container was 0 at script-init while display:none).
                 if (hash === 'graph' && window.__refitGraph) window.__refitGraph();
-
-                // Refresh spotlight rect cache — section visibility flips change every
-                // card's position, so the cache is stale until the next scroll/resize.
-                requestAnimationFrame(refreshSpotlightRects);
 
                 let activeTabElement = null;
                 tabEls.forEach(a => {
@@ -2505,36 +2452,6 @@ function initSiteScripts() {
                         if (activeTab) centerActiveTab(activeTab);
                     }
                 }, 50);
-            });
-
-            /* ── 3D TILT INTERACTION ON CARDS ──
-               rAF-coalesced, shares the spotlight rect cache (spotlightRectMap) —
-               zero per-frame getBoundingClientRect calls. */
-            const tiltEls = Array.from(document.querySelectorAll('.entry-block, .profile-info-card'));
-            let tiltRAF = null;
-            let tiltEvent = null;
-            let tiltTarget = null;
-            tiltEls.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    tiltEvent = e;
-                    tiltTarget = card;
-                    if (tiltRAF) return;
-                    tiltRAF = requestAnimationFrame(() => {
-                        tiltRAF = null;
-                        if (!tiltTarget || !tiltEvent) return;
-                        const rect = spotlightRectMap.get(tiltTarget) || tiltTarget.getBoundingClientRect();
-                        const cx = rect.width / 2;
-                        const cy = rect.height / 2;
-                        // Max 4deg tilt
-                        tiltTarget.style.setProperty('--rx', `${(tiltEvent.clientY - rect.top - cy) / cy * -4}deg`);
-                        tiltTarget.style.setProperty('--ry', `${(tiltEvent.clientX - rect.left - cx) / cx * 4}deg`);
-                    });
-                });
-                card.addEventListener('mouseleave', () => {
-                    if (tiltRAF) { cancelAnimationFrame(tiltRAF); tiltRAF = null; }
-                    card.style.setProperty('--rx', '0deg');
-                    card.style.setProperty('--ry', '0deg');
-                });
             });
 
             /* ── NEURAL ORGANIC CANVAS WITH CURVED SYNAPSES & MOUSE INTERACTION ── */
