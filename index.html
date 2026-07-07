@@ -1505,7 +1505,14 @@
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             box-shadow: inset 0 1px 0 var(--glass-border-inner);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            /* `transition: all` used to also animate this element's own height
+               as the inner panel grew/shrank, on top of the backdrop-filter
+               blur being recalculated every frame — doubling up on expensive
+               work during the exact moment the accordion is opening. Scoping
+               the transition to just border-color (the only thing that
+               actually changes on this element, via :hover) removes that
+               redundant cost. */
+            transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         [data-theme="dark"] .workshop-category {
             background: rgba(255, 255, 255, 0.025);
@@ -1557,17 +1564,42 @@
             transform: rotate(180deg);
         }
         .ws-cat-panel {
-            max-height: 0;
-            overflow: hidden;
+            display: grid;
+            grid-template-rows: 0fr;
             opacity: 0;
-            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         opacity 0.3s ease;
             padding: 0 24px;
+            /* Isolate this panel's layout changes from the rest of the page.
+               Without this, the browser has to check whether resizing the
+               panel affects layout anywhere else on the page on every single
+               animation frame — with `contain: layout`, it can skip that
+               check entirely, which is a big part of what made opening a
+               category feel sluggish. */
+            contain: layout;
+        }
+        .ws-cat-panel > .ws-cat-panel-inner {
+            overflow: hidden;
+            min-height: 0;
         }
         .workshop-category[data-open="true"] .ws-cat-panel {
-            max-height: 9999px;
+            grid-template-rows: 1fr;
             opacity: 1;
             padding: 4px 24px 20px;
+        }
+        /* Fallback for browsers without grid-template-rows animation support
+           (older Safari/Firefox) — degrade to instant show/hide rather than
+           a broken half-open state. Modern evergreen browsers (Chrome 107+,
+           Firefox 113+, Safari 16.4+) all support animating this property. */
+        @supports not (grid-template-rows: 1fr) {
+            .ws-cat-panel {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            }
+            .workshop-category[data-open="true"] .ws-cat-panel {
+                max-height: 9999px;
+            }
         }
         .ws-cat-panel .entry-block {
             margin-bottom: 12px;
@@ -2033,6 +2065,7 @@
                 <div class="workshop-category" data-category="${esc(cat.code)}">
                     ${buildCategoryHeader(cat)}
                     <div class="ws-cat-panel" id="${esc(cat.panelId)}" role="region">
+                      <div class="ws-cat-panel-inner">
                         <div class="skill-matrix bento-grid">
                             ${cat.skillRows.map(row => {
                                 const gridDir = row.gridDir ? ` dir="${row.gridDir}"` : '';
@@ -2047,6 +2080,7 @@
                                     </div>`;
                             }).join('')}
                         </div>
+                      </div>
                     </div>
                 </div>`).join('');
             section.innerHTML += html;
@@ -2058,7 +2092,9 @@
             <div class="workshop-category" data-category="${esc(cat.code)}">
                 ${buildCategoryHeader(cat)}
                 <div class="ws-cat-panel" id="${esc(cat.panelId)}" role="region">
+                  <div class="ws-cat-panel-inner">
                     ${cat.modules.map(m => buildEntryBlock(m, { dataCategory: cat.code })).join('')}
+                  </div>
                 </div>
             </div>`).join('');
 
@@ -3312,17 +3348,39 @@ function initSiteScripts() {
                     const panel = document.getElementById(header.getAttribute('aria-controls'));
                     if (!category || !panel) return;
 
+                    // Cache the card list once instead of re-querying the DOM on every
+                    // toggle — querySelectorAll is comparatively cheap but doing it on
+                    // every single click adds needless work right when the accordion
+                    // animation is already competing for frame budget.
+                    const cards = Array.from(panel.querySelectorAll('.reveal-card'));
+                    let revealTimers = [];
+
                     function toggle() {
                         const isOpen = category.getAttribute('data-open') === 'true';
                         category.setAttribute('data-open', isOpen ? 'false' : 'true');
                         header.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
 
+                        // Clear any pending reveal timers from a previous rapid
+                        // open/close so they don't fire after the panel has
+                        // since been closed again (which caused cards to "pop"
+                        // in visibly after the fact and made re-toggling feel janky).
+                        revealTimers.forEach(t => clearTimeout(t));
+                        revealTimers = [];
+
                         if (!isOpen) {
-                            // Opening: trigger reveal-in on module cards inside
-                            const cards = panel.querySelectorAll('.reveal-card');
+                            // Opening: trigger reveal-in on module cards inside.
+                            // Only animate the first ~12 cards with stagger; beyond
+                            // that, reveal instantly so opening a huge category
+                            // doesn't queue up a long tail of delayed timeouts.
+                            const staggerLimit = 12;
                             cards.forEach((card, index) => {
                                 card.classList.remove('reveal-in');
-                                setTimeout(() => card.classList.add('reveal-in'), 50 + (index * 40));
+                                if (index < staggerLimit) {
+                                    const t = setTimeout(() => card.classList.add('reveal-in'), 50 + (index * 40));
+                                    revealTimers.push(t);
+                                } else {
+                                    card.classList.add('reveal-in');
+                                }
                             });
                         }
                     }
