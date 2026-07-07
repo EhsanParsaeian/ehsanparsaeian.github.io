@@ -118,7 +118,7 @@
 
         class MagneticButtonEffect {
             constructor() {
-                this.buttons = Array.from(document.querySelectorAll('button, a[href*="#"], .nav-cta-btn')).filter(el => !el.closest('.profile-info-card') && !el.closest('.ws-cat-header'));
+                this.buttons = Array.from(document.querySelectorAll('button, a[href*="#"]')).filter(el => !el.closest('.profile-info-card') && !el.closest('.ws-cat-header'));
                 this.rAF = null;
                 this.activeBtn = null;
                 this.lastEvt = null;
@@ -158,11 +158,7 @@
                 this.activeBtn = null;
                 btn.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
                 btn.style.transform = 'translate(0, 0) scale(1)';
-                if(!btn.classList.contains('nav-cta-btn')){
-                    btn.style.boxShadow = '0 0 0px rgba(79, 70, 229, 0)';
-                } else {
-                    btn.style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.3)';
-                }
+                btn.style.boxShadow = '0 0 0px rgba(79, 70, 229, 0)';
                 setTimeout(() => {
                     btn.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out';
                 }, 300);
@@ -287,6 +283,7 @@
             min-height: 100vh;
         }
 
+        /* ── CUSTOM RAW GLASS SCROLLBAR ── */
         ::-webkit-scrollbar { width: 12px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { 
@@ -311,6 +308,7 @@
         ::selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
         ::-moz-selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
 
+        /* ۱. اصلاح پس‌زمینه (حذف انیمیشن حرکت مش برای استراحت موتور رندر در دسکتاپ) */
         body::before {
             content: '';
             position: fixed;
@@ -411,7 +409,7 @@
         }
 
         #hero-banner {
-            position: relative; height: 160px; overflow: hidden; /* Height Reduced for Above the Fold UX */
+            position: relative; height: 160px; overflow: hidden;
             background: #000000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); cursor: crosshair;
         }
         #hero-banner::before {
@@ -481,27 +479,7 @@
         #topnav nav a:hover { color: var(--text); }
         #topnav nav a.active { color: var(--text); font-weight: 600; background: rgba(var(--accent-rgb), 0.08); border-radius: 6px; }
 
-        .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; align-items: center; }
-
-        .nav-cta-btn {
-            background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb), 0.8));
-            color: #ffffff !important;
-            padding: 6px 16px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
-            transition: transform 0.3s var(--ease-elastic), box-shadow 0.2s ease, filter 0.2s ease;
-            white-space: nowrap;
-        }
-        .nav-cta-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.4);
-            filter: brightness(1.1);
-        }
+        .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; }
 
         .nav-btn {
             background: transparent; border: 1px solid transparent; cursor: pointer; padding: 8px;
@@ -515,6 +493,38 @@
         }
         [data-theme="dark"] .nav-btn:hover { background: rgba(255, 255, 255, 0.08); }
 
+        /* ── CTA BUTTON (Feature 14: Sticky "Get in Touch" button) ── */
+        .nav-cta-btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 8px 16px; margin-inline-end: 4px;
+            background: linear-gradient(135deg, var(--accent), color-mix(in oklch, var(--accent), #ec4899 35%));
+            color: #ffffff; border: none; border-radius: 10px;
+            font-size: 0.8rem; font-weight: 600; text-decoration: none; cursor: pointer;
+            transition: transform 0.3s var(--ease-elastic), box-shadow 0.3s ease;
+            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative; overflow: hidden; white-space: nowrap; will-change: transform;
+        }
+        .nav-cta-btn svg { stroke: #ffffff; flex-shrink: 0; }
+        .nav-cta-btn .en, .nav-cta-btn .fa { color: #ffffff; }
+        .nav-cta-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+            transform: translateX(-100%); transition: transform 0.6s ease; pointer-events: none;
+        }
+        .nav-cta-btn:hover::before { transform: translateX(100%); }
+        .nav-cta-btn:hover {
+            box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+        [data-theme="dark"] .nav-cta-btn { box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.15); }
+        @media (max-width: 600px) {
+            .nav-cta-btn { padding: 6px 12px; font-size: 0.72rem; gap: 5px; }
+            .nav-cta-btn svg { width: 14px; height: 14px; }
+        }
+        @media (max-width: 400px) {
+            .nav-cta-btn .en, .nav-cta-btn .fa { display: none !important; }
+            .nav-cta-btn { padding: 8px; }
+        }
+
         #layout-wrapper { max-width: 1200px; margin: 36px auto 100px auto; padding: 0 40px; display: flex; align-items: flex-start; gap: 32px; }
         #sidebar {
             width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: calc(var(--nav-h) + 40px);
@@ -522,6 +532,7 @@
             background: transparent; border: none; box-shadow: none; padding: 0;
         }
 
+        /* شتاب‌دهی سخت‌افزاری عمیق با GPU برای رندر بی‌نقص افکت شیشه‌ای در دسکتاپ */
         .profile-info-card, .entry-block, .skill-row, .timeline-content, .reveal-card {
             will-change: transform;
             transform: translateZ(0);
@@ -560,6 +571,7 @@
             transition: background 0.5s ease, border-color 0.4s ease;
         }
 
+        /* بهینه‌سازی بارگذاری تنبل نیتیو: مرورگر چیدمان سکشن‌های مخفی را تا زمان نمایش نادیده می‌گیرد */
         .page-section { display: none; margin-bottom: 60px; }
         .js-enabled .page-section.visible { display: block; content-visibility: visible !important; }
         .js-enabled .page-section:not(.visible) { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
@@ -571,6 +583,7 @@
             font-variation-settings: "wght" 700; transition: font-variation-settings 0.3s ease;
         }
         
+        /* ۲. ثابت کردن گرادینت متن‌ها (حذف انیمیشن چرخش رنگ چرخه بی‌پایان برای استراحت پردازنده) */
         h2 span {
             background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
@@ -588,7 +601,7 @@
 
         p { font-size: clamp(0.875rem, 2vw, 1.125rem); line-height: clamp(1.4, 1.5vw, 1.8); color: var(--p-text); margin-bottom: 16px; text-align: start; }
         html[lang="fa"] p { line-height: 1.75; }
-        .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+        .entry-subtitle { font-weight: 500; color: var(--muted); font-size: 0.9rem; }
 
         .entry-block {
             margin-bottom: 28px; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -609,34 +622,32 @@
         html[lang="fa"] .entry-title { letter-spacing: normal; }
         .entry-title a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
         .entry-title a:hover { color: var(--accent); }
-        
-        .entry-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: flex-start; margin-top: 6px; }
-        
-        /* Targeting Badges Styling */
-        .target-badge {
-            padding: 4px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 700;
-            letter-spacing: 0.05em; text-transform: uppercase;
-            background: rgba(var(--accent-rgb), 0.1); color: var(--accent);
-            border: 1px solid rgba(var(--accent-rgb), 0.2);
-            display: inline-flex; align-items: center; white-space: nowrap;
+        .entry-meta { font-size: 0.85rem; color: var(--muted); font-weight: 500; text-align: end; flex-shrink: 0; margin-inline-start: 16px; }
+
+        /* ── TARGETING BADGES (Feature 13: Level & Audience badges next to workshop titles) ── */
+        .title-badges { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .title-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: 12px;
+            font-size: 0.7rem; font-weight: 600; white-space: nowrap;
+            border: 1px solid var(--glass-border); background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            transition: transform 0.2s ease;
         }
-        html[lang="fa"] .target-badge { letter-spacing: normal; }
-        .target-badge.foundational { background: rgba(16, 185, 129, 0.1); color: #059669; border-color: rgba(16, 185, 129, 0.2); }
-        .target-badge.intermediate { background: rgba(245, 158, 11, 0.1); color: #d97706; border-color: rgba(245, 158, 11, 0.2); }
-        .target-badge.advanced { background: rgba(239, 68, 68, 0.1); color: #dc2626; border-color: rgba(239, 68, 68, 0.2); }
-        [data-theme="dark"] .target-badge.foundational { color: #34d399; }
-        [data-theme="dark"] .target-badge.intermediate { color: #fbbf24; }
-        [data-theme="dark"] .target-badge.advanced { color: #f87171; }
+        .title-badge:hover { transform: translateY(-1px); }
+        .title-badge.depth-foundational { background: rgba(16, 185, 129, 0.12); color: #059669; border-color: rgba(16, 185, 129, 0.25); }
+        .title-badge.depth-intermediate { background: rgba(245, 158, 11, 0.12); color: #d97706; border-color: rgba(245, 158, 11, 0.25); }
+        .title-badge.depth-advanced { background: rgba(239, 68, 68, 0.12); color: #dc2626; border-color: rgba(239, 68, 68, 0.25); }
+        .title-badge.depth-unknown { background: rgba(100, 116, 139, 0.12); color: var(--muted); }
+        .title-badge.audience { background: rgba(var(--accent-rgb), 0.10); color: var(--accent); border-color: rgba(var(--accent-rgb), 0.25); }
+        [data-theme="dark"] .title-badge.depth-foundational { color: #34d399; }
+        [data-theme="dark"] .title-badge.depth-intermediate { color: #fbbf24; }
+        [data-theme="dark"] .title-badge.depth-advanced { color: #f87171; }
         
-        @media (min-width: 601px) {
-            .entry-header { flex-wrap: wrap; }
-            .entry-meta { margin-inline-start: auto; margin-top: 0; justify-content: flex-end; }
-        }
         @media (max-width: 600px) {
             .entry-header { flex-direction: column; gap: 8px; }
-            .entry-meta { margin-inline-start: 0; }
+            .entry-meta { text-align: start; margin-inline-start: 0; }
         }
-
         .entry-bullets { list-style-type: none; }
         .entry-bullets li { position: relative; padding-inline-start: 20px; margin-bottom: 8px; color: var(--p-text); font-size: 0.875rem; }
         .entry-bullets li::before { content: "•"; position: absolute; inset-inline-start: 4px; color: var(--accent); font-weight: bold; }
@@ -673,9 +684,22 @@
         .ngon-glow-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
         .ngon-outline { fill: none; stroke: var(--glass-border-inner); stroke-width: 1; opacity: 0.55; vector-effect: non-scaling-stroke; }
 
-        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 5; cursor: crosshair; }
+        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
+
+        /* ── INTERACTIVE RADAR HIGHLIGHT (Feature 15) ── */
+        .workshop-category.skill-cat-highlight {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.35), 0 0 48px rgba(var(--accent-rgb), 0.12), inset 0 1px 0 var(--glass-border-inner) !important;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .matrix-table tbody tr.matrix-row-highlight {
+            background: rgba(var(--accent-rgb), 0.14) !important;
+            box-shadow: inset 3px 0 0 var(--accent);
+        }
+        .matrix-table tbody tr.matrix-row-highlight td { color: var(--text) !important; font-weight: 600; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
+        /* ۳. بهینه‌سازی نویز لایه‌ها: نویز فقط روی سایدبار اصلی لود می‌شود و از لایه کارت‌های تکرارشونده برداشته شده است */
         .profile-info-card::after {
             content: ''; position: absolute; inset: 0; border-radius: inherit;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -683,7 +707,10 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
-        .entry-block::after { content: none !important; }
+        /* باگ کامپایل کامنت CSS در این خط به طور کامل رفع شد */
+        .entry-block::after {
+            content: none !important;
+        }
 
         .entry-block::before, .profile-info-card::before {
             content: ''; position: absolute; left: 0; top: 0; width: 100%;
@@ -698,7 +725,7 @@
         }
         @keyframes shimmerBorder { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
 
-        .entry-block:hover { --ty: -4px; box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.4), 8px 8px 16px rgba(0, 0, 0, 0.15), inset -2px -2px 6px rgba(255, 255, 255, 0.3), inset 2px 2px 6px rgba(0, 0, 0, 0.08); }
+        .entry-block:hover { --ty: -4px; }
         [data-theme="dark"] .entry-block:hover { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(var(--accent-rgb), 0.07)); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 32px rgba(var(--accent-rgb), 0.25), 0 0 0 1px rgba(var(--accent-rgb), 0.25), inset 0 1px 0 var(--glass-border-inner); }
 
         .profile-info-card:hover { --ty: -4px; border-color: var(--accent); }
@@ -709,20 +736,6 @@
             box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.12), 0 0 0 1px rgba(var(--accent-rgb), 0.12), inset 0 1px 0 var(--glass-border-inner);
         }
         [data-theme="dark"] .skill-row:hover { background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(var(--accent-rgb), 0.07)); box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.2), 0 0 0 1px rgba(var(--accent-rgb), 0.2), inset 0 1px 0 var(--glass-border-inner); }
-
-        /* Highlight Pulse Animation for Interactive Radar Charts */
-        @keyframes highlightPulseAnim {
-            0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4); border-color: var(--accent); }
-            70% { box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0); border-color: var(--accent); }
-            100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); border-color: var(--glass-border); }
-        }
-        .highlight-pulse {
-            animation: highlightPulseAnim 1.5s infinite !important;
-            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.05)) !important;
-            border-color: var(--accent) !important;
-            transform: scale(1.01) !important;
-            z-index: 10;
-        }
 
         @supports (color: color-mix(in srgb, red, blue)) {
             .entry-block:hover { background: color-mix(in oklch, var(--glass-bg) 85%, var(--accent) 15%); border-color: color-mix(in oklch, var(--accent), transparent 50%); }
@@ -753,12 +766,15 @@
             #content-workspace { container-type: inline-size; }
             @container (max-width: 650px) {
                 .entry-header { flex-direction: column; gap: 6px; }
+                .entry-meta { text-align: start; margin-inline-start: 0; }
+                .timeline-content { padding: 12px 16px; }
             }
             .entry-block { container: entry-card / inline-size; }
             .skill-row { container: skill-card / inline-size; }
 
             @container entry-card (max-width: 380px) {
                 .entry-block .entry-header { flex-direction: column; gap: 6px; }
+                .entry-block .entry-meta { text-align: start; margin-inline-start: 0; }
             }
             @container skill-card (max-width: 360px) {
                 .skill-row { flex-direction: column; gap: 8px; }
@@ -786,6 +802,7 @@
         }
         .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
         
+        /* ۴. حل تداخل انیمیشن سه‌بعدی بنتو گرید (سپردن چرخش‌های پیچیده محوری دایینامیک به کدهای جاوااسکریپت) */
         .bento-item:hover {
             transform: translateY(-4px) scale(1.01);
             box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15), inset 0 1px 0 var(--glass-border-inner);
@@ -797,6 +814,8 @@
 
         :focus-visible { animation: focusPulse 0.6s ease-out; }
         @keyframes focusPulse { 0% { outline-width: 2px; outline-offset: 4px; } 100% { outline-width: 4px; outline-offset: 8px; opacity: 0; } }
+
+        .entry-block:hover { box-shadow: -8px -8px 16px rgba(255, 255, 255, 0.4), 8px 8px 16px rgba(0, 0, 0, 0.15), inset -2px -2px 6px rgba(255, 255, 255, 0.3), inset 2px 2px 6px rgba(0, 0, 0, 0.08); }
 
         @keyframes scrollReveal { 0% { opacity: 0; transform: translateY(40px) rotateX(-10deg); } 100% { opacity: 1; transform: translateY(0) rotateX(0); } }
         .scroll-animated { animation: scrollReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
@@ -811,33 +830,35 @@
             #about .profile-info-card { padding: 16px 14px; border-radius: 12px; margin-bottom: 20px; }
             h2 { font-size: 1.15rem; margin-bottom: 14px; }
             p, .entry-bullets li { text-align: start; } html[lang="fa"] p, html[lang="fa"] .entry-bullets li { line-height: 1.8; }
-            .entry-header { flex-direction: column; align-items: flex-start; gap: 4px; } .entry-title { font-size: 1.05rem; } .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
+            .entry-header { flex-direction: column; align-items: flex-start; gap: 4px; } .entry-meta { text-align: start; font-size: 0.85rem; margin-inline-start: 0; } .entry-title { font-size: 1.05rem; } .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
             .skill-row { flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; } .skill-cat { width: 100%; }
         }
         @media (max-width: 480px) {
             html { font-size: 11.5px; } #layout-wrapper { padding: 0 10px; } #content-workspace { padding: 16px 12px; } #sidebar { padding: 16px 12px; } h2 { font-size: 1.1rem; } .entry-block { padding: 12px 10px; }
         }
 
-        .matrix-toolbar { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); }
-        
-        /* Live Search Box Styling */
-        .matrix-search-box { width: 100%; }
-        .matrix-search-box input {
-            width: 100%; padding: 12px 16px; border-radius: 12px;
-            background: rgba(255, 255, 255, 0.4); border: 1px solid var(--glass-border);
-            color: var(--text); font-family: inherit; font-size: 0.9rem; font-weight: 500;
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
+        /* ── LIVE SEARCH BAR (Feature 9) ── */
+        .matrix-search-wrap { position: relative; margin-bottom: 16px; }
+        .matrix-search-input {
+            width: 100%; padding: 12px 16px 12px 44px;
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border); border-radius: 14px;
+            color: var(--text); font-size: 0.9rem; font-family: inherit;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: inset 0 1px 0 var(--glass-border-inner);
         }
-        [data-theme="dark"] .matrix-search-box input { background: rgba(0, 0, 0, 0.2); }
-        .matrix-search-box input:focus {
+        .matrix-search-input:focus {
             outline: none; border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2), inset 0 2px 4px rgba(0,0,0,0.05);
-            background: var(--glass-bg-strong);
+            box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15), inset 0 1px 0 var(--glass-border-inner);
         }
+        .matrix-search-input::placeholder { color: var(--muted); }
+        .matrix-search-icon {
+            position: absolute; inset-inline-start: 16px; top: 50%; transform: translateY(-50%);
+            width: 18px; height: 18px; stroke: var(--muted); fill: none; pointer-events: none;
+        }
+        html[dir="rtl"] .matrix-search-input { padding: 12px 44px 12px 16px; }
 
-        .matrix-filters-wrapper { display: flex; flex-wrap: wrap; gap: 20px; width: 100%; }
+        .matrix-toolbar { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); }
         .matrix-filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .matrix-filter-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
         html[lang="fa"] .matrix-filter-label { letter-spacing: normal; }
@@ -863,8 +884,6 @@
         .matrix-table tbody tr:hover { background: rgba(var(--accent-rgb), 0.05); }
         .matrix-table tbody tr:last-child td { border-bottom: none; }
         .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; }
-        /* Tooltip hint cursor for matrix cat cells */
-        .matrix-cat-cell[title] { cursor: help; border-bottom: 1px dashed rgba(var(--accent-rgb), 0.4); }
         .matrix-title-cell { font-weight: 600; color: var(--text); max-width: 320px; }
         .matrix-depth-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.74rem; font-weight: 600; white-space: nowrap; }
         .matrix-depth-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
@@ -897,7 +916,7 @@
             .page-section { display: block !important; opacity: 1 !important; margin-bottom: 20pt !important; page-break-inside: auto !important; } h2 { font-size: 12pt !important; color: #111111 !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; border-bottom: 1px solid #111111 !important; padding-bottom: 2pt !important; page-break-after: avoid !important; } h2::after, .entry-block::before, .profile-info-card::before, .entry-block::after, .profile-info-card::after { display: none !important; }
             .entry-header { flex-direction: row !important; margin-bottom: 4pt !important; } .entry-title { font-size: 10.5pt !important; color: #111111 !important; } .entry-meta { font-size: 8.5pt !important; color: #555555 !important; text-align: end !important; margin-inline-start: 0 !important; } .entry-bullets li { padding-inline-start: 12pt !important; margin-bottom: 3pt !important; color: #2d3748 !important; font-size: 9pt !important; } p { color: #2d3748 !important; font-size: 9pt !important; margin-bottom: 8pt !important; }
             .skill-matrix { gap: 10pt !important; }
-            .matrix-toolbar, .matrix-summary { display: none !important; }
+            .matrix-toolbar, .matrix-summary, .matrix-search-wrap { display: none !important; }
             .matrix-container { border: 1px solid #e2e8f0 !important; border-radius: 4pt !important; background: none !important; backdrop-filter: none !important; box-shadow: none !important; }
             .matrix-scroll-wrap { overflow: visible !important; }
             .matrix-table { min-width: 0 !important; font-size: 8pt !important; }
@@ -907,6 +926,8 @@
             .matrix-cat-cell { color: #1d4ed8 !important; }
             .matrix-section-cell { color: #555555 !important; }
             .matrix-empty { display: none !important; } .skill-row { flex-direction: row !important; gap: 14pt !important; page-break-inside: avoid !important; } .skill-cat { width: 100pt !important; font-size: 8pt !important; }
+            .title-badge { border: 1px solid #999 !important; background: #f1f5f9 !important; color: #111 !important; font-size: 7pt !important; padding: 1pt 5pt !important; } .title-badges { gap: 4pt !important; margin-top: 3pt !important; }
+            .nav-cta-btn { display: none !important; }
             .workshop-category { border: 1px solid #e2e8f0 !important; border-radius: 4pt !important; margin-bottom: 8pt !important; padding: 0 !important; background: none !important; backdrop-filter: none !important; box-shadow: none !important; }
             .ws-cat-header { padding: 4pt 8pt !important; background: #f1f5f9 !important; border: none !important; border-radius: 0 !important; font-size: 9pt !important; cursor: default !important; }
             .ws-cat-header .ws-cat-intro { display: block !important; }
@@ -961,6 +982,7 @@
         .ws-cv-panel .ws-panel-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; padding: 0 4px; }
         html[lang="fa"] .ws-cv-panel .ws-panel-title { letter-spacing: normal; }
 
+        /* ── DEEP PERFORMANCE OBLITERATION OF MOBILE LAG ── */
         @media (max-width: 968px) {
             :root, [data-theme="dark"] {
                 --glass-blur: none !important;
@@ -1080,8 +1102,13 @@
 </div>
 </nav>
 <div class="nav-actions">
-<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-cta-btn">
-<span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
+<a href="#consulting" class="nav-cta-btn" id="nav-cta-contact" aria-label="Get in Touch">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+<polyline points="22,6 12,13 2,6"></polyline>
+</svg>
+<span class="en">Get in Touch</span>
+<span class="fa">ارتباط با من</span>
 </a>
 <button aria-label="Toggle Language" class="nav-btn" id="lang-toggle" title="Switch Language">
 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -1193,11 +1220,14 @@
 </h2>
 <p class="en">Every module across the Workshops, Teaching, and Skills sections — at a glance. Filter by category or depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
 <p class="fa">هر ماژول در سراسر بخش‌های کارگاه‌ها، تدریس و مهارت‌ها — در یک نگاه. بر اساس دسته یا عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
-<div class="matrix-toolbar">
-<div class="matrix-search-box">
-<input type="text" id="matrix-search-input" placeholder="Live search through modules and categories... / جستجوی زنده در ماژول‌ها و دسته‌ها..." autocomplete="off">
+<div class="matrix-search-wrap" role="search">
+<svg aria-hidden="true" class="matrix-search-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<input type="search" id="matrix-search" class="matrix-search-input" aria-label="Search modules" autocomplete="off"/>
 </div>
-<div class="matrix-filters-wrapper">
+<div class="matrix-toolbar">
 <div aria-label="Filter by category" class="matrix-filter-group" role="group">
 <span class="matrix-filter-label en">Category</span>
 <span class="matrix-filter-label fa">دسته</span>
@@ -1207,7 +1237,6 @@
 <span class="matrix-filter-label en">Depth</span>
 <span class="matrix-filter-label fa">عمق</span>
 <div class="matrix-filter-chips" id="matrix-filter-depths"></div>
-</div>
 </div>
 </div>
 <div class="matrix-summary" id="matrix-summary"></div>
@@ -1254,6 +1283,14 @@
         if (!rel) return '';
         if (Array.isArray(rel)) return rel.length ? ` rel="${rel.join(' ')}"` : '';
         return ` rel="${rel}"`;
+    }
+
+    function depthKeyFromString(s) {
+        const r = (s || '').toLowerCase();
+        if (r.includes('foundational') || r.includes('پایه')) return 'foundational';
+        if (r.includes('intermediate') || r.includes('متوسط')) return 'intermediate';
+        if (r.includes('advanced') || r.includes('پیشرفته')) return 'advanced';
+        return 'unknown';
     }
 
     function renderSidebarNav(items) {
@@ -1333,26 +1370,16 @@
         });
     }
 
-    // UPDATED: Transforms standard meta divs into UX-friendly Targeting Badges when applicable
     function buildMetaDivs(meta) {
-        if (!meta || !meta.length) return '';
         return meta.map(m => {
             const divDir = m.dir ? ` dir="${m.dir}"` : '';
             const enDir = m.enDir ? ` dir="${m.enDir}"` : '';
             const faDir = m.faDir ? ` dir="${m.faDir}"` : '';
-            
-            // Intelligent Badge styling
-            let badgeClass = 'target-badge';
-            const enStr = (m.en || '').toLowerCase();
-            if(enStr.includes('foundational') || enStr.includes('beginner')) badgeClass += ' foundational';
-            else if(enStr.includes('intermediate')) badgeClass += ' intermediate';
-            else if(enStr.includes('advanced') || enStr.includes('expert') || enStr.includes('specialist')) badgeClass += ' advanced';
-            
             let inner = `<span class="en"${enDir}>${esc(m.en)}</span><span class="fa"${faDir}>${esc(m.fa)}</span>`;
             if (m.extraLtr) {
                 inner += ` <span dir="ltr">${esc(m.extraLtr)}</span>`;
             }
-            return `<div class="${badgeClass}"${divDir}>${inner}</div>`;
+            return `<div${divDir}>${inner}</div>`;
         }).join('');
     }
 
@@ -1409,6 +1436,28 @@
 
         const subtitleHtml = mod.subtitle ? `<div class="entry-subtitle">${bilingual(mod.subtitle)}</div>` : '';
         const metaHtml = mod.meta && mod.meta.length ? `<div class="entry-meta">${buildMetaDivs(mod.meta)}</div>` : '';
+
+        let titleBadgesHtml = '';
+        if (opts.withTitleBadges && mod.meta && mod.meta.length >= 1) {
+            const depthMeta = mod.meta[0];
+            const depthKey = depthKeyFromString((depthMeta.en || '') + ' ' + (depthMeta.fa || ''));
+            const depthPair = { en: depthMeta.en || '', fa: depthMeta.fa || '', enDir: depthMeta.enDir, faDir: depthMeta.faDir };
+            const badges = [];
+            if (depthPair.en || depthPair.fa) {
+                badges.push(`<span class="title-badge depth-${depthKey}">${bilingual(depthPair)}</span>`);
+            }
+            if (mod.meta.length >= 2 && mod.meta[1]) {
+                const audMeta = mod.meta[1];
+                const audPair = { en: audMeta.en || '', fa: audMeta.fa || '', enDir: audMeta.enDir, faDir: audMeta.faDir };
+                if (audPair.en || audPair.fa) {
+                    badges.push(`<span class="title-badge audience">${bilingual(audPair)}</span>`);
+                }
+            }
+            if (badges.length) {
+                titleBadgesHtml = `<div class="title-badges">${badges.join('')}</div>`;
+            }
+        }
+
         const bulletsHtml = buildBullets(mod.bullets);
         const dataCatAttr = opts.dataCategory ? ` data-category="${esc(opts.dataCategory)}"` : '';
         const revealClass = opts.noReveal ? '' : ' reveal-card';
@@ -1418,6 +1467,7 @@
                 <div class="entry-header">
                     <div>
                         ${titleHtml}
+                        ${titleBadgesHtml}
                         ${subtitleHtml}
                     </div>
                     ${metaHtml}
@@ -1471,7 +1521,7 @@
                 ${buildCategoryHeader(cat)}
                 <div class="ws-cat-panel" id="${esc(cat.panelId)}" role="region">
                   <div class="ws-cat-panel-inner">
-                    ${cat.modules.map(m => buildEntryBlock(m, { dataCategory: cat.code })).join('')}
+                    ${cat.modules.map(m => buildEntryBlock(m, { dataCategory: cat.code, withTitleBadges: mode === 'workshops' })).join('')}
                   </div>
                 </div>
             </div>`).join('');
@@ -1994,6 +2044,7 @@ function initSiteScripts() {
                     });
                 }
 
+                /* هماهنگ‌سازی و لیمیت فریم هوشمند کانواس روی ۶۰ فریم با رفع کامل باگ تداخل پردازشی مانیتورهای High-Refresh */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -2011,6 +2062,7 @@ function initSiteScripts() {
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
+                    /* اختصاص فریم بعدی قبل از رد شدن فیلتر بازه زمانی برای خواب واقعی CPU در مانیتورهای گیمینگ و فرکانس بالا */
                     if (elapsed < fpsInterval) {
                         animationFrameId = requestAnimationFrame(loop);
                         return;
@@ -2127,14 +2179,16 @@ function initSiteScripts() {
                         const enCat = text(row.querySelector('.skill-cat .en'));
                         const faCat = text(row.querySelector('.skill-cat .fa'));
                         const count = row.querySelectorAll('.skill-badge').length;
-                        return { enCat, faCat, count };
+                        const catEl = row.closest('.workshop-category');
+                        const catCode = catEl ? catEl.getAttribute('data-category') : '';
+                        return { enCat, faCat, count, catCode };
                     }).filter(r => r.count > 0);
 
                     const max = Math.max(...raw.map(r => r.count), 1);
 
                     return raw.map(r => {
                         const label = shortLabel[r.enCat] || { en: r.enCat.split(' ').slice(0, 2).join(' '), fa: r.faCat };
-                        return { en: label.en, fa: label.fa, value: scale(r.count, max) };
+                        return { en: label.en, fa: label.fa, value: scale(r.count, max), catCode: r.catCode };
                     });
                 }
 
@@ -2153,18 +2207,18 @@ function initSiteScripts() {
                     if (!workCount && !teachCount && !eduCount) return [];
 
                     return [
-                        { en: 'Years Active', fa: 'سال فعالیت', value: scale(yearsActive, 10) },
-                        { en: 'Work Roles', fa: 'سوابق کاری', value: scale(workCount, 5) },
-                        { en: 'Teaching', fa: 'سوابق تدریس', value: scale(teachCount, 5) },
-                        { en: 'Education', fa: 'تحصیلات', value: scale(eduCount, 3) },
-                        { en: 'Orgs', fa: 'سازمان‌ها', value: scale(orgSet.size, 8) },
-                        { en: 'Highlights', fa: 'دستاوردها', value: scale(bulletCount, 25) }
+                        { en: 'Years Active', fa: 'سال فعالیت', value: scale(yearsActive, 10), sectionId: null },
+                        { en: 'Work Roles', fa: 'سوابق کاری', value: scale(workCount, 5), sectionId: 'experience' },
+                        { en: 'Teaching', fa: 'سوابق تدریس', value: scale(teachCount, 5), sectionId: 'teaching' },
+                        { en: 'Education', fa: 'تحصیلات', value: scale(eduCount, 3), sectionId: 'education' },
+                        { en: 'Orgs', fa: 'سازمان‌ها', value: scale(orgSet.size, 8), sectionId: null },
+                        { en: 'Highlights', fa: 'دستاوردها', value: scale(bulletCount, 25), sectionId: null }
                     ];
                 }
 
                 const charts = [
-                    { canvasId: 'radarSkillCanvas', build: buildSkillAxes },
-                    { canvasId: 'radarExperienceCanvas', build: buildExperienceAxes }
+                    { canvasId: 'radarSkillCanvas', build: buildSkillAxes, hoveredIdx: -1, axesWithAngles: [], cx: 0, cy: 0, R: 0 },
+                    { canvasId: 'radarExperienceCanvas', build: buildExperienceAxes, hoveredIdx: -1, axesWithAngles: [], cx: 0, cy: 0, R: 0 }
                 ];
 
                 function readColor(name, fallback) {
@@ -2195,7 +2249,7 @@ function initSiteScripts() {
 
                 const FRAME_RATIO = 0.62;
 
-                function drawChart(canvas, axes) {
+                function drawChart(canvas, axes, chartState) {
                     if (!canvas) return;
                     const stage = canvas.closest('.radar-stage');
                     const rect = canvas.getBoundingClientRect();
@@ -2260,8 +2314,16 @@ function initSiteScripts() {
                     const points = axes.map((axis, i) => {
                         const a = angleFor(i);
                         const r = R * axis.value;
-                        return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+                        return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a), angle: a, axis: axis };
                     });
+
+                    /* Store chart state for hover detection (Feature 15) */
+                    if (chartState) {
+                        chartState.axesWithAngles = points;
+                        chartState.cx = cx;
+                        chartState.cy = cy;
+                        chartState.R = R;
+                    }
 
                     ctx.beginPath();
                     points.forEach((p, i) => { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
@@ -2273,15 +2335,33 @@ function initSiteScripts() {
                     ctx.strokeStyle = accent;
                     ctx.stroke();
 
-                    points.forEach(p => {
+                    points.forEach((p, i) => {
+                        const isHovered = chartState && chartState.hoveredIdx === i;
                         ctx.beginPath();
-                        ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);
+                        ctx.arc(p.x, p.y, isHovered ? 7 : 4.5, 0, Math.PI * 2);
+                        if (isHovered) {
+                            ctx.shadowBlur = 14;
+                            ctx.shadowColor = accent;
+                        }
                         ctx.fillStyle = accent;
                         ctx.fill();
+                        ctx.shadowBlur = 0;
                     });
 
+                    /* Highlight hovered axis line (Feature 15) */
+                    if (chartState && chartState.hoveredIdx >= 0 && chartState.hoveredIdx < points.length) {
+                        const p = points[chartState.hoveredIdx];
+                        ctx.beginPath();
+                        ctx.moveTo(cx, cy);
+                        ctx.lineTo(cx + R * Math.cos(p.angle), cy + R * Math.sin(p.angle));
+                        ctx.strokeStyle = accent;
+                        ctx.lineWidth = 2.5;
+                        ctx.globalAlpha = 0.55;
+                        ctx.stroke();
+                        ctx.globalAlpha = 1;
+                    }
+
                     ctx.font = `600 11px ${isFa ? "'Estedad', sans-serif" : "'Inter', sans-serif"}`;
-                    ctx.fillStyle = textColor;
 
                     axes.forEach((axis, i) => {
                         const a = angleFor(i);
@@ -2300,75 +2380,15 @@ function initSiteScripts() {
 
                         ctx.textAlign = align;
                         ctx.textBaseline = baseline;
+                        const isHoveredAxis = chartState && chartState.hoveredIdx === i;
+                        ctx.fillStyle = isHoveredAxis ? accent : textColor;
+                        ctx.font = `${isHoveredAxis ? '700' : '600'} ${isHoveredAxis ? '12' : '11'}px ${isFa ? "'Estedad', sans-serif" : "'Inter', sans-serif"}`;
                         ctx.fillText(isFa ? axis.fa : axis.en, lx, ly);
-                    });
-                }
-                
-                // Add interactivity hover to highlight DOM elements
-                function bindRadarInteractivity(canvasId, getAxesFn) {
-                    const canvas = document.getElementById(canvasId);
-                    if (!canvas) return;
-                    
-                    canvas.addEventListener('mousemove', (e) => {
-                        const axes = getAxesFn();
-                        if (!axes || axes.length === 0) return;
-                        
-                        const rect = canvas.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        const cx = rect.width / 2;
-                        const cy = rect.height / 2;
-                        const angle = Math.atan2(y - cy, x - cx);
-                        
-                        let nearestAxis = null;
-                        let minDiff = Math.PI * 2;
-                        const step = (Math.PI * 2) / axes.length;
-                        
-                        axes.forEach((axis, i) => {
-                            let a = -Math.PI / 2 + i * step;
-                            let diff = Math.abs(angle - a);
-                            while (diff > Math.PI) diff -= Math.PI * 2;
-                            diff = Math.abs(diff);
-                            
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                nearestAxis = axis;
-                            }
-                        });
-                        
-                        document.querySelectorAll('.highlight-pulse').forEach(el => el.classList.remove('highlight-pulse'));
-                        
-                        // If mouse is reasonably close to an axis angle
-                        if (minDiff < step / 2) {
-                            const axisLabelEn = nearestAxis.en.toLowerCase();
-                            
-                            document.querySelectorAll('#skills .skill-row').forEach(row => {
-                                const catEn = (row.querySelector('.skill-cat .en')?.textContent || '').toLowerCase();
-                                if (catEn.includes(axisLabelEn) || axisLabelEn.includes(catEn.split(' ')[0])) {
-                                    row.classList.add('highlight-pulse');
-                                }
-                            });
-                            
-                            document.querySelectorAll('#matrix-table tbody tr').forEach(row => {
-                                const cell = (row.querySelector('.matrix-cat-cell')?.textContent || '').toLowerCase();
-                                if (axisLabelEn.includes(cell) || cell.includes(axisLabelEn)) {
-                                    row.classList.add('highlight-pulse');
-                                }
-                            });
-                        }
-                    });
-                    
-                    canvas.addEventListener('mouseleave', () => {
-                        document.querySelectorAll('.highlight-pulse').forEach(el => el.classList.remove('highlight-pulse'));
                     });
                 }
 
                 function drawAll() {
-                    charts.forEach(c => {
-                        drawChart(document.getElementById(c.canvasId), c.build());
-                        bindRadarInteractivity(c.canvasId, c.build);
-                    });
+                    charts.forEach(c => drawChart(document.getElementById(c.canvasId), c.build(), c));
                 }
 
                 let radarRAF = null;
@@ -2396,6 +2416,92 @@ function initSiteScripts() {
                     window.addEventListener('resize', scheduleDrawAll);
                 }
 
+                /* ── Feature 15: Interactive Radar Hover & Click ── */
+                function applyRadarHighlight(chart, idx) {
+                    const catCode = (idx >= 0 && chart.axesWithAngles[idx] && chart.axesWithAngles[idx].axis.catCode)
+                        ? chart.axesWithAngles[idx].axis.catCode : null;
+
+                    document.querySelectorAll('#matrix-tbody tr').forEach(tr => {
+                        tr.classList.toggle('matrix-row-highlight',
+                            !!catCode && tr.getAttribute('data-cat') === catCode);
+                    });
+                    document.querySelectorAll('#skills .workshop-category').forEach(cat => {
+                        cat.classList.toggle('skill-cat-highlight',
+                            !!catCode && cat.getAttribute('data-category') === catCode);
+                    });
+                }
+
+                function findClosestAxis(mx, my, chart) {
+                    if (!chart.axesWithAngles || !chart.axesWithAngles.length) return -1;
+                    const dx = mx - chart.cx;
+                    const dy = my - chart.cy;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 15 || dist > chart.R + 35) return -1;
+                    const mouseAngle = Math.atan2(dy, dx);
+                    let bestIdx = -1;
+                    let bestDiff = Infinity;
+                    chart.axesWithAngles.forEach((p, i) => {
+                        let diff = Math.abs(mouseAngle - p.angle);
+                        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+                        if (diff < bestDiff) {
+                            bestDiff = diff;
+                            bestIdx = i;
+                        }
+                    });
+                    const threshold = Math.PI / chart.axesWithAngles.length * 0.7;
+                    return bestDiff < threshold ? bestIdx : -1;
+                }
+
+                function setupRadarInteraction(chart) {
+                    const canvas = document.getElementById(chart.canvasId);
+                    if (!canvas) return;
+
+                    canvas.addEventListener('mousemove', (e) => {
+                        const rect = canvas.getBoundingClientRect();
+                        const mx = e.clientX - rect.left;
+                        const my = e.clientY - rect.top;
+                        const idx = findClosestAxis(mx, my, chart);
+                        canvas.style.cursor = idx >= 0 ? 'pointer' : 'default';
+                        if (idx !== chart.hoveredIdx) {
+                            chart.hoveredIdx = idx;
+                            scheduleDrawAll();
+                            applyRadarHighlight(chart, idx);
+                        }
+                    });
+
+                    canvas.addEventListener('mouseleave', () => {
+                        if (chart.hoveredIdx !== -1) {
+                            chart.hoveredIdx = -1;
+                            scheduleDrawAll();
+                            applyRadarHighlight(chart, -1);
+                        }
+                    });
+
+                    canvas.addEventListener('click', () => {
+                        if (chart.hoveredIdx < 0 || !chart.axesWithAngles[chart.hoveredIdx]) return;
+                        const axis = chart.axesWithAngles[chart.hoveredIdx].axis;
+                        if (axis.catCode) {
+                            /* Skill radar: navigate to skills section and open matching category accordion */
+                            const catCode = axis.catCode;
+                            window.location.hash = '#skills';
+                            setTimeout(() => {
+                                const catEl = document.querySelector('#skills .workshop-category[data-category="' + catCode + '"]');
+                                if (catEl) {
+                                    catEl.setAttribute('data-open', 'true');
+                                    const header = catEl.querySelector('.ws-cat-header');
+                                    if (header) header.setAttribute('aria-expanded', 'true');
+                                    catEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }, 150);
+                        } else if (axis.sectionId) {
+                            /* Experience radar: navigate to related section */
+                            window.location.hash = '#' + axis.sectionId;
+                        }
+                    });
+                }
+
+                charts.forEach(setupRadarInteraction);
+
                 window.__redrawRadarCharts = drawAll;
             })();
 
@@ -2408,22 +2514,22 @@ function initSiteScripts() {
                 const depthFilterEl = document.getElementById('matrix-filter-depths');
                 const emptyEl = document.getElementById('matrix-empty');
                 const emptyFaEl = document.getElementById('matrix-empty-fa');
-                const searchInputEl = document.getElementById('matrix-search-input');
+                const searchInput = document.getElementById('matrix-search');
                 if (!tableEl || !theadEl || !tbodyEl) return;
 
                 const isFa = () => root.getAttribute('lang') === 'fa';
                 const text = el => el ? el.textContent.trim() : '';
+                const escAttr = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+                let searchTerm = '';
 
                 const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444' };
                 const depthOrder = ['foundational', 'intermediate', 'advanced'];
 
-                let searchQuery = '';
-
                 function normalizeDepth(raw) {
                     const r = (raw || '').toLowerCase();
-                    if (r.includes('foundational') || r.includes('پایه') || r.includes('beginner')) return 'foundational';
+                    if (r.includes('foundational') || r.includes('پایه')) return 'foundational';
                     if (r.includes('intermediate') || r.includes('متوسط')) return 'intermediate';
-                    if (r.includes('advanced') || r.includes('پیشرفته') || r.includes('expert')) return 'advanced';
+                    if (r.includes('advanced') || r.includes('پیشرفته')) return 'advanced';
                     return 'unknown';
                 }
                 function depthLabel(d) {
@@ -2490,40 +2596,34 @@ function initSiteScripts() {
                 let activeCategories = new Set();
                 let activeDepths = new Set();
 
-                // Connect the Live Search input logic
-                if(searchInputEl) {
-                    searchInputEl.addEventListener('input', (e) => {
-                        searchQuery = e.target.value.toLowerCase().trim();
-                        render();
-                    });
-                }
-
                 function render() {
+                    if (searchInput) {
+                        searchInput.placeholder = isFa() ? 'جستجوی ماژول‌ها...' : 'Search modules...';
+                    }
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
                     theadEl.innerHTML = '<tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>';
 
+                    const term = searchTerm;
                     const filtered = allRows.filter(r => {
-                        const matchesCat = (activeCategories.size === 0 || activeCategories.has(r.catCode));
-                        const matchesDepth = (activeDepths.size === 0 || activeDepths.has(r.depth));
-                        const matchesSearch = searchQuery === '' || 
-                                              (r.titleEn && r.titleEn.toLowerCase().includes(searchQuery)) ||
-                                              (r.titleFa && r.titleFa.toLowerCase().includes(searchQuery)) ||
-                                              (r.catNameEn && r.catNameEn.toLowerCase().includes(searchQuery)) ||
-                                              (r.catNameFa && r.catNameFa.toLowerCase().includes(searchQuery)) ||
-                                              (r.catCode && r.catCode.toLowerCase().includes(searchQuery));
-                        
-                        return matchesCat && matchesDepth && matchesSearch;
+                        const catOk = (activeCategories.size === 0 || activeCategories.has(r.catCode));
+                        const depthOk = (activeDepths.size === 0 || activeDepths.has(r.depth));
+                        const searchOk = !term ||
+                            (r.titleEn || '').toLowerCase().includes(term) ||
+                            (r.titleFa || '').includes(term) ||
+                            (r.catNameEn || '').toLowerCase().includes(term) ||
+                            (r.catNameFa || '').includes(term) ||
+                            (r.audienceEn || '').toLowerCase().includes(term) ||
+                            (r.audienceFa || '').includes(term) ||
+                            (r.depthRawEn || '').toLowerCase().includes(term) ||
+                            (r.depthRawFa || '').includes(term) ||
+                            (r.catCode || '').toLowerCase().includes(term);
+                        return catOk && depthOk && searchOk;
                     });
 
                     tbodyEl.innerHTML = filtered.map(r => {
                         const secLabel = isFa() ? r.section.labelFa : r.section.labelEn;
                         const catLabel = r.catCode;
-                        
-                        // UX Friendly Tooltip Full Names
-                        const fullNameEn = r.catNameEn || r.catCode;
-                        const fullNameFa = r.catNameFa || r.catCode;
-                        const tooltip = isFa() ? fullNameFa : fullNameEn;
-                        
+                        const catFullName = isFa() ? (r.catNameFa || r.catCode) : (r.catNameEn || r.catCode);
                         const title = isFa() ? r.titleFa : r.titleEn;
                         const audience = isFa() ? (r.audienceFa || r.audienceEn) : (r.audienceEn || r.audienceFa);
                         const d = r.depth;
@@ -2538,9 +2638,9 @@ function initSiteScripts() {
                         });
                         barHtml += '</span>';
 
-                        return '<tr data-target="' + r.target + '">' +
+                        return '<tr data-target="' + r.target + '" data-cat="' + escAttr(r.catCode) + '">' +
                             '<td class="matrix-section-cell">' + secLabel + '</td>' +
-                            '<td class="matrix-cat-cell" title="' + esc(tooltip) + '">' + catLabel + '</td>' +
+                            '<td class="matrix-cat-cell" title="' + escAttr(catFullName) + '">' + catLabel + '</td>' +
                             '<td class="matrix-title-cell">' + title + '</td>' +
                             '<td>' + pill + '</td>' +
                             '<td>' + barHtml + '</td>' +
@@ -2594,14 +2694,11 @@ function initSiteScripts() {
                         catSet.get(r.catCode).count++;
                     });
                     const cats = Array.from(catSet.values());
-                    
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
-                        // UX Friendly Filter Buttons showing full Category Name based on language
-                        const dispName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
-                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' + dispName + '<span class="chip-count">' + c.count + '</span></span>';
+                        const name = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
+                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + escAttr(c.code) + '">' + name + '<span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
-                    
                     catFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
                         const code = chip.getAttribute('data-cat');
                         const toggle = () => {
@@ -2648,6 +2745,22 @@ function initSiteScripts() {
                 build();
                 window.__redrawGraph = function() { build(); };
                 window.__refitGraph = function() {};
+
+                /* ── Feature 9: Live Search event listeners ── */
+                if (searchInput) {
+                    searchInput.addEventListener('input', () => {
+                        searchTerm = searchInput.value.toLowerCase().trim();
+                        render();
+                    });
+                    searchInput.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            searchInput.value = '';
+                            searchTerm = '';
+                            render();
+                            searchInput.blur();
+                        }
+                    });
+                }
             })();
 
             function initWorkshopAccordion() {
@@ -2707,6 +2820,7 @@ function initSiteScripts() {
         new window.MagneticButtonEffect();
     }
 
+    /* ماژول تجمیع‌کننده رفرش پویای کامپوننت‌های تعاملی بعد از آپدیت داده‌های زنده JSON */
     window.__reinitDynamicComponents = function() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
@@ -2714,6 +2828,7 @@ function initSiteScripts() {
     };
 }
 
+/* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2722,6 +2837,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
+            /* فچ پس‌زمینه برای بررسی تغییرات فایل سورس و اعمال آنی دیتای جدید بدون فلش خوردن یا نیاز به رفرش صفحه */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
