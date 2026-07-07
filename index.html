@@ -1009,10 +1009,27 @@
             }
             .entry-block::before, .profile-info-card::before,
             .entry-block::after, .profile-info-card::after,
-            .skill-row::before, .timeline-content::before {
+            .skill-row::before, .timeline-content::before,
+            .matrix-chip-cat::before {
                 content: none !important;
                 animation: none !important;
                 display: none !important;
+            }
+            .matrix-chip-cat {
+                background: var(--glass-bg) !important;
+                box-shadow: none !important;
+                transition: border-color 0.2s ease, background 0.2s ease !important;
+            }
+            .matrix-chip-cat:hover {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            .matrix-chip-cat.active {
+                background: var(--accent) !important;
+                box-shadow: none !important;
+            }
+            .matrix-filter-chips.cat-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             }
             .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content, .skill-row {
                 will-change: auto !important;
@@ -1072,7 +1089,7 @@
             }
         }
         @media (pointer: coarse) {
-            button, a {
+            button, a, .matrix-chip-cat {
                 transform: none !important;
                 box-shadow: none !important;
                 transition: none !important;
