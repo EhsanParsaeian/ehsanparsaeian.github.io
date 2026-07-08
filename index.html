@@ -409,7 +409,7 @@
         }
 
         #hero-banner {
-            position: relative; height: 220px; overflow: hidden;
+            position: relative; height: 160px; overflow: hidden;
             background: #000000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); cursor: crosshair;
         }
         #hero-banner::before {
@@ -480,6 +480,24 @@
         #topnav nav a.active { color: var(--text); font-weight: 600; background: rgba(var(--accent-rgb), 0.08); border-radius: 6px; }
 
         .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; align-items: center; }
+
+        .nav-cta-btn {
+            display: flex; align-items: center; gap: 6px;
+            padding: 8px 18px; margin-inline-end: 4px;
+            background: linear-gradient(135deg, var(--accent), #10b981);
+            color: #ffffff; font-size: 0.82rem; font-weight: 700;
+            border: none; border-radius: 20px; cursor: pointer; text-decoration: none;
+            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35);
+            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, filter 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-cta-btn:hover { color: #ffffff; transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.5); filter: brightness(1.08); }
+        .nav-cta-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+        @media (max-width: 968px) {
+            .nav-cta-btn span.en, .nav-cta-btn span.fa { display: none !important; }
+            .nav-cta-btn { padding: 8px; border-radius: 50%; }
+            .nav-cta-btn svg { margin: 0; }
+        }
 
         .nav-btn {
             background: transparent; border: 1px solid transparent; cursor: pointer; padding: 8px;
@@ -583,6 +601,16 @@
         }
 
         .entry-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .entry-target-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 9px; margin-inline-start: 8px;
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.01em;
+            border-radius: 10px; vertical-align: middle;
+            background: rgba(var(--accent-rgb), 0.12); color: var(--accent);
+            border: 1px solid rgba(var(--accent-rgb), 0.25);
+            white-space: nowrap;
+        }
+        html[lang="fa"] .entry-target-badge { letter-spacing: normal; }
         .entry-title { 
             font-size: clamp(0.95rem, 0.89rem + 0.3vw, 1.05rem); font-weight: 600; 
             color: var(--text); letter-spacing: -0.01em; margin-bottom: 3px; line-height: 1.4;
@@ -616,7 +644,7 @@
         html[lang="fa"] .radar-title { letter-spacing: normal; }
 
         .radar-stage { position: relative; width: 100%; max-width: 360px; aspect-ratio: 1 / 1; margin: 0 auto; }
-        .ngon-frame { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 62%; aspect-ratio: 1 / 1; }
+        .ngon-frame { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 62%; aspect-ratio: 1 / 1; pointer-events: none; }
 
         .ngon-frame-inner {
             position: absolute; inset: 0; pointer-events: none;
@@ -632,7 +660,16 @@
         .ngon-glow-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
         .ngon-outline { fill: none; stroke: var(--glass-border-inner); stroke-width: 1; opacity: 0.55; vector-effect: non-scaling-stroke; }
 
-        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
+
+        .radar-linked-highlight {
+            outline: 2px solid var(--accent) !important;
+            outline-offset: 2px;
+            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4) !important;
+            background: rgba(var(--accent-rgb), 0.10) !important;
+            transition: all 0.2s ease;
+        }
+        tr.radar-linked-highlight { outline-offset: -2px; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
         /* ۳. بهینه‌سازی نویز لایه‌ها: نویز فقط روی سایدبار اصلی لود می‌شود و از لایه کارت‌های تکرارشونده برداشته شده است */
@@ -643,6 +680,7 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
+        /* باگ کامپایل کامنت CSS در این خط به طور کامل رفع شد */
         .entry-block::after {
             content: none !important;
         }
@@ -777,6 +815,19 @@
         .matrix-filter-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
         html[lang="fa"] .matrix-filter-label { letter-spacing: normal; }
         .matrix-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+        .matrix-search-wrap { position: relative; margin-bottom: 14px; max-width: 420px; }
+        .matrix-search-wrap svg { position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; }
+        .matrix-search-input {
+            width: 100%; padding: 10px 14px 10px 40px; border-radius: 14px;
+            border: 1px solid var(--glass-border); background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            color: var(--text); font-size: 0.85rem; font-family: inherit;
+            box-shadow: var(--glass-shadow); transition: all 0.25s var(--ease-smooth);
+        }
+        html[lang="fa"] .matrix-search-wrap svg { inset-inline-start: auto; inset-inline-end: 14px; }
+        html[lang="fa"] .matrix-search-input { padding: 10px 40px 10px 14px; }
+        .matrix-search-input::placeholder { color: var(--muted); opacity: 0.75; }
+        .matrix-search-input:focus { outline: none; border-color: var(--accent); box-shadow: var(--glass-shadow-hover), 0 0 0 3px rgba(var(--accent-rgb), 0.15); background: var(--glass-bg-strong); }
         .matrix-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 16px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.15); font-size: 0.78rem; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s ease; user-select: none; white-space: nowrap; }
         [data-theme="dark"] .matrix-chip { background: rgba(255, 255, 255, 0.04); }
         .matrix-chip:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
@@ -979,90 +1030,6 @@
                 transition: none !important;
             }
         }
-
-        /* ── FEATURE 4: OPTIMIZE ABOVE-THE-FOLD ── */
-        @media (min-width: 969px) {
-            #hero-banner {
-                height: 160px !important;
-            }
-        }
-
-        /* ── FEATURE 6: STICKY CTA BUTTON ── */
-        .cta-btn {
-            background: linear-gradient(135deg, var(--accent) 0%, #10b981 100%) !important;
-            color: #ffffff !important;
-            font-weight: 600;
-            padding: 6px 16px !important;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
-            font-size: 0.85rem !important;
-            border: none !important;
-        }
-        .cta-btn:hover {
-            background: linear-gradient(135deg, #6366f1 0%, #059669 100%) !important;
-            box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.35);
-            transform: translateY(-1px) scale(1.02) !important;
-        }
-        [data-theme="dark"] .cta-btn {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        /* ── FEATURE 1 & 2: CURRICULUM MATRIX UPGRADES ── */
-        .matrix-search-wrap {
-            width: 100%;
-            margin-bottom: 14px;
-        }
-        .matrix-search-input {
-            width: 100%;
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 0.9rem;
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            box-shadow: inset 0 1px 0 var(--glass-border-inner);
-            transition: all 0.3s ease;
-        }
-        .matrix-search-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.25);
-        }
-        [data-theme="dark"] .matrix-search-input {
-            background: rgba(0, 0, 0, 0.25);
-        }
-        .matrix-chip {
-            max-width: 240px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* ── FEATURE 5: AUDIENCE SUITABILITY BADGES ── */
-        .module-audience-badge {
-            display: inline-flex;
-            padding: 2px 8px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            background: rgba(var(--accent-rgb), 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(var(--accent-rgb), 0.2);
-            border-radius: 4px;
-            margin-inline-start: 8px;
-            vertical-align: middle;
-        }
-
-        /* ── FEATURE 7: RADAR MAPPING INTERACTIVITY ── */
-        .radar-highlight-glow {
-            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4) !important;
-            border-color: var(--accent) !important;
-            background: rgba(var(--accent-rgb), 0.08) !important;
-            transform: scale(1.015);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
     </style>
 </head>
 <body>
@@ -1098,9 +1065,9 @@
 </div>
 </nav>
 <div class="nav-actions">
-<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-btn cta-btn" id="nav-cta">
-<span class="en">Get in Touch</span>
-<span class="fa">ارتباط با من</span>
+<a class="nav-cta-btn" href="mailto:ehsan.parsaeian@gmail.com" aria-label="Get in Touch">
+<svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
 </a>
 <button aria-label="Toggle Language" class="nav-btn" id="lang-toggle" title="Switch Language">
 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -1212,10 +1179,12 @@
 </h2>
 <p class="en">Every module across the Workshops, Teaching, and Skills sections — at a glance. Filter by category or depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
 <p class="fa">هر ماژول در سراسر بخش‌های کارگاه‌ها، تدریس و مهارت‌ها — در یک نگاه. بر اساس دسته یا عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
-<div class="matrix-toolbar">
 <div class="matrix-search-wrap">
-<input type="text" id="matrix-search-input" class="matrix-search-input" placeholder="Search modules...">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+<input aria-label="Search matrix" class="matrix-search-input en" id="matrix-search" placeholder="Search modules, categories, audience…" type="text"/>
+<input aria-label="جستجو در ماتریس" class="matrix-search-input fa" id="matrix-search-fa" placeholder="جستجو در ماژول‌ها، دسته‌ها، مخاطب…" type="text"/>
 </div>
+<div class="matrix-toolbar">
 <div aria-label="Filter by category" class="matrix-filter-group" role="group">
 <span class="matrix-filter-label en">Category</span>
 <span class="matrix-filter-label fa">دسته</span>
@@ -1392,33 +1361,32 @@
         `).join('');
     }
 
+    function buildTargetBadge(mod) {
+        const audienceMeta = mod.meta && mod.meta.length > 1 ? mod.meta[1] : null;
+        if (!audienceMeta || (!audienceMeta.en && !audienceMeta.fa)) return '';
+        return `<span class="entry-target-badge"><span class="en">${esc(audienceMeta.en)}</span><span class="fa">${esc(audienceMeta.fa)}</span></span>`;
+    }
+
     function buildEntryBlock(mod, opts) {
         opts = opts || {};
-        
-        let badgeHtml = '';
-        if (mod.meta && mod.meta.length > 1) {
-            badgeHtml = ` <span class="module-audience-badge"><span class="en">${esc(mod.meta[1].en)}</span><span class="fa">${esc(mod.meta[1].fa)}</span></span>`;
-        }
-
+        const badgeHtml = buildTargetBadge(mod);
         let titleHtml;
         if (mod.title.link) {
             const link = mod.title.link;
             const targetAttr = link.target ? ` target="${esc(link.target)}"` : '';
             const relStr = relAttr(link.rel);
             titleHtml = `
-                <h3 class="entry-title kinetic-text" style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
+                <h3 class="entry-title kinetic-text">
                     <a href="${esc(link.href)}"${targetAttr}${relStr}>
                         <span class="en">${esc(mod.title.en)}</span>
                         <span class="fa">${esc(mod.title.fa)}</span>
-                    </a>
-                    ${badgeHtml}
+                    </a>${badgeHtml}
                 </h3>`;
         } else {
             titleHtml = `
-                <h3 class="entry-title kinetic-text" style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
+                <h3 class="entry-title kinetic-text">
                     <span class="en">${esc(mod.title.en)}</span>
-                    <span class="fa">${esc(mod.title.fa)}</span>
-                    ${badgeHtml}
+                    <span class="fa">${esc(mod.title.fa)}</span>${badgeHtml}
                 </h3>`;
         }
 
@@ -1546,6 +1514,17 @@
         section.insertAdjacentHTML('beforeend', html);
     }
 
+    function renderConsulting(data) {
+        const section = document.getElementById('consulting');
+        if (!section) return;
+        const h2 = section.querySelector('h2');
+        while (h2 && h2.nextSibling) {
+            section.removeChild(h2.nextSibling);
+        }
+        const html = buildEntryBlock(data, {});
+        section.insertAdjacentHTML('beforeend', html);
+    }
+
     function renderAll(data) {
         renderSidebarNav(data.sidebarNav || []);
         renderSidebarContact(data.sidebarContact || { items: [] });
@@ -1557,18 +1536,7 @@
         renderServices(data.services || { items: [], introParagraphs: [], outroParagraphs: [] });
         renderCategories('skills', data.skills || [], 'skills');
         renderPublications(data.publications || []);
-        if (data.consulting) renderConsulting(data.consulting);
-    }
-
-    function renderConsulting(data) {
-        const section = document.getElementById('consulting');
-        if (!section) return;
-        const h2 = section.querySelector('h2');
-        while (h2 && h2.nextSibling) {
-            section.removeChild(h2.nextSibling);
-        }
-        const html = buildEntryBlock(data, {});
-        section.insertAdjacentHTML('beforeend', html);
+        renderConsulting(data.consulting);
     }
 
     window.__renderSite = renderAll;
@@ -1583,7 +1551,7 @@ function initSiteScripts() {
 
             const root = document.documentElement;
             const sidebarEl = document.getElementById('sidebar');
-            const profileInfoCardEls = Array.from(document.querySelectorAll('.profile-info-card')).filter(el => !el.classList.contains('ws-cv-panel'));
+            const profileInfoCardEls = Array.from(document.querySelectorAll('.profile-info-card')).filter(el => !el.classList.contains('ws-visual-map-pill'));
             const aboutSectionEl = document.getElementById('about');
             const tablistEl = document.querySelector('#topnav nav div[role="tablist"]');
             const tabEls = tablistEl ? Array.from(tablistEl.querySelectorAll('a')) : [];
@@ -1810,11 +1778,6 @@ function initSiteScripts() {
                 document.title = lang === 'fa'
                     ? "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی"
                     : "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
-                
-                const searchInput = document.getElementById('matrix-search-input');
-                if (searchInput) {
-                    searchInput.placeholder = lang === 'fa' ? 'جستجوی ماژول‌ها...' : 'Search modules...';
-                }
             }
 
             langToggleBtn.addEventListener('click', () => {
@@ -1936,7 +1899,7 @@ function initSiteScripts() {
                     if (isMotionReduced) return;
                     if (e.touches.length > 0) {
                         mouse.x = e.touches[0].clientX - canvasRect.left;
-                        mouse.y = e.touches[0].top - canvasRect.top;
+                        mouse.y = e.touches[0].clientY - canvasRect.top;
                     }
                 }, { passive: true });
 
@@ -2014,6 +1977,7 @@ function initSiteScripts() {
                     });
                 }
 
+                /* هماهنگ‌سازی و لیمیت فریم هوشمند کانواس روی ۶۰ فریم با رفع کامل باگ تداخل پردازشی مانیتورهای High-Refresh */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -2031,6 +1995,7 @@ function initSiteScripts() {
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
+                    /* اختصاص فریم بعدی قبل از رد شدن فیلتر بازه زمانی برای خواب واقعی CPU در مانیتورهای گیمینگ و فرکانس بالا */
                     if (elapsed < fpsInterval) {
                         animationFrameId = requestAnimationFrame(loop);
                         return;
@@ -2154,7 +2119,7 @@ function initSiteScripts() {
 
                     return raw.map(r => {
                         const label = shortLabel[r.enCat] || { en: r.enCat.split(' ').slice(0, 2).join(' '), fa: r.faCat };
-                        return { en: label.en, fa: label.fa, value: scale(r.count, max), enCat: r.enCat };
+                        return { en: label.en, fa: label.fa, value: scale(r.count, max), enCat: r.enCat, faCat: r.faCat };
                     });
                 }
 
@@ -2322,6 +2287,12 @@ function initSiteScripts() {
                         ctx.textBaseline = baseline;
                         ctx.fillText(isFa ? axis.fa : axis.en, lx, ly);
                     });
+
+                    /* ذخیره هندسه تشخیص برخورد ماوس برای هر شاخه جهت تعامل هاور/کلیک (مورد ۱۵) */
+                    canvas.__radarAxes = axes.map((axis, i) => ({
+                        angle: angleFor(i), enCat: axis.enCat, faCat: axis.faCat, en: axis.en, fa: axis.fa
+                    }));
+                    canvas.__radarCenter = { cx, cy, step };
                 }
 
                 function drawAll() {
@@ -2347,71 +2318,86 @@ function initSiteScripts() {
                     const ro = new ResizeObserver(scheduleDrawAll);
                     charts.forEach(c => {
                         const el = document.getElementById(c.canvasId);
-                        if (el) {
-                            ro.observe(el);
-                            let currentHoveredAxis = -1;
-                            
-                            el.addEventListener('mousemove', (e) => {
-                                const axes = c.build();
-                                const rect = el.getBoundingClientRect();
-                                const mx = e.clientX - rect.left;
-                                const my = e.clientY - rect.top;
-                                const cx = rect.width / 2;
-                                const cy = rect.height / 2;
-                                const dx = mx - cx;
-                                const dy = my - cy;
-                                const dist = Math.sqrt(dx * dx + dy * dy);
-                                
-                                let hoveredAxisIndex = -1;
-                                if (dist > 15 && dist < Math.min(rect.width, rect.height) * 0.5) {
-                                    let angle = Math.atan2(dy, dx);
-                                    let targetAngle = angle + Math.PI / 2;
-                                    if (targetAngle < 0) targetAngle += Math.PI * 2;
-                                    const step = (Math.PI * 2) / axes.length;
-                                    hoveredAxisIndex = Math.round(targetAngle / step) % axes.length;
-                                    
-                                    const actualAngle = -Math.PI / 2 + hoveredAxisIndex * step;
-                                    let diff = Math.abs(angle - actualAngle);
-                                    if (diff > Math.PI) diff = Math.PI * 2 - diff;
-                                    if (diff > 0.45) hoveredAxisIndex = -1; 
-                                }
-                                
-                                if (hoveredAxisIndex !== currentHoveredAxis) {
-                                    currentHoveredAxis = hoveredAxisIndex;
-                                    document.querySelectorAll('.radar-highlight-glow').forEach(el => el.classList.remove('radar-highlight-glow'));
-                                    
-                                    if (hoveredAxisIndex !== -1) {
-                                        const axis = axes[hoveredAxisIndex];
-                                        if (c.canvasId === 'radarSkillCanvas' && axis.enCat) {
-                                            const matchTerm = axis.enCat.toLowerCase();
-                                            document.querySelectorAll('#skills .skill-row').forEach(row => {
-                                                const txt = row.querySelector('.skill-cat')?.textContent.toLowerCase() || '';
-                                                if (txt.includes(matchTerm) || matchTerm.includes(txt)) row.classList.add('radar-highlight-glow');
-                                            });
-                                            document.querySelectorAll('#matrix-table tbody tr').forEach(tr => {
-                                                const titleAttr = tr.querySelector('.matrix-cat-cell')?.title.toLowerCase() || '';
-                                                if (titleAttr.includes(matchTerm) || matchTerm.includes(titleAttr)) tr.classList.add('radar-highlight-glow');
-                                            });
-                                        } else if (c.canvasId === 'radarExperienceCanvas') {
-                                            if (axis.en === 'Work Roles') document.querySelectorAll('#experience .timeline-item').forEach(el => el.classList.add('radar-highlight-glow'));
-                                            if (axis.en === 'Teaching') document.querySelectorAll('#teaching .workshop-category').forEach(el => el.classList.add('radar-highlight-glow'));
-                                            if (axis.en === 'Education') document.querySelectorAll('#education .timeline-item').forEach(el => el.classList.add('radar-highlight-glow'));
-                                        }
-                                    }
-                                }
-                            });
-                            
-                            el.addEventListener('mouseleave', () => {
-                                currentHoveredAxis = -1;
-                                document.querySelectorAll('.radar-highlight-glow').forEach(el => el.classList.remove('radar-highlight-glow'));
-                            });
-                        }
+                        if (el) ro.observe(el);
                     });
                 } else {
                     window.addEventListener('resize', scheduleDrawAll);
                 }
 
                 window.__redrawRadarCharts = drawAll;
+
+                /* اتصال تعاملی نمودار راداری به بخش‌های مرتبط سایت (مورد ۱۵) */
+                function clearRadarHighlights() {
+                    document.querySelectorAll('.radar-linked-highlight').forEach(el => el.classList.remove('radar-linked-highlight'));
+                }
+
+                function applyRadarHighlight(enCat, faCat) {
+                    clearRadarHighlights();
+                    if (!enCat && !faCat) return;
+                    document.querySelectorAll('#skills .skill-row').forEach(row => {
+                        const rowEn = text(row.querySelector('.skill-cat .en'));
+                        const rowFa = text(row.querySelector('.skill-cat .fa'));
+                        if ((enCat && rowEn === enCat) || (faCat && rowFa === faCat)) {
+                            row.classList.add('radar-linked-highlight');
+                        }
+                    });
+                    document.querySelectorAll('#matrix-tbody tr').forEach(tr => {
+                        const catCell = tr.querySelector('.matrix-cat-cell');
+                        if (!catCell) return;
+                        const cellTitle = catCell.getAttribute('title') || '';
+                        if ((enCat && cellTitle === enCat) || (faCat && cellTitle === faCat)) {
+                            tr.classList.add('radar-linked-highlight');
+                        }
+                    });
+                }
+
+                function findHoveredAxis(canvas, evt) {
+                    const axes = canvas.__radarAxes;
+                    const geo = canvas.__radarCenter;
+                    if (!axes || !axes.length || !geo) return null;
+                    const rect = canvas.getBoundingClientRect();
+                    const mx = evt.clientX - rect.left;
+                    const my = evt.clientY - rect.top;
+                    const dx = mx - geo.cx;
+                    const dy = my - geo.cy;
+                    let angle = Math.atan2(dy, dx);
+                    let best = null, bestDiff = Infinity;
+                    axes.forEach(ax => {
+                        let diff = Math.abs(angle - ax.angle);
+                        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+                        if (diff < bestDiff) { bestDiff = diff; best = ax; }
+                    });
+                    if (best && bestDiff <= geo.step / 2) return best;
+                    return null;
+                }
+
+                function attachRadarInteractivity(canvas) {
+                    if (!canvas || canvas.__radarInteractiveBound) return;
+                    canvas.__radarInteractiveBound = true;
+                    canvas.addEventListener('mousemove', (evt) => {
+                        const axis = findHoveredAxis(canvas, evt);
+                        if (axis) applyRadarHighlight(axis.enCat, axis.faCat);
+                        else clearRadarHighlights();
+                    });
+                    canvas.addEventListener('mouseleave', clearRadarHighlights);
+                    canvas.addEventListener('click', (evt) => {
+                        const axis = findHoveredAxis(canvas, evt);
+                        if (!axis) return;
+                        const targetRow = document.querySelector('#skills .skill-row .skill-cat .en');
+                        const skillsSection = document.getElementById('skills');
+                        if (skillsSection && (axis.enCat || axis.faCat)) {
+                            document.querySelectorAll('#skills .skill-row').forEach(row => {
+                                const rowEn = text(row.querySelector('.skill-cat .en'));
+                                const rowFa = text(row.querySelector('.skill-cat .fa'));
+                                if (rowEn === axis.enCat || rowFa === axis.faCat) {
+                                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                            });
+                        }
+                    });
+                }
+
+                charts.forEach(c => attachRadarInteractivity(document.getElementById(c.canvasId)));
             })();
 
             (function initMatrix() {
@@ -2423,6 +2409,8 @@ function initSiteScripts() {
                 const depthFilterEl = document.getElementById('matrix-filter-depths');
                 const emptyEl = document.getElementById('matrix-empty');
                 const emptyFaEl = document.getElementById('matrix-empty-fa');
+                const searchEnEl = document.getElementById('matrix-search');
+                const searchFaEl = document.getElementById('matrix-search-fa');
                 if (!tableEl || !theadEl || !tbodyEl) return;
 
                 const isFa = () => root.getAttribute('lang') === 'fa';
@@ -2448,9 +2436,7 @@ function initSiteScripts() {
                 function buildMatrixData() {
                     const rows = [];
                     const sections = [
-                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' },
-                        { id: 'teaching', labelEn: 'Teaching', labelFa: 'تدریس', selector: '#teaching .workshop-category' },
-                        { id: 'skills', labelEn: 'Skills', labelFa: 'مهارت‌ها', selector: '#skills .workshop-category' }
+                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' }
                     ];
 
                     sections.forEach(sec => {
@@ -2501,32 +2487,30 @@ function initSiteScripts() {
                 let allRows = [];
                 let activeCategories = new Set();
                 let activeDepths = new Set();
+                let searchQuery = '';
 
                 function render() {
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
                     theadEl.innerHTML = '<tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>';
 
-                    const searchVal = (document.getElementById('matrix-search-input')?.value || '').toLowerCase().trim();
-                    const filtered = allRows.filter(r => {
-                        const matchesFilters = (activeCategories.size === 0 || activeCategories.has(r.catCode)) &&
-                                               (activeDepths.size === 0 || activeDepths.has(r.depth));
-                        if (!matchesFilters) return false;
-                        if (!searchVal) return true;
-                        return r.titleEn.toLowerCase().includes(searchVal) ||
-                               r.titleFa.toLowerCase().includes(searchVal) ||
-                               r.catNameEn.toLowerCase().includes(searchVal) ||
-                               r.catNameFa.toLowerCase().includes(searchVal) ||
-                               r.catCode.toLowerCase().includes(searchVal);
-                    });
+                    const q = searchQuery.trim().toLowerCase();
+                    const filtered = allRows.filter(r =>
+                        (activeCategories.size === 0 || activeCategories.has(r.catCode)) &&
+                        (activeDepths.size === 0 || activeDepths.has(r.depth)) &&
+                        (q === '' || [
+                            r.titleEn, r.titleFa, r.catCode, r.catNameEn, r.catNameFa,
+                            r.audienceEn, r.audienceFa, r.section.labelEn, r.section.labelFa
+                        ].some(v => (v || '').toLowerCase().includes(q)))
+                    );
 
                     tbodyEl.innerHTML = filtered.map(r => {
                         const secLabel = isFa() ? r.section.labelFa : r.section.labelEn;
                         const catLabel = r.catCode;
+                        const catFullName = isFa() ? (r.catNameFa || r.catCode) : (r.catNameEn || r.catCode);
                         const title = isFa() ? r.titleFa : r.titleEn;
                         const audience = isFa() ? (r.audienceFa || r.audienceEn) : (r.audienceEn || r.audienceFa);
                         const d = r.depth;
                         const dLabel = depthLabel(d);
-                        const fullCatName = isFa() ? r.catNameFa : r.catNameEn;
 
                         const pill = '<span class="matrix-depth-pill ' + d + '"><span class="dot" style="background:' + (depthColors[d] || 'var(--muted)') + '"></span>' + dLabel + '</span>';
 
@@ -2539,7 +2523,7 @@ function initSiteScripts() {
 
                         return '<tr data-target="' + r.target + '">' +
                             '<td class="matrix-section-cell">' + secLabel + '</td>' +
-                            '<td class="matrix-cat-cell" title="' + esc(fullCatName) + '">' + catLabel + '</td>' +
+                            '<td class="matrix-cat-cell" title="' + catFullName + '">' + catLabel + '</td>' +
                             '<td class="matrix-title-cell">' + title + '</td>' +
                             '<td>' + pill + '</td>' +
                             '<td>' + barHtml + '</td>' +
@@ -2560,11 +2544,9 @@ function initSiteScripts() {
                 }
 
                 function renderSummary() {
-                    const sections = ['workshops', 'teaching', 'skills'];
+                    const sections = ['workshops'];
                     const sectionLabels = {
-                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' },
-                        teaching: { en: 'Teaching', fa: 'تدریس' },
-                        skills: { en: 'Skills', fa: 'مهارت‌ها' }
+                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' }
                     };
                     const sectionCounts = {};
                     sections.forEach(s => sectionCounts[s] = 0);
@@ -2580,7 +2562,7 @@ function initSiteScripts() {
                                 (isFa() ? sectionLabels[s].fa : sectionLabels[s].en) + ' <span class="count">' + sectionCounts[s] + '</span></span>';
                         }
                     });
-                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational + '</span></span>';
+                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational > 0 ? depthCounts.foundational : '' + '</span></span>';
                     if (depthCounts.intermediate > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#f59e0b"></span>' + (isFa() ? 'متوسط' : 'Intermediate') + ' <span class="count">' + depthCounts.intermediate + '</span></span>';
                     if (depthCounts.advanced > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#ef4444"></span>' + (isFa() ? 'پیشرفته' : 'Advanced') + ' <span class="count">' + depthCounts.advanced + '</span></span>';
                     summaryEl.innerHTML = html_str;
@@ -2593,15 +2575,11 @@ function initSiteScripts() {
                         catSet.get(r.catCode).count++;
                     });
                     const cats = Array.from(catSet.values());
-                    
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
-                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' +
-                            '<span class="en">' + esc(c.nameEn) + '</span>' +
-                            '<span class="fa">' + esc(c.nameFa) + '</span>' +
-                            '<span class="chip-count">' + c.count + '</span></span>';
+                        const fullName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
+                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' + fullName + '<span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
-                    
                     catFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
                         const code = chip.getAttribute('data-cat');
                         const toggle = () => {
@@ -2643,12 +2621,17 @@ function initSiteScripts() {
                     renderSummary();
                     renderFilters();
                     render();
-                    
-                    const sIn = document.getElementById('matrix-search-input');
-                    if (sIn && !sIn.dataset.engaged) {
-                        sIn.addEventListener('input', render);
-                        sIn.dataset.engaged = "true";
-                    }
+                }
+
+                if (searchEnEl && searchFaEl) {
+                    const onSearchInput = (e) => {
+                        searchQuery = e.target.value;
+                        if (e.target === searchEnEl) searchFaEl.value = searchQuery;
+                        else searchEnEl.value = searchQuery;
+                        render();
+                    };
+                    searchEnEl.addEventListener('input', onSearchInput);
+                    searchFaEl.addEventListener('input', onSearchInput);
                 }
 
                 build();
@@ -2713,6 +2696,7 @@ function initSiteScripts() {
         new window.MagneticButtonEffect();
     }
 
+    /* ماژول تجمیع‌کننده رفرش پویای کامپوننت‌های تعاملی بعد از آپدیت داده‌های زنده JSON */
     window.__reinitDynamicComponents = function() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
@@ -2720,6 +2704,7 @@ function initSiteScripts() {
     };
 }
 
+/* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2728,6 +2713,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
+            /* فچ پس‌زمینه برای بررسی تغییرات فایل سورس و اعمال آنی دیتای جدید بدون فلش خوردن یا نیاز به رفرش صفحه */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
