@@ -468,31 +468,36 @@
         }
 
         .nav-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; }
-        #topnav nav { display: flex; height: 100%; margin-inline-start: calc(var(--sidebar-w) + 60px - 16px); }
-        #topnav nav div[role="tablist"] { display: flex; height: 100%; }
+        #topnav nav {
+            display: flex; height: 100%; margin-inline-start: calc(var(--sidebar-w) + 60px - 16px);
+            overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; min-width: 0; flex-shrink: 1;
+        }
+        #topnav nav::-webkit-scrollbar { display: none; }
+        #topnav nav div[role="tablist"] { display: flex; height: 100%; flex-shrink: 0; }
 
         #topnav nav a {
-            font-size: 0.875rem; font-weight: 500; color: var(--muted);
-            text-decoration: none; padding: 0 16px; display: flex; align-items: center;
-            position: relative; transition: color 0.25s var(--ease-smooth);
+            font-size: 0.85rem; font-weight: 500; color: var(--muted);
+            text-decoration: none; padding: 0 13px; display: flex; align-items: center;
+            position: relative; transition: color 0.25s var(--ease-smooth); white-space: nowrap; flex-shrink: 0;
         }
         #topnav nav a:hover { color: var(--text); }
         #topnav nav a.active { color: var(--text); font-weight: 600; background: rgba(var(--accent-rgb), 0.08); border-radius: 6px; }
 
-        .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; align-items: center; }
+        .nav-actions { display: flex; gap: 8px; margin-inline-start: 16px; align-items: center; flex-shrink: 0; }
 
         .nav-cta-btn {
             display: flex; align-items: center; gap: 6px;
-            padding: 8px 18px; margin-inline-end: 4px;
+            padding: 7px 15px; margin-inline-end: 4px;
             background: linear-gradient(135deg, var(--accent), #10b981);
-            color: #ffffff; font-size: 0.82rem; font-weight: 700;
+            color: #ffffff; font-size: 0.78rem; font-weight: 700;
             border: none; border-radius: 20px; cursor: pointer; text-decoration: none;
-            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35);
+            box-shadow: 0 3px 10px rgba(var(--accent-rgb), 0.3);
             transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, filter 0.2s ease;
             white-space: nowrap;
         }
-        .nav-cta-btn:hover { color: #ffffff; transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.5); filter: brightness(1.08); }
-        .nav-cta-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+        .nav-cta-btn:hover { color: #ffffff; transform: translateY(-1px) scale(1.03); box-shadow: 0 5px 16px rgba(var(--accent-rgb), 0.42); filter: brightness(1.08); }
+        .nav-cta-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
         @media (max-width: 968px) {
             .nav-cta-btn span.en, .nav-cta-btn span.fa { display: none !important; }
             .nav-cta-btn { padding: 8px; border-radius: 50%; }
@@ -805,17 +810,17 @@
         /* شبکه‌ی منظم دکمه‌های شیشه‌ای دسته‌بندی ماژول‌ها (بازطراحی زیبایی‌شناسی) */
         .matrix-filter-chips.cat-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
             gap: 10px;
             width: 100%;
+            align-items: stretch;
         }
-        @media (max-width: 900px) { .matrix-filter-chips.cat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
         @media (max-width: 640px) { .matrix-filter-chips.cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
         @media (max-width: 420px) { .matrix-filter-chips.cat-grid { grid-template-columns: 1fr; } }
 
         .matrix-chip-cat {
             position: relative;
-            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
             padding: 11px 16px;
             border-radius: 13px;
             border: 1px solid var(--glass-border);
@@ -844,7 +849,7 @@
             border-color: rgba(var(--accent-rgb), 0.45);
             box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 8px 20px rgba(var(--accent-rgb), 0.16);
         }
-        .matrix-chip-cat .cat-chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .matrix-chip-cat .cat-chip-name { overflow-wrap: break-word; word-break: break-word; white-space: normal; line-height: 1.3; }
         .matrix-chip-cat .chip-count {
             flex-shrink: 0;
             display: inline-flex; align-items: center; justify-content: center;
@@ -853,6 +858,7 @@
             background: rgba(var(--accent-rgb), 0.14);
             color: var(--accent);
             font-size: 0.72rem; font-weight: 700;
+            align-self: flex-start;
             transition: all 0.22s ease;
         }
         .matrix-chip-cat.active {
@@ -876,6 +882,9 @@
         html[lang="fa"] .matrix-search-input { padding: 10px 40px 10px 14px; }
         .matrix-search-input::placeholder { color: var(--muted); opacity: 0.75; }
         .matrix-search-input:focus { outline: none; border-color: var(--accent); box-shadow: var(--glass-shadow-hover), 0 0 0 3px rgba(var(--accent-rgb), 0.15); background: var(--glass-bg-strong); }
+        @media (max-width: 968px) {
+            .matrix-search-input { font-size: 16px !important; }
+        }
         .matrix-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 16px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.15); font-size: 0.78rem; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s ease; user-select: none; white-space: nowrap; }
         [data-theme="dark"] .matrix-chip { background: rgba(255, 255, 255, 0.04); }
         .matrix-chip:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
@@ -950,11 +959,49 @@
 
         .ws-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
         .ws-heading-row h2 { margin-bottom: 0; }
-        .ws-visual-map-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 24px; text-decoration: none; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
-        .ws-visual-map-pill svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--accent); fill: none; stroke-width: 2; }
-        .ws-visual-map-pill .en { color: var(--text); }
-        .ws-visual-map-pill .fa { color: var(--text); }
-        .ws-visual-map-pill:hover { --ty: -4px; border-color: var(--accent); transform: translateY(-4px); }
+        .ws-visual-map-pill {
+            position: relative;
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 12px 18px 12px 14px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.10));
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 3px 10px rgba(0, 0, 0, 0.05);
+            text-decoration: none; white-space: nowrap; overflow: hidden;
+            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        [data-theme="dark"] .ws-visual-map-pill {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+        }
+        .ws-visual-map-pill::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.35) 45%, transparent 60%);
+            transform: translateX(-120%);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+        }
+        [data-theme="dark"] .ws-visual-map-pill::before { background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 60%); }
+        .ws-visual-map-pill:hover::before { transform: translateX(120%); }
+        .ws-visual-map-pill:hover {
+            transform: translateY(-3px);
+            border-color: rgba(var(--accent-rgb), 0.45);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 10px 24px rgba(var(--accent-rgb), 0.2);
+        }
+        .ws-pill-icon {
+            display: flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+            background: linear-gradient(135deg, var(--accent), #10b981);
+            box-shadow: 0 3px 8px rgba(var(--accent-rgb), 0.35);
+        }
+        .ws-pill-icon svg { width: 18px; height: 18px; color: #ffffff; }
+        .ws-pill-text { display: flex; flex-direction: column; line-height: 1.25; }
+        .ws-pill-text .en, .ws-pill-text .fa { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+        .ws-pill-arrow { width: 16px; height: 16px; stroke: var(--muted); flex-shrink: 0; transition: transform 0.25s var(--ease-smooth), stroke 0.25s ease; }
+        html[lang="fa"] .ws-pill-arrow { transform: scaleX(-1); }
+        html[lang="fa"] .ws-visual-map-pill:hover .ws-pill-arrow { transform: scaleX(-1) translateX(3px); }
+        .ws-visual-map-pill:hover .ws-pill-arrow { stroke: var(--accent); transform: translateX(3px); }
 
         #skills .skill-matrix.bento-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
         #skills .skill-row.bento-item:not(.large) { flex-direction: column; gap: 8px; }
@@ -1030,6 +1077,18 @@
             }
             .matrix-filter-chips.cat-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+            .ws-visual-map-pill::before {
+                content: none !important;
+                display: none !important;
+            }
+            .ws-visual-map-pill {
+                background: var(--glass-bg) !important;
+                box-shadow: none !important;
+            }
+            .ws-visual-map-pill:hover {
+                transform: none !important;
+                box-shadow: none !important;
             }
             .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content, .skill-row {
                 will-change: auto !important;
@@ -1118,11 +1177,29 @@
 <a aria-controls="about" aria-selected="true" class="active" href="#about" id="nav-about" role="tab" tabindex="0">
 <span class="en">About Me</span><span class="fa">درباره من</span>
 </a>
+<a aria-controls="experience" aria-selected="false" href="#experience" id="nav-experience" role="tab" tabindex="-1">
+<span class="en">Experience</span><span class="fa">سوابق</span>
+</a>
+<a aria-controls="education" aria-selected="false" href="#education" id="nav-education" role="tab" tabindex="-1">
+<span class="en">Education</span><span class="fa">تحصیلات</span>
+</a>
 <a aria-controls="workshops" aria-selected="false" href="#workshops" id="nav-workshops" role="tab" tabindex="-1">
 <span class="en">Workshops</span><span class="fa">کارگاه‌ها</span>
 </a>
+<a aria-controls="teaching" aria-selected="false" href="#teaching" id="nav-teaching" role="tab" tabindex="-1">
+<span class="en">Teaching</span><span class="fa">تدریس</span>
+</a>
+<a aria-controls="graph" aria-selected="false" href="#graph" id="nav-graph" role="tab" tabindex="-1">
+<span class="en">Curriculum Matrix</span><span class="fa">ماتریس سرفصل‌ها</span>
+</a>
+<a aria-controls="skills" aria-selected="false" href="#skills" id="nav-skills" role="tab" tabindex="-1">
+<span class="en">Skills</span><span class="fa">مهارت‌ها</span>
+</a>
 <a aria-controls="services" aria-selected="false" href="#services" id="nav-services" role="tab" tabindex="-1">
 <span class="en">Services</span><span class="fa">خدمات</span>
+</a>
+<a aria-controls="consulting" aria-selected="false" href="#consulting" id="nav-consulting" role="tab" tabindex="-1">
+<span class="en">Consulting</span><span class="fa">مشاوره</span>
 </a>
 <a aria-controls="publications" aria-selected="false" href="#publications" id="nav-publications" role="tab" tabindex="-1">
 <span class="en">Publications</span><span class="fa">مقالات علمی</span>
@@ -1197,16 +1274,23 @@
 <span class="en">Workshop Menu</span>
 <span class="fa">فهرست کارگاه‌ها</span>
 </h2>
-<a aria-label="Curriculum Matrix" class="profile-info-card ws-visual-map-pill reveal-card" href="#graph">
-<svg aria-hidden="true" viewbox="0 0 24 24">
-<circle cx="18" cy="5" r="3"></circle>
-<circle cx="6" cy="12" r="3"></circle>
-<circle cx="18" cy="19" r="3"></circle>
-<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
-<line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+<a aria-label="Curriculum Matrix" class="ws-visual-map-pill" href="#graph">
+<span class="ws-pill-icon">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<rect height="7" rx="1.5" width="7" x="3" y="3"></rect>
+<rect height="7" rx="1.5" width="7" x="14" y="3"></rect>
+<rect height="7" rx="1.5" width="7" x="3" y="14"></rect>
+<rect height="7" rx="1.5" width="7" x="14" y="14"></rect>
 </svg>
+</span>
+<span class="ws-pill-text">
 <span class="en">Curriculum Matrix</span>
 <span class="fa">ماتریس سرفصل‌ها</span>
+</span>
+<svg aria-hidden="true" class="ws-pill-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<line x1="5" x2="19" y1="12" y2="12"></line>
+<polyline points="12 5 19 12 12 19"></polyline>
+</svg>
 </a>
 </div></section>
 <section aria-labelledby="nav-services" class="page-section" id="services" role="tabpanel"><h2>
@@ -1225,13 +1309,13 @@
 <span class="en">Consulting</span>
 <span class="fa">مشاوره و پروژه‌ها</span>
 </h2></section>
-<section aria-labelledby="graph-heading" class="page-section" id="graph" role="tabpanel">
+<section aria-labelledby="nav-graph" class="page-section" id="graph" role="tabpanel">
 <h2 id="graph-heading">
 <span class="en">Curriculum Matrix</span>
 <span class="fa">ماتریس سرفصل‌ها</span>
 </h2>
-<p class="en">Every module across the Workshops, Teaching, and Skills sections — at a glance. Filter by category or depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
-<p class="fa">هر ماژول در سراسر بخش‌های کارگاه‌ها، تدریس و مهارت‌ها — در یک نگاه. بر اساس دسته یا عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
+<p class="en">Every module in the Workshops menu — at a glance. Search or filter by category and depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
+<p class="fa">هر ماژول در فهرست کارگاه‌ها — در یک نگاه. جستجو کنید یا بر اساس دسته و عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
 <div class="matrix-search-wrap">
 <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
 <input aria-label="Search matrix" class="matrix-search-input en" id="matrix-search" placeholder="Search modules, categories, audience…" type="text"/>
@@ -1682,7 +1766,7 @@ function initSiteScripts() {
             });
             window.addEventListener('afterprint', rearrangeLayout);
 
-            const tabsOrder = ['about', 'workshops', 'services', 'publications'];
+            const tabsOrder = tabEls.map(a => (a.getAttribute('href') || '').replace('#', ''));
 
             function centerActiveTab(tab) {
                 if (tab) tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -2717,11 +2801,13 @@ function initSiteScripts() {
                 }
 
                 if (searchEnEl && searchFaEl) {
+                    let searchRAF = null;
                     const onSearchInput = (e) => {
                         searchQuery = e.target.value;
                         if (e.target === searchEnEl) searchFaEl.value = searchQuery;
                         else searchEnEl.value = searchQuery;
-                        render();
+                        if (searchRAF) cancelAnimationFrame(searchRAF);
+                        searchRAF = requestAnimationFrame(() => { searchRAF = null; render(); });
                     };
                     searchEnEl.addEventListener('input', onSearchInput);
                     searchFaEl.addEventListener('input', onSearchInput);
