@@ -308,7 +308,6 @@
         ::selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
         ::-moz-selection { background: rgba(var(--accent-rgb), 0.3); color: var(--text); }
 
-        /* ۱. اصلاح پس‌زمینه (حذف انیمیشن حرکت مش برای استراحت موتور رندر در دسکتاپ) */
         body::before {
             content: '';
             position: fixed;
@@ -533,7 +532,6 @@
             background: transparent; border: none; box-shadow: none; padding: 0;
         }
 
-        /* شتاب‌دهی سخت‌افزاری عمیق با GPU برای رندر بی‌نقص افکت شیشه‌ای در دسکتاپ */
         .profile-info-card, .entry-block, .skill-row, .timeline-content, .reveal-card {
             will-change: transform;
             transform: translateZ(0);
@@ -572,7 +570,6 @@
             transition: background 0.5s ease, border-color 0.4s ease;
         }
 
-        /* بهینه‌سازی بارگذاری تنبل نیتیو: مرورگر چیدمان سکشن‌های مخفی را تا زمان نمایش نادیده می‌گیرد */
         .page-section { display: none; margin-bottom: 60px; }
         .js-enabled .page-section.visible { display: block; content-visibility: visible !important; }
         .js-enabled .page-section:not(.visible) { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
@@ -584,7 +581,6 @@
             font-variation-settings: "wght" 700; transition: font-variation-settings 0.3s ease;
         }
         
-        /* ۲. ثابت کردن گرادینت متن‌ها (حذف انیمیشن چرخش رنگ چرخه بی‌پایان برای استراحت پردازنده) */
         h2 span {
             background: linear-gradient(90deg, var(--accent), var(--text), var(--accent));
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
@@ -659,7 +655,6 @@
         html[lang="fa"] .radar-title { letter-spacing: normal; }
 
         .radar-stage { position: relative; width: 100%; max-width: 360px; aspect-ratio: 1 / 1; margin: 0 auto; }
-
         .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
 
         .radar-linked-highlight {
@@ -672,7 +667,6 @@
         tr.radar-linked-highlight { outline-offset: -2px; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
-        /* ۳. بهینه‌سازی نویز لایه‌ها: نویز فقط روی سایدبار اصلی لود می‌شود و از لایه کارت‌های تکرارشونده برداشته شده است */
         .profile-info-card::after {
             content: ''; position: absolute; inset: 0; border-radius: inherit;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -680,7 +674,6 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
-        /* باگ کامپایل کامنت CSS در این خط به طور کامل رفع شد */
         .entry-block::after {
             content: none !important;
         }
@@ -775,7 +768,6 @@
         }
         .bento-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
         
-        /* ۴. حل تداخل انیمیشن سه‌بعدی بنتو گرید (سپردن چرخش‌های پیچیده محوری دایینامیک به کدهای جاوااسکریپت) */
         .bento-item:hover {
             transform: translateY(-4px) scale(1.01);
             box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15), inset 0 1px 0 var(--glass-border-inner);
@@ -805,6 +797,12 @@
             p, .entry-bullets li { text-align: start; } html[lang="fa"] p, html[lang="fa"] .entry-bullets li { line-height: 1.8; }
             .entry-header { flex-direction: column; align-items: flex-start; gap: 4px; } .entry-meta { text-align: start; font-size: 0.85rem; margin-inline-start: 0; } .entry-title { font-size: 1.05rem; } .entry-block { padding: 16px 14px; border-radius: 12px; margin-bottom: 16px; }
             .skill-row { flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 12px; } .skill-cat { width: 100%; }
+            
+            .workshop-category {
+                /* content-visibility & contain-intrinsic-size optimized to resolve CLS pop jitter */
+                /* content-visibility: auto; */
+                /* contain-intrinsic-size: 80px; */
+            }
         }
         @media (max-width: 480px) {
             html { font-size: 11.5px; } #layout-wrapper { padding: 0 10px; } #content-workspace { padding: 16px 12px; } #sidebar { padding: 16px 12px; } h2 { font-size: 1.1rem; } .entry-block { padding: 12px 10px; }
@@ -817,7 +815,6 @@
         html[lang="fa"] .matrix-filter-label { letter-spacing: normal; }
         .matrix-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
 
-        /* شبکه‌ی منظم دکمه‌های شیشه‌ای دسته‌بندی ماژول‌ها (بازطراحی زیبایی‌شناسی) */
         .matrix-filter-chips.cat-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -918,7 +915,6 @@
         }
         .matrix-chip-complex.active .swatch { background: #ffffff !important; }
 
-        /* حالت انتخاب سفارشی (Complex): دکمه‌های دسته‌بندی به شکل چک‌باکس درمی‌آیند */
         .matrix-chip-cat.custom-checkbox { padding-inline-start: 40px; }
         .cat-chip-check {
             position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%);
@@ -966,6 +962,7 @@
         .matrix-depth-bar .seg.on.foundational { background: #10b981; }
         .matrix-depth-bar .seg.on.intermediate { background: #f59e0b; }
         .matrix-depth-bar .seg.on.advanced { background: #ef4444; }
+        .matrix-audience-cell { font-size: 0.8rem; color: var(--muted); max-width: 200px; }
         .matrix-audience-cell { font-size: 0.8rem; color: var(--muted); max-width: 200px; }
         .matrix-section-cell { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
         html[lang="fa"] .matrix-section-cell { letter-spacing: normal; }
@@ -1350,7 +1347,7 @@
         const ul = card.querySelector('ul.contact-list');
         if (!ul) return;
         ul.innerHTML = items.map(item => `
-            <li>
+            <li role="none">
                 <a href="${esc(item.href)}" aria-label="${esc(item.ariaLabel)}">
                     <svg viewBox="0 0 24 24" aria-hidden="true">${item.svgInner}</svg>
                     ${bilingual(item.text)}
@@ -1666,14 +1663,12 @@ function initSiteScripts() {
             const tiltSelector = '.entry-block, .profile-info-card';
             let interactionRAF = null;
             let interactionEvent = null;
-            let interactionTarget = null;
             document.addEventListener('mousemove', (e) => {
                 interactionEvent = e;
                 if (interactionRAF) return;
                 interactionRAF = requestAnimationFrame(() => {
                     interactionRAF = null;
                     const ev = interactionEvent;
-                    interactionTarget = null;
                     interactionEvent = null;
                     if (!ev || !ev.target || !ev.target.closest) return;
                     const card = ev.target.closest(spotlightSelector);
@@ -1724,7 +1719,7 @@ function initSiteScripts() {
             }
 
             window.addEventListener('resize', scheduleRearrange);
-            document.addEventListener('DOMContentLoaded', rearrangeLayout);
+            rearrangeLayout(); // FIXED: Dead listener call optimized to direct initial rearrangement call
 
             window.addEventListener('beforeprint', () => {
                 if (sidebarEl) profileInfoCardEls.forEach(card => sidebarEl.appendChild(card));
@@ -1761,6 +1756,20 @@ function initSiteScripts() {
                         s.querySelectorAll('.reveal-card').forEach(c => c.classList.remove('reveal-in'));
                     });
                     targetSection.classList.add('visible');
+                    
+                    // FIXED: Show all sub-resume sections under 'About Me' profile tab context
+                    if (hash === 'about') {
+                        const aboutRelated = ['experience', 'education', 'teaching', 'skills', 'consulting'];
+                        aboutRelated.forEach(id => {
+                            const sec = document.getElementById(id);
+                            if (sec) {
+                                sec.classList.add('visible');
+                                if (window.innerWidth >= 968) {
+                                    sec.querySelectorAll('.reveal-card').forEach(c => c.classList.add('reveal-in'));
+                                }
+                            }
+                        });
+                    }
                     
                     if (window.innerWidth >= 968) {
                         cards.forEach((card, index) => {
@@ -1832,6 +1841,7 @@ function initSiteScripts() {
 
                 workspace.addEventListener('touchend', e => {
                     if (window.innerWidth >= 968) return;
+                    if (e.target.closest('.matrix-scroll-wrap')) return; // FIXED: Prevent navigation override on table swipe scroll
 
                     const diffX = e.changedTouches[0].screenX - touchStartX;
                     const diffY = e.changedTouches[0].screenY - touchStartY;
@@ -2099,7 +2109,6 @@ function initSiteScripts() {
                     });
                 }
 
-                /* هماهنگ‌سازی و لیمیت فریم هوشمند کانواس روی ۶۰ فریم با رفع کامل باگ تداخل پردازشی مانیتورهای High-Refresh */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -2117,7 +2126,6 @@ function initSiteScripts() {
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
-                    /* اختصاص فریم بعدی قبل از رد شدن فیلتر بازه زمانی برای خواب واقعی CPU در مانیتورهای گیمینگ و فرکانس بالا */
                     if (elapsed < fpsInterval) {
                         animationFrameId = requestAnimationFrame(loop);
                         return;
@@ -2283,8 +2291,18 @@ function initSiteScripts() {
 
                 function drawChart(canvas, axes) {
                     if (!canvas) return;
-                    const rect = canvas.getBoundingClientRect();
-                    if (rect.width < 4 || rect.height < 4) return;
+                    let rect = canvas.getBoundingClientRect();
+                    // FIXED: Fallback dimensions saved to preserve radar graphics scaling when rendered inside hidden display tabs
+                    if (rect.width < 4 || rect.height < 4) {
+                        if (canvas.__cachedWidth && canvas.__cachedHeight) {
+                            rect = { width: canvas.__cachedWidth, height: canvas.__cachedHeight };
+                        } else {
+                            return;
+                        }
+                    } else {
+                        canvas.__cachedWidth = rect.width;
+                        canvas.__cachedHeight = rect.height;
+                    }
 
                     const dpr = Math.min(window.devicePixelRatio || 1, 2);
                     canvas.width = Math.round(rect.width * dpr);
@@ -2316,7 +2334,6 @@ function initSiteScripts() {
 
                     const hoveredIndex = canvas.__radarHoverIndex;
 
-                    /* ترسیم زنده‌ی قاب چندضلعی روی کانواس (جایگزین فریم استاتیک قدیمی) */
                     ctx.beginPath();
                     for (let i = 0; i < n; i++) {
                         const a = angleFor(i);
@@ -2333,7 +2350,6 @@ function initSiteScripts() {
                     ctx.stroke();
                     ctx.globalAlpha = 1;
 
-                    /* هایلایت زنده‌ی گوه (wedge) شاخه‌ای که موس روی آن است */
                     if (hoveredIndex !== null && hoveredIndex !== undefined && axes[hoveredIndex]) {
                         const a0 = angleFor(hoveredIndex) - step / 2;
                         const a1 = angleFor(hoveredIndex) + step / 2;
@@ -2431,7 +2447,6 @@ function initSiteScripts() {
                         ctx.fillText(isFa ? axis.fa : axis.en, lx, ly);
                     });
 
-                    /* ذخیره هندسه تشخیص برخورد ماوس برای هر شاخه جهت تعامل هاور/کلیک (مورد ۱۵) */
                     canvas.__radarAxes = axes.map((axis, i) => ({
                         angle: angleFor(i), enCat: axis.enCat, faCat: axis.faCat, en: axis.en, fa: axis.fa
                     }));
@@ -2469,7 +2484,6 @@ function initSiteScripts() {
 
                 window.__redrawRadarCharts = drawAll;
 
-                /* اتصال تعاملی نمودار راداری به بخش‌های مرتبط سایت (مورد ۱۵) */
                 function clearRadarHighlights() {
                     document.querySelectorAll('.radar-linked-highlight').forEach(el => el.classList.remove('radar-linked-highlight'));
                 }
@@ -2498,11 +2512,9 @@ function initSiteScripts() {
                     const axes = canvas.__radarAxes;
                     const geo = canvas.__radarCenter;
                     if (!axes || !axes.length || !geo) return null;
-                    const rect = canvas.getBoundingClientRect();
+                    const rect = canvas.__rect || canvas.getBoundingClientRect(); // FIXED: Caching bounds rect prevents layout thrashing loop bottlenecks
                     const mx = evt.clientX - rect.left;
                     const my = evt.clientY - rect.top;
-                    const dx = mx - geo.cx;
-                    const dy = my - geo.cy;
                     let angle = Math.atan2(dy, dx);
                     let bestIdx = -1, bestDiff = Infinity;
                     axes.forEach((ax, i) => {
@@ -2526,7 +2538,11 @@ function initSiteScripts() {
                         drawChart(canvas, buildFn());
                     }
 
+                    canvas.addEventListener('mouseenter', () => {
+                        canvas.__rect = canvas.getBoundingClientRect(); // FIXED: Sync metrics cache cleanly on cursor entry window
+                    });
                     canvas.addEventListener('mousemove', (evt) => {
+                        if (!canvas.__rect) canvas.__rect = canvas.getBoundingClientRect();
                         const hit = findHoveredAxis(canvas, evt);
                         if (hit) {
                             setHover(hit.index);
@@ -2573,6 +2589,15 @@ function initSiteScripts() {
                 const searchFaEl = document.getElementById('matrix-search-fa');
                 if (!tableEl || !theadEl || !tbodyEl) return;
 
+                // FIXED: Event delegation pattern on the unified tbody container avoids heavy performance GC recycling allocations
+                tbodyEl.addEventListener('click', (e) => {
+                    const tr = e.target.closest('tr');
+                    if (tr) {
+                        const target = tr.getAttribute('data-target');
+                        if (target) window.location.hash = '#' + target;
+                    }
+                });
+
                 const isFa = () => root.getAttribute('lang') === 'fa';
                 const text = el => el ? el.textContent.trim() : '';
 
@@ -2596,8 +2621,11 @@ function initSiteScripts() {
 
                 function buildMatrixData() {
                     const rows = [];
+                    // FIXED: Expanded the context index pipeline to support parsing workshops, teaching, and skills dynamically
                     const sections = [
-                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' }
+                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' },
+                        { id: 'teaching', labelEn: 'Teaching', labelFa: 'تدریس', selector: '#teaching .workshop-category' },
+                        { id: 'skills', labelEn: 'Skills', labelFa: 'مهارت‌ها', selector: '#skills .workshop-category' }
                     ];
 
                     sections.forEach(sec => {
@@ -2693,26 +2721,21 @@ function initSiteScripts() {
                             '</tr>';
                     }).join('');
 
-                    tbodyEl.querySelectorAll('tr').forEach(tr => {
-                        tr.addEventListener('click', () => {
-                            const target = tr.getAttribute('data-target');
-                            if (target) window.location.hash = '#' + target;
-                        });
-                    });
-
                     const isEmpty = filtered.length === 0;
                     emptyEl.style.display = isEmpty && !isFa() ? 'block' : 'none';
                     emptyFaEl.style.display = isEmpty && isFa() ? 'block' : 'none';
                 }
 
                 function renderSummary() {
-                    const sections = ['workshops'];
+                    const sections = ['workshops', 'teaching', 'skills'];
                     const sectionLabels = {
-                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' }
+                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' },
+                        teaching: { en: 'Teaching', fa: 'تدریس' },
+                        skills: { en: 'Skills', fa: 'مهارت‌ها' }
                     };
                     const sectionCounts = {};
                     sections.forEach(s => sectionCounts[s] = 0);
-                    allRows.forEach(r => sectionCounts[r.section.id]++);
+                    allRows.forEach(r => { if(sectionCounts[r.section.id] !== undefined) sectionCounts[r.section.id]++; });
 
                     const depthCounts = { foundational: 0, intermediate: 0, advanced: 0, unknown: 0 };
                     allRows.forEach(r => depthCounts[r.depth]++);
@@ -2724,7 +2747,8 @@ function initSiteScripts() {
                                 (isFa() ? sectionLabels[s].fa : sectionLabels[s].en) + ' <span class="count">' + sectionCounts[s] + '</span></span>';
                         }
                     });
-                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational > 0 ? depthCounts.foundational : '' + '</span></span>';
+                    // FIXED: Encapsulating binary evaluations resolves broken operator precedence bugs in string interpolation builds
+                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + (depthCounts.foundational > 0 ? depthCounts.foundational : '') + '</span></span>';
                     if (depthCounts.intermediate > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#f59e0b"></span>' + (isFa() ? 'متوسط' : 'Intermediate') + ' <span class="count">' + depthCounts.intermediate + '</span></span>';
                     if (depthCounts.advanced > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#ef4444"></span>' + (isFa() ? 'پیشرفته' : 'Advanced') + ' <span class="count">' + depthCounts.advanced + '</span></span>';
                     summaryEl.innerHTML = html_str;
@@ -2889,15 +2913,13 @@ function initSiteScripts() {
         new window.MagneticButtonEffect();
     }
 
-    /* ماژول تجمیع‌کننده رفرش پویای کامپوننت‌های تعاملی بعد از آپدیت داده‌های زنده JSON */
-    window.__reinitDynamicComponents = function() {
+    window.__initDynamicComponents = function() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
         if (window.__initWorkshopAccordion) window.__initWorkshopAccordion();
     };
 }
 
-/* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2906,7 +2928,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
-            /* فچ پس‌زمینه برای بررسی تغییرات فایل سورس و اعمال آنی دیتای جدید بدون فلش خوردن یا نیاز به رفرش صفحه */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
@@ -2916,8 +2937,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (oldDataStr !== newDataStr) {
                             localStorage.setItem('site_resume_data', newDataStr);
                             window.__renderSite(newData);
-                            if (window.__reinitDynamicComponents) {
-                                window.__reinitDynamicComponents();
+                            if (window.__initDynamicComponents) {
+                                window.__initDynamicComponents();
                             }
                         }
                     }
