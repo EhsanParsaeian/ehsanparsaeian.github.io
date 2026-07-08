@@ -409,7 +409,7 @@
         }
 
         #hero-banner {
-            position: relative; height: 160px; overflow: hidden;
+            position: relative; height: 220px; overflow: hidden;
             background: #000000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); cursor: crosshair;
         }
         #hero-banner::before {
@@ -467,45 +467,19 @@
             z-index: 100; transition: background 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .nav-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; gap: 8px; }
-        #topnav nav {
-            position: relative;
-            display: flex; height: 100%; min-width: 0; flex: 1 1 auto;
-            overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
-        }
-        #topnav nav::-webkit-scrollbar { display: none; }
-        #topnav nav div[role="tablist"] { display: flex; height: 100%; flex-shrink: 0; padding: 0 16px; margin: 0 -16px; }
+        .nav-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 100%; display: flex; align-items: center; }
+        #topnav nav { display: flex; height: 100%; margin-inline-start: calc(var(--sidebar-w) + 60px - 16px); }
+        #topnav nav div[role="tablist"] { display: flex; height: 100%; }
 
         #topnav nav a {
-            font-size: 0.85rem; font-weight: 500; color: var(--muted);
-            text-decoration: none; padding: 0 13px; display: flex; align-items: center;
-            position: relative; transition: color 0.25s var(--ease-smooth); white-space: nowrap; flex-shrink: 0;
+            font-size: 0.875rem; font-weight: 500; color: var(--muted);
+            text-decoration: none; padding: 0 16px; display: flex; align-items: center;
+            position: relative; transition: color 0.25s var(--ease-smooth);
         }
         #topnav nav a:hover { color: var(--text); }
         #topnav nav a.active { color: var(--text); font-weight: 600; background: rgba(var(--accent-rgb), 0.08); border-radius: 6px; }
 
-        .nav-actions { display: flex; gap: 8px; margin-inline-start: 16px; align-items: center; flex-shrink: 0; }
-
-        .nav-cta-btn {
-            display: flex; align-items: center; gap: 6px;
-            padding: 7px 15px; margin-inline-end: 4px;
-            background: linear-gradient(135deg, var(--accent), #10b981);
-            color: #ffffff; font-size: 0.78rem; font-weight: 700;
-            border: none; border-radius: 20px; cursor: pointer; text-decoration: none;
-            box-shadow: 0 3px 10px rgba(var(--accent-rgb), 0.3);
-            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, filter 0.2s ease;
-            white-space: nowrap;
-        }
-        .nav-cta-btn:hover { color: #ffffff; transform: translateY(-1px) scale(1.03); box-shadow: 0 5px 16px rgba(var(--accent-rgb), 0.42); filter: brightness(1.08); }
-        .nav-cta-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
-        @media (max-width: 968px) {
-            .nav-cta-btn span.en, .nav-cta-btn span.fa { display: none !important; }
-            .nav-cta-btn { padding: 8px; border-radius: 50%; }
-            .nav-cta-btn svg { margin: 0; }
-        }
+        .nav-actions { display: flex; gap: 8px; margin-inline-start: auto; align-items: center; }
 
         .nav-btn {
             background: transparent; border: 1px solid transparent; cursor: pointer; padding: 8px;
@@ -609,16 +583,6 @@
         }
 
         .entry-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-        .entry-target-badge {
-            display: inline-flex; align-items: center; gap: 4px;
-            padding: 2px 9px; margin-inline-start: 8px;
-            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.01em;
-            border-radius: 10px; vertical-align: middle;
-            background: rgba(var(--accent-rgb), 0.12); color: var(--accent);
-            border: 1px solid rgba(var(--accent-rgb), 0.25);
-            white-space: nowrap;
-        }
-        html[lang="fa"] .entry-target-badge { letter-spacing: normal; }
         .entry-title { 
             font-size: clamp(0.95rem, 0.89rem + 0.3vw, 1.05rem); font-weight: 600; 
             color: var(--text); letter-spacing: -0.01em; margin-bottom: 3px; line-height: 1.4;
@@ -652,17 +616,23 @@
         html[lang="fa"] .radar-title { letter-spacing: normal; }
 
         .radar-stage { position: relative; width: 100%; max-width: 360px; aspect-ratio: 1 / 1; margin: 0 auto; }
+        .ngon-frame { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 62%; aspect-ratio: 1 / 1; }
 
-        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: pointer; }
-
-        .radar-linked-highlight {
-            outline: 2px solid var(--accent) !important;
-            outline-offset: 2px;
-            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4) !important;
-            background: rgba(var(--accent-rgb), 0.10) !important;
-            transition: all 0.2s ease;
+        .ngon-frame-inner {
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.12) 100%);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), inset 0 -1px 0 rgba(0, 0, 0, 0.04);
         }
-        tr.radar-linked-highlight { outline-offset: -2px; }
+        [data-theme="dark"] .ngon-frame-inner {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 100%);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .ngon-glow-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+        .ngon-outline { fill: none; stroke: var(--glass-border-inner); stroke-width: 1; opacity: 0.55; vector-effect: non-scaling-stroke; }
+
+        .radar-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
         #publications .entry-title { font-size: 1rem; line-height: 1.55; }
 
         /* ۳. بهینه‌سازی نویز لایه‌ها: نویز فقط روی سایدبار اصلی لود می‌شود و از لایه کارت‌های تکرارشونده برداشته شده است */
@@ -673,7 +643,6 @@
         }
         [data-theme="dark"] .profile-info-card::after { opacity: 0.055; mix-blend-mode: screen; }
 
-        /* باگ کامپایل کامنت CSS در این خط به طور کامل رفع شد */
         .entry-block::after {
             content: none !important;
         }
@@ -791,7 +760,7 @@
             html { font-size: 13px; } .hero-sep { display: none; } .hero-phrase { display: block; text-align: center; line-height: 1.9; }
             #layout-wrapper { flex-direction: column; align-items: stretch; gap: 16px; padding: 0 16px; margin: 16px auto 60px auto; }
             #content-workspace { padding: 20px 16px; border-radius: 16px; } #topnav { padding: 0; .nav-wrapper { padding: 0 16px; } }
-            #topnav nav { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; margin-inline-end: 15px; flex-grow: 1; flex-shrink: 1; min-width: 0; scrollbar-width: none; }
+            #topnav nav { margin-inline-start: 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 2px; margin-inline-end: 15px; flex-grow: 1; flex-shrink: 1; min-width: 0; scrollbar-width: none; }
             #topnav nav::-webkit-scrollbar { display: none; } .nav-actions { flex-shrink: 0; }
             #about .profile-info-card { padding: 16px 14px; border-radius: 12px; margin-bottom: 20px; }
             h2 { font-size: 1.15rem; margin-bottom: 14px; }
@@ -803,100 +772,11 @@
             html { font-size: 11.5px; } #layout-wrapper { padding: 0 10px; } #content-workspace { padding: 16px 12px; } #sidebar { padding: 16px 12px; } h2 { font-size: 1.1rem; } .entry-block { padding: 12px 10px; }
         }
 
-        .matrix-toolbar { display: flex; flex-direction: column; gap: 18px; margin-bottom: 20px; padding: 18px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 16px; box-shadow: inset 0 1px 0 var(--glass-border-inner), var(--glass-shadow); }
-        .matrix-filter-group { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-        .matrix-filter-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-        .matrix-filter-label::before { content: ''; width: 3px; height: 12px; border-radius: 2px; background: linear-gradient(180deg, var(--accent), #10b981); display: inline-block; }
+        .matrix-toolbar { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; padding: 16px 20px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: inset 0 1px 0 var(--glass-border-inner); }
+        .matrix-filter-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .matrix-filter-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
         html[lang="fa"] .matrix-filter-label { letter-spacing: normal; }
-        .matrix-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; width: 100%; }
-
-        /* شبکه‌ی منظم دکمه‌های شیشه‌ای دسته‌بندی ماژول‌ها (بازطراحی زیبایی‌شناسی) */
-        .matrix-filter-chips.cat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 10px;
-            width: 100%;
-            align-items: stretch;
-        }
-        @media (max-width: 640px) { .matrix-filter-chips.cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 420px) { .matrix-filter-chips.cat-grid { grid-template-columns: 1fr; } }
-
-        .matrix-chip-cat {
-            position: relative;
-            display: flex; flex-direction: column; gap: 8px;
-            padding: 11px 16px;
-            border-radius: 13px;
-            border: 1px solid var(--glass-border);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.08));
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 2px 8px rgba(0, 0, 0, 0.04);
-            font-size: 0.8rem; font-weight: 600; color: var(--text);
-            cursor: pointer; user-select: none; overflow: hidden;
-            transition: transform 0.22s var(--ease-smooth), box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
-        }
-        [data-theme="dark"] .matrix-chip-cat {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-        }
-        .matrix-chip-cat::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.35) 45%, transparent 60%);
-            transform: translateX(-120%);
-            transition: transform 0.6s ease;
-            pointer-events: none;
-        }
-        [data-theme="dark"] .matrix-chip-cat::before { background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 60%); }
-        .matrix-chip-cat:hover::before { transform: translateX(120%); }
-        .matrix-chip-cat:hover {
-            transform: translateY(-2px);
-            border-color: rgba(var(--accent-rgb), 0.45);
-            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 8px 20px rgba(var(--accent-rgb), 0.16);
-        }
-        .matrix-chip-cat .cat-chip-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; width: 100%; }
-        .matrix-chip-cat .cat-chip-name { overflow-wrap: break-word; word-break: break-word; white-space: normal; line-height: 1.3; }
-        .matrix-chip-cat .chip-count {
-            flex-shrink: 0;
-            display: inline-flex; align-items: center; justify-content: center;
-            min-width: 22px; height: 22px; padding: 0 6px;
-            border-radius: 50%;
-            background: rgba(var(--accent-rgb), 0.14);
-            color: var(--accent);
-            font-size: 0.72rem; font-weight: 700;
-            align-self: flex-start;
-            transition: all 0.22s ease;
-        }
-        .matrix-chip-cat .cat-chip-dots { display: flex; align-items: center; gap: 5px; }
-        .matrix-chip-cat .cat-chip-dot {
-            width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s ease;
-        }
-        .matrix-chip-cat:hover .cat-chip-dot { transform: scale(1.15); }
-        .matrix-chip-cat.active {
-            background: linear-gradient(135deg, var(--accent), #6366f1);
-            border-color: var(--accent);
-            color: #ffffff;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 22px rgba(var(--accent-rgb), 0.35);
-        }
-        .matrix-chip-cat.active .chip-count { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
-        .matrix-chip-cat.active .cat-chip-dot { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5); }
-
-        .matrix-search-wrap { position: relative; margin-bottom: 14px; max-width: 420px; }
-        .matrix-search-wrap svg { position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; }
-        .matrix-search-input {
-            width: 100%; padding: 10px 14px 10px 40px; border-radius: 14px;
-            border: 1px solid var(--glass-border); background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            color: var(--text); font-size: 0.85rem; font-family: inherit;
-            box-shadow: var(--glass-shadow); transition: all 0.25s var(--ease-smooth);
-        }
-        html[lang="fa"] .matrix-search-wrap svg { inset-inline-start: auto; inset-inline-end: 14px; }
-        html[lang="fa"] .matrix-search-input { padding: 10px 40px 10px 14px; }
-        .matrix-search-input::placeholder { color: var(--muted); opacity: 0.75; }
-        .matrix-search-input:focus { outline: none; border-color: var(--accent); box-shadow: var(--glass-shadow-hover), 0 0 0 3px rgba(var(--accent-rgb), 0.15); background: var(--glass-bg-strong); }
-        @media (max-width: 968px) {
-            .matrix-search-input { font-size: 16px !important; }
-        }
+        .matrix-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
         .matrix-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 16px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.15); font-size: 0.78rem; font-weight: 600; color: var(--text); cursor: pointer; transition: all 0.2s ease; user-select: none; white-space: nowrap; }
         [data-theme="dark"] .matrix-chip { background: rgba(255, 255, 255, 0.04); }
         .matrix-chip:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
@@ -919,13 +799,6 @@
         .matrix-table tbody tr:last-child td { border-bottom: none; }
         .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; }
         .matrix-title-cell { font-weight: 600; color: var(--text); max-width: 320px; }
-        .row-depth-dots { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
-        .row-depth-dot {
-            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-            opacity: 0.22; transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-        .row-depth-dot.lit { opacity: 1; box-shadow: 0 0 5px currentColor; transform: scale(1.15); }
-        tr:hover .row-depth-dot.lit { transform: scale(1.3); }
         .matrix-depth-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.74rem; font-weight: 600; white-space: nowrap; }
         .matrix-depth-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .matrix-depth-pill.foundational { background: rgba(16, 185, 129, 0.12); color: #059669; }
@@ -978,49 +851,11 @@
 
         .ws-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
         .ws-heading-row h2 { margin-bottom: 0; }
-        .ws-visual-map-pill {
-            position: relative;
-            display: inline-flex; align-items: center; gap: 12px;
-            padding: 12px 18px 12px 14px;
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.10));
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 3px 10px rgba(0, 0, 0, 0.05);
-            text-decoration: none; white-space: nowrap; overflow: hidden;
-            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        [data-theme="dark"] .ws-visual-map-pill {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
-        }
-        .ws-visual-map-pill::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.35) 45%, transparent 60%);
-            transform: translateX(-120%);
-            transition: transform 0.6s ease;
-            pointer-events: none;
-        }
-        [data-theme="dark"] .ws-visual-map-pill::before { background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 60%); }
-        .ws-visual-map-pill:hover::before { transform: translateX(120%); }
-        .ws-visual-map-pill:hover {
-            transform: translateY(-3px);
-            border-color: rgba(var(--accent-rgb), 0.45);
-            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 10px 24px rgba(var(--accent-rgb), 0.2);
-        }
-        .ws-pill-icon {
-            display: flex; align-items: center; justify-content: center;
-            width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
-            background: linear-gradient(135deg, var(--accent), #10b981);
-            box-shadow: 0 3px 8px rgba(var(--accent-rgb), 0.35);
-        }
-        .ws-pill-icon svg { width: 18px; height: 18px; color: #ffffff; }
-        .ws-pill-text { display: flex; flex-direction: column; line-height: 1.25; }
-        .ws-pill-text .en, .ws-pill-text .fa { font-size: 0.85rem; font-weight: 700; color: var(--text); }
-        .ws-pill-arrow { width: 16px; height: 16px; stroke: var(--muted); flex-shrink: 0; transition: transform 0.25s var(--ease-smooth), stroke 0.25s ease; }
-        html[lang="fa"] .ws-pill-arrow { transform: scaleX(-1); }
-        html[lang="fa"] .ws-visual-map-pill:hover .ws-pill-arrow { transform: scaleX(-1) translateX(3px); }
-        .ws-visual-map-pill:hover .ws-pill-arrow { stroke: var(--accent); transform: translateX(3px); }
+        .ws-visual-map-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 24px; text-decoration: none; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+        .ws-visual-map-pill svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--accent); fill: none; stroke-width: 2; }
+        .ws-visual-map-pill .en { color: var(--text); }
+        .ws-visual-map-pill .fa { color: var(--text); }
+        .ws-visual-map-pill:hover { --ty: -4px; border-color: var(--accent); transform: translateY(-4px); }
 
         #skills .skill-matrix.bento-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
         #skills .skill-row.bento-item:not(.large) { flex-direction: column; gap: 8px; }
@@ -1075,39 +910,10 @@
             }
             .entry-block::before, .profile-info-card::before,
             .entry-block::after, .profile-info-card::after,
-            .skill-row::before, .timeline-content::before,
-            .matrix-chip-cat::before {
+            .skill-row::before, .timeline-content::before {
                 content: none !important;
                 animation: none !important;
                 display: none !important;
-            }
-            .matrix-chip-cat {
-                background: var(--glass-bg) !important;
-                box-shadow: none !important;
-                transition: border-color 0.2s ease, background 0.2s ease !important;
-            }
-            .matrix-chip-cat:hover {
-                transform: none !important;
-                box-shadow: none !important;
-            }
-            .matrix-chip-cat.active {
-                background: var(--accent) !important;
-                box-shadow: none !important;
-            }
-            .matrix-filter-chips.cat-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            }
-            .ws-visual-map-pill::before {
-                content: none !important;
-                display: none !important;
-            }
-            .ws-visual-map-pill {
-                background: var(--glass-bg) !important;
-                box-shadow: none !important;
-            }
-            .ws-visual-map-pill:hover {
-                transform: none !important;
-                box-shadow: none !important;
             }
             .reveal-card, .entry-block, .profile-info-card, .bento-item, .timeline-content, .skill-row {
                 will-change: auto !important;
@@ -1167,18 +973,95 @@
             }
         }
         @media (pointer: coarse) {
-            button, a, .matrix-chip-cat {
+            button, a {
                 transform: none !important;
                 box-shadow: none !important;
                 transition: none !important;
             }
-            .cat-chip-dot, .row-depth-dot {
-                transition: none !important;
+        }
+
+        /* ── FEATURE 4: OPTIMIZE ABOVE-THE-FOLD ── */
+        @media (min-width: 969px) {
+            #hero-banner {
+                height: 160px !important;
             }
-            .matrix-chip-cat:hover .cat-chip-dot,
-            tr:hover .row-depth-dot.lit {
-                transform: none !important;
-            }
+        }
+
+        /* ── FEATURE 6: STICKY CTA BUTTON ── */
+        .cta-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #10b981 100%) !important;
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 6px 16px !important;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
+            font-size: 0.85rem !important;
+            border: none !important;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(135deg, #6366f1 0%, #059669 100%) !important;
+            box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.35);
+            transform: translateY(-1px) scale(1.02) !important;
+        }
+        [data-theme="dark"] .cta-btn {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ── FEATURE 1 & 2: CURRICULUM MATRIX UPGRADES ── */
+        .matrix-search-wrap {
+            width: 100%;
+            margin-bottom: 14px;
+        }
+        .matrix-search-input {
+            width: 100%;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner);
+            transition: all 0.3s ease;
+        }
+        .matrix-search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.25);
+        }
+        [data-theme="dark"] .matrix-search-input {
+            background: rgba(0, 0, 0, 0.25);
+        }
+        .matrix-chip {
+            max-width: 240px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── FEATURE 5: AUDIENCE SUITABILITY BADGES ── */
+        .module-audience-badge {
+            display: inline-flex;
+            padding: 2px 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: rgba(var(--accent-rgb), 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            border-radius: 4px;
+            margin-inline-start: 8px;
+            vertical-align: middle;
+        }
+
+        /* ── FEATURE 7: RADAR MAPPING INTERACTIVITY ── */
+        .radar-highlight-glow {
+            box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4) !important;
+            border-color: var(--accent) !important;
+            background: rgba(var(--accent-rgb), 0.08) !important;
+            transform: scale(1.015);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
     </style>
 </head>
@@ -1206,17 +1089,8 @@
 <a aria-controls="workshops" aria-selected="false" href="#workshops" id="nav-workshops" role="tab" tabindex="-1">
 <span class="en">Workshops</span><span class="fa">کارگاه‌ها</span>
 </a>
-<a aria-controls="graph" aria-selected="false" href="#graph" id="nav-graph" role="tab" tabindex="-1">
-<span class="en">Curriculum Matrix</span><span class="fa">ماتریس سرفصل‌ها</span>
-</a>
-<a aria-controls="skills" aria-selected="false" href="#skills" id="nav-skills" role="tab" tabindex="-1">
-<span class="en">Skills</span><span class="fa">مهارت‌ها</span>
-</a>
 <a aria-controls="services" aria-selected="false" href="#services" id="nav-services" role="tab" tabindex="-1">
 <span class="en">Services</span><span class="fa">خدمات</span>
-</a>
-<a aria-controls="consulting" aria-selected="false" href="#consulting" id="nav-consulting" role="tab" tabindex="-1">
-<span class="en">Consulting</span><span class="fa">مشاوره</span>
 </a>
 <a aria-controls="publications" aria-selected="false" href="#publications" id="nav-publications" role="tab" tabindex="-1">
 <span class="en">Publications</span><span class="fa">مقالات علمی</span>
@@ -1224,9 +1098,9 @@
 </div>
 </nav>
 <div class="nav-actions">
-<a class="nav-cta-btn" href="mailto:ehsan.parsaeian@gmail.com" aria-label="Get in Touch">
-<svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-<span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
+<a href="mailto:ehsan.parsaeian@gmail.com" class="nav-btn cta-btn" id="nav-cta">
+<span class="en">Get in Touch</span>
+<span class="fa">ارتباط با من</span>
 </a>
 <button aria-label="Toggle Language" class="nav-btn" id="lang-toggle" title="Switch Language">
 <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
@@ -1264,25 +1138,37 @@
 <div class="radar-card reveal-card">
 <h3 class="radar-title"><span class="en">Skill Proficiency</span><span class="fa">سطح مهارت‌ها</span></h3>
 <div class="radar-stage">
+<div class="ngon-frame">
+<div class="ngon-frame-inner"></div>
+<svg class="ngon-glow-svg" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon class="ngon-outline" pathlength="100" points=""></polygon>
+</svg>
+</div>
 <canvas aria-label="Skill proficiency radar chart, generated live from the Skills section" class="radar-canvas" id="radarSkillCanvas" role="img"></canvas>
 </div>
 </div>
 <div class="radar-card reveal-card">
 <h3 class="radar-title"><span class="en">Experience Profile</span><span class="fa">نمایه تجربه</span></h3>
 <div class="radar-stage">
+<div class="ngon-frame">
+<div class="ngon-frame-inner"></div>
+<svg class="ngon-glow-svg" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon class="ngon-outline" pathlength="100" points=""></polygon>
+</svg>
+</div>
 <canvas aria-label="Experience profile radar chart, generated live from Work Experience, Teaching and Education sections" class="radar-canvas" id="radarExperienceCanvas" role="img"></canvas>
 </div>
 </div>
 </div></section>
-<section aria-labelledby="experience-heading" class="page-section" id="experience"><h2 id="experience-heading">
+<section aria-labelledby="nav-experience" class="page-section" id="experience" role="tabpanel"><h2>
 <span class="en">Work Experience</span>
 <span class="fa">سوابق حرفه‌ای</span>
 </h2><div class="timeline-container"></div></section>
-<section aria-labelledby="education-heading" class="page-section" id="education"><h2 id="education-heading">
+<section aria-labelledby="nav-education" class="page-section" id="education" role="tabpanel"><h2>
 <span class="en">Education</span>
 <span class="fa">تحصیلات</span>
 </h2><div class="timeline-container"></div></section>
-<section aria-labelledby="teaching-heading" class="page-section" id="teaching"><h2 id="teaching-heading">
+<section aria-labelledby="nav-teaching" class="page-section" id="teaching" role="tabpanel"><h2>
 <span class="en">Teaching Experience</span>
 <span class="fa">سوابق تدریس و آموزش</span>
 </h2></section>
@@ -1291,23 +1177,16 @@
 <span class="en">Workshop Menu</span>
 <span class="fa">فهرست کارگاه‌ها</span>
 </h2>
-<a aria-label="Curriculum Matrix" class="ws-visual-map-pill" href="#graph">
-<span class="ws-pill-icon">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<rect height="7" rx="1.5" width="7" x="3" y="3"></rect>
-<rect height="7" rx="1.5" width="7" x="14" y="3"></rect>
-<rect height="7" rx="1.5" width="7" x="3" y="14"></rect>
-<rect height="7" rx="1.5" width="7" x="14" y="14"></rect>
+<a aria-label="Curriculum Matrix" class="profile-info-card ws-visual-map-pill reveal-card" href="#graph">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<circle cx="18" cy="5" r="3"></circle>
+<circle cx="6" cy="12" r="3"></circle>
+<circle cx="18" cy="19" r="3"></circle>
+<line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+<line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
 </svg>
-</span>
-<span class="ws-pill-text">
 <span class="en">Curriculum Matrix</span>
 <span class="fa">ماتریس سرفصل‌ها</span>
-</span>
-<svg aria-hidden="true" class="ws-pill-arrow" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
-<line x1="5" x2="19" y1="12" y2="12"></line>
-<polyline points="12 5 19 12 12 19"></polyline>
-</svg>
 </a>
 </div></section>
 <section aria-labelledby="nav-services" class="page-section" id="services" role="tabpanel"><h2>
@@ -1326,23 +1205,21 @@
 <span class="en">Consulting</span>
 <span class="fa">مشاوره و پروژه‌ها</span>
 </h2></section>
-<section aria-labelledby="nav-graph" class="page-section" id="graph" role="tabpanel">
+<section aria-labelledby="graph-heading" class="page-section" id="graph" role="tabpanel">
 <h2 id="graph-heading">
 <span class="en">Curriculum Matrix</span>
 <span class="fa">ماتریس سرفصل‌ها</span>
 </h2>
-<p class="en">Every module in the Workshops menu — at a glance. Search or filter by category and depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
-<p class="fa">هر ماژول در فهرست کارگاه‌ها — در یک نگاه. جستجو کنید یا بر اساس دسته و عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
-<div class="matrix-search-wrap">
-<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
-<input aria-label="Search matrix" class="matrix-search-input en" id="matrix-search" placeholder="Search modules, categories, audience…" type="text"/>
-<input aria-label="جستجو در ماتریس" class="matrix-search-input fa" id="matrix-search-fa" placeholder="جستجو در ماژول‌ها، دسته‌ها، مخاطب…" type="text"/>
-</div>
+<p class="en">Every module across the Workshops, Teaching, and Skills sections — at a glance. Filter by category or depth to see exactly what fits your context. This matrix is built live from the page content; it updates automatically whenever modules are added or changed.</p>
+<p class="fa">هر ماژول در سراسر بخش‌های کارگاه‌ها، تدریس و مهارت‌ها — در یک نگاه. بر اساس دسته یا عمق فیلتر کنید تا دقیقاً ببینید چه چیزی با شرایط شما سازگار است. این ماتریس به‌صورت زنده از محتوای صفحه ساخته می‌شود؛ هرگاه ماژول‌ها افزوده یا تغییر کنند، خودبه‌خود به‌روز می‌شود.</p>
 <div class="matrix-toolbar">
+<div class="matrix-search-wrap">
+<input type="text" id="matrix-search-input" class="matrix-search-input" placeholder="Search modules...">
+</div>
 <div aria-label="Filter by category" class="matrix-filter-group" role="group">
 <span class="matrix-filter-label en">Category</span>
 <span class="matrix-filter-label fa">دسته</span>
-<div class="matrix-filter-chips cat-grid" id="matrix-filter-categories"></div>
+<div class="matrix-filter-chips" id="matrix-filter-categories"></div>
 </div>
 <div aria-label="Filter by depth" class="matrix-filter-group" role="group">
 <span class="matrix-filter-label en">Depth</span>
@@ -1515,32 +1392,33 @@
         `).join('');
     }
 
-    function buildTargetBadge(mod) {
-        const audienceMeta = mod.meta && mod.meta.length > 1 ? mod.meta[1] : null;
-        if (!audienceMeta || (!audienceMeta.en && !audienceMeta.fa)) return '';
-        return `<span class="entry-target-badge"><span class="en">${esc(audienceMeta.en)}</span><span class="fa">${esc(audienceMeta.fa)}</span></span>`;
-    }
-
     function buildEntryBlock(mod, opts) {
         opts = opts || {};
-        const badgeHtml = buildTargetBadge(mod);
+        
+        let badgeHtml = '';
+        if (mod.meta && mod.meta.length > 1) {
+            badgeHtml = ` <span class="module-audience-badge"><span class="en">${esc(mod.meta[1].en)}</span><span class="fa">${esc(mod.meta[1].fa)}</span></span>`;
+        }
+
         let titleHtml;
         if (mod.title.link) {
             const link = mod.title.link;
             const targetAttr = link.target ? ` target="${esc(link.target)}"` : '';
             const relStr = relAttr(link.rel);
             titleHtml = `
-                <h3 class="entry-title kinetic-text">
+                <h3 class="entry-title kinetic-text" style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
                     <a href="${esc(link.href)}"${targetAttr}${relStr}>
                         <span class="en">${esc(mod.title.en)}</span>
                         <span class="fa">${esc(mod.title.fa)}</span>
-                    </a>${badgeHtml}
+                    </a>
+                    ${badgeHtml}
                 </h3>`;
         } else {
             titleHtml = `
-                <h3 class="entry-title kinetic-text">
+                <h3 class="entry-title kinetic-text" style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
                     <span class="en">${esc(mod.title.en)}</span>
-                    <span class="fa">${esc(mod.title.fa)}</span>${badgeHtml}
+                    <span class="fa">${esc(mod.title.fa)}</span>
+                    ${badgeHtml}
                 </h3>`;
         }
 
@@ -1668,17 +1546,6 @@
         section.insertAdjacentHTML('beforeend', html);
     }
 
-    function renderConsulting(data) {
-        const section = document.getElementById('consulting');
-        if (!section) return;
-        const h2 = section.querySelector('h2');
-        while (h2 && h2.nextSibling) {
-            section.removeChild(h2.nextSibling);
-        }
-        const html = buildEntryBlock(data, {});
-        section.insertAdjacentHTML('beforeend', html);
-    }
-
     function renderAll(data) {
         renderSidebarNav(data.sidebarNav || []);
         renderSidebarContact(data.sidebarContact || { items: [] });
@@ -1690,7 +1557,18 @@
         renderServices(data.services || { items: [], introParagraphs: [], outroParagraphs: [] });
         renderCategories('skills', data.skills || [], 'skills');
         renderPublications(data.publications || []);
-        renderConsulting(data.consulting);
+        if (data.consulting) renderConsulting(data.consulting);
+    }
+
+    function renderConsulting(data) {
+        const section = document.getElementById('consulting');
+        if (!section) return;
+        const h2 = section.querySelector('h2');
+        while (h2 && h2.nextSibling) {
+            section.removeChild(h2.nextSibling);
+        }
+        const html = buildEntryBlock(data, {});
+        section.insertAdjacentHTML('beforeend', html);
     }
 
     window.__renderSite = renderAll;
@@ -1705,7 +1583,7 @@ function initSiteScripts() {
 
             const root = document.documentElement;
             const sidebarEl = document.getElementById('sidebar');
-            const profileInfoCardEls = Array.from(document.querySelectorAll('.profile-info-card')).filter(el => !el.classList.contains('ws-visual-map-pill'));
+            const profileInfoCardEls = Array.from(document.querySelectorAll('.profile-info-card')).filter(el => !el.classList.contains('ws-cv-panel'));
             const aboutSectionEl = document.getElementById('about');
             const tablistEl = document.querySelector('#topnav nav div[role="tablist"]');
             const tabEls = tablistEl ? Array.from(tablistEl.querySelectorAll('a')) : [];
@@ -1783,7 +1661,7 @@ function initSiteScripts() {
             });
             window.addEventListener('afterprint', rearrangeLayout);
 
-            const tabsOrder = tabEls.map(a => (a.getAttribute('href') || '').replace('#', ''));
+            const tabsOrder = ['about', 'workshops', 'services', 'publications'];
 
             function centerActiveTab(tab) {
                 if (tab) tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -1932,6 +1810,11 @@ function initSiteScripts() {
                 document.title = lang === 'fa'
                     ? "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی"
                     : "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
+                
+                const searchInput = document.getElementById('matrix-search-input');
+                if (searchInput) {
+                    searchInput.placeholder = lang === 'fa' ? 'جستجوی ماژول‌ها...' : 'Search modules...';
+                }
             }
 
             langToggleBtn.addEventListener('click', () => {
@@ -2053,7 +1936,7 @@ function initSiteScripts() {
                     if (isMotionReduced) return;
                     if (e.touches.length > 0) {
                         mouse.x = e.touches[0].clientX - canvasRect.left;
-                        mouse.y = e.touches[0].clientY - canvasRect.top;
+                        mouse.y = e.touches[0].top - canvasRect.top;
                     }
                 }, { passive: true });
 
@@ -2131,7 +2014,6 @@ function initSiteScripts() {
                     });
                 }
 
-                /* هماهنگ‌سازی و لیمیت فریم هوشمند کانواس روی ۶۰ فریم با رفع کامل باگ تداخل پردازشی مانیتورهای High-Refresh */
                 let lastTime = 0;
                 const fpsInterval = 1000 / 60; 
                 let frameCount = 0;
@@ -2149,7 +2031,6 @@ function initSiteScripts() {
                     if (!timestamp) timestamp = performance.now();
                     const elapsed = timestamp - lastTime;
 
-                    /* اختصاص فریم بعدی قبل از رد شدن فیلتر بازه زمانی برای خواب واقعی CPU در مانیتورهای گیمینگ و فرکانس بالا */
                     if (elapsed < fpsInterval) {
                         animationFrameId = requestAnimationFrame(loop);
                         return;
@@ -2273,7 +2154,7 @@ function initSiteScripts() {
 
                     return raw.map(r => {
                         const label = shortLabel[r.enCat] || { en: r.enCat.split(' ').slice(0, 2).join(' '), fa: r.faCat };
-                        return { en: label.en, fa: label.fa, value: scale(r.count, max), enCat: r.enCat, faCat: r.faCat };
+                        return { en: label.en, fa: label.fa, value: scale(r.count, max), enCat: r.enCat };
                     });
                 }
 
@@ -2311,12 +2192,36 @@ function initSiteScripts() {
                     return (v && v.trim()) || fallback;
                 }
 
+                function ngonVertices(n) {
+                    const pts = [];
+                    for (let i = 0; i < n; i++) {
+                        const a = (-90 + i * (360 / n)) * Math.PI / 180;
+                        pts.push({ x: 50 + 50 * Math.cos(a), y: 50 + 50 * Math.sin(a) });
+                    }
+                    return pts;
+                }
+
+                function applyFrameShape(stage, n) {
+                    if (!stage) return;
+                    const verts = ngonVertices(Math.max(n, 3));
+                    const clip = 'polygon(' + verts.map(p => p.x.toFixed(2) + '% ' + p.y.toFixed(2) + '%').join(', ') + ')';
+                    const svgPoints = verts.map(p => p.x.toFixed(2) + ',' + p.y.toFixed(2)).join(' ');
+
+                    const inner = stage.querySelector('.ngon-frame-inner');
+                    if (inner) { inner.style.clipPath = clip; inner.style.webkitClipPath = clip; }
+
+                    stage.querySelectorAll('.ngon-outline').forEach(poly => poly.setAttribute('points', svgPoints));
+                }
+
                 const FRAME_RATIO = 0.62;
 
                 function drawChart(canvas, axes) {
                     if (!canvas) return;
+                    const stage = canvas.closest('.radar-stage');
                     const rect = canvas.getBoundingClientRect();
                     if (rect.width < 4 || rect.height < 4) return;
+
+                    applyFrameShape(stage, axes.length);
 
                     const dpr = Math.min(window.devicePixelRatio || 1, 2);
                     canvas.width = Math.round(rect.width * dpr);
@@ -2327,7 +2232,7 @@ function initSiteScripts() {
                     ctx.scale(dpr, dpr);
                     ctx.clearRect(0, 0, rect.width, rect.height);
 
-                    if (!axes.length) { canvas.__radarAxes = null; canvas.__radarCenter = null; return; }
+                    if (!axes.length) return;
 
                     const isDark = root.getAttribute('data-theme') === 'dark';
                     const isFa = root.getAttribute('lang') === 'fa';
@@ -2337,7 +2242,6 @@ function initSiteScripts() {
                     const textColor = readColor('--text', '#0f172a');
                     const mutedColor = readColor('--muted', '#475569');
                     const ringColor = readColor('--glass-border-inner', '#ffffff');
-                    const glassFill = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.22)';
 
                     const cx = rect.width / 2;
                     const cy = rect.height / 2;
@@ -2345,37 +2249,6 @@ function initSiteScripts() {
                     const n = axes.length;
                     const step = (Math.PI * 2) / n;
                     const angleFor = (i) => -Math.PI / 2 + i * step;
-
-                    const hoveredIndex = canvas.__radarHoverIndex;
-
-                    /* ترسیم زنده‌ی قاب چندضلعی روی کانواس (جایگزین فریم استاتیک قدیمی) */
-                    ctx.beginPath();
-                    for (let i = 0; i < n; i++) {
-                        const a = angleFor(i);
-                        const x = cx + R * Math.cos(a);
-                        const y = cy + R * Math.sin(a);
-                        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-                    }
-                    ctx.closePath();
-                    ctx.fillStyle = glassFill;
-                    ctx.fill();
-                    ctx.lineWidth = 1.25;
-                    ctx.strokeStyle = ringColor;
-                    ctx.globalAlpha = isDark ? 0.5 : 0.85;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1;
-
-                    /* هایلایت زنده‌ی گوه (wedge) شاخه‌ای که موس روی آن است */
-                    if (hoveredIndex !== null && hoveredIndex !== undefined && axes[hoveredIndex]) {
-                        const a0 = angleFor(hoveredIndex) - step / 2;
-                        const a1 = angleFor(hoveredIndex) + step / 2;
-                        ctx.beginPath();
-                        ctx.moveTo(cx, cy);
-                        ctx.arc(cx, cy, R, a0, a1);
-                        ctx.closePath();
-                        ctx.fillStyle = `rgba(${accentRgb}, 0.16)`;
-                        ctx.fill();
-                    }
 
                     ctx.lineWidth = 1;
                     for (let ring = 1; ring <= 4; ring++) {
@@ -2397,12 +2270,9 @@ function initSiteScripts() {
                     ctx.strokeStyle = mutedColor;
                     for (let i = 0; i < n; i++) {
                         const a = angleFor(i);
-                        const isHovered = i === hoveredIndex;
                         ctx.beginPath();
                         ctx.moveTo(cx, cy);
                         ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
-                        ctx.strokeStyle = isHovered ? accent : mutedColor;
-                        ctx.globalAlpha = isHovered ? 0.8 : 0.3;
                         ctx.stroke();
                     }
                     ctx.globalAlpha = 1;
@@ -2423,26 +2293,18 @@ function initSiteScripts() {
                     ctx.strokeStyle = accent;
                     ctx.stroke();
 
-                    points.forEach((p, i) => {
-                        const isHovered = i === hoveredIndex;
+                    points.forEach(p => {
                         ctx.beginPath();
-                        ctx.arc(p.x, p.y, isHovered ? 6.5 : 4.5, 0, Math.PI * 2);
+                        ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);
                         ctx.fillStyle = accent;
                         ctx.fill();
-                        if (isHovered) {
-                            ctx.beginPath();
-                            ctx.arc(p.x, p.y, 10, 0, Math.PI * 2);
-                            ctx.strokeStyle = accent;
-                            ctx.lineWidth = 1.5;
-                            ctx.globalAlpha = 0.5;
-                            ctx.stroke();
-                            ctx.globalAlpha = 1;
-                        }
                     });
+
+                    ctx.font = `600 11px ${isFa ? "'Estedad', sans-serif" : "'Inter', sans-serif"}`;
+                    ctx.fillStyle = textColor;
 
                     axes.forEach((axis, i) => {
                         const a = angleFor(i);
-                        const isHovered = i === hoveredIndex;
                         const lx = cx + (R + 20) * Math.cos(a);
                         const ly = cy + (R + 20) * Math.sin(a);
                         const cosA = Math.cos(a);
@@ -2458,16 +2320,8 @@ function initSiteScripts() {
 
                         ctx.textAlign = align;
                         ctx.textBaseline = baseline;
-                        ctx.font = `${isHovered ? '700' : '600'} 11px ${isFa ? "'Estedad', sans-serif" : "'Inter', sans-serif"}`;
-                        ctx.fillStyle = isHovered ? accent : textColor;
                         ctx.fillText(isFa ? axis.fa : axis.en, lx, ly);
                     });
-
-                    /* ذخیره هندسه تشخیص برخورد ماوس برای هر شاخه جهت تعامل هاور/کلیک (مورد ۱۵) */
-                    canvas.__radarAxes = axes.map((axis, i) => ({
-                        angle: angleFor(i), enCat: axis.enCat, faCat: axis.faCat, en: axis.en, fa: axis.fa
-                    }));
-                    canvas.__radarCenter = { cx, cy, step };
                 }
 
                 function drawAll() {
@@ -2493,103 +2347,71 @@ function initSiteScripts() {
                     const ro = new ResizeObserver(scheduleDrawAll);
                     charts.forEach(c => {
                         const el = document.getElementById(c.canvasId);
-                        if (el) ro.observe(el);
+                        if (el) {
+                            ro.observe(el);
+                            let currentHoveredAxis = -1;
+                            
+                            el.addEventListener('mousemove', (e) => {
+                                const axes = c.build();
+                                const rect = el.getBoundingClientRect();
+                                const mx = e.clientX - rect.left;
+                                const my = e.clientY - rect.top;
+                                const cx = rect.width / 2;
+                                const cy = rect.height / 2;
+                                const dx = mx - cx;
+                                const dy = my - cy;
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                
+                                let hoveredAxisIndex = -1;
+                                if (dist > 15 && dist < Math.min(rect.width, rect.height) * 0.5) {
+                                    let angle = Math.atan2(dy, dx);
+                                    let targetAngle = angle + Math.PI / 2;
+                                    if (targetAngle < 0) targetAngle += Math.PI * 2;
+                                    const step = (Math.PI * 2) / axes.length;
+                                    hoveredAxisIndex = Math.round(targetAngle / step) % axes.length;
+                                    
+                                    const actualAngle = -Math.PI / 2 + hoveredAxisIndex * step;
+                                    let diff = Math.abs(angle - actualAngle);
+                                    if (diff > Math.PI) diff = Math.PI * 2 - diff;
+                                    if (diff > 0.45) hoveredAxisIndex = -1; 
+                                }
+                                
+                                if (hoveredAxisIndex !== currentHoveredAxis) {
+                                    currentHoveredAxis = hoveredAxisIndex;
+                                    document.querySelectorAll('.radar-highlight-glow').forEach(el => el.classList.remove('radar-highlight-glow'));
+                                    
+                                    if (hoveredAxisIndex !== -1) {
+                                        const axis = axes[hoveredAxisIndex];
+                                        if (c.canvasId === 'radarSkillCanvas' && axis.enCat) {
+                                            const matchTerm = axis.enCat.toLowerCase();
+                                            document.querySelectorAll('#skills .skill-row').forEach(row => {
+                                                const txt = row.querySelector('.skill-cat')?.textContent.toLowerCase() || '';
+                                                if (txt.includes(matchTerm) || matchTerm.includes(txt)) row.classList.add('radar-highlight-glow');
+                                            });
+                                            document.querySelectorAll('#matrix-table tbody tr').forEach(tr => {
+                                                const titleAttr = tr.querySelector('.matrix-cat-cell')?.title.toLowerCase() || '';
+                                                if (titleAttr.includes(matchTerm) || matchTerm.includes(titleAttr)) tr.classList.add('radar-highlight-glow');
+                                            });
+                                        } else if (c.canvasId === 'radarExperienceCanvas') {
+                                            if (axis.en === 'Work Roles') document.querySelectorAll('#experience .timeline-item').forEach(el => el.classList.add('radar-highlight-glow'));
+                                            if (axis.en === 'Teaching') document.querySelectorAll('#teaching .workshop-category').forEach(el => el.classList.add('radar-highlight-glow'));
+                                            if (axis.en === 'Education') document.querySelectorAll('#education .timeline-item').forEach(el => el.classList.add('radar-highlight-glow'));
+                                        }
+                                    }
+                                }
+                            });
+                            
+                            el.addEventListener('mouseleave', () => {
+                                currentHoveredAxis = -1;
+                                document.querySelectorAll('.radar-highlight-glow').forEach(el => el.classList.remove('radar-highlight-glow'));
+                            });
+                        }
                     });
                 } else {
                     window.addEventListener('resize', scheduleDrawAll);
                 }
 
                 window.__redrawRadarCharts = drawAll;
-
-                /* اتصال تعاملی نمودار راداری به بخش‌های مرتبط سایت (مورد ۱۵) */
-                function clearRadarHighlights() {
-                    document.querySelectorAll('.radar-linked-highlight').forEach(el => el.classList.remove('radar-linked-highlight'));
-                }
-
-                function applyRadarHighlight(enCat, faCat) {
-                    clearRadarHighlights();
-                    if (!enCat && !faCat) return;
-                    document.querySelectorAll('#skills .skill-row').forEach(row => {
-                        const rowEn = text(row.querySelector('.skill-cat .en'));
-                        const rowFa = text(row.querySelector('.skill-cat .fa'));
-                        if ((enCat && rowEn === enCat) || (faCat && rowFa === faCat)) {
-                            row.classList.add('radar-linked-highlight');
-                        }
-                    });
-                    document.querySelectorAll('#matrix-tbody tr').forEach(tr => {
-                        const catCell = tr.querySelector('.matrix-cat-cell');
-                        if (!catCell) return;
-                        const cellTitle = catCell.getAttribute('title') || '';
-                        if ((enCat && cellTitle === enCat) || (faCat && cellTitle === faCat)) {
-                            tr.classList.add('radar-linked-highlight');
-                        }
-                    });
-                }
-
-                function findHoveredAxis(canvas, evt) {
-                    const axes = canvas.__radarAxes;
-                    const geo = canvas.__radarCenter;
-                    if (!axes || !axes.length || !geo) return null;
-                    const rect = canvas.getBoundingClientRect();
-                    const mx = evt.clientX - rect.left;
-                    const my = evt.clientY - rect.top;
-                    const dx = mx - geo.cx;
-                    const dy = my - geo.cy;
-                    let angle = Math.atan2(dy, dx);
-                    let bestIdx = -1, bestDiff = Infinity;
-                    axes.forEach((ax, i) => {
-                        let diff = Math.abs(angle - ax.angle);
-                        if (diff > Math.PI) diff = 2 * Math.PI - diff;
-                        if (diff < bestDiff) { bestDiff = diff; bestIdx = i; }
-                    });
-                    if (bestIdx >= 0 && bestDiff <= geo.step / 2) return { index: bestIdx, axis: axes[bestIdx] };
-                    return null;
-                }
-
-                function attachRadarInteractivity(canvas, buildFn) {
-                    if (!canvas || canvas.__radarInteractiveBound) return;
-                    canvas.__radarInteractiveBound = true;
-                    canvas.__radarHoverIndex = null;
-                    const stage = canvas.closest('.radar-stage');
-
-                    function setHover(index) {
-                        if (canvas.__radarHoverIndex === index) return;
-                        canvas.__radarHoverIndex = index;
-                        drawChart(canvas, buildFn());
-                    }
-
-                    canvas.addEventListener('mousemove', (evt) => {
-                        const hit = findHoveredAxis(canvas, evt);
-                        if (hit) {
-                            setHover(hit.index);
-                            applyRadarHighlight(hit.axis.enCat, hit.axis.faCat);
-                        } else {
-                            setHover(null);
-                            clearRadarHighlights();
-                        }
-                    });
-                    canvas.addEventListener('mouseleave', () => {
-                        setHover(null);
-                        clearRadarHighlights();
-                    });
-                    canvas.addEventListener('click', (evt) => {
-                        const hit = findHoveredAxis(canvas, evt);
-                        if (!hit) return;
-                        const axis = hit.axis;
-                        const skillsSection = document.getElementById('skills');
-                        if (skillsSection && (axis.enCat || axis.faCat)) {
-                            document.querySelectorAll('#skills .skill-row').forEach(row => {
-                                const rowEn = text(row.querySelector('.skill-cat .en'));
-                                const rowFa = text(row.querySelector('.skill-cat .fa'));
-                                if (rowEn === axis.enCat || rowFa === axis.faCat) {
-                                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                }
-                            });
-                        }
-                    });
-                }
-
-                charts.forEach(c => attachRadarInteractivity(document.getElementById(c.canvasId), c.build));
             })();
 
             (function initMatrix() {
@@ -2601,8 +2423,6 @@ function initSiteScripts() {
                 const depthFilterEl = document.getElementById('matrix-filter-depths');
                 const emptyEl = document.getElementById('matrix-empty');
                 const emptyFaEl = document.getElementById('matrix-empty-fa');
-                const searchEnEl = document.getElementById('matrix-search');
-                const searchFaEl = document.getElementById('matrix-search-fa');
                 if (!tableEl || !theadEl || !tbodyEl) return;
 
                 const isFa = () => root.getAttribute('lang') === 'fa';
@@ -2628,7 +2448,9 @@ function initSiteScripts() {
                 function buildMatrixData() {
                     const rows = [];
                     const sections = [
-                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' }
+                        { id: 'workshops', labelEn: 'Workshops', labelFa: 'کارگاه‌ها', selector: '#workshops .workshop-category' },
+                        { id: 'teaching', labelEn: 'Teaching', labelFa: 'تدریس', selector: '#teaching .workshop-category' },
+                        { id: 'skills', labelEn: 'Skills', labelFa: 'مهارت‌ها', selector: '#skills .workshop-category' }
                     ];
 
                     sections.forEach(sec => {
@@ -2679,39 +2501,34 @@ function initSiteScripts() {
                 let allRows = [];
                 let activeCategories = new Set();
                 let activeDepths = new Set();
-                let searchQuery = '';
 
                 function render() {
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
                     theadEl.innerHTML = '<tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>';
 
-                    const q = searchQuery.trim().toLowerCase();
-                    const filtered = allRows.filter(r =>
-                        (activeCategories.size === 0 || activeCategories.has(r.catCode)) &&
-                        (activeDepths.size === 0 || activeDepths.has(r.depth)) &&
-                        (q === '' || [
-                            r.titleEn, r.titleFa, r.catCode, r.catNameEn, r.catNameFa,
-                            r.audienceEn, r.audienceFa, r.section.labelEn, r.section.labelFa
-                        ].some(v => (v || '').toLowerCase().includes(q)))
-                    );
+                    const searchVal = (document.getElementById('matrix-search-input')?.value || '').toLowerCase().trim();
+                    const filtered = allRows.filter(r => {
+                        const matchesFilters = (activeCategories.size === 0 || activeCategories.has(r.catCode)) &&
+                                               (activeDepths.size === 0 || activeDepths.has(r.depth));
+                        if (!matchesFilters) return false;
+                        if (!searchVal) return true;
+                        return r.titleEn.toLowerCase().includes(searchVal) ||
+                               r.titleFa.toLowerCase().includes(searchVal) ||
+                               r.catNameEn.toLowerCase().includes(searchVal) ||
+                               r.catNameFa.toLowerCase().includes(searchVal) ||
+                               r.catCode.toLowerCase().includes(searchVal);
+                    });
 
                     tbodyEl.innerHTML = filtered.map(r => {
                         const secLabel = isFa() ? r.section.labelFa : r.section.labelEn;
                         const catLabel = r.catCode;
-                        const catFullName = isFa() ? (r.catNameFa || r.catCode) : (r.catNameEn || r.catCode);
                         const title = isFa() ? r.titleFa : r.titleEn;
                         const audience = isFa() ? (r.audienceFa || r.audienceEn) : (r.audienceEn || r.audienceFa);
                         const d = r.depth;
                         const dLabel = depthLabel(d);
+                        const fullCatName = isFa() ? r.catNameFa : r.catNameEn;
 
                         const pill = '<span class="matrix-depth-pill ' + d + '"><span class="dot" style="background:' + (depthColors[d] || 'var(--muted)') + '"></span>' + dLabel + '</span>';
-
-                        let rowDotsHtml = '<span class="row-depth-dots">';
-                        depthOrder.forEach(lvl => {
-                            const isMatch = lvl === d;
-                            rowDotsHtml += '<span class="row-depth-dot' + (isMatch ? ' lit' : '') + '" style="background:' + depthColors[lvl] + '" title="' + depthLabel(lvl) + '"></span>';
-                        });
-                        rowDotsHtml += '</span>';
 
                         let barHtml = '<span class="matrix-depth-bar">';
                         depthOrder.forEach(lvl => {
@@ -2722,8 +2539,8 @@ function initSiteScripts() {
 
                         return '<tr data-target="' + r.target + '">' +
                             '<td class="matrix-section-cell">' + secLabel + '</td>' +
-                            '<td class="matrix-cat-cell" title="' + catFullName + '">' + catLabel + '</td>' +
-                            '<td class="matrix-title-cell">' + title + rowDotsHtml + '</td>' +
+                            '<td class="matrix-cat-cell" title="' + esc(fullCatName) + '">' + catLabel + '</td>' +
+                            '<td class="matrix-title-cell">' + title + '</td>' +
                             '<td>' + pill + '</td>' +
                             '<td>' + barHtml + '</td>' +
                             '<td class="matrix-audience-cell">' + (audience || '—') + '</td>' +
@@ -2743,9 +2560,11 @@ function initSiteScripts() {
                 }
 
                 function renderSummary() {
-                    const sections = ['workshops'];
+                    const sections = ['workshops', 'teaching', 'skills'];
                     const sectionLabels = {
-                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' }
+                        workshops: { en: 'Workshops', fa: 'کارگاه‌ها' },
+                        teaching: { en: 'Teaching', fa: 'تدریس' },
+                        skills: { en: 'Skills', fa: 'مهارت‌ها' }
                     };
                     const sectionCounts = {};
                     sections.forEach(s => sectionCounts[s] = 0);
@@ -2761,7 +2580,7 @@ function initSiteScripts() {
                                 (isFa() ? sectionLabels[s].fa : sectionLabels[s].en) + ' <span class="count">' + sectionCounts[s] + '</span></span>';
                         }
                     });
-                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational > 0 ? depthCounts.foundational : '' + '</span></span>';
+                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational + '</span></span>';
                     if (depthCounts.intermediate > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#f59e0b"></span>' + (isFa() ? 'متوسط' : 'Intermediate') + ' <span class="count">' + depthCounts.intermediate + '</span></span>';
                     if (depthCounts.advanced > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#ef4444"></span>' + (isFa() ? 'پیشرفته' : 'Advanced') + ' <span class="count">' + depthCounts.advanced + '</span></span>';
                     summaryEl.innerHTML = html_str;
@@ -2770,27 +2589,20 @@ function initSiteScripts() {
                 function renderFilters() {
                     const catSet = new Map();
                     allRows.forEach(r => {
-                        if (!catSet.has(r.catCode)) catSet.set(r.catCode, { code: r.catCode, count: 0, nameEn: r.catNameEn, nameFa: r.catNameFa, depths: new Set() });
-                        const entry = catSet.get(r.catCode);
-                        entry.count++;
-                        if (r.depth !== 'unknown') entry.depths.add(r.depth);
+                        if (!catSet.has(r.catCode)) catSet.set(r.catCode, { code: r.catCode, count: 0, nameEn: r.catNameEn, nameFa: r.catNameFa });
+                        catSet.get(r.catCode).count++;
                     });
                     const cats = Array.from(catSet.values());
+                    
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
-                        const fullName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
-                        const dotsHtml = depthOrder.filter(d => c.depths.has(d)).map(d =>
-                            '<span class="cat-chip-dot" style="background:' + depthColors[d] + '" title="' + depthLabel(d) + '"></span>'
-                        ).join('');
-                        return '<span class="matrix-chip-cat' + active + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' +
-                            '<span class="cat-chip-top">' +
-                            '<span class="cat-chip-name">' + fullName + '</span>' +
-                            '<span class="chip-count">' + c.count + '</span>' +
-                            '</span>' +
-                            (dotsHtml ? '<span class="cat-chip-dots">' + dotsHtml + '</span>' : '') +
-                            '</span>';
+                        return '<span class="matrix-chip' + active + '" data-cat="' + c.code + '" role="button" tabindex="0">' +
+                            '<span class="en">' + esc(c.nameEn) + '</span>' +
+                            '<span class="fa">' + esc(c.nameFa) + '</span>' +
+                            '<span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
-                    catFilterEl.querySelectorAll('.matrix-chip-cat').forEach(chip => {
+                    
+                    catFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
                         const code = chip.getAttribute('data-cat');
                         const toggle = () => {
                             if (activeCategories.has(code)) activeCategories.delete(code);
@@ -2831,19 +2643,12 @@ function initSiteScripts() {
                     renderSummary();
                     renderFilters();
                     render();
-                }
-
-                if (searchEnEl && searchFaEl) {
-                    let searchRAF = null;
-                    const onSearchInput = (e) => {
-                        searchQuery = e.target.value;
-                        if (e.target === searchEnEl) searchFaEl.value = searchQuery;
-                        else searchEnEl.value = searchQuery;
-                        if (searchRAF) cancelAnimationFrame(searchRAF);
-                        searchRAF = requestAnimationFrame(() => { searchRAF = null; render(); });
-                    };
-                    searchEnEl.addEventListener('input', onSearchInput);
-                    searchFaEl.addEventListener('input', onSearchInput);
+                    
+                    const sIn = document.getElementById('matrix-search-input');
+                    if (sIn && !sIn.dataset.engaged) {
+                        sIn.addEventListener('input', render);
+                        sIn.dataset.engaged = "true";
+                    }
                 }
 
                 build();
@@ -2908,7 +2713,6 @@ function initSiteScripts() {
         new window.MagneticButtonEffect();
     }
 
-    /* ماژول تجمیع‌کننده رفرش پویای کامپوننت‌های تعاملی بعد از آپدیت داده‌های زنده JSON */
     window.__reinitDynamicComponents = function() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
@@ -2916,7 +2720,6 @@ function initSiteScripts() {
     };
 }
 
-/* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
     const cachedData = localStorage.getItem('site_resume_data');
     if (cachedData) {
@@ -2925,7 +2728,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.__renderSite(data);
             initSiteScripts();
             
-            /* فچ پس‌زمینه برای بررسی تغییرات فایل سورس و اعمال آنی دیتای جدید بدون فلش خوردن یا نیاز به رفرش صفحه */
             fetch('data/site-data.json')
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
