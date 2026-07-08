@@ -820,7 +820,7 @@
 
         .matrix-chip-cat {
             position: relative;
-            display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+            display: flex; flex-direction: column; gap: 8px;
             padding: 11px 16px;
             border-radius: 13px;
             border: 1px solid var(--glass-border);
@@ -849,6 +849,7 @@
             border-color: rgba(var(--accent-rgb), 0.45);
             box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 8px 20px rgba(var(--accent-rgb), 0.16);
         }
+        .matrix-chip-cat .cat-chip-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; width: 100%; }
         .matrix-chip-cat .cat-chip-name { overflow-wrap: break-word; word-break: break-word; white-space: normal; line-height: 1.3; }
         .matrix-chip-cat .chip-count {
             flex-shrink: 0;
@@ -861,6 +862,13 @@
             align-self: flex-start;
             transition: all 0.22s ease;
         }
+        .matrix-chip-cat .cat-chip-dots { display: flex; align-items: center; gap: 5px; }
+        .matrix-chip-cat .cat-chip-dot {
+            width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+        .matrix-chip-cat:hover .cat-chip-dot { transform: scale(1.15); }
         .matrix-chip-cat.active {
             background: linear-gradient(135deg, var(--accent), #6366f1);
             border-color: var(--accent);
@@ -868,6 +876,7 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 22px rgba(var(--accent-rgb), 0.35);
         }
         .matrix-chip-cat.active .chip-count { background: rgba(255, 255, 255, 0.25); color: #ffffff; }
+        .matrix-chip-cat.active .cat-chip-dot { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5); }
 
         .matrix-search-wrap { position: relative; margin-bottom: 14px; max-width: 420px; }
         .matrix-search-wrap svg { position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; }
@@ -907,6 +916,13 @@
         .matrix-table tbody tr:last-child td { border-bottom: none; }
         .matrix-cat-cell { font-weight: 700; color: var(--accent); font-size: 0.78rem; white-space: nowrap; }
         .matrix-title-cell { font-weight: 600; color: var(--text); max-width: 320px; }
+        .row-depth-dots { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
+        .row-depth-dot {
+            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+            opacity: 0.22; transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .row-depth-dot.lit { opacity: 1; box-shadow: 0 0 5px currentColor; transform: scale(1.15); }
+        tr:hover .row-depth-dot.lit { transform: scale(1.3); }
         .matrix-depth-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 12px; font-size: 0.74rem; font-weight: 600; white-space: nowrap; }
         .matrix-depth-pill .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .matrix-depth-pill.foundational { background: rgba(16, 185, 129, 0.12); color: #059669; }
@@ -1153,6 +1169,13 @@
                 box-shadow: none !important;
                 transition: none !important;
             }
+            .cat-chip-dot, .row-depth-dot {
+                transition: none !important;
+            }
+            .matrix-chip-cat:hover .cat-chip-dot,
+            tr:hover .row-depth-dot.lit {
+                transform: none !important;
+            }
         }
     </style>
 </head>
@@ -1177,17 +1200,8 @@
 <a aria-controls="about" aria-selected="true" class="active" href="#about" id="nav-about" role="tab" tabindex="0">
 <span class="en">About Me</span><span class="fa">درباره من</span>
 </a>
-<a aria-controls="experience" aria-selected="false" href="#experience" id="nav-experience" role="tab" tabindex="-1">
-<span class="en">Experience</span><span class="fa">سوابق</span>
-</a>
-<a aria-controls="education" aria-selected="false" href="#education" id="nav-education" role="tab" tabindex="-1">
-<span class="en">Education</span><span class="fa">تحصیلات</span>
-</a>
 <a aria-controls="workshops" aria-selected="false" href="#workshops" id="nav-workshops" role="tab" tabindex="-1">
 <span class="en">Workshops</span><span class="fa">کارگاه‌ها</span>
-</a>
-<a aria-controls="teaching" aria-selected="false" href="#teaching" id="nav-teaching" role="tab" tabindex="-1">
-<span class="en">Teaching</span><span class="fa">تدریس</span>
 </a>
 <a aria-controls="graph" aria-selected="false" href="#graph" id="nav-graph" role="tab" tabindex="-1">
 <span class="en">Curriculum Matrix</span><span class="fa">ماتریس سرفصل‌ها</span>
@@ -1257,15 +1271,15 @@
 </div>
 </div>
 </div></section>
-<section aria-labelledby="nav-experience" class="page-section" id="experience" role="tabpanel"><h2>
+<section aria-labelledby="experience-heading" class="page-section" id="experience"><h2 id="experience-heading">
 <span class="en">Work Experience</span>
 <span class="fa">سوابق حرفه‌ای</span>
 </h2><div class="timeline-container"></div></section>
-<section aria-labelledby="nav-education" class="page-section" id="education" role="tabpanel"><h2>
+<section aria-labelledby="education-heading" class="page-section" id="education"><h2 id="education-heading">
 <span class="en">Education</span>
 <span class="fa">تحصیلات</span>
 </h2><div class="timeline-container"></div></section>
-<section aria-labelledby="nav-teaching" class="page-section" id="teaching" role="tabpanel"><h2>
+<section aria-labelledby="teaching-heading" class="page-section" id="teaching"><h2 id="teaching-heading">
 <span class="en">Teaching Experience</span>
 <span class="fa">سوابق تدریس و آموزش</span>
 </h2></section>
@@ -2689,6 +2703,13 @@ function initSiteScripts() {
 
                         const pill = '<span class="matrix-depth-pill ' + d + '"><span class="dot" style="background:' + (depthColors[d] || 'var(--muted)') + '"></span>' + dLabel + '</span>';
 
+                        let rowDotsHtml = '<span class="row-depth-dots">';
+                        depthOrder.forEach(lvl => {
+                            const isMatch = lvl === d;
+                            rowDotsHtml += '<span class="row-depth-dot' + (isMatch ? ' lit' : '') + '" style="background:' + depthColors[lvl] + '" title="' + depthLabel(lvl) + '"></span>';
+                        });
+                        rowDotsHtml += '</span>';
+
                         let barHtml = '<span class="matrix-depth-bar">';
                         depthOrder.forEach(lvl => {
                             const isOn = depthOrder.indexOf(d) >= depthOrder.indexOf(lvl) && d !== 'unknown';
@@ -2699,7 +2720,7 @@ function initSiteScripts() {
                         return '<tr data-target="' + r.target + '">' +
                             '<td class="matrix-section-cell">' + secLabel + '</td>' +
                             '<td class="matrix-cat-cell" title="' + catFullName + '">' + catLabel + '</td>' +
-                            '<td class="matrix-title-cell">' + title + '</td>' +
+                            '<td class="matrix-title-cell">' + title + rowDotsHtml + '</td>' +
                             '<td>' + pill + '</td>' +
                             '<td>' + barHtml + '</td>' +
                             '<td class="matrix-audience-cell">' + (audience || '—') + '</td>' +
@@ -2746,16 +2767,25 @@ function initSiteScripts() {
                 function renderFilters() {
                     const catSet = new Map();
                     allRows.forEach(r => {
-                        if (!catSet.has(r.catCode)) catSet.set(r.catCode, { code: r.catCode, count: 0, nameEn: r.catNameEn, nameFa: r.catNameFa });
-                        catSet.get(r.catCode).count++;
+                        if (!catSet.has(r.catCode)) catSet.set(r.catCode, { code: r.catCode, count: 0, nameEn: r.catNameEn, nameFa: r.catNameFa, depths: new Set() });
+                        const entry = catSet.get(r.catCode);
+                        entry.count++;
+                        if (r.depth !== 'unknown') entry.depths.add(r.depth);
                     });
                     const cats = Array.from(catSet.values());
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
                         const fullName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
+                        const dotsHtml = depthOrder.filter(d => c.depths.has(d)).map(d =>
+                            '<span class="cat-chip-dot" style="background:' + depthColors[d] + '" title="' + depthLabel(d) + '"></span>'
+                        ).join('');
                         return '<span class="matrix-chip-cat' + active + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' +
+                            '<span class="cat-chip-top">' +
                             '<span class="cat-chip-name">' + fullName + '</span>' +
-                            '<span class="chip-count">' + c.count + '</span></span>';
+                            '<span class="chip-count">' + c.count + '</span>' +
+                            '</span>' +
+                            (dotsHtml ? '<span class="cat-chip-dots">' + dotsHtml + '</span>' : '') +
+                            '</span>';
                     }).join('');
                     catFilterEl.querySelectorAll('.matrix-chip-cat').forEach(chip => {
                         const code = chip.getAttribute('data-cat');
