@@ -511,6 +511,21 @@
         }
         [data-theme="dark"] .nav-btn:hover { background: rgba(255, 255, 255, 0.08); }
 
+        .lang-toggle-btn {
+            padding: 0; width: 40px; height: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.10), rgba(var(--accent-rgb), 0.02));
+        }
+        [data-theme="dark"] .lang-toggle-btn { background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.04)); }
+        .lang-toggle-btn .lang-toggle-label {
+            font-size: 0.7rem; font-weight: 800; letter-spacing: 0.02em;
+            color: var(--accent); line-height: 1; user-select: none;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+        .lang-toggle-btn:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(var(--accent-rgb), 0.25); }
+        .lang-toggle-btn:hover .lang-toggle-label { transform: scale(1.08); }
+
         #layout-wrapper { max-width: 1200px; margin: 36px auto 100px auto; padding: 0 40px; display: flex; align-items: flex-start; gap: 32px; }
         #sidebar {
             width: var(--sidebar-w); flex-shrink: 0; position: sticky; top: calc(var(--nav-h) + 40px);
@@ -806,8 +821,10 @@
         .matrix-filter-chips.cat-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-auto-rows: 1fr;
             gap: 10px;
             width: 100%;
+            align-items: stretch;
         }
         @media (max-width: 900px) { .matrix-filter-chips.cat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
         @media (max-width: 640px) { .matrix-filter-chips.cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -815,7 +832,7 @@
 
         .matrix-chip-cat {
             position: relative;
-            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
             padding: 11px 16px;
             border-radius: 13px;
             border: 1px solid var(--glass-border);
@@ -844,9 +861,9 @@
             border-color: rgba(var(--accent-rgb), 0.45);
             box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 8px 20px rgba(var(--accent-rgb), 0.16);
         }
-        .matrix-chip-cat .cat-chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .matrix-chip-cat .cat-chip-name { white-space: normal; word-break: break-word; line-height: 1.3; }
         .matrix-chip-cat .chip-count {
-            flex-shrink: 0;
+            flex-shrink: 0; margin-top: 1px;
             display: inline-flex; align-items: center; justify-content: center;
             min-width: 22px; height: 22px; padding: 0 6px;
             border-radius: 50%;
@@ -883,6 +900,43 @@
         [data-theme="dark"] .matrix-chip.active { color: #ffffff; }
         .matrix-chip .chip-count { font-size: 0.68rem; opacity: 0.7; font-weight: 500; }
         .matrix-chip.active .chip-count { opacity: 0.9; }
+
+        .matrix-chip.complex-disabled { opacity: 0.4; cursor: not-allowed; }
+        .matrix-chip.complex-disabled:hover { border-color: var(--glass-border); background: rgba(255, 255, 255, 0.15); }
+        [data-theme="dark"] .matrix-chip.complex-disabled:hover { background: rgba(255, 255, 255, 0.04); }
+
+        .matrix-chip-complex {
+            border-color: rgba(var(--accent-rgb), 0.35);
+            background: rgba(var(--accent-rgb), 0.08);
+            margin-inline-start: 4px;
+        }
+        .matrix-chip-complex:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.16); }
+        .matrix-chip-complex.active {
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            border-color: var(--accent); color: #ffffff;
+            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35);
+        }
+        .matrix-chip-complex.active .swatch { background: #ffffff !important; }
+
+        /* حالت انتخاب سفارشی (Complex): دکمه‌های دسته‌بندی به شکل چک‌باکس درمی‌آیند */
+        .matrix-chip-cat.custom-checkbox { padding-inline-start: 40px; }
+        .cat-chip-check {
+            position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%);
+            width: 17px; height: 17px; border-radius: 5px;
+            border: 1.5px solid rgba(var(--accent-rgb), 0.45);
+            background: rgba(255, 255, 255, 0.5);
+            flex-shrink: 0; transition: all 0.2s ease;
+        }
+        [data-theme="dark"] .cat-chip-check { background: rgba(255, 255, 255, 0.06); }
+        .matrix-chip-cat.custom-checkbox.active .cat-chip-check {
+            background: #ffffff; border-color: #ffffff;
+        }
+        .matrix-chip-cat.custom-checkbox.active .cat-chip-check::after {
+            content: ''; position: absolute; inset-inline-start: 4px; top: 1px;
+            width: 5px; height: 9px;
+            border-inline-end: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+            transform: rotate(35deg);
+        }
         .matrix-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
         .matrix-summary-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); font-size: 0.8rem; font-weight: 600; color: var(--text); box-shadow: inset 0 1px 0 var(--glass-border-inner); }
         .matrix-summary-chip .swatch { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
@@ -950,11 +1004,27 @@
 
         .ws-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
         .ws-heading-row h2 { margin-bottom: 0; }
-        .ws-visual-map-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 24px; text-decoration: none; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
-        .ws-visual-map-pill svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--accent); fill: none; stroke-width: 2; }
-        .ws-visual-map-pill .en { color: var(--text); }
-        .ws-visual-map-pill .fa { color: var(--text); }
-        .ws-visual-map-pill:hover { --ty: -4px; border-color: var(--accent); transform: translateY(-4px); }
+        .ws-visual-map-pill {
+            position: relative;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 9px 18px 9px 14px; border-radius: 24px;
+            text-decoration: none; font-size: 0.8rem; font-weight: 700; white-space: nowrap;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.14), rgba(16, 185, 129, 0.10));
+            border: 1px solid rgba(var(--accent-rgb), 0.30);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 2px 10px rgba(var(--accent-rgb), 0.10);
+            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+        [data-theme="dark"] .ws-visual-map-pill { background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.22), rgba(16, 185, 129, 0.12)); border-color: rgba(var(--accent-rgb), 0.35); }
+        .ws-visual-map-pill svg { width: 17px; height: 17px; flex-shrink: 0; stroke: var(--accent); fill: none; stroke-width: 2; transition: transform 0.3s var(--ease-elastic); }
+        .ws-visual-map-pill .en { color: var(--accent); }
+        .ws-visual-map-pill .fa { color: var(--accent); }
+        .ws-visual-map-pill:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 8px 22px rgba(var(--accent-rgb), 0.28);
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.22), rgba(16, 185, 129, 0.16));
+        }
+        .ws-visual-map-pill:hover svg { transform: rotate(-8deg) scale(1.08); }
 
         #skills .skill-matrix.bento-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
         #skills .skill-row.bento-item:not(.large) { flex-direction: column; gap: 8px; }
@@ -1113,16 +1183,12 @@
 </div>
 </nav>
 <div class="nav-actions">
-<a class="nav-cta-btn" href="mailto:ehsan.parsaeian@gmail.com" aria-label="Get in Touch">
-<svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+<a class="nav-cta-btn" id="get-in-touch-btn" href="https://wa.me/989137248050" target="_blank" rel="noopener" aria-label="Get in Touch on WhatsApp">
+<svg viewbox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12 2C6.477 2 2 6.477 2 12c0 1.79.472 3.522 1.365 5.036L2 22l5.06-1.34A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.582 0-3.13-.425-4.472-1.226l-.32-.19-3.005.796.802-2.928-.208-.302A8.195 8.195 0 0 1 3.8 12c0-4.522 3.678-8.2 8.2-8.2s8.2 3.678 8.2 8.2-3.678 8.2-8.2 8.2z"></path></svg>
 <span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
 </a>
-<button aria-label="Toggle Language" class="nav-btn" id="lang-toggle" title="Switch Language">
-<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-<circle cx="12" cy="12" r="10"></circle>
-<line x1="2" x2="22" y1="12" y2="12"></line>
-<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-</svg>
+<button aria-label="Toggle Language" class="nav-btn lang-toggle-btn" id="lang-toggle" title="Switch Language">
+<span class="lang-toggle-label">FA</span>
 </button>
 <button aria-label="Toggle Dark Mode" class="nav-btn" id="theme-toggle" title="Switch theme">
 <svg class="sun-icon" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
@@ -1180,7 +1246,7 @@
 <span class="en">Workshop Menu</span>
 <span class="fa">فهرست کارگاه‌ها</span>
 </h2>
-<a aria-label="Curriculum Matrix" class="profile-info-card ws-visual-map-pill reveal-card" href="#graph">
+<a aria-label="Curriculum Matrix" class="ws-visual-map-pill" href="#graph">
 <svg aria-hidden="true" viewbox="0 0 24 24">
 <circle cx="18" cy="5" r="3"></circle>
 <circle cx="6" cy="12" r="3"></circle>
@@ -1795,6 +1861,8 @@ function initSiteScripts() {
             }
 
             updateThemeUI();
+            updateGetInTouchLink(root.getAttribute('lang') || 'en');
+            updateLangToggleUI(root.getAttribute('lang') || 'en');
 
             themeToggleBtn.addEventListener('click', () => {
                 startViewTransition(() => {
@@ -1807,6 +1875,22 @@ function initSiteScripts() {
                 });
             });
 
+            function updateGetInTouchLink(lang) {
+                const btn = document.getElementById('get-in-touch-btn');
+                if (!btn) return;
+                const msg = lang === 'fa'
+                    ? 'سلام، از سایتتون پیام می‌دم.'
+                    : "Hi, I'm messaging from your website.";
+                btn.href = 'https://wa.me/989137248050?text=' + encodeURIComponent(msg);
+            }
+
+            function updateLangToggleUI(lang) {
+                if (!langToggleBtn) return;
+                const labelEl = langToggleBtn.querySelector('.lang-toggle-label');
+                if (labelEl) labelEl.textContent = lang === 'fa' ? 'EN' : 'FA';
+                langToggleBtn.setAttribute('title', lang === 'fa' ? 'Switch to English' : 'تغییر به فارسی');
+            }
+
             function setDocumentLanguage(lang) {
                 root.setAttribute('lang', lang);
                 root.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
@@ -1814,6 +1898,8 @@ function initSiteScripts() {
                 document.title = lang === 'fa'
                     ? "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی"
                     : "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
+                updateGetInTouchLink(lang);
+                updateLangToggleUI(lang);
             }
 
             langToggleBtn.addEventListener('click', () => {
@@ -2490,7 +2576,7 @@ function initSiteScripts() {
                 const isFa = () => root.getAttribute('lang') === 'fa';
                 const text = el => el ? el.textContent.trim() : '';
 
-                const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444' };
+                const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444', 'complex': 'var(--accent)' };
                 const depthOrder = ['foundational', 'intermediate', 'advanced'];
 
                 function normalizeDepth(raw) {
@@ -2504,6 +2590,7 @@ function initSiteScripts() {
                     if (d === 'foundational') return isFa() ? 'پایه' : 'Foundational';
                     if (d === 'intermediate') return isFa() ? 'متوسط' : 'Intermediate';
                     if (d === 'advanced') return isFa() ? 'پیشرفته' : 'Advanced';
+                    if (d === 'complex') return isFa() ? 'ترکیبی' : 'Complex';
                     return isFa() ? '—' : '—';
                 }
 
@@ -2562,6 +2649,7 @@ function initSiteScripts() {
                 let activeCategories = new Set();
                 let activeDepths = new Set();
                 let searchQuery = '';
+                let isComplexMode = false;
 
                 function render() {
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
@@ -2651,8 +2739,11 @@ function initSiteScripts() {
                     const cats = Array.from(catSet.values());
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
+                        const customCls = isComplexMode ? ' custom-checkbox' : '';
                         const fullName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
-                        return '<span class="matrix-chip-cat' + active + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' +
+                        const checkMark = isComplexMode ? '<span class="cat-chip-check" aria-hidden="true"></span>' : '';
+                        return '<span class="matrix-chip-cat' + active + customCls + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' +
+                            checkMark +
                             '<span class="cat-chip-name">' + fullName + '</span>' +
                             '<span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
@@ -2674,15 +2765,26 @@ function initSiteScripts() {
                         depthSet.get(r.depth).count++;
                     });
                     const depths = depthOrder.filter(d => depthSet.has(d)).map(d => depthSet.get(d));
-                    depthFilterEl.innerHTML = depths.map(d => {
-                        const active = activeDepths.has(d.code) ? ' active' : '';
-                        return '<span class="matrix-chip' + active + '" data-depth="' + d.code + '" role="button" tabindex="0">' +
+
+                    const depthChipsHtml = depths.map(d => {
+                        const active = (!isComplexMode && activeDepths.has(d.code)) ? ' active' : '';
+                        const disabledCls = isComplexMode ? ' complex-disabled' : '';
+                        return '<span class="matrix-chip' + active + disabledCls + '" data-depth="' + d.code + '" role="button" tabindex="0">' +
                             '<span class="swatch" style="width:8px;height:8px;border-radius:50%;background:' + depthColors[d.code] + ';display:inline-block"></span>' +
                             depthLabel(d.code) + '<span class="chip-count">' + d.count + '</span></span>';
                     }).join('');
-                    depthFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
+
+                    const complexActive = isComplexMode ? ' active' : '';
+                    const complexChipHtml = '<span class="matrix-chip matrix-chip-complex' + complexActive + '" data-depth="complex" role="button" tabindex="0">' +
+                        '<span class="swatch" style="width:8px;height:8px;border-radius:50%;background:' + depthColors.complex + ';display:inline-block"></span>' +
+                        depthLabel('complex') + '</span>';
+
+                    depthFilterEl.innerHTML = depthChipsHtml + complexChipHtml;
+
+                    depthFilterEl.querySelectorAll('.matrix-chip:not(.matrix-chip-complex)').forEach(chip => {
                         const code = chip.getAttribute('data-depth');
                         const toggle = () => {
+                            if (isComplexMode) return;
                             if (activeDepths.has(code)) activeDepths.delete(code);
                             else activeDepths.add(code);
                             render(); renderFilters();
@@ -2690,6 +2792,21 @@ function initSiteScripts() {
                         chip.addEventListener('click', toggle);
                         chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
                     });
+
+                    const complexChip = depthFilterEl.querySelector('.matrix-chip-complex');
+                    if (complexChip) {
+                        const toggleComplex = () => {
+                            isComplexMode = !isComplexMode;
+                            if (isComplexMode) {
+                                activeDepths.clear();
+                            } else {
+                                activeCategories.clear();
+                            }
+                            render(); renderFilters();
+                        };
+                        complexChip.addEventListener('click', toggleComplex);
+                        complexChip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleComplex(); } });
+                    }
                 }
 
                 function build() {
