@@ -504,14 +504,25 @@
         .nav-cta-btn {
             display: flex; align-items: center; gap: 6px;
             padding: 8px 18px; margin-inline-end: 4px;
-            background: linear-gradient(135deg, var(--accent), #10b981);
-            color: #ffffff; font-size: 0.82rem; font-weight: 700;
-            border: none; border-radius: 20px; cursor: pointer; text-decoration: none;
-            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35);
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.16), rgba(16, 185, 129, 0.10));
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            color: var(--accent); font-size: 0.82rem; font-weight: 700;
+            border: 1px solid var(--glass-border); border-radius: 20px; cursor: pointer; text-decoration: none;
+            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.15);
             transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, filter 0.2s ease;
             white-space: nowrap;
         }
-        .nav-cta-btn:hover { color: #ffffff; transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.5); filter: brightness(1.08); }
+        [data-theme="dark"] .nav-cta-btn {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.22), rgba(16, 185, 129, 0.14));
+        }
+        .nav-cta-btn:hover {
+            color: var(--accent);
+            transform: translateY(-1px) scale(1.03);
+            background: rgba(var(--accent-rgb), 0.22);
+            border-color: var(--accent);
+            box-shadow: var(--glass-shadow-hover);
+        }
         .nav-cta-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
         @media (max-width: 968px) {
             .nav-cta-btn span.en, .nav-cta-btn span.fa { display: none !important; }
@@ -535,15 +546,16 @@
             padding: 0; width: 40px; height: 30px;
             border-radius: 15px;
             border: 1px solid var(--glass-border);
-            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.10), rgba(var(--accent-rgb), 0.02));
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
         }
-        [data-theme="dark"] .lang-toggle-btn { background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.04)); }
         .lang-toggle-btn .lang-toggle-label {
             font-size: 0.7rem; font-weight: 800; letter-spacing: 0.02em;
             color: var(--accent); line-height: 1; user-select: none;
             transition: opacity 0.15s ease, transform 0.15s ease;
         }
-        .lang-toggle-btn:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(var(--accent-rgb), 0.25); }
+        .lang-toggle-btn:hover { border-color: var(--accent); box-shadow: var(--glass-shadow-hover); }
         .lang-toggle-btn:hover .lang-toggle-label { transform: scale(1.08); }
 
         #layout-wrapper { max-width: 1200px; margin: 36px auto 100px auto; padding: 0 40px; display: flex; align-items: flex-start; gap: 32px; }
@@ -1060,14 +1072,6 @@
             :root, [data-theme="dark"] {
                 --glass-blur: none !important;
                 --glass-blur-strong: none !important;
-            }
-            :root {
-                --glass-bg: #ffffff !important;
-                --glass-bg-strong: #f8fafc !important;
-            }
-            [data-theme="dark"] {
-                --glass-bg: #0b1226 !important;
-                --glass-bg-strong: #0f1934 !important;
             }
             .entry-block::before, .profile-info-card::before,
             .entry-block::after, .profile-info-card::after,
@@ -1935,11 +1939,6 @@
 <span class="matrix-filter-label fa">دسته</span>
 <div class="matrix-filter-chips cat-grid" id="matrix-filter-categories"></div>
 </div>
-<div aria-label="Filter by depth" class="matrix-filter-group" role="group">
-<span class="matrix-filter-label en">Depth</span>
-<span class="matrix-filter-label fa">عمق</span>
-<div class="matrix-filter-chips" id="matrix-filter-depths"></div>
-</div>
 </div>
 <div class="matrix-summary" id="matrix-summary"></div>
 <div class="matrix-container">
@@ -2456,20 +2455,32 @@
     window.__toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2400);
   }
 
-  function getAaif() {
+  var SITE_DATA_CACHE_VERSION = 1; // bump this manually whenever site-data.json's schema changes
+
+  function readCachedSiteData() {
     try {
-      var cached = localStorage.getItem('site_resume_data');
-      if (cached) return JSON.parse(cached).aaif || null;
-    } catch (e) {}
-    return (window.__siteData && window.__siteData.aaif) || null;
+      var raw = localStorage.getItem('site_resume_data');
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (!parsed || parsed.v !== SITE_DATA_CACHE_VERSION || !parsed.data) return null;
+      return parsed.data;
+    } catch (e) {
+      return null;
+    }
+  }
+  window.readCachedSiteData = readCachedSiteData;
+  window.SITE_DATA_CACHE_VERSION = SITE_DATA_CACHE_VERSION;
+
+  function getAaif() {
+    if (window.__siteData && window.__siteData.aaif) return window.__siteData.aaif;
+    var cached = readCachedSiteData();
+    return (cached && cached.aaif) || null;
   }
 
   function getWorkshops() {
-    try {
-      var cached = localStorage.getItem('site_resume_data');
-      if (cached) return JSON.parse(cached).workshops || null;
-    } catch (e) {}
-    return (window.__siteData && window.__siteData.workshops) || null;
+    if (window.__siteData && window.__siteData.workshops) return window.__siteData.workshops;
+    var cached = readCachedSiteData();
+    return (cached && cached.workshops) || null;
   }
 
   function findModule(code) {
@@ -2962,7 +2973,12 @@
   }
 
   // ---------- Wire up after render ----------
+  var __aaifUiWired = false;
+
   function wireAaifUi() {
+    if (__aaifUiWired) return;
+    __aaifUiWired = true;
+
     // Prof overlay triggers
     var trigger = $('aaifProfTrigger');
     if (trigger) trigger.addEventListener('click', openProfOverlay);
@@ -3017,8 +3033,8 @@
   window.__aaifState = AAIF_STATE;
 
   aaifReady(function () {
-    // Delay slightly so renderSite can populate localStorage first
-    setTimeout(initAaif, 60);
+    wireAaifUi();
+    updateFabCount();
   });
 })();
 </script>
@@ -3945,7 +3961,6 @@ function initSiteScripts() {
                 const tbodyEl = document.getElementById('matrix-tbody');
                 const summaryEl = document.getElementById('matrix-summary');
                 const catFilterEl = document.getElementById('matrix-filter-categories');
-                const depthFilterEl = document.getElementById('matrix-filter-depths');
                 const emptyEl = document.getElementById('matrix-empty');
                 const emptyFaEl = document.getElementById('matrix-empty-fa');
                 const searchEnEl = document.getElementById('matrix-search');
@@ -4025,7 +4040,6 @@ function initSiteScripts() {
 
                 let allRows = [];
                 let activeCategories = new Set();
-                let activeDepths = new Set();
                 let searchQuery = '';
 
                 function render() {
@@ -4035,7 +4049,6 @@ function initSiteScripts() {
                     const q = searchQuery.trim().toLowerCase();
                     const filtered = allRows.filter(r =>
                         (activeCategories.size === 0 || activeCategories.has(r.catCode)) &&
-                        (activeDepths.size === 0 || activeDepths.has(r.depth)) &&
                         (q === '' || [
                             r.titleEn, r.titleFa, r.catCode, r.catNameEn, r.catNameFa,
                             r.audienceEn, r.audienceFa, r.section.labelEn, r.section.labelFa
@@ -4101,7 +4114,7 @@ function initSiteScripts() {
                                 (isFa() ? sectionLabels[s].fa : sectionLabels[s].en) + ' <span class="count">' + sectionCounts[s] + '</span></span>';
                         }
                     });
-                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational > 0 ? depthCounts.foundational : '' + '</span></span>';
+                    if (depthCounts.foundational > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#10b981"></span>' + (isFa() ? 'پایه' : 'Foundational') + ' <span class="count">' + depthCounts.foundational + '</span></span>';
                     if (depthCounts.intermediate > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#f59e0b"></span>' + (isFa() ? 'متوسط' : 'Intermediate') + ' <span class="count">' + depthCounts.intermediate + '</span></span>';
                     if (depthCounts.advanced > 0) html_str += '<span class="matrix-summary-chip"><span class="swatch" style="background:#ef4444"></span>' + (isFa() ? 'پیشرفته' : 'Advanced') + ' <span class="count">' + depthCounts.advanced + '</span></span>';
                     summaryEl.innerHTML = html_str;
@@ -4126,34 +4139,6 @@ function initSiteScripts() {
                         const toggle = () => {
                             if (activeCategories.has(code)) activeCategories.delete(code);
                             else activeCategories.add(code);
-                            render(); renderFilters();
-                        };
-                        chip.addEventListener('click', toggle);
-                        chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
-                    });
-
-                    const depthSet = new Map();
-                    allRows.forEach(r => {
-                        if (r.depth === 'unknown') return;
-                        if (!depthSet.has(r.depth)) depthSet.set(r.depth, { code: r.depth, count: 0 });
-                        depthSet.get(r.depth).count++;
-                    });
-                    const depths = depthOrder.filter(d => depthSet.has(d)).map(d => depthSet.get(d));
-
-                    const depthChipsHtml = depths.map(d => {
-                        const active = activeDepths.has(d.code) ? ' active' : '';
-                        return '<span class="matrix-chip' + active + '" data-depth="' + d.code + '" role="button" tabindex="0">' +
-                            '<span class="swatch" style="width:8px;height:8px;border-radius:50%;background:' + depthColors[d.code] + ';display:inline-block"></span>' +
-                            depthLabel(d.code) + '<span class="chip-count">' + d.count + '</span></span>';
-                    }).join('');
-
-                    depthFilterEl.innerHTML = depthChipsHtml;
-
-                    depthFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
-                        const code = chip.getAttribute('data-depth');
-                        const toggle = () => {
-                            if (activeDepths.has(code)) activeDepths.delete(code);
-                            else activeDepths.add(code);
                             render(); renderFilters();
                         };
                         chip.addEventListener('click', toggle);
@@ -4246,15 +4231,16 @@ function initSiteScripts() {
         if (window.__redrawRadarCharts) window.__redrawRadarCharts();
         if (window.__redrawGraph) window.__redrawGraph();
         if (window.__initWorkshopAccordion) window.__initWorkshopAccordion();
+        if (window.__initAaif) { try { window.__initAaif(); } catch (e) { console.error('[AAIF reinit]', e); } }
     };
 }
 
 /* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
-    const cachedData = localStorage.getItem('site_resume_data');
+    const cachedData = window.readCachedSiteData ? window.readCachedSiteData() : null;
     if (cachedData) {
         try {
-            const data = JSON.parse(cachedData);
+            const data = cachedData;
             window.__siteData = data; window.__renderSite(data);
             initSiteScripts();
             
@@ -4264,7 +4250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(newData => {
                     if (newData) {
                         const oldDataStr = localStorage.getItem('site_resume_data');
-                        const newDataStr = JSON.stringify(newData);
+                        const newDataStr = JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: newData });
                         if (oldDataStr !== newDataStr) {
                             localStorage.setItem('site_resume_data', newDataStr);
                             window.__siteData = newData; window.__renderSite(newData);
@@ -4286,7 +4272,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return resp.json();
         })
         .then(function (data) {
-            localStorage.setItem('site_resume_data', JSON.stringify(data));
+            localStorage.setItem('site_resume_data', JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: data }));
             window.__siteData = data; window.__renderSite(data);
             initSiteScripts();
         })
