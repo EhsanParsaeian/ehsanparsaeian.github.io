@@ -871,7 +871,7 @@
             transition: transform 0.22s var(--ease-smooth), box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
         }
         [data-theme="dark"] .matrix-chip-cat {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 100%);
         }
         .matrix-chip-cat::before {
             content: '';
@@ -928,43 +928,8 @@
         .matrix-chip .chip-count { font-size: 0.68rem; opacity: 0.7; font-weight: 500; }
         .matrix-chip.active .chip-count { opacity: 0.9; }
 
-        .matrix-chip.complex-disabled { opacity: 0.4; cursor: not-allowed; }
-        .matrix-chip.complex-disabled:hover { border-color: var(--glass-border); background: rgba(255, 255, 255, 0.15); }
-        [data-theme="dark"] .matrix-chip.complex-disabled:hover { background: rgba(255, 255, 255, 0.04); }
-
-        .matrix-chip-complex {
-            border-color: rgba(var(--accent-rgb), 0.35);
-            background: rgba(var(--accent-rgb), 0.08);
-            margin-inline-start: 4px;
-        }
-        .matrix-chip-complex:hover { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.16); }
-        .matrix-chip-complex.active {
-            background: linear-gradient(135deg, var(--accent), #6366f1);
-            border-color: var(--accent); color: #ffffff;
-            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.35);
-        }
-        .matrix-chip-complex.active .swatch { background: #ffffff !important; }
-
-        /* حالت انتخاب سفارشی (Complex): دکمه‌های دسته‌بندی به شکل چک‌باکس درمی‌آیند */
-        .matrix-chip-cat.custom-checkbox { padding-inline-start: 40px; }
-        .cat-chip-check {
-            position: absolute; inset-inline-start: 14px; top: 50%; transform: translateY(-50%);
-            width: 17px; height: 17px; border-radius: 5px;
-            border: 1.5px solid rgba(var(--accent-rgb), 0.45);
-            background: rgba(255, 255, 255, 0.5);
-            flex-shrink: 0; transition: all 0.2s ease;
-        }
-        [data-theme="dark"] .cat-chip-check { background: rgba(255, 255, 255, 0.06); }
-        .matrix-chip-cat.custom-checkbox.active .cat-chip-check {
-            background: #ffffff; border-color: #ffffff;
-        }
-        .matrix-chip-cat.custom-checkbox.active .cat-chip-check::after {
-            content: ''; position: absolute; inset-inline-start: 4px; top: 1px;
-            width: 5px; height: 9px;
-            border-inline-end: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
-            transform: rotate(35deg);
-        }
         .matrix-summary { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+        .matrix-search-wrap { position: relative; margin-bottom: 14px; max-width: 420px; }
         .matrix-summary-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); font-size: 0.8rem; font-weight: 600; color: var(--text); box-shadow: inset 0 1px 0 var(--glass-border-inner); }
         .matrix-summary-chip .swatch { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
         .matrix-summary-chip .count { color: var(--muted); font-weight: 500; font-size: 0.75rem; }
@@ -1255,29 +1220,29 @@
         }
         .prof-overlay.open { display: flex; }
         .prof-overlay-backdrop {
-            position: absolute; inset: 0;
-            background: rgba(6, 11, 24, 0.55);
-            backdrop-filter: var(--glass-blur-strong);
-            -webkit-backdrop-filter: var(--glass-blur-strong);
-        }
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
         .prof-overlay-panel {
-            position: relative;
-            width: 100%; max-width: 880px; max-height: 88vh;
+    position: relative; z-index: 2;
+    width: 100%; max-width: 820px; max-height: calc(100vh - 80px);
+    display: flex; flex-direction: column;
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur-strong); -webkit-backdrop-filter: var(--glass-blur-strong);
+    border: 1px solid var(--glass-border); border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3), inset 0 1px 0 var(--glass-border-inner);
+    overflow: hidden;
+}
+        [data-theme="dark"] .prof-overlay-panel {
             background: var(--glass-bg-strong);
-            backdrop-filter: var(--glass-blur-strong);
-            -webkit-backdrop-filter: var(--glass-blur-strong);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--glass-shadow-hover);
-            display: flex; flex-direction: column;
-            overflow: hidden;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), inset 0 1px 0 var(--glass-border-inner);
         }
         .prof-overlay-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--glass-border);
-            gap: 12px;
-        }
+    padding: 18px 28px; border-bottom: 1px solid var(--glass-border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(var(--accent-rgb), 0.04); flex-shrink: 0;
+}
         .prof-overlay-header h3 {
             font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0;
         }
@@ -1292,7 +1257,7 @@
             flex-shrink: 0;
         }
         .prof-overlay-close:hover { background: var(--glass-bg-strong); }
-        .prof-overlay-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+        .prof-overlay-body { padding: 20px 24px; overflow-y: auto; flex: 1; background: transparent; }
         .prof-search {
             width: 100%; padding: 10px 14px;
             background: var(--glass-bg); border: 1px solid var(--glass-border);
@@ -1307,26 +1272,25 @@
         }
         .prof-cluster-block {}
         .prof-cluster-header {
-            font-size: 0.78rem; font-weight: 700; color: var(--accent);
-            text-transform: uppercase; letter-spacing: 0.08em;
-            padding-bottom: 8px; margin-bottom: 10px;
-            border-bottom: 1px solid var(--glass-border);
-        }
+    padding: 0 0 8px; margin-bottom: 6px;
+    border-bottom: 2px solid rgba(var(--accent-rgb), 0.30);
+    font-size: 0.78rem; font-weight: 700; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em;
+}
         html[lang="fa"] .prof-cluster-header { letter-spacing: normal; }
         .prof-prof-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: 8px 10px; border-radius: 8px;
-            cursor: pointer; transition: background 0.2s ease;
-            font-size: 0.88rem; color: var(--p-text);
-        }
-        .prof-prof-item:hover { background: rgba(var(--accent-rgb), 0.08); }
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: 10px; margin-bottom: 4px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    cursor: pointer; font-size: 0.82rem; color: var(--p-text);
+    transition: all 0.15s ease;
+}
+        .prof-prof-item:hover { background: rgba(var(--accent-rgb), 0.10); }
         .prof-prof-code {
-            font-family: ui-monospace, 'SF Mono', monospace;
-            font-size: 0.72rem; font-weight: 700;
-            background: rgba(var(--accent-rgb), 0.12); color: var(--accent);
-            padding: 3px 7px; border-radius: 5px;
-            flex-shrink: 0;
-        }
+    font-size: 0.68rem; font-weight: 700; color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.12); border-radius: 6px;
+    padding: 3px 8px; min-width: 44px; text-align: center; flex-shrink: 0;
+}
         .prof-prof-name { line-height: 1.35; }
 
         /* Your Track section */
@@ -1610,10 +1574,14 @@
         .domain-layer { margin-bottom: 18px; }
         .domain-layer:last-child { margin-bottom: 0; }
         .domain-layer-title {
-            font-size: 0.76rem; font-weight: 700; color: var(--accent);
+            font-size: 0.72rem; font-weight: 700; color: var(--muted);
             text-transform: uppercase; letter-spacing: 0.08em;
-            margin-bottom: 10px; padding-bottom: 6px;
-            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+        }
+        .domain-layer-title::before {
+            content: ''; width: 3px; height: 12px; border-radius: 2px;
+            background: linear-gradient(180deg, var(--accent), #10b981);
+            display: inline-block; flex-shrink: 0;
         }
         html[lang="fa"] .domain-layer-title { letter-spacing: normal; }
         .domain-layer-title .fa { display: none; }
@@ -1624,13 +1592,33 @@
             gap: 10px;
         }
         .domain-tile {
-            background: var(--glass-bg); border: 1px solid var(--glass-border);
-            border-radius: 10px; padding: 12px 14px;
-            cursor: pointer; transition: all 0.2s var(--ease-smooth);
-            display: flex; flex-direction: column; gap: 3px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 var(--glass-border-inner), var(--glass-shadow);
+    cursor: pointer;
+    transition: all 0.3s var(--ease-smooth);
+    position: relative;
+}
+[data-theme="dark"] .domain-tile {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-inner);
+}
+.domain-tile:hover {
+    border-color: rgba(var(--accent-rgb), 0.3);
+    transform: translateY(-2px);
+    box-shadow: inset 0 1px 0 var(--glass-border-inner), var(--glass-shadow-hover);
+}
+        [data-theme="dark"] .domain-tile {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 100%);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 var(--glass-border-inner);
         }
         .domain-tile:hover {
-            border-color: rgba(var(--accent-rgb), 0.35);
+            border-color: rgba(var(--accent-rgb), 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--glass-shadow-hover);
             background: var(--glass-bg-strong);
         }
         .domain-tile .dt-code {
@@ -1733,6 +1721,19 @@
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 box-shadow: none !important;
+                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            }
+            [data-theme="dark"] .aaif-prof-hero,
+            [data-theme="dark"] .your-track-section,
+            [data-theme="dark"] .domain-panel,
+            [data-theme="dark"] .px-strip-section,
+            [data-theme="dark"] .explore-section,
+            [data-theme="dark"] .track-module-card,
+            [data-theme="dark"] .px-card,
+            [data-theme="dark"] .domain-tile,
+            [data-theme="dark"] .track-compact-card,
+            [data-theme="dark"] .config-item {
+                border: 1px solid rgba(255, 255, 255, 0.08) !important;
             }
             .prof-overlay-panel,
             .config-modal-panel {
@@ -2220,7 +2221,7 @@
 
         // 1) Intro paragraphs
         if (data.introParagraphs && data.introParagraphs.length) {
-            const introHtml = data.introParagraphs.map(p => `<p class="en">${esc(p.en)}</p><p class="fa">${esc(p.fa)}</p>`).join('');
+            const introHtml = data.introParagraphs.map(p => `<p class="en">${p.en}</p><p class="fa">${p.fa}</p>`).join('');
             section.insertAdjacentHTML('beforeend', introHtml);
         }
 
@@ -2306,7 +2307,7 @@
 
         // 8) Outro paragraphs
         if (data.outroParagraphs && data.outroParagraphs.length) {
-            const outroHtml = data.outroParagraphs.map(p => `<p class="en">${esc(p.en)}</p><p class="fa">${esc(p.fa)}</p>`).join('');
+            const outroHtml = data.outroParagraphs.map(p => `<p class="en">${p.en}</p><p class="fa">${p.fa}</p>`).join('');
             section.insertAdjacentHTML('beforeend', outroHtml);
         }
 
@@ -2357,13 +2358,13 @@
             section.removeChild(h2.nextSibling);
         }
         if (data.introParagraphs && data.introParagraphs.length) {
-            const introHtml = data.introParagraphs.map(p => `<p class="en">${esc(p.en)}</p><p class="fa">${esc(p.fa)}</p>`).join('');
+            const introHtml = data.introParagraphs.map(p => `<p class="en">${p.en}</p><p class="fa">${p.fa}</p>`).join('');
             section.insertAdjacentHTML('beforeend', introHtml);
         }
         const blocksHtml = data.items.map(item => buildEntryBlock(item, {})).join('');
         section.insertAdjacentHTML('beforeend', blocksHtml);
         if (data.outroParagraphs && data.outroParagraphs.length) {
-            const outroHtml = data.outroParagraphs.map(p => `<p class="en">${esc(p.en)}</p><p class="fa">${esc(p.fa)}</p>`).join('');
+            const outroHtml = data.outroParagraphs.map(p => `<p class="en">${p.en}</p><p class="fa">${p.fa}</p>`).join('');
             section.insertAdjacentHTML('beforeend', outroHtml);
         }
     }
@@ -3954,7 +3955,7 @@ function initSiteScripts() {
                 const isFa = () => root.getAttribute('lang') === 'fa';
                 const text = el => el ? el.textContent.trim() : '';
 
-                const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444', 'complex': 'var(--accent)' };
+                const depthColors = { 'foundational': '#10b981', 'intermediate': '#f59e0b', 'advanced': '#ef4444' };
                 const depthOrder = ['foundational', 'intermediate', 'advanced'];
 
                 function normalizeDepth(raw) {
@@ -3968,7 +3969,6 @@ function initSiteScripts() {
                     if (d === 'foundational') return isFa() ? 'پایه' : 'Foundational';
                     if (d === 'intermediate') return isFa() ? 'متوسط' : 'Intermediate';
                     if (d === 'advanced') return isFa() ? 'پیشرفته' : 'Advanced';
-                    if (d === 'complex') return isFa() ? 'ترکیبی' : 'Complex';
                     return isFa() ? '—' : '—';
                 }
 
@@ -4027,7 +4027,6 @@ function initSiteScripts() {
                 let activeCategories = new Set();
                 let activeDepths = new Set();
                 let searchQuery = '';
-                let isComplexMode = false;
 
                 function render() {
                     const headers = isFa() ? ['بخش', 'دسته', 'ماژول', 'عمق', 'توضیح عمق', 'مخاطب'] : ['Section', 'Category', 'Module', 'Depth', 'Progression', 'Audience'];
@@ -4117,11 +4116,8 @@ function initSiteScripts() {
                     const cats = Array.from(catSet.values());
                     catFilterEl.innerHTML = cats.map(c => {
                         const active = activeCategories.has(c.code) ? ' active' : '';
-                        const customCls = isComplexMode ? ' custom-checkbox' : '';
                         const fullName = isFa() ? (c.nameFa || c.code) : (c.nameEn || c.code);
-                        const checkMark = isComplexMode ? '<span class="cat-chip-check" aria-hidden="true"></span>' : '';
-                        return '<span class="matrix-chip-cat' + active + customCls + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' +
-                            checkMark +
+                        return '<span class="matrix-chip-cat' + active + '" data-cat="' + c.code + '" role="button" tabindex="0" title="' + c.code + '">' +
                             '<span class="cat-chip-name">' + fullName + '</span>' +
                             '<span class="chip-count">' + c.count + '</span></span>';
                     }).join('');
@@ -4145,24 +4141,17 @@ function initSiteScripts() {
                     const depths = depthOrder.filter(d => depthSet.has(d)).map(d => depthSet.get(d));
 
                     const depthChipsHtml = depths.map(d => {
-                        const active = (!isComplexMode && activeDepths.has(d.code)) ? ' active' : '';
-                        const disabledCls = isComplexMode ? ' complex-disabled' : '';
-                        return '<span class="matrix-chip' + active + disabledCls + '" data-depth="' + d.code + '" role="button" tabindex="0">' +
+                        const active = activeDepths.has(d.code) ? ' active' : '';
+                        return '<span class="matrix-chip' + active + '" data-depth="' + d.code + '" role="button" tabindex="0">' +
                             '<span class="swatch" style="width:8px;height:8px;border-radius:50%;background:' + depthColors[d.code] + ';display:inline-block"></span>' +
                             depthLabel(d.code) + '<span class="chip-count">' + d.count + '</span></span>';
                     }).join('');
 
-                    const complexActive = isComplexMode ? ' active' : '';
-                    const complexChipHtml = '<span class="matrix-chip matrix-chip-complex' + complexActive + '" data-depth="complex" role="button" tabindex="0">' +
-                        '<span class="swatch" style="width:8px;height:8px;border-radius:50%;background:' + depthColors.complex + ';display:inline-block"></span>' +
-                        depthLabel('complex') + '</span>';
+                    depthFilterEl.innerHTML = depthChipsHtml;
 
-                    depthFilterEl.innerHTML = depthChipsHtml + complexChipHtml;
-
-                    depthFilterEl.querySelectorAll('.matrix-chip:not(.matrix-chip-complex)').forEach(chip => {
+                    depthFilterEl.querySelectorAll('.matrix-chip').forEach(chip => {
                         const code = chip.getAttribute('data-depth');
                         const toggle = () => {
-                            if (isComplexMode) return;
                             if (activeDepths.has(code)) activeDepths.delete(code);
                             else activeDepths.add(code);
                             render(); renderFilters();
@@ -4170,21 +4159,6 @@ function initSiteScripts() {
                         chip.addEventListener('click', toggle);
                         chip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
                     });
-
-                    const complexChip = depthFilterEl.querySelector('.matrix-chip-complex');
-                    if (complexChip) {
-                        const toggleComplex = () => {
-                            isComplexMode = !isComplexMode;
-                            if (isComplexMode) {
-                                activeDepths.clear();
-                            } else {
-                                activeCategories.clear();
-                            }
-                            render(); renderFilters();
-                        };
-                        complexChip.addEventListener('click', toggleComplex);
-                        complexChip.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleComplex(); } });
-                    }
                 }
 
                 function build() {
