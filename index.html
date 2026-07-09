@@ -505,25 +505,17 @@
             display: flex; align-items: center; gap: 6px;
             padding: 8px 18px; margin-inline-end: 4px;
             background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.16), rgba(16, 185, 129, 0.10));
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
             color: var(--accent); font-size: 0.82rem; font-weight: 700;
             border: 1px solid var(--glass-border); border-radius: 20px; cursor: pointer; text-decoration: none;
-            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.15);
-            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, filter 0.2s ease;
+            box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.18);
+            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease;
             white-space: nowrap;
         }
-        [data-theme="dark"] .nav-cta-btn {
-            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.22), rgba(16, 185, 129, 0.14));
-        }
-        .nav-cta-btn:hover {
-            color: var(--accent);
-            transform: translateY(-1px) scale(1.03);
-            background: rgba(var(--accent-rgb), 0.22);
-            border-color: var(--accent);
-            box-shadow: var(--glass-shadow-hover);
-        }
-        .nav-cta-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+        .nav-cta-btn:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-1px) scale(1.03); box-shadow: var(--glass-shadow-hover); background: var(--glass-bg-strong); }
+        [data-theme="dark"] .nav-cta-btn { background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.20), rgba(16, 185, 129, 0.12)); }
+        [data-theme="dark"] .nav-cta-btn:hover { background: var(--glass-bg-strong); }
+        .nav-cta-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; flex-shrink: 0; }
         @media (max-width: 968px) {
             .nav-cta-btn span.en, .nav-cta-btn span.fa { display: none !important; }
             .nav-cta-btn { padding: 8px; border-radius: 50%; }
@@ -545,17 +537,17 @@
         .lang-toggle-btn {
             padding: 0; width: 40px; height: 30px;
             border-radius: 15px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid transparent;
+            background: transparent;
         }
         .lang-toggle-btn .lang-toggle-label {
             font-size: 0.7rem; font-weight: 800; letter-spacing: 0.02em;
-            color: var(--accent); line-height: 1; user-select: none;
-            transition: opacity 0.15s ease, transform 0.15s ease;
+            color: var(--text); line-height: 1; user-select: none;
+            transition: opacity 0.15s ease, transform 0.15s ease, color 0.2s ease;
         }
-        .lang-toggle-btn:hover { border-color: var(--accent); box-shadow: var(--glass-shadow-hover); }
+        .lang-toggle-btn:hover { background: rgba(255, 255, 255, 0.30); border-color: var(--glass-border); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
+        [data-theme="dark"] .lang-toggle-btn:hover { background: rgba(255, 255, 255, 0.08); }
+        .lang-toggle-btn:hover .lang-toggle-label { color: var(--accent); transform: scale(1.08); }
         .lang-toggle-btn:hover .lang-toggle-label { transform: scale(1.08); }
 
         #layout-wrapper { max-width: 1200px; margin: 36px auto 100px auto; padding: 0 40px; display: flex; align-items: flex-start; gap: 32px; }
@@ -1449,14 +1441,16 @@
         .config-fab {
             position: fixed; bottom: 24px; right: 24px; z-index: 900;
             width: 54px; height: 54px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), #10b981);
-            color: white; border: none; cursor: pointer;
-            font-size: 1.4rem; font-family: inherit;
-            box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.35);
+            background: var(--glass-bg-strong);
+            backdrop-filter: var(--glass-blur-strong); -webkit-backdrop-filter: var(--glass-blur-strong);
+            color: var(--accent); border: 1px solid var(--glass-border); cursor: pointer;
+            font-size: 1.4rem; font-family: inherit; font-weight: 600;
+            box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-border-inner);
             display: flex; align-items: center; justify-content: center;
-            transition: transform 0.25s var(--ease-elastic);
+            transition: transform 0.25s var(--ease-elastic), box-shadow 0.25s ease, border-color 0.2s ease;
         }
-        .config-fab:hover { transform: scale(1.08); }
+        .config-fab:hover { transform: scale(1.08); border-color: var(--accent); box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-border-inner); }
+        [data-theme="dark"] .config-fab { color: var(--accent); }
         .config-fab .fab-count {
             position: absolute; top: -4px; right: -4px;
             min-width: 20px; height: 20px; border-radius: 10px;
@@ -1831,7 +1825,7 @@
 </nav>
 <div class="nav-actions">
 <a class="nav-cta-btn" id="get-in-touch-btn" href="https://wa.me/989137248050" target="_blank" rel="noopener" aria-label="Get in Touch on WhatsApp">
-<svg viewbox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"></path><path d="M12 2C6.477 2 2 6.477 2 12c0 1.79.472 3.522 1.365 5.036L2 22l5.06-1.34A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.582 0-3.13-.425-4.472-1.226l-.32-.19-3.005.796.802-2.928-.208-.302A8.195 8.195 0 0 1 3.8 12c0-4.522 3.678-8.2 8.2-8.2s8.2 3.678 8.2 8.2-3.678 8.2-8.2 8.2z"></path></svg>
+<svg viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5c5.247 0 9.5-4.253 9.5-9.5S17.247 2.5 12 2.5 2.5 6.753 2.5 12c0 1.68.437 3.258 1.203 4.627L2.75 21.25l4.75-.938A9.46 9.46 0 0 0 12 21.5Z"></path><path d="M8.3 7.85c.18-.4.37-.41.54-.42.14-.01.31-.01.47-.01.15 0 .36-.06.55.42.2.5.68 1.72.74 1.85.06.13.1.28.02.45-.08.17-.12.27-.24.42-.12.15-.25.33-.36.44-.12.12-.24.25-.1.5.14.25.62 1.03 1.34 1.67.92.82 1.7 1.07 1.95 1.19.25.12.4.1.55-.06.15-.17.63-.73.8-.98.17-.25.34-.21.57-.13.24.09 1.5.71 1.76.84.25.12.42.19.48.29.06.11.06.62-.15 1.22-.2.6-1.18 1.14-1.62 1.21-.44.07-1 .1-1.6-.1a10.6 10.6 0 0 1-.95-.35c-1.9-.8-3.3-2.42-3.8-3.1-.32-.42-1.05-1.42-1.05-2.7 0-1.28.66-1.9.9-2.16Z"></path></svg>
 <span class="en">Get in Touch</span><span class="fa">ارتباط با من</span>
 </a>
 <button aria-label="Toggle Language" class="nav-btn lang-toggle-btn" id="lang-toggle" title="Switch Language">
@@ -2468,8 +2462,6 @@
       return null;
     }
   }
-  window.readCachedSiteData = readCachedSiteData;
-  window.SITE_DATA_CACHE_VERSION = SITE_DATA_CACHE_VERSION;
 
   function getAaif() {
     if (window.__siteData && window.__siteData.aaif) return window.__siteData.aaif;
@@ -4237,7 +4229,7 @@ function initSiteScripts() {
 
 /* مدیریت بهینه ذخیره‌سازی محلی و کش فایل داده با الگوریتم همگام‌سازی آنی الاستیک (Stale-While-Revalidate) */
 document.addEventListener('DOMContentLoaded', function() {
-    const cachedData = window.readCachedSiteData ? window.readCachedSiteData() : null;
+    const cachedData = readCachedSiteData();
     if (cachedData) {
         try {
             const data = cachedData;
@@ -4249,10 +4241,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
                     if (newData) {
-                        const oldDataStr = localStorage.getItem('site_resume_data');
-                        const newDataStr = JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: newData });
+                        const oldData = readCachedSiteData();
+                        const oldDataStr = oldData ? JSON.stringify(oldData) : null;
+                        const newDataStr = JSON.stringify(newData);
                         if (oldDataStr !== newDataStr) {
-                            localStorage.setItem('site_resume_data', newDataStr);
+                            localStorage.setItem('site_resume_data', JSON.stringify({ v: SITE_DATA_CACHE_VERSION, data: newData }));
                             window.__siteData = newData; window.__renderSite(newData);
                             if (window.__reinitDynamicComponents) {
                                 window.__reinitDynamicComponents();
@@ -4272,7 +4265,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return resp.json();
         })
         .then(function (data) {
-            localStorage.setItem('site_resume_data', JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: data }));
+            localStorage.setItem('site_resume_data', JSON.stringify({ v: SITE_DATA_CACHE_VERSION, data: data }));
             window.__siteData = data; window.__renderSite(data);
             initSiteScripts();
         })
