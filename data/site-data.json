@@ -384,12 +384,12 @@
   "workshops": {
     "introParagraphs": [
       {
-        "en": "This is a menu, not a fixed course. The framework below — <strong>AAIF</strong> (AI-Augmented Intelligence Framework) — is a living knowledge architecture of <strong>14 domains, 152 modules, 32 profession-specific tracks, and 4 capstones</strong>. Hour counts and pricing are scoped per engagement.",
-        "fa": "این یک فهرست انتخابی است، نه یک دوره ثابت. چارچوب زیر — <strong>AAIF</strong> (چارچوب هوش تکمیلی مصنوعی) — یک معماری دانش زنده با <strong>۱۴ حوزه، ۱۵۲ ماژول، ۳۲ مسیر شغلی و ۴ پروژه پایانی</strong> است. تعداد ساعت و قیمت به‌صورت موردی تعیین می‌شود."
+        "en": "This is a menu, not a fixed course. The framework below — AAIF (AI-Augmented Intelligence Framework) — is a living knowledge architecture of 14 domains, 152 modules, 32 profession-specific tracks, and 4 capstones. Hour counts and pricing are scoped per engagement.",
+        "fa": "این یک فهرست انتخابی است، نه یک دوره ثابت. چارچوب زیر — AAIF (چارچوب هوش تکمیلی مصنوعی) — یک معماری دانش زنده با ۱۴ حوزه، ۱۵۲ ماژول، ۳۲ مسیر شغلی و ۴ پروژه پایانی است. تعداد ساعت و قیمت به‌صورت موردی تعیین می‌شود."
       },
       {
-        "en": "Each module lists what you will be able to do afterward, who it suits best, and a relative depth (Foundational · Practitioner · Advanced). <strong>Two ways to navigate:</strong> declare your profession and get a curated track, or explore the 14 domains layer by layer. Modules can be combined across domains, sequenced into a pathway, or focused into a single intensive.",
-        "fa": "هر ماژول نشان می‌دهد که پس از آن چه توانایی‌هایی خواهید داشت، برای چه مخاطبی مناسب‌تر است و عمق نسبی آن (پایه · متوسط · پیشرفته) چیست. <strong>دو مسیر پیمایش:</strong> حرفه خود را اعلام کنید تا مسیر سفارشی دریافت کنید، یا ۱۴ حوزه را لایه به لایه کاوش کنید. ماژول‌ها می‌توانند میان حوزه‌ها ترکیب شوند."
+        "en": "Each module lists what you will be able to do afterward, who it suits best, and a relative depth (Foundational · Practitioner · Advanced). Two ways to navigate: declare your profession and get a curated track, or explore the 14 domains layer by layer. Modules can be combined across domains, sequenced into a pathway, or focused into a single intensive.",
+        "fa": "هر ماژول نشان می‌دهد که پس از آن چه توانایی‌هایی خواهید داشت، برای چه مخاطبی مناسب‌تر است و عمق نسبی آن (پایه · متوسط · پیشرفته) چیست. دو مسیر پیمایش: حرفه خود را اعلام کنید تا مسیر سفارشی دریافت کنید، یا ۱۴ حوزه را لایه به لایه کاوش کنید. ماژول‌ها می‌توانند میان حوزه‌ها ترکیب شوند."
       }
     ],
     "categories": [
@@ -5817,7 +5817,7 @@
               },
               {
                 "en": "All",
-                "fa": "همه مخاطبان",
+                "fa": "همه",
                 "dir": ""
               }
             ],
@@ -5852,7 +5852,7 @@
               },
               {
                 "en": "All",
-                "fa": "همه مخاطبان",
+                "fa": "همه",
                 "dir": ""
               }
             ],
@@ -5887,7 +5887,7 @@
               },
               {
                 "en": "All",
-                "fa": "همه مخاطبان",
+                "fa": "همه",
                 "dir": ""
               }
             ],
@@ -5922,7 +5922,7 @@
               },
               {
                 "en": "All",
-                "fa": "همه مخاطبان",
+                "fa": "همه",
                 "dir": ""
               }
             ],
