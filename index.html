@@ -1175,7 +1175,622 @@
                 transition: none !important;
             }
         }
-    </style>
+    
+        /* ====================================================== */
+        /* === AAIF WORKSHOPS — NEW ARCHITECTURE (added layer) === */
+        /* ====================================================== */
+
+        /* Profession selector hero (above the categories) */
+        .aaif-prof-hero {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 22px 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: visible;
+        }
+        .aaif-prof-hero-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .aaif-prof-hero-header h3 {
+            font-size: 1.15rem; font-weight: 700; color: var(--text);
+            display: flex; align-items: center; gap: 8px; margin: 0;
+        }
+        .aaif-prof-hero-header h3::before { content: '★'; color: #10b981; font-size: 1rem; }
+        .aaif-prof-hero-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 16px; }
+        .aaif-prof-hero-sub .fa { display: none; }
+        html[lang="fa"] .aaif-prof-hero-sub .en { display: none; }
+        html[lang="fa"] .aaif-prof-hero-sub .fa { display: block; }
+
+        .aaif-prof-selected {
+            display: none;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.10), rgba(16, 185, 129, 0.08));
+            border: 1px solid rgba(var(--accent-rgb), 0.30);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            font-size: 0.88rem;
+            color: var(--text);
+            align-items: center;
+            gap: 10px;
+        }
+        .aaif-prof-selected.visible { display: flex; }
+        .aaif-prof-selected .ps-name { font-weight: 700; color: var(--accent); }
+        .aaif-prof-selected .ps-clear {
+            margin-inline-start: auto;
+            background: var(--accent); color: white; border: none;
+            font-size: 0.75rem; padding: 5px 12px; border-radius: 8px;
+            cursor: pointer; font-family: inherit; font-weight: 600;
+        }
+        .aaif-prof-selected .ps-clear:hover { background: #10b981; }
+
+        .aaif-prof-trigger {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 22px; border-radius: 28px;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.14), rgba(16, 185, 129, 0.10));
+            border: 1px solid rgba(var(--accent-rgb), 0.30);
+            color: var(--accent);
+            font-size: 0.95rem; font-weight: 700;
+            cursor: pointer; font-family: inherit;
+            transition: all 0.25s var(--ease-elastic);
+        }
+        .aaif-prof-trigger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2);
+        }
+        .aaif-prof-trigger .arrow { font-size: 0.75rem; transition: transform 0.25s ease; }
+        .aaif-prof-trigger .placeholder { color: var(--muted); font-weight: 500; }
+        .aaif-prof-trigger .fa { display: none; }
+        html[lang="fa"] .aaif-prof-trigger .en { display: none; }
+        html[lang="fa"] .aaif-prof-trigger .fa { display: inline; }
+
+        /* Profession overlay (glass modal) */
+        .prof-overlay {
+            position: fixed; inset: 0; z-index: 1000;
+            display: none;
+            align-items: center; justify-content: center;
+            padding: 24px;
+        }
+        .prof-overlay.open { display: flex; }
+        .prof-overlay-backdrop {
+            position: absolute; inset: 0;
+            background: rgba(6, 11, 24, 0.55);
+            backdrop-filter: var(--glass-blur-strong);
+            -webkit-backdrop-filter: var(--glass-blur-strong);
+        }
+        .prof-overlay-panel {
+            position: relative;
+            width: 100%; max-width: 880px; max-height: 88vh;
+            background: var(--glass-bg-strong);
+            backdrop-filter: var(--glass-blur-strong);
+            -webkit-backdrop-filter: var(--glass-blur-strong);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow-hover);
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+        .prof-overlay-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--glass-border);
+            gap: 12px;
+        }
+        .prof-overlay-header h3 {
+            font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0;
+        }
+        .prof-overlay-header .fa { display: none; }
+        html[lang="fa"] .prof-overlay-header .en { display: none; }
+        html[lang="fa"] .prof-overlay-header .fa { display: block; }
+        .prof-overlay-close {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; font-size: 1.2rem; color: var(--text);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .prof-overlay-close:hover { background: var(--glass-bg-strong); }
+        .prof-overlay-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+        .prof-search {
+            width: 100%; padding: 10px 14px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 10px; color: var(--text); font-family: inherit;
+            font-size: 0.9rem; margin-bottom: 18px;
+        }
+        .prof-search:focus { outline: none; border-color: var(--accent); }
+
+        .prof-clusters-list {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .prof-cluster-block {}
+        .prof-cluster-header {
+            font-size: 0.78rem; font-weight: 700; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 0.08em;
+            padding-bottom: 8px; margin-bottom: 10px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        html[lang="fa"] .prof-cluster-header { letter-spacing: normal; }
+        .prof-prof-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 10px; border-radius: 8px;
+            cursor: pointer; transition: background 0.2s ease;
+            font-size: 0.88rem; color: var(--p-text);
+        }
+        .prof-prof-item:hover { background: rgba(var(--accent-rgb), 0.08); }
+        .prof-prof-code {
+            font-family: ui-monospace, 'SF Mono', monospace;
+            font-size: 0.72rem; font-weight: 700;
+            background: rgba(var(--accent-rgb), 0.12); color: var(--accent);
+            padding: 3px 7px; border-radius: 5px;
+            flex-shrink: 0;
+        }
+        .prof-prof-name { line-height: 1.35; }
+
+        /* Your Track section */
+        .your-track-section {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06), rgba(16, 185, 129, 0.04));
+            border: 1px solid rgba(var(--accent-rgb), 0.18);
+            border-radius: 16px;
+            padding: 22px 24px;
+            margin-bottom: 24px;
+            display: none;
+        }
+        .your-track-section.visible { display: block; }
+        .your-track-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-bottom: 6px; flex-wrap: wrap;
+        }
+        .your-track-header h3 {
+            font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .your-track-header h3::before { content: '★'; color: #10b981; font-size: 0.9rem; }
+        .your-track-header .fa { display: none; }
+        html[lang="fa"] .your-track-header .en { display: none; }
+        html[lang="fa"] .your-track-header .fa { display: inline; }
+        .your-track-sub { font-size: 0.86rem; color: var(--muted); margin-bottom: 16px; }
+        .your-track-sub .fa { display: none; }
+        html[lang="fa"] .your-track-sub .en { display: none; }
+        html[lang="fa"] .your-track-sub .fa { display: block; }
+
+        .track-compact-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 10px; margin-bottom: 18px;
+        }
+        .track-compact-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 10px; padding: 12px 14px;
+            display: flex; flex-direction: column; gap: 4px;
+            transition: all 0.2s var(--ease-smooth);
+        }
+        .track-compact-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.35);
+            background: var(--glass-bg-strong);
+        }
+        .track-compact-card .tcc-code {
+            font-family: ui-monospace, 'SF Mono', monospace;
+            font-size: 0.72rem; font-weight: 700; color: var(--accent);
+        }
+        .track-compact-card .tcc-title {
+            font-size: 0.82rem; color: var(--p-text); line-height: 1.3;
+        }
+
+        .track-full-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+        .track-cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 20px; border-radius: 10px;
+            background: var(--accent); color: white; border: none;
+            font-family: inherit; font-weight: 600; font-size: 0.9rem;
+            cursor: pointer; transition: all 0.2s var(--ease-smooth);
+        }
+        .track-cta:hover { background: #10b981; }
+        .track-cta .fa { display: none; }
+        html[lang="fa"] .track-cta .en { display: none; }
+        html[lang="fa"] .track-cta .fa { display: inline; }
+
+        /* Domain panel (inline) */
+        .domain-panel {
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 22px 24px;
+            margin-bottom: 24px; display: none;
+            box-shadow: var(--glass-shadow);
+        }
+        .domain-panel.visible { display: block; }
+        .domain-panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+        }
+        .domain-panel-header h3 {
+            font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 0;
+        }
+        .domain-panel-close {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 6px 14px; border-radius: 8px;
+            font-family: inherit; font-size: 0.82rem; color: var(--p-text);
+            cursor: pointer;
+        }
+        .domain-panel-close:hover { background: var(--glass-bg-strong); }
+        .domain-panel-close .fa { display: none; }
+        html[lang="fa"] .domain-panel-close .en { display: none; }
+        html[lang="fa"] .domain-panel-close .fa { display: inline; }
+        .domain-panel-filters {
+            display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;
+        }
+        .domain-filter-chip {
+            padding: 5px 11px; border-radius: 14px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            font-size: 0.78rem; color: var(--muted); cursor: pointer;
+            font-family: inherit; transition: all 0.2s ease;
+        }
+        .domain-filter-chip.active {
+            background: rgba(var(--accent-rgb), 0.14); color: var(--accent);
+            border-color: rgba(var(--accent-rgb), 0.35);
+        }
+        .domain-panel-modules { display: flex; flex-direction: column; gap: 12px; }
+
+        /* PX strip (always at bottom) */
+        .px-strip-section {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06), rgba(16, 185, 129, 0.04));
+            border: 1px solid rgba(var(--accent-rgb), 0.18);
+            border-radius: 16px; padding: 22px 24px;
+            margin-top: 24px; margin-bottom: 24px;
+        }
+        .px-strip-header { margin-bottom: 14px; }
+        .px-strip-header h3 {
+            font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 0 0 4px 0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .px-strip-header h3::before { content: '◆'; color: var(--accent); font-size: 0.85rem; }
+        .px-strip-header .fa { display: none; }
+        html[lang="fa"] .px-strip-header .en { display: none; }
+        html[lang="fa"] .px-strip-header .fa { display: block; }
+        .px-strip-header .px-sub { font-size: 0.84rem; color: var(--muted); }
+        .px-strip-header .px-sub .fa { display: none; }
+        html[lang="fa"] .px-strip-header .px-sub .en { display: none; }
+        html[lang="fa"] .px-strip-header .px-sub .fa { display: block; }
+        .px-strip-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+        }
+        .px-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 12px; padding: 14px 16px;
+            transition: all 0.2s var(--ease-smooth);
+        }
+        .px-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.35);
+            background: var(--glass-bg-strong);
+        }
+        .px-card .px-code {
+            font-family: ui-monospace, 'SF Mono', monospace;
+            font-size: 0.72rem; font-weight: 700; color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .px-card .px-name {
+            font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 6px;
+        }
+        .px-card .px-desc {
+            font-size: 0.8rem; color: var(--p-text); line-height: 1.45;
+        }
+
+        /* Configurator FAB + modal */
+        .config-fab {
+            position: fixed; bottom: 24px; right: 24px; z-index: 900;
+            width: 54px; height: 54px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #10b981);
+            color: white; border: none; cursor: pointer;
+            font-size: 1.4rem; font-family: inherit;
+            box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.35);
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.25s var(--ease-elastic);
+        }
+        .config-fab:hover { transform: scale(1.08); }
+        .config-fab .fab-count {
+            position: absolute; top: -4px; right: -4px;
+            min-width: 20px; height: 20px; border-radius: 10px;
+            background: #ef4444; color: white;
+            font-size: 0.7rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0 5px;
+        }
+        .config-fab .fab-count:empty { display: none; }
+
+        .config-modal-overlay {
+            position: fixed; inset: 0; z-index: 1000;
+            display: none;
+            align-items: center; justify-content: center;
+            padding: 24px;
+        }
+        .config-modal-overlay.open { display: flex; }
+        .config-modal-backdrop {
+            position: absolute; inset: 0;
+            background: rgba(6, 11, 24, 0.55);
+            backdrop-filter: var(--glass-blur-strong);
+            -webkit-backdrop-filter: var(--glass-blur-strong);
+        }
+        .config-modal-panel {
+            position: relative;
+            width: 100%; max-width: 640px; max-height: 88vh;
+            background: var(--glass-bg-strong);
+            backdrop-filter: var(--glass-blur-strong);
+            -webkit-backdrop-filter: var(--glass-blur-strong);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow-hover);
+            display: flex; flex-direction: column;
+            overflow: hidden;
+        }
+        .config-modal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .config-modal-header h3 {
+            font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 0;
+        }
+        .config-modal-header .fa { display: none; }
+        html[lang="fa"] .config-modal-header .en { display: none; }
+        html[lang="fa"] .config-modal-header .fa { display: block; }
+        .config-modal-body { padding: 20px 24px; overflow-y: auto; flex: 1; }
+        .config-empty {
+            text-align: center; padding: 32px 16px; color: var(--muted); font-size: 0.9rem;
+        }
+        .config-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .config-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 10px; font-size: 0.86rem;
+        }
+        .config-item .ci-code {
+            font-family: ui-monospace, monospace; font-weight: 700; color: var(--accent);
+            font-size: 0.78rem;
+        }
+        .config-item .ci-remove {
+            margin-inline-start: auto; background: transparent; border: none;
+            color: #ef4444; cursor: pointer; font-size: 1.1rem; padding: 0 4px;
+        }
+        .config-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .config-btn {
+            padding: 9px 16px; border-radius: 10px; border: 1px solid var(--glass-border);
+            background: var(--glass-bg); color: var(--text);
+            font-family: inherit; font-size: 0.86rem; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .config-btn:hover { background: var(--glass-bg-strong); }
+        .config-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+        .config-btn.primary:hover { background: #10b981; }
+        .config-btn.danger { color: #ef4444; }
+        .config-btn .fa { display: none; }
+        html[lang="fa"] .config-btn .en { display: none; }
+        html[lang="fa"] .config-btn .fa { display: inline; }
+
+        /* Explore More section (collapsible) */
+        .explore-section {
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+        .explore-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 24px; cursor: pointer;
+            background: transparent; border: none; width: 100%;
+            text-align: start; font-family: inherit;
+        }
+        .explore-header:hover { background: rgba(var(--accent-rgb), 0.04); }
+        .explore-header h3 {
+            font-size: 1rem; font-weight: 700; color: var(--text); margin: 0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .explore-header h3::before { content: '◈'; color: var(--accent); font-size: 0.85rem; }
+        .explore-header .fa { display: none; }
+        html[lang="fa"] .explore-header .en { display: none; }
+        html[lang="fa"] .explore-header .fa { display: block; }
+        .explore-chevron {
+            width: 20px; height: 20px; color: var(--muted);
+            transition: transform 0.35s var(--ease-elastic); flex-shrink: 0;
+        }
+        .explore-section[data-open="true"] .explore-chevron { transform: rotate(180deg); }
+        .explore-body {
+            display: grid; grid-template-rows: 0fr; opacity: 0;
+            transition: grid-template-rows 0.4s var(--ease-smooth), opacity 0.3s ease;
+        }
+        .explore-section[data-open="true"] .explore-body {
+            grid-template-rows: 1fr; opacity: 1; padding: 0 24px 20px;
+        }
+        .explore-body-inner { overflow: hidden; min-height: 0; }
+
+        .domain-layer { margin-bottom: 18px; }
+        .domain-layer:last-child { margin-bottom: 0; }
+        .domain-layer-title {
+            font-size: 0.76rem; font-weight: 700; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 0.08em;
+            margin-bottom: 10px; padding-bottom: 6px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        html[lang="fa"] .domain-layer-title { letter-spacing: normal; }
+        .domain-layer-title .fa { display: none; }
+        html[lang="fa"] .domain-layer-title .en { display: none; }
+        html[lang="fa"] .domain-layer-title .fa { display: inline; }
+        .domain-layer-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .domain-tile {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 10px; padding: 12px 14px;
+            cursor: pointer; transition: all 0.2s var(--ease-smooth);
+            display: flex; flex-direction: column; gap: 3px;
+        }
+        .domain-tile:hover {
+            border-color: rgba(var(--accent-rgb), 0.35);
+            background: var(--glass-bg-strong);
+        }
+        .domain-tile .dt-code {
+            font-family: ui-monospace, monospace; font-size: 0.72rem;
+            font-weight: 700; color: var(--accent);
+        }
+        .domain-tile .dt-name {
+            font-size: 0.84rem; color: var(--text); font-weight: 600; line-height: 1.3;
+        }
+        .domain-tile .dt-count {
+            font-size: 0.72rem; color: var(--muted);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 24px; left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            background: var(--glass-bg-strong);
+            backdrop-filter: var(--glass-blur-strong);
+            -webkit-backdrop-filter: var(--glass-blur-strong);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px; padding: 12px 20px;
+            color: var(--text); font-size: 0.88rem; font-weight: 500;
+            box-shadow: var(--glass-shadow-hover);
+            z-index: 2000; opacity: 0;
+            transition: transform 0.35s var(--ease-elastic), opacity 0.25s ease;
+            max-width: 90vw; text-align: center;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Track module card (full) */
+        .track-module-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 12px; padding: 14px 16px;
+            transition: all 0.2s var(--ease-smooth);
+        }
+        .track-module-card:hover { border-color: rgba(var(--accent-rgb), 0.30); }
+        .tmc-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 10px; margin-bottom: 6px;
+        }
+        .tmc-title {
+            font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.35;
+        }
+        .tmc-code {
+            font-family: ui-monospace, monospace; font-size: 0.72rem;
+            font-weight: 700; color: var(--accent);
+            background: rgba(var(--accent-rgb), 0.10);
+            padding: 2px 7px; border-radius: 5px; flex-shrink: 0;
+        }
+        .tmc-subtitle {
+            font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; line-height: 1.4;
+        }
+        .tmc-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+        .tmc-pill {
+            font-size: 0.7rem; padding: 2px 8px; border-radius: 10px;
+            background: rgba(var(--accent-rgb), 0.08); color: var(--accent);
+            font-weight: 500;
+        }
+        .tmc-bullets {
+            font-size: 0.8rem; color: var(--p-text); line-height: 1.5;
+            padding-inline-start: 18px; margin: 0;
+        }
+        .tmc-bullets li { margin-bottom: 3px; }
+        .tmc-extra {
+            display: none; margin-top: 8px; padding-top: 8px;
+            border-top: 1px dashed var(--glass-border);
+            font-size: 0.78rem; color: var(--muted); line-height: 1.5;
+            padding-inline-start: 18px;
+        }
+        .track-module-card[data-expanded="true"] .tmc-extra { display: block; }
+        .tmc-expand {
+            background: transparent; border: none; color: var(--accent);
+            font-size: 0.75rem; cursor: pointer; font-family: inherit;
+            padding: 4px 0; margin-top: 6px;
+        }
+        .tmc-expand:hover { text-decoration: underline; }
+        .tmc-add {
+            display: flex; align-items: center; gap: 6px;
+            margin-top: 8px; font-size: 0.78rem; color: var(--muted);
+            cursor: pointer;
+        }
+        .tmc-add input { cursor: pointer; }
+
+        /* === Mobile nuke (max-width: 968px) — honor the existing one === */
+        @media (max-width: 968px) {
+            .aaif-prof-hero,
+            .your-track-section,
+            .domain-panel,
+            .px-strip-section,
+            .explore-section,
+            .track-module-card,
+            .px-card,
+            .domain-tile,
+            .track-compact-card,
+            .config-item {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                box-shadow: none !important;
+            }
+            .prof-overlay-panel,
+            .config-modal-panel {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            .prof-overlay-backdrop,
+            .config-modal-backdrop {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(6, 11, 24, 0.75) !important;
+            }
+            .toast {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: var(--glass-bg-strong) !important;
+            }
+            .track-compact-grid { grid-template-columns: 1fr 1fr; }
+            .px-strip-grid { grid-template-columns: 1fr 1fr; }
+            .prof-clusters-list { grid-template-columns: 1fr; }
+            .domain-layer-grid { grid-template-columns: 1fr 1fr; }
+            .aaif-prof-trigger:hover,
+            .config-fab:hover,
+            .track-compact-card:hover,
+            .px-card:hover,
+            .domain-tile:hover,
+            .track-module-card:hover {
+                transform: none !important;
+            }
+            .aaif-prof-trigger,
+            .config-fab {
+                transition: none !important;
+            }
+            .explore-body {
+                transition: none !important;
+            }
+            .explore-section[data-open="true"] .explore-body {
+                display: block; padding: 0 16px 16px !important;
+            }
+            .explore-body { display: none; }
+            .explore-section[data-open="true"] .explore-body { display: block; }
+        }
+
+        /* === Print: hide overlays/modals/FAB === */
+        @media print {
+            .prof-overlay,
+            .config-modal-overlay,
+            .config-fab,
+            .toast,
+            .aaif-prof-hero,
+            .your-track-section,
+            .domain-panel,
+            .explore-section .explore-header,
+            .px-strip-section { display: none !important; }
+            .explore-body { display: block !important; opacity: 1 !important; }
+        }
+
+</style>
 </head>
 <body>
 <div id="hero-banner">
@@ -1602,14 +2217,135 @@
         while (headingRow && headingRow.nextSibling) {
             section.removeChild(headingRow.nextSibling);
         }
+
+        // 1) Intro paragraphs
         if (data.introParagraphs && data.introParagraphs.length) {
             const introHtml = data.introParagraphs.map(p => `<p class="en">${esc(p.en)}</p><p class="fa">${esc(p.fa)}</p>`).join('');
             section.insertAdjacentHTML('beforeend', introHtml);
         }
+
+        // 2) Profession selector hero
+        section.insertAdjacentHTML('beforeend', `
+            <div class="aaif-prof-hero">
+                <div class="aaif-prof-hero-header">
+                    <h3><span class="en">Choose your profession</span><span class="fa">حرفه خود را انتخاب کنید</span></h3>
+                </div>
+                <div class="aaif-prof-hero-sub">
+                    <span class="en">Declare your profession and get a curated track of 6 modules — your domain-transfer module plus 5 most-relevant AAIF modules and a capstone. Everything else hides.</span>
+                    <span class="fa">حرفه خود را اعلام کنید تا مسیر سفارشی شامل ۶ ماژول دریافت کنید — ماژول انتقال دامنه شما به‌علاوه ۵ ماژول مرتبط AAIF و یک پروژه پایانی.</span>
+                </div>
+                <div class="aaif-prof-selected" id="aaifProfSelected">
+                    <span><span class="en">Selected:</span><span class="fa">انتخاب شده:</span></span>
+                    <span class="ps-name"></span>
+                    <button class="ps-clear" id="psClear" type="button"><span class="en">Clear</span><span class="fa">پاک کردن</span></button>
+                </div>
+                <button class="aaif-prof-trigger" id="aaifProfTrigger" type="button">
+                    <span class="en">Choose your profession</span>
+                    <span class="fa">حرفه خود را انتخاب کنید</span>
+                    <span class="arrow">▼</span>
+                </button>
+            </div>`);
+
+        // 3) Your Track section (hidden initially)
+        section.insertAdjacentHTML('beforeend', `
+            <div class="your-track-section" id="yourTrackSection">
+                <div class="your-track-header">
+                    <h3><span class="en">Your Track</span><span class="fa">مسیر شما</span> — <span class="yt-prof-name"></span></h3>
+                </div>
+                <div class="your-track-sub">
+                    <span class="en">Six curated modules in order. Tap any card for full content.</span>
+                    <span class="fa">شش ماژول سفارشی به ترتیب. برای محتوای کامل روی هر کارت ضربه بزنید.</span>
+                </div>
+                <div class="track-compact-grid"></div>
+                <div class="track-full-cards"></div>
+                <button class="track-cta" id="trackCta" type="button">
+                    <span class="en">Send this track to Ehsan</span>
+                    <span class="fa">ارسال این مسیر به احسان</span>
+                </button>
+            </div>`);
+
+        // 4) Domain Panel (hidden initially)
+        section.insertAdjacentHTML('beforeend', `
+            <div class="domain-panel" id="domainPanel">
+                <div class="domain-panel-header">
+                    <h3 class="domain-panel-title"></h3>
+                    <button class="domain-panel-close" id="domainPanelClose" type="button">
+                        <span class="en">← Back to Explore</span>
+                        <span class="fa">← بازگشت به کاوش</span>
+                    </button>
+                </div>
+                <div class="domain-panel-filters"></div>
+                <div class="domain-panel-modules" id="domainPanelModules"></div>
+            </div>`);
+
+        // 5) Explore More section (collapsed)
+        section.insertAdjacentHTML('beforeend', `
+            <div class="explore-section" id="exploreSection" data-open="false">
+                <button class="explore-header" type="button" aria-expanded="false">
+                    <h3><span class="en">Explore all 14 domains</span><span class="fa">کاوش هر ۱۴ حوزه</span></h3>
+                    <svg class="explore-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="explore-body"><div class="explore-body-inner" id="exploreLayers"></div></div>
+            </div>`);
+
+        // 6) Hidden workshop-category elements (for matrix scraping) — produced by renderCategories
         renderCategories('workshops', data.categories, 'workshops');
+
+        // 7) PX strip (always visible, at bottom)
+        section.insertAdjacentHTML('beforeend', `
+            <div class="px-strip-section">
+                <div class="px-strip-header">
+                    <h3><span class="en">Capstones & Deployment Practice (PX)</span><span class="fa">پروژه‌های پایانی و استقرار (PX)</span></h3>
+                    <div class="px-sub">
+                        <span class="en">Four capstone types turn literacy into demonstrable practice. Descriptions update based on your selected path.</span>
+                        <span class="fa">چهار نوع پروژه پایانی، سواد را به عمل قابل نمایش تبدیل می‌کند. توضیحات بر اساس مسیر انتخابی شما به‌روز می‌شود.</span>
+                    </div>
+                </div>
+                <div class="px-strip-grid" id="pxStrip"></div>
+            </div>`);
+
+        // 8) Outro paragraphs
         if (data.outroParagraphs && data.outroParagraphs.length) {
             const outroHtml = data.outroParagraphs.map(p => `<p class="en">${esc(p.en)}</p><p class="fa">${esc(p.fa)}</p>`).join('');
             section.insertAdjacentHTML('beforeend', outroHtml);
+        }
+
+        // 9) Wire AAIF UI + re-init accordion + redraw matrix
+        // The hidden workshop-category elements use the accordion; init it.
+        if (window.__initWorkshopAccordion) {
+            try { window.__initWorkshopAccordion(); } catch (e) {}
+        }
+        // Hide the hidden categories so they don't show on the page (matrix still scrapes them)
+        // We use a CSS class to hide them while keeping them in the DOM.
+        const hiddenCats = section.querySelectorAll('.workshop-category');
+        hiddenCats.forEach(cat => {
+            cat.style.display = 'none';
+            cat.setAttribute('data-aaif-hidden', 'true');
+            // The matrix reads .entry-block inside, so we must keep them in DOM.
+        });
+        // AAIF overlay/track/domain/explore/px wiring
+        if (window.__initAaif) {
+            try { window.__initAaif(); } catch (e) { console.error('[AAIF init]', e); }
+        }
+        // Redraw matrix
+        if (window.__redrawGraph) {
+            try { window.__redrawGraph(); } catch (e) {}
+        }
+        // Wire the track CTA
+        const trackCta = document.getElementById('trackCta');
+        if (trackCta) {
+            trackCta.addEventListener('click', function () {
+                const state = window.__aaifState || {};
+                const code = state.activeProfession;
+                if (!code) return;
+                const a = (window.__siteData && window.__siteData.aaif) || null;
+                if (!a) return;
+                const prof = a.professions.find(p => p.code === code);
+                const track = a.tracks[code] || [];
+                const subject = encodeURIComponent('Workshop track: ' + (prof ? prof.name : code));
+                const body = encodeURIComponent('Profession: ' + (prof ? prof.name : code) + '\n\nModules:\n' + track.map(c => '- ' + c).join('\n'));
+                window.location.href = 'mailto:ehsan.parsaeian@gmail.com?subject=' + subject + '&body=' + body;
+            });
         }
     }
 
@@ -1671,6 +2407,621 @@
     window.__renderSite = renderAll;
 })();
 </script>
+
+<script>
+/* ================================================================ */
+/* === AAIF WORKSHOPS — new architecture layer ==================== */
+/* ================================================================ */
+/* This script adds the profession overlay, Your Track, domain
+   panel, Explore More layered domains, PX strip, and configurator
+   on top of the existing renderWorkshops() output. The existing
+   renderWorkshops() still produces the hidden .workshop-category
+   elements that the matrix scrapes. */
+(function () {
+  'use strict';
+
+  function aaifReady(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else { fn(); }
+  }
+
+  // State
+  var AAIF_STATE = {
+    activeProfession: null,
+    activeDomain: null,
+    activePath: 'default',
+    exploreOpen: false,
+    configSet: {},        // { moduleCode: true }
+    domainFilter: { depth: null, audience: null },
+  };
+
+  // ---------- Helpers ----------
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function isFa() { return document.documentElement.getAttribute('lang') === 'fa'; }
+  function bi(en, fa) {
+    return '<span class="en">' + esc(en) + '</span><span class="fa">' + esc(fa) + '</span>';
+  }
+  function toast(msg) {
+    var t = $('toast'); if (!t) return;
+    t.innerHTML = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2400);
+  }
+
+  function getAaif() {
+    try {
+      var cached = localStorage.getItem('site_resume_data');
+      if (cached) return JSON.parse(cached).aaif || null;
+    } catch (e) {}
+    return (window.__siteData && window.__siteData.aaif) || null;
+  }
+
+  function getWorkshops() {
+    try {
+      var cached = localStorage.getItem('site_resume_data');
+      if (cached) return JSON.parse(cached).workshops || null;
+    } catch (e) {}
+    return (window.__siteData && window.__siteData.workshops) || null;
+  }
+
+  function findModule(code) {
+    var a = getAaif(); if (!a) return null;
+    for (var i = 0; i < a.modules.length; i++) {
+      if (a.modules[i].code === code) return a.modules[i];
+    }
+    for (var j = 0; j < a.pxItems.length; j++) {
+      if (a.pxItems[j].code === code) return a.pxItems[j];
+    }
+    return null;
+  }
+
+  function findDomain(code) {
+    var a = getAaif(); if (!a) return null;
+    for (var i = 0; i < a.domains.length; i++) {
+      if (a.domains[i].code === code) return a.domains[i];
+    }
+    return null;
+  }
+
+  function findProfession(code) {
+    var a = getAaif(); if (!a) return null;
+    for (var i = 0; i < a.professions.length; i++) {
+      if (a.professions[i].code === code) return a.professions[i];
+    }
+    return null;
+  }
+
+  // ---------- Profession overlay ----------
+  function openProfOverlay() {
+    var ov = $('profOverlay'); if (!ov) return;
+    renderProfClusters();
+    ov.classList.add('open');
+    ov.style.display = 'flex';
+    var s = $('profSearch'); if (s) { s.value = ''; setTimeout(function(){ s.focus(); }, 50); }
+  }
+  function closeProfOverlay() {
+    var ov = $('profOverlay'); if (!ov) return;
+    ov.classList.remove('open');
+    ov.style.display = 'none';
+  }
+
+  function renderProfClusters() {
+    var a = getAaif(); if (!a) return;
+    var container = $('profClustersList'); if (!container) return;
+    var clusters = a.profClusters || {};
+    var html = '';
+    Object.keys(clusters).forEach(function (clusterName) {
+      var profs = clusters[clusterName] || [];
+      html += '<div class="prof-cluster-block">';
+      html += '<div class="prof-cluster-header">' + esc(clusterName) + '</div>';
+      profs.forEach(function (p) {
+        html += '<div class="prof-prof-item" data-code="' + esc(p.code) + '" data-name="' + esc(p.name.toLowerCase()) + '">';
+        html += '<span class="prof-prof-code">' + esc(p.code) + '</span>';
+        html += '<span class="prof-prof-name">' + esc(p.name) + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    container.innerHTML = html;
+    // Wire clicks
+    var items = container.querySelectorAll('.prof-prof-item');
+    items.forEach(function (it) {
+      it.addEventListener('click', function () {
+        selectProfession(it.getAttribute('data-code'));
+      });
+    });
+  }
+
+  function filterProfessions(q) {
+    var container = $('profClustersList'); if (!container) return;
+    var ql = (q || '').toLowerCase().trim();
+    var items = container.querySelectorAll('.prof-prof-item');
+    items.forEach(function (it) {
+      var name = it.getAttribute('data-name') || '';
+      var code = (it.getAttribute('data-code') || '').toLowerCase();
+      var match = !ql || name.indexOf(ql) !== -1 || code.indexOf(ql) !== -1;
+      it.style.display = match ? '' : 'none';
+    });
+  }
+
+  // ---------- Profession selection ----------
+  function selectProfession(code) {
+    var prof = findProfession(code); if (!prof) return;
+    AAIF_STATE.activeProfession = code;
+    AAIF_STATE.activePath = code;
+    AAIF_STATE.activeDomain = null;
+    closeProfOverlay();
+    renderYourTrack();
+    updatePageState();
+    var track = $('yourTrackSection');
+    if (track) {
+      track.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    toast(bi('Track loaded for ' + prof.name, 'مسیر ' + prof.name + ' بارگذاری شد'));
+  }
+
+  function clearProfession() {
+    AAIF_STATE.activeProfession = null;
+    AAIF_STATE.activePath = 'default';
+    AAIF_STATE.activeDomain = null;
+    renderYourTrack();
+    updatePageState();
+    toast(bi('Profession cleared', 'انتخاب حرفه پاک شد'));
+  }
+
+  // ---------- Your Track ----------
+  function renderYourTrack() {
+    var section = $('yourTrackSection'); if (!section) return;
+    var code = AAIF_STATE.activeProfession;
+    if (!code) { section.classList.remove('visible'); return; }
+    var prof = findProfession(code);
+    if (!prof) { section.classList.remove('visible'); return; }
+    var a = getAaif(); if (!a) return;
+    var track = (a.tracks && a.tracks[code]) || ['CF1', 'AF1', 'ID1', 'CE1', 'AG1', 'PX.A'];
+
+    var header = section.querySelector('.yt-prof-name');
+    if (header) header.innerHTML = esc(prof.name);
+
+    // Compact grid (first 6 cards)
+    var grid = section.querySelector('.track-compact-grid');
+    if (grid) {
+      grid.innerHTML = track.map(function (mc) {
+        var m = findModule(mc);
+        if (!m) return '';
+        var title = m.title || m.name || mc;
+        return '<div class="track-compact-card">' +
+          '<div class="tcc-code">' + esc(mc) + '</div>' +
+          '<div class="tcc-title">' + esc(title) + '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    // Full cards
+    var full = section.querySelector('.track-full-cards');
+    if (full) {
+      full.innerHTML = track.map(function (mc) {
+        return renderTrackModuleCard(mc);
+      }).join('');
+      // Wire expand + add
+      full.querySelectorAll('.track-module-card').forEach(function (card) {
+        var exp = card.querySelector('.tmc-expand');
+        if (exp) exp.addEventListener('click', function () {
+          var open = card.getAttribute('data-expanded') === 'true';
+          card.setAttribute('data-expanded', open ? 'false' : 'true');
+          exp.innerHTML = open
+            ? bi('+ Show more', '+ نمایش بیشتر')
+            : bi('− Show less', '− نمایش کمتر');
+        });
+        var add = card.querySelector('.tmc-add input');
+        if (add) {
+          add.checked = !!AAIF_STATE.configSet[card.getAttribute('data-code')];
+          add.addEventListener('change', function () {
+            addToConfig(card.getAttribute('data-code'), add.checked);
+          });
+        }
+      });
+    }
+
+    section.classList.add('visible');
+  }
+
+  function renderTrackModuleCard(code) {
+    var m = findModule(code); if (!m) return '';
+    var title = m.title || m.name || code;
+    var sub = m.subtitle || m.desc || '';
+    var depth = m.depth || 'Practitioner';
+    var audience = m.audience || 'All';
+    var bullets = (m.bullets || []).slice(0, 2);
+    var extra = m.extraBullets || [];
+    if (bullets.length === 0 && sub) bullets = [sub];
+
+    var html = '<div class="track-module-card" data-code="' + esc(code) + '" data-expanded="false">';
+    html += '<div class="tmc-header">';
+    html += '<div class="tmc-title">' + esc(title) + '</div>';
+    html += '<span class="tmc-code">' + esc(code) + '</span>';
+    html += '</div>';
+    if (sub) html += '<div class="tmc-subtitle">' + esc(sub) + '</div>';
+    html += '<div class="tmc-pills">';
+    html += '<span class="tmc-pill">' + esc(depth) + '</span>';
+    html += '<span class="tmc-pill">' + esc(audience) + '</span>';
+    html += '</div>';
+    if (bullets.length) {
+      html += '<ul class="tmc-bullets">';
+      bullets.forEach(function (b) { html += '<li>' + esc(b) + '</li>'; });
+      html += '</ul>';
+    }
+    if (extra && extra.length) {
+      html += '<div class="tmc-extra"><strong>More:</strong><ul>';
+      extra.forEach(function (b) { html += '<li>' + esc(b) + '</li>'; });
+      html += '</ul></div>';
+      html += '<button class="tmc-expand" type="button">' + bi('+ Show more', '+ نمایش بیشتر') + '</button>';
+    }
+    html += '<label class="tmc-add"><input type="checkbox" data-code="' + esc(code) + '"/> ' +
+      bi('Add to my workshop', 'افزودن به کارگاه من') + '</label>';
+    html += '</div>';
+    return html;
+  }
+
+  // ---------- Domain panel ----------
+  function openDomain(code) {
+    AAIF_STATE.activeDomain = code;
+    AAIF_STATE.activePath = code;
+    AAIF_STATE.activeProfession = null;
+    renderDomainPanel(code);
+    updatePageState();
+    var panel = $('domainPanel');
+    if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var d = findDomain(code);
+    if (d) toast(bi('Domain: ' + d.name, 'حوزه: ' + d.name));
+  }
+
+  function closeDomainPanel() {
+    AAIF_STATE.activeDomain = null;
+    AAIF_STATE.activePath = 'default';
+    AAIF_STATE.domainFilter = { depth: null, audience: null };
+    var panel = $('domainPanel'); if (panel) panel.classList.remove('visible');
+    updatePageState();
+  }
+
+  function renderDomainPanel(code) {
+    var panel = $('domainPanel'); if (!panel) return;
+    var a = getAaif(); if (!a) return;
+    var d = findDomain(code); if (!d) return;
+    var mods = a.modules.filter(function (m) { return m.domain === code; });
+
+    var titleEl = panel.querySelector('.domain-panel-title');
+    if (titleEl) titleEl.innerHTML = esc(code + ' — ' + d.name);
+
+    // Filters
+    var depths = {}; var auds = {};
+    mods.forEach(function (m) {
+      depths[m.depth] = 1; auds[m.audience] = 1;
+    });
+    var filters = panel.querySelector('.domain-panel-filters');
+    if (filters) {
+      var fh = '';
+      fh += '<button class="domain-filter-chip" data-filter="depth" data-value="">' + bi('All depths', 'همه عمق‌ها') + '</button>';
+      Object.keys(depths).forEach(function (dp) {
+        fh += '<button class="domain-filter-chip" data-filter="depth" data-value="' + esc(dp) + '">' + esc(dp) + '</button>';
+      });
+      fh += '<span style="width:8px;"></span>';
+      fh += '<button class="domain-filter-chip" data-filter="audience" data-value="">' + bi('All audiences', 'همه مخاطبان') + '</button>';
+      Object.keys(auds).forEach(function (au) {
+        fh += '<button class="domain-filter-chip" data-filter="audience" data-value="' + esc(au) + '">' + esc(au) + '</button>';
+      });
+      filters.innerHTML = fh;
+      filters.querySelectorAll('.domain-filter-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var f = chip.getAttribute('data-filter');
+          var v = chip.getAttribute('data-value');
+          AAIF_STATE.domainFilter[f] = v || null;
+          // Update active states
+          filters.querySelectorAll('.domain-filter-chip[data-filter="' + f + '"]').forEach(function (c) {
+            c.classList.toggle('active', c.getAttribute('data-value') === (AAIF_STATE.domainFilter[f] || ''));
+          });
+          renderDomainModules(mods);
+        });
+      });
+    }
+
+    renderDomainModules(mods);
+    panel.classList.add('visible');
+  }
+
+  function renderDomainModules(mods) {
+    var container = $('domainPanelModules'); if (!container) return;
+    var f = AAIF_STATE.domainFilter;
+    var filtered = mods.filter(function (m) {
+      if (f.depth && m.depth !== f.depth) return false;
+      if (f.audience && m.audience !== f.audience) return false;
+      return true;
+    });
+    container.innerHTML = filtered.map(function (m) {
+      return renderTrackModuleCard(m.code);
+    }).join('');
+    // Wire expand + add
+    container.querySelectorAll('.track-module-card').forEach(function (card) {
+      var exp = card.querySelector('.tmc-expand');
+      if (exp) exp.addEventListener('click', function () {
+        var open = card.getAttribute('data-expanded') === 'true';
+        card.setAttribute('data-expanded', open ? 'false' : 'true');
+        exp.innerHTML = open
+          ? bi('+ Show more', '+ نمایش بیشتر')
+          : bi('− Show less', '− نمایش کمتر');
+      });
+      var add = card.querySelector('.tmc-add input');
+      if (add) {
+        add.checked = !!AAIF_STATE.configSet[card.getAttribute('data-code')];
+        add.addEventListener('change', function () {
+          addToConfig(card.getAttribute('data-code'), add.checked);
+        });
+      }
+    });
+    if (filtered.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:20px; color:var(--muted); font-size:0.88rem;">' +
+        bi('No modules match these filters.', 'هیچ ماژولی با این فیلترها مطابقت ندارد.') + '</div>';
+    }
+  }
+
+  // ---------- PX strip ----------
+  function renderPxStrip() {
+    var strip = $('pxStrip'); if (!strip) return;
+    var a = getAaif(); if (!a) return;
+    var path = AAIF_STATE.activePath || 'default';
+    var ctx = a.pxContextual || {};
+    var html = '';
+    a.pxItems.forEach(function (px) {
+      var ctxMap = ctx[px.code] || {};
+      var desc = ctxMap[path] || ctxMap['default'] || px.desc || '';
+      html += '<div class="px-card">';
+      html += '<div class="px-code">' + esc(px.code) + '</div>';
+      html += '<div class="px-name">' + esc(px.name) + '</div>';
+      html += '<div class="px-desc">' + esc(desc) + '</div>';
+      html += '</div>';
+    });
+    strip.innerHTML = html;
+  }
+
+  // ---------- Explore More ----------
+  function toggleExplore() {
+    var sec = $('exploreSection'); if (!sec) return;
+    AAIF_STATE.exploreOpen = !AAIF_STATE.exploreOpen;
+    sec.setAttribute('data-open', AAIF_STATE.exploreOpen ? 'true' : 'false');
+  }
+
+  function renderDomainLayers() {
+    var container = $('exploreLayers'); if (!container) return;
+    var a = getAaif(); if (!a) return;
+    var layers = a.domainLayers || {};
+    var descs = {
+      'Foundations': { en: 'The basics — human cognition, how AI works, how to instruct it.', fa: 'مبانی — شناخت انسانی، نحوه کار AI، نحوه دستور دادن به آن.' },
+      'Engineering': { en: 'Building systems — context, agents, orchestration, workflows.', fa: 'ساخت سیستم‌ها — بستر، عامل‌ها، هماهنگ‌سازی، گردشکار.' },
+      'Application': { en: 'Using AI — thinking, creating, evaluating.', fa: 'استفاده از AI — تفکر، خلق، ارزیابی.' },
+      'Governance & Transfer': { en: 'Org-level concerns and profession-specific tracks.', fa: 'مسائل سازمانی و مسیرهای شغلی.' },
+    };
+    var html = '';
+    Object.keys(layers).forEach(function (layerName) {
+      var codes = layers[layerName] || [];
+      var d = descs[layerName] || { en: layerName, fa: layerName };
+      html += '<div class="domain-layer">';
+      html += '<div class="domain-layer-title">' + bi(layerName + ' — ' + d.en, layerName + ' — ' + d.fa) + '</div>';
+      html += '<div class="domain-layer-grid">';
+      codes.forEach(function (code) {
+        var dom = findDomain(code);
+        if (!dom) return;
+        var count = a.modules.filter(function (m) { return m.domain === code; }).length;
+        html += '<div class="domain-tile" data-code="' + esc(code) + '">';
+        html += '<div class="dt-code">' + esc(code) + '</div>';
+        html += '<div class="dt-name">' + esc(dom.name) + '</div>';
+        html += '<div class="dt-count">' + count + ' modules</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '</div>';
+    });
+    container.innerHTML = html;
+    container.querySelectorAll('.domain-tile').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        openDomain(tile.getAttribute('data-code'));
+      });
+    });
+  }
+
+  // ---------- Page state ----------
+  function updatePageState() {
+    var explore = $('exploreSection');
+    var track = $('yourTrackSection');
+    var panel = $('domainPanel');
+    var hasProf = !!AAIF_STATE.activeProfession;
+    var hasDom = !!AAIF_STATE.activeDomain;
+
+    // Hide Explore More when profession or domain is active
+    if (explore) {
+      if (hasProf || hasDom) {
+        explore.style.display = 'none';
+      } else {
+        explore.style.display = '';
+      }
+    }
+    if (track) {
+      if (hasProf) track.classList.add('visible');
+      else track.classList.remove('visible');
+    }
+    if (panel) {
+      if (hasDom) panel.classList.add('visible');
+      else panel.classList.remove('visible');
+    }
+    // Update PX contextual descriptions
+    renderPxStrip();
+    // Update hero
+    renderProfHero();
+  }
+
+  function renderProfHero() {
+    var selected = $('aaifProfSelected');
+    if (!selected) return;
+    var code = AAIF_STATE.activeProfession;
+    if (!code) { selected.classList.remove('visible'); return; }
+    var prof = findProfession(code); if (!prof) return;
+    selected.classList.add('visible');
+    var name = selected.querySelector('.ps-name');
+    if (name) name.innerHTML = esc(prof.name);
+  }
+
+  // ---------- Configurator ----------
+  function toggleConfig() {
+    var modal = $('configModal'); if (!modal) return;
+    if (modal.classList.contains('open')) closeConfigurator();
+    else openConfigurator();
+  }
+  function openConfigurator() {
+    renderConfigurator();
+    var modal = $('configModal'); if (!modal) return;
+    modal.classList.add('open'); modal.style.display = 'flex';
+  }
+  function closeConfigurator() {
+    var modal = $('configModal'); if (!modal) return;
+    modal.classList.remove('open'); modal.style.display = 'none';
+  }
+  function addToConfig(code, on) {
+    if (on) AAIF_STATE.configSet[code] = true;
+    else delete AAIF_STATE.configSet[code];
+    updateFabCount();
+  }
+  function clearConfig() {
+    AAIF_STATE.configSet = {};
+    updateFabCount();
+    renderConfigurator();
+    // Uncheck all
+    document.querySelectorAll('.tmc-add input').forEach(function (cb) { cb.checked = false; });
+    toast(bi('Selection cleared', 'انتخاب پاک شد'));
+  }
+  function updateFabCount() {
+    var c = $('fabCount');
+    var n = Object.keys(AAIF_STATE.configSet || {}).length;
+    if (c) c.textContent = n > 0 ? String(n) : '';
+  }
+  function renderConfigurator() {
+    var body = $('configModalBody'); if (!body) return;
+    var codes = Object.keys(AAIF_STATE.configSet || {});
+    if (codes.length === 0) {
+      body.innerHTML = '<div class="config-empty">' +
+        bi('No modules selected yet. Open a profession track or a domain panel and check "Add to my workshop" on any module card.',
+           'هنوز ماژولی انتخاب نشده است. یک مسیر شغلی یا پنل حوزه را باز کنید و گزینه «افزودن به کارگاه من» را در کارت ماژول علامت بزنید.') +
+        '</div>';
+      return;
+    }
+    var html = '<div class="config-list">';
+    codes.forEach(function (code) {
+      var m = findModule(code);
+      var title = m ? (m.title || m.name || code) : code;
+      html += '<div class="config-item">';
+      html += '<span class="ci-code">' + esc(code) + '</span>';
+      html += '<span>' + esc(title) + '</span>';
+      html += '<button class="ci-remove" data-code="' + esc(code) + '" aria-label="Remove">×</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+    html += '<div class="config-actions">';
+    html += '<button class="config-btn primary" id="configSend"> ' + bi('Send to Ehsan', 'ارسال به احسان') + '</button>';
+    html += '<button class="config-btn danger" id="configClear"> ' + bi('Clear all', 'پاک کردن همه') + '</button>';
+    html += '<button class="config-btn" id="configClose"> ' + bi('Close', 'بستن') + '</button>';
+    html += '</div>';
+    body.innerHTML = html;
+    body.querySelectorAll('.ci-remove').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        addToConfig(btn.getAttribute('data-code'), false);
+        // Uncheck matching card
+        document.querySelectorAll('.tmc-add input[data-code="' + btn.getAttribute('data-code') + '"]').forEach(function (cb) { cb.checked = false; });
+        renderConfigurator();
+      });
+    });
+    var send = $('configSend'); if (send) send.addEventListener('click', sendConfig);
+    var clr = $('configClear'); if (clr) clr.addEventListener('click', clearConfig);
+    var cls = $('configClose'); if (cls) cls.addEventListener('click', closeConfigurator);
+  }
+  function sendConfig() {
+    var codes = Object.keys(AAIF_STATE.configSet || {});
+    if (!codes.length) return;
+    var lines = codes.map(function (c) {
+      var m = findModule(c);
+      return '- ' + c + ' — ' + (m ? (m.title || m.name || '') : '');
+    });
+    var subject = encodeURIComponent('Workshop selection (' + codes.length + ' modules)');
+    var body = encodeURIComponent('Selected modules:\n\n' + lines.join('\n'));
+    window.location.href = 'mailto:ehsan.parsaeian@gmail.com?subject=' + subject + '&body=' + body;
+    toast(bi('Opening your email client…', 'باز کردن برنامه ایمیل…'));
+  }
+
+  // ---------- Wire up after render ----------
+  function wireAaifUi() {
+    // Prof overlay triggers
+    var trigger = $('aaifProfTrigger');
+    if (trigger) trigger.addEventListener('click', openProfOverlay);
+    var closeBtn = $('profOverlayClose');
+    if (closeBtn) closeBtn.addEventListener('click', closeProfOverlay);
+    var backdrop = $('profOverlayBackdrop');
+    if (backdrop) backdrop.addEventListener('click', closeProfOverlay);
+    var search = $('profSearch');
+    if (search) search.addEventListener('input', function () { filterProfessions(search.value); });
+
+    // Prof selected clear
+    var clearBtn = $('psClear');
+    if (clearBtn) clearBtn.addEventListener('click', clearProfession);
+
+    // Domain panel close
+    var dpc = $('domainPanelClose');
+    if (dpc) dpc.addEventListener('click', closeDomainPanel);
+
+    // Explore toggle
+    var eh = document.querySelector('.explore-header');
+    if (eh) eh.addEventListener('click', toggleExplore);
+
+    // Configurator
+    var fab = $('configFab');
+    if (fab) fab.addEventListener('click', toggleConfig);
+    var cmClose = $('configModalClose');
+    if (cmClose) cmClose.addEventListener('click', closeConfigurator);
+    var cmBackdrop = $('configModalBackdrop');
+    if (cmBackdrop) cmBackdrop.addEventListener('click', closeConfigurator);
+
+    // Esc to close overlays
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeProfOverlay();
+        closeConfigurator();
+      }
+    });
+
+    updateFabCount();
+  }
+
+  // ---------- Init ----------
+  function initAaif() {
+    wireAaifUi();
+    renderDomainLayers();
+    renderPxStrip();
+    updatePageState();
+  }
+
+  // Expose for the renderer to call after renderWorkshops
+  window.__initAaif = initAaif;
+  window.__aaifState = AAIF_STATE;
+
+  aaifReady(function () {
+    // Delay slightly so renderSite can populate localStorage first
+    setTimeout(initAaif, 60);
+  });
+})();
+</script>
+
 <script>
 function initSiteScripts() {
             function startViewTransition(cb) {
@@ -2930,7 +4281,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cachedData) {
         try {
             const data = JSON.parse(cachedData);
-            window.__renderSite(data);
+            window.__siteData = data; window.__renderSite(data);
             initSiteScripts();
             
             /* فچ پس‌زمینه برای بررسی تغییرات فایل سورس و اعمال آنی دیتای جدید بدون فلش خوردن یا نیاز به رفرش صفحه */
@@ -2942,7 +4293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const newDataStr = JSON.stringify(newData);
                         if (oldDataStr !== newDataStr) {
                             localStorage.setItem('site_resume_data', newDataStr);
-                            window.__renderSite(newData);
+                            window.__siteData = newData; window.__renderSite(newData);
                             if (window.__reinitDynamicComponents) {
                                 window.__reinitDynamicComponents();
                             }
@@ -2962,7 +4313,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(function (data) {
             localStorage.setItem('site_resume_data', JSON.stringify(data));
-            window.__renderSite(data);
+            window.__siteData = data; window.__renderSite(data);
             initSiteScripts();
         })
         .catch(function (err) {
@@ -2970,5 +4321,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 </script>
+
+<!-- AAIF Workshops: Profession overlay -->
+<div class="prof-overlay" id="profOverlay" role="dialog" aria-modal="true" aria-labelledby="profOverlayTitle" style="display:none;">
+  <div class="prof-overlay-backdrop" id="profOverlayBackdrop"></div>
+  <div class="prof-overlay-panel">
+    <div class="prof-overlay-header">
+      <h3 id="profOverlayTitle"><span class="en">Choose your profession</span><span class="fa">حرفه خود را انتخاب کنید</span></h3>
+      <button class="prof-overlay-close" id="profOverlayClose" aria-label="Close">×</button>
+    </div>
+    <div class="prof-overlay-body">
+      <input type="text" class="prof-search" id="profSearch" placeholder="Search 32 professions…"/>
+      <div class="prof-clusters-list" id="profClustersList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- AAIF Workshops: Configurator modal -->
+<div class="config-modal-overlay" id="configModal" role="dialog" aria-modal="true" aria-labelledby="configModalTitle" style="display:none;">
+  <div class="config-modal-backdrop" id="configModalBackdrop"></div>
+  <div class="config-modal-panel">
+    <div class="config-modal-header">
+      <h3 id="configModalTitle"><span class="en">My Workshop Selection</span><span class="fa">انتخاب کارگاه من</span></h3>
+      <button class="prof-overlay-close" id="configModalClose" aria-label="Close">×</button>
+    </div>
+    <div class="config-modal-body" id="configModalBody"></div>
+  </div>
+</div>
+
+<!-- AAIF Workshops: Configurator FAB -->
+<button class="config-fab" id="configFab" aria-label="My workshop selection">
+  <span aria-hidden="true">+</span>
+  <span class="fab-count" id="fabCount"></span>
+</button>
+
+<!-- AAIF Workshops: Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 </body>
 </html>
