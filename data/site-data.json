@@ -13861,7 +13861,54 @@
       "Library list items with spine-color markers + glow",
       "Hover-reveal top accent line on each card",
       "Mono labels with book/library iconography"
-    ]
+    ],
+    "books": [
+      {
+        "key": "prompt_context_agentic",
+        "titleEn": "Prompt, Context, and Agentic Engineering for Educated Non-Coders",
+        "year": "2026",
+        "edition": "4.0 — Field Edition",
+        "featured": true,
+        "coverImage": "embedded as base64 (compressed from 4.6MB to 65KB)"
+      },
+      {
+        "key": "advanced_agent",
+        "titleEn": "Advanced Agent Engineering Handbook",
+        "year": "2026",
+        "edition": "Enterprise Reference v1.0",
+        "featured": false,
+        "coverImage": "embedded as base64 (compressed from 5.4MB to 62KB)"
+      },
+      {
+        "key": "advanced_context",
+        "titleEn": "Advanced Context Engineering Handbook",
+        "year": "2026",
+        "edition": "Enterprise Reference v1.0",
+        "featured": false,
+        "coverImage": "embedded as base64 (compressed from 5.7MB to 70KB)"
+      },
+      {
+        "key": "advanced_reasoning",
+        "titleEn": "Advanced Reasoning Engineering Handbook",
+        "year": "2026",
+        "edition": "Enterprise Reference v1.0",
+        "featured": false,
+        "coverImage": "embedded as base64 (compressed from 5.5MB to 69KB)"
+      }
+    ],
+    "bookModal": {
+      "description": "Clicking any book (cover or list item) opens a dedicated modal showing the cover, year, edition, type, full synopsis, and chapter structure. Closes via X button, backdrop click, or Escape key.",
+      "features": [
+        "Full-screen glass modal with backdrop blur",
+        "Two-column layout: cover on left, content on right",
+        "Mobile responsive (stacks to single column)",
+        "Per-book accent color (indigo / sky / teal / amber)",
+        "Chapter list with numbered counters (01, 02...)",
+        "Hover shift + color fill on chapter items",
+        "Smooth scale + translate entrance animation"
+      ]
+    },
+    "coverCompression": "All 4 book covers compressed from ~5MB each (1696x2528 RGBA PNG) to ~65KB each (600x894 JPEG quality 82 progressive). Total reduction: 98.8%."
   },
   "navButtonsDocumentation": {
     "description": "Explore the Full Map and Back to Learning Studio buttons redesigned with premium magnetic effect.",
@@ -14012,6 +14059,11 @@
       "Print styles",
       "Branded selection color",
       "Refined scrollbar with gradient"
+    ],
+    "bugfixes": [
+      "Fixed broken renderAbout function (regex cleanup ate too much, causing site not to load)",
+      "Removed broken initRadarCharts IIFE (was also corrupted by regex cleanup)",
+      "Removed __redrawRadarCharts call sites (radar feature fully removed)"
     ]
   }
 }
