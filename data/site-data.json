@@ -83,7 +83,7 @@
   "about": [
     {
       "en": "AI, Vibe Coding, and Prompt Engineering specialist focusing on Large Language Models (LLMs), Small Language Models (SLMs), and developing Agentic AI solutions for enterprise process automation.",
-      "fa": "متخصص هوش مصنوعی، Vibe Coding و Prompt Engineering، با تمرکز بر مدل‌های زبانی بزرگ (LLM)، مدل‌های زبانی کوچک (SLM) و توسعه راهکارهای Agentic AI برای خودکارسازی فرایندهای سازمانی."
+      "fa": "متخصص هوش مصنوعی، Vibe Coding و مهندسی پرامپت، با تمرکز بر مدل‌های زبانی بزرگ (LLM)، مدل‌های زبانی کوچک (SLM) و توسعه راهکارهای Agentic AI برای خودکارسازی فرایندهای سازمانی."
     },
     {
       "en": "Experienced in designing AI-driven systems for data analysis, enterprise knowledge management, workflow redesign, administrative correspondence automation, and business process optimization utilizing state-of-the-art AI tools.",
@@ -7830,313 +7830,6 @@
       ]
     }
   },
-  "services": {
-    "introParagraphs": [
-      {
-        "en": "Ehsan's practice sits in the structural-architectural middle ground that most providers miss — between commoditized \"AI awareness\" training and developer-focused AI engineering. He works with decision-makers who need to understand how AI systems work well enough to make architectural choices about where and how to deploy them, without needing to become technical. The engagement types below are designed to operate together; most clients begin with one and expand into others as the relationship deepens.",
-        "fa": "رسالت احسان در میانه ساختاری-معمارانه‌ای قرار دارد که بیشتر ارائه‌دهندگان از آن غافل‌اند — میان آموزش آگاهی عمومی AI (که کالایی شده) و مهندسی AI متمرکز بر توسعه‌دهنده. او با تصمیم‌گیرندگانی همکاری می‌کند که باید هوش مصنوعی را آن‌قدر درک کنند تا بتوانند انتخاب‌های معماری آگاهانه درباره محل و نحوه استقرار آن بگیرند، بی‌آنکه لزوماً فنی شوند. انواع تعامل زیر طوری طراحی شده‌اند که با یکدیگر کار کنند؛ بیشتر مشتریان با یکی آغاز می‌کنند و با تعمیق رابطه به موارد دیگر گسترش می‌یابند."
-      },
-      {
-        "en": "Every engagement is scoped individually to the client's context, audience, and objectives. Pricing is quoted per engagement after a scoping conversation — Ehsan calibrates it against the specific organization, format, and depth required, rather than publishing fixed rates.",
-        "fa": "هر تعامل به‌صورت موردی و متناسب با بافت، مخاطب و اهداف مشتری تعیین محدوده می‌شود. قیمت پس از یک گفت‌وگوی تعیین حوزه و برای هر تعامل اعلام می‌شود — احسان آن را بر اساس سازمان، قالب و عمق خاص موردنیاز تنظیم می‌کند، نه با انتشار نرخ ثابت."
-      }
-    ],
-    "items": [
-      {
-        "title": {
-          "en": "Executive Advisory",
-          "fa": "مشاوره‌ی اجرایی",
-          "link": null
-        },
-        "subtitle": {
-          "en": "One-to-one and small leadership-team engagements that produce a Decision Architecture Map — where AI should and should not enter your decision flows.",
-          "fa": "تعامل‌های یک‌به‌یک و با تیم‌های کوچک رهبری که به یک «نقشه معماری تصمیم» ختم می‌شوند — هوش مصنوعی کجا باید و کجا نباید وارد جریان‌های تصمیم شما شود."
-        },
-        "hook": {
-          "en": "Walk in unsure about AI. Walk out with a map of exactly where it helps you — and where it doesn't.",
-          "fa": "با تردید درباره هوش مصنوعی وارد شوید؛ با نقشه‌ای دقیق از اینکه کجا به کارتان می‌آید و کجا نه، بیرون بروید."
-        },
-        "meta": [
-          {
-            "en": "1:1 Advisory",
-            "fa": "مشاوره یک‌به‌یک",
-            "dir": ""
-          },
-          {
-            "en": "Per engagement",
-            "fa": "به‌ازای هر تعامل",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "A structured diagnostic engagement — typically a few 90-minute sessions — mapping your current decision flows and the structural gaps AI creates or fills.",
-            "fa": "یک تعامل تشخیصی ساختاریافته — معمولاً چند جلسه‌ی ۹۰ دقیقه‌ای — که جریان‌های تصمیم فعلی شما و شکاف‌های ساختاری‌ای را که هوش مصنوعی ایجاد یا پر می‌کند، ترسیم می‌کند."
-          },
-          {
-            "en": "Delivered virtually or in person; each session follows a diagnostic pattern with no generic slides or off-the-shelf frameworks.",
-            "fa": "به‌صورت مجازی یا حضوری ارائه می‌شود؛ هر جلسه از یک الگوی تشخیصی پیروی می‌کند و بدون اسلاید عمومی یا چارچوب‌های آماده است."
-          },
-          {
-            "en": "Best for C-suite executives, department heads, and founders of knowledge-intensive organizations weighing real AI deployment decisions.",
-            "fa": "مناسب‌ترین گزینه برای مدیران ارشد (C-suite)، رؤسای واحد و بنیان‌گذاران سازمان‌های دانش‌بنیان که در حال وزن‌کشی تصمیم‌های واقعی استقرار هوش مصنوعی هستند."
-          }
-        ]
-      },
-      {
-        "title": {
-          "en": "Corporate Retained Advisory",
-          "fa": "مشاوره سازمانی مداوم",
-          "link": null
-        },
-        "subtitle": {
-          "en": "An ongoing relationship in which Ehsan serves as your organization's external AI capability advisor — available on retainer to review decisions, audit outputs, and advise on workflow changes.",
-          "fa": "یک رابطه مستمر که در آن احسان به‌عنوان مشاور توانمندی AI بیرونی سازمان شما عمل می‌کند — در دسترس برای بازبینی تصمیم‌ها، ممیزی خروجی‌ها و مشاوره درباره تغییرات گردشکار."
-        },
-        "hook": {
-          "en": "Before you approve the next AI project, get a second opinion you can trust — on call, every month.",
-          "fa": "قبل از تأیید پروژه بعدی AI، هر ماه یک نظر دوم قابل‌اعتماد در دسترس داشته باشید."
-        },
-        "meta": [
-          {
-            "en": "Recurring",
-            "fa": "ادواری",
-            "dir": ""
-          },
-          {
-            "en": "Monthly retainer",
-            "fa": "حق‌الزحمه‌ی ماهانه",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "A fixed monthly allocation of access — including one structured session plus on-demand asynchronous advisory on real questions as they arise.",
-            "fa": "تخصیص ماهانه ثابت دسترسی — شامل یک جلسه ساختاریافته به‌علاوه مشاوره ناهمگام درخواستی برای پرسش‌های واقعی هنگام بروز."
-          },
-          {
-            "en": "Suited to organizations that have completed an advisory engagement and want ongoing access, and to government departments with standing advisory allocations.",
-            "fa": "مناسب سازمان‌هایی که یک تعامل مشاوره‌ای را تکمیل کرده‌اند و دسترسی مستمر می‌خواهند، و ادارات دولتی با تخصیص مشاوره دائمی."
-          },
-          {
-            "en": "Delivered through the communication channels your organization already uses — no new platform required.",
-            "fa": "از طریق کانال‌های ارتباطی‌ای ارائه می‌شود که سازمان شما از پیش به‌کار می‌بندد — نیازی به پلتفرم تازه نیست."
-          }
-        ]
-      },
-      {
-        "title": {
-          "en": "Premium Cohort Programs",
-          "fa": "برنامه‌های گروهیِ ویژه",
-          "link": null
-        },
-        "subtitle": {
-          "en": "Small-group intensives in which each participant brings their actual professional context and leaves with a tested, deployable artifact.",
-          "fa": "دوره‌های فشرده گروهی که در آن هر شرکت‌کننده بافت حرفه‌ای واقعی خود را می‌آورد و با یک مصنوع آزموده‌شده و قابل‌استقرار خارج می‌شود."
-        },
-        "hook": {
-          "en": "Leave with something you actually built — not a certificate, a tool your team can use Monday morning.",
-          "fa": "با چیزی که واقعاً ساخته‌اید بیرون بروید — نه یک گواهی، بلکه ابزاری که تیم‌تان همان دوشنبه استفاده می‌کند."
-        },
-        "meta": [
-          {
-            "en": "Cohort",
-            "fa": "دوره‌ی گروهی",
-            "dir": ""
-          },
-          {
-            "en": "Per cohort",
-            "fa": "به‌ازای هر گروه",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "A structured multi-week program of live sessions, each producing a specific deliverable — a diagnostic, a workflow, a decision protocol, or an evaluation framework — built from each participant's own context.",
-            "fa": "یک برنامه چند هفته‌ای ساختاریافته از جلسات زنده که هر کدام به یک تحویل‌دادنی مشخص ختم می‌شود — یک تشخیص، یک گردشکار، یک پروتکل تصمیم یا یک چارچوب ارزیابی — ساخته‌شده از بافت هر شرکت‌کننده."
-          },
-          {
-            "en": "Designed for mid-to-senior professionals individually, or for organizations sending a group of team members together.",
-            "fa": "برای متخصصان میانی تا ارشد به‌صورت فردی، یا سازمان‌هایی که گروهی از اعضای تیم را با هم می‌فرستند، طراحی شده است."
-          },
-          {
-            "en": "Live virtual sessions with materials shared afterward; each cohort has a clear start and end — no open-ended commitments.",
-            "fa": "جلسات زنده‌ی مجازی با اشتراک‌گذاری مواد پس از آن؛ هر گروه آغاز و پایان روشنی دارد — بدون تعهد بی‌پایان."
-          }
-        ]
-      },
-      {
-        "title": {
-          "en": "Diagnostic Tools",
-          "fa": "ابزارهای تشخیصیِ محصولی",
-          "link": null
-        },
-        "subtitle": {
-          "en": "Productized self-assessment instruments that codify the diagnostic thinking into a format a professional can use without direct involvement.",
-          "fa": "ابزارهای خودارزیابی محصولی‌شده که تفکر تشخیصی را در قالبی کدگذاری می‌کنند که یک متخصص می‌تواند بدون دخالت مستقیم از آن استفاده کند."
-        },
-        "hook": {
-          "en": "Answer in 20 minutes what most companies spend months — and consultants — figuring out.",
-          "fa": "چیزی را در ۲۰ دقیقه بفهمید که بیشتر سازمان‌ها ماه‌ها وقت و هزینه مشاور صرفش می‌کنند."
-        },
-        "meta": [
-          {
-            "en": "Productized",
-            "fa": "محصولی‌شده",
-            "dir": ""
-          },
-          {
-            "en": "Per tool",
-            "fa": "به‌ازای هر ابزار",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "Structured instruments — such as an AI Decision Readiness Audit, a Prompt Architecture Diagnostic, and a Vendor Evaluation Framework — that walk a professional through a self-assessment with concrete recommendations. The Vendor Evaluation Framework treats AI-vendor access stability and reliability — including sanctions and export-control exposure — as a first-class evaluation criterion alongside standard feature and capability comparison, and weighs open-source and non-Western alternatives as part of a resilient multi-vendor strategy.",
-            "fa": "ابزارهای ساختاریافته — مانند ممیزی آمادگی تصمیم AI، تشخیص معماری پرامپت و چارچوب ارزیابی ارائه‌دهنده — که یک متخصص را در خودارزیابی همراهی می‌کنند. چارچوب ارزیابی ارائه‌دهنده، ثبات و قابلیت اطمینان دسترسی به هر فروشنده AI (از جمله مواجهه با تحریم‌ها و محدودیت‌های کنترل صادرات) را در کنار مقایسه معمولی ویژگی‌ها و توانمندی‌ها به‌عنوان یک معیار اصلی در نظر می‌گیرد و مدل‌های متن‌باز و غیرغربی (مانند DeepSeek و Qwen و مدل‌های متن‌باز مستقرشده محلی) را به‌عنوان بخشی از یک استراتژی چندفروشنده تاب‌آور وزن‌دهی می‌کند."
-          },
-          {
-            "en": "Usable by someone who has never spoken with Ehsan; capped in scope so they stay practical rather than sprawling.",
-            "fa": "قابل استفاده توسط کسی که هرگز با احسان صحبت نکرده است؛ از نظر محدوده محدود شده تا عملی بماند و وسیع نشود."
-          },
-          {
-            "en": "Available individually or under an enterprise license for team-wide distribution as a pre-engagement assessment.",
-            "fa": "به‌صورت فردی یا با مجوز سازمانی برای توزیع تیمی به‌عنوان ارزیابی پیش‌از‌تعامل در دسترس است."
-          }
-        ]
-      },
-      {
-        "title": {
-          "en": "Paid Office Hours",
-          "fa": "ساعات پرسش‌وپاسخ پولی",
-          "link": null
-        },
-        "subtitle": {
-          "en": "A recurring live group advisory session where members bring real professional challenges and benefit from hearing each other's questions answered.",
-          "fa": "یک جلسه مشاوره گروهی زنده و مستمر که اعضا چالش‌های حرفه‌ای واقعی خود را مطرح می‌کنند و از شنیدن پاسخ پرسش‌های یکدیگر بهره می‌برند."
-        },
-        "hook": {
-          "en": "Low commitment, high signal. Bring your real question, get a real answer, this month.",
-          "fa": "تعهد کم، بازده بالا. سؤال واقعی‌تان را مطرح کنید، همین ماه پاسخ واقعی بگیرید."
-        },
-        "meta": [
-          {
-            "en": "Subscription",
-            "fa": "عضویت",
-            "dir": ""
-          },
-          {
-            "en": "Monthly",
-            "fa": "هر ماه",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "Access to a regular live Q&A session plus a private channel for asynchronous questions between sessions.",
-            "fa": "دسترسی به یک جلسه‌ی زنده‌ی پرسش‌وپاسخ منظم به‌علاوه یک کانال خصوصی برای پرسش‌های ناهمگام میان جلسات."
-          },
-          {
-            "en": "Designed for professionals who want periodic access to expert judgment, and for cohort alumni who want to maintain the connection.",
-            "fa": "برای متخصصانی که دسترسی ادواری به قضاوت تخصصی می‌خواهند، و فارغ‌التحصیلان گروهی که می‌خواهند ارتباط را حفظ کنند، طراحی شده است."
-          },
-          {
-            "en": "A low-friction way to evaluate whether a fuller engagement is right for you.",
-            "fa": "راهی کم‌اصطکاک برای ارزیابی اینکه آیا یک تعامل کامل‌تر برای شما مناسب است یا نه."
-          }
-        ]
-      },
-      {
-        "title": {
-          "en": "Institutional In-Service Contracts",
-          "fa": "قراردادهای آموزش ضمن‌خدمت نهادی",
-          "link": null
-        },
-        "subtitle": {
-          "en": "Formal contracted engagements with government departments and corporations to develop a unit's AI integration capability — not generic training, but capability building tied to a documented deliverable.",
-          "fa": "تعامل‌های قراردادی رسمی با ادارات دولتی و شرکت‌ها برای توسعه توانمندی یک واحد در ادغام هوش مصنوعی — نه آموزش عمومی، بلکه ساخت توانمندی گره‌خورده به یک تحویل‌دادنی مستند."
-        },
-        "hook": {
-          "en": "Turn a training budget line into a policy your department actually uses.",
-          "fa": "یک ردیف بودجه آموزشی را به سیاستی تبدیل کنید که اداره‌تان واقعاً از آن استفاده می‌کند."
-        },
-        "meta": [
-          {
-            "en": "Institutional",
-            "fa": "نهادی",
-            "dir": ""
-          },
-          {
-            "en": "Per contract",
-            "fa": "به‌ازای هر قرارداد",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "A structured engagement of half-day sessions customized to the department's operations, each producing a departmental artifact — a decision protocol, a workflow redesign, an AI usage policy, or an evaluation rubric.",
-            "fa": "یک تعامل ساختاریافته از جلسات نیم‌روزی متناسب با عملیات اداره، که هر کدام به یک مصنوع بخشی ختم می‌شود — یک پروتکل تصمیم، یک بازطراحی گردشکار، یک سیاست استفاده از AI یا یک روبریک ارزیابی."
-          },
-          {
-            "en": "Delivered on-site or hybrid, through the organization's standard procurement and contracting process.",
-            "fa": "به‌صورت حضوری یا ترکیبی، از طریق فرایند استاندارد تأمین و قرارداد سازمان ارائه می‌شود."
-          },
-          {
-            "en": "Suited to government departments with in-service training budgets and corporate L&D functions building real internal capability.",
-            "fa": "مناسب ادارات دولتی با بودجه آموزش ضمن‌خدمت و واحدهای آموزش سازمانی شرکتی که توانمندی داخلی واقعی می‌سازند."
-          }
-        ]
-      },
-      {
-        "title": {
-          "en": "Reference Assets",
-          "fa": "دارایی‌های مرجع",
-          "link": null
-        },
-        "subtitle": {
-          "en": "Published long-form reference documents that working professionals return to repeatedly — decision frameworks, architectural guides, and technical primers written for non-technical decision-makers.",
-          "fa": "اسناد مرجع بلند منتشرشده که متخصصان شاغل به‌طور مکرر به آن‌ها بازمی‌گردند — چارچوب‌های تصمیم، راهنماهای معماری و مقدمه‌های فنی نگاشته‌شده برای تصمیم‌گیرندگان غیرفنی."
-        },
-        "hook": {
-          "en": "Skip the vendor pitch decks. Read the one document that explains what AI can actually do for you.",
-          "fa": "پرزنتیشن‌های فروشندگان را کنار بگذارید؛ سندی بخوانید که واقعاً می‌گوید AI برایتان چه کاری می‌تواند انجام دهد."
-        },
-        "meta": [
-          {
-            "en": "Reference",
-            "fa": "مرجعی",
-            "dir": ""
-          },
-          {
-            "en": "Per document",
-            "fa": "به‌ازای هر سند",
-            "dir": ""
-          }
-        ],
-        "bullets": [
-          {
-            "en": "Standalone references — for example, a technical primer on how AI actually works for decision-makers, and a practical handbook on mapping where AI should and should not enter organizational decision flows.",
-            "fa": "منابع مستقل — برای مثال، یک مقدمه فنی درباره چگونگی واقعی کار هوش مصنوعی برای تصمیم‌گیرندگان، و یک راهنمای عملی برای ترسیم اینکه AI کجا باید و کجا نباید وارد جریان‌های تصمیم سازمانی شود."
-          },
-          {
-            "en": "For professionals who want a reference they can study and return to, and for organizations building a shared knowledge base across their leadership team.",
-            "fa": "برای متخصصانی که مرجعی می‌خواهند تا مطالعه و به آن بازگردند، و سازمان‌هایی که پایگاه دانش مشترکی در سراسر تیم رهبری خود می‌سازند."
-          },
-          {
-            "en": "Available as individual documents or under an organizational license for internal distribution.",
-            "fa": "به‌صورت اسناد جداگانه یا با مجوز سازمانی برای توزیع درونی در دسترس است."
-          }
-        ]
-      }
-    ],
-    "outroParagraphs": [
-      {
-        "en": "If any of these fits your context, the next step is a short scoping conversation. Ehsan will discuss your objectives, audience, and constraints, and propose a tailored engagement with a clear scope and quote. Use the contact details in the sidebar to begin.",
-        "fa": "اگر هر یک از این موارد با بافت شما سازگار است، گام بعدی یک گفت‌وگوی کوتاه تعیین حوزه است. احسان درباره اهداف، مخاطب و محدودیت‌های شما گفت‌وگو می‌کند و یک تعامل سفارشی با محدوده و قیمت روشن پیشنهاد می‌دهد. برای آغاز از اطلاعات تماس در نوار کناری استفاده کنید."
-      }
-    ]
-  },
   "skills": [
     {
       "code": "SKL-01",
@@ -8283,125 +7976,6 @@
       ]
     }
   ],
-  "publications": {
-    "featured": {
-      "title": {
-        "en": "AI for Decision-Makers: A Structural Primer",
-        "fa": "هوش مصنوعی برای تصمیم‌گیرندگان: یک مقدمه‌ی ساختاری"
-      },
-      "tagline": {
-        "en": "How AI actually works — without the math, without the hype.",
-        "fa": "هوش مصنوعی واقعاً چگونه کار می‌کند — بدون ریاضی، بدون هیاهو."
-      },
-      "synopsis": {
-        "en": "A field guide for executives, department heads, and founders who need to make architectural decisions about AI deployment without becoming technical. Covers the structural anatomy of modern AI systems — foundation models, context windows, agent loops, retrieval pipelines — and translates each into the decision frame a non-technical leader needs. Includes 14 worked decision patterns drawn from real advisory engagements.",
-        "fa": "یک راهنمای میدانی برای مدیران اجرایی، رؤسای واحد و بنیان‌گذارانی که باید تصمیمات معماری درباره استقرار هوش مصنوعی بگیرند بدون آنکه فنی شوند. آناتومی ساختاری سیستم‌های مدرن AI — مدل‌های پایه، پنجره‌های زمینه، حلقه‌های عامل، خطوط بازیابی — را پوشش می‌دهد و هر کدام را به چارچوب تصمیم مورد نیاز یک رهبر غیرفنی ترجمه می‌کند."
-      },
-      "year": "2025",
-      "typeEn": "Featured · Book",
-      "typeFa": "ویژه · کتاب"
-    },
-    "items": [
-      {
-        "year": "2025",
-        "typeEn": "Engineering Article",
-        "typeFa": "مقاله‌ی مهندسی",
-        "type": "engineering",
-        "title": {
-          "en": "Designing Memory Systems for Long-Running Agent Loops",
-          "fa": "طراحی سیستم‌های حافظه برای حلقه‌های عامل طولانی‌مدت"
-        },
-        "subtitle": {
-          "en": "Engineering Notes · 2025",
-          "fa": "یادداشت‌های مهندسی · ۲۰۲۵"
-        }
-      },
-      {
-        "year": "2025",
-        "typeEn": "Engineering Article",
-        "typeFa": "مقاله‌ی مهندسی",
-        "type": "engineering",
-        "title": {
-          "en": "A Practical Vendor Evaluation Framework for AI Procurement",
-          "fa": "یک چارچوب عملی ارزیابی ارائه‌دهنده برای تأمین AI"
-        },
-        "subtitle": {
-          "en": "Engineering Notes · 2025",
-          "fa": "یادداشت‌های مهندسی · ۲۰۲۵"
-        }
-      },
-      {
-        "year": "2024",
-        "typeEn": "Book",
-        "typeFa": "کتاب",
-        "type": "book",
-        "title": {
-          "en": "The Decision Architecture Map",
-          "fa": "نقشه‌ی معماری تصمیم"
-        },
-        "subtitle": {
-          "en": "A practical handbook on where AI should and shouldn't enter your organization.",
-          "fa": "یک راهنمای کاربردی درباره اینکه هوش مصنوعی کجا باید و کجا نباید وارد سازمان شما شود."
-        }
-      },
-      {
-        "year": "2024",
-        "typeEn": "Book",
-        "typeFa": "کتاب",
-        "type": "book",
-        "title": {
-          "en": "Prompt Architecture: A Reference Handbook",
-          "fa": "معماری پرامپت: یک راهنمای مرجع"
-        },
-        "subtitle": {
-          "en": "The structural patterns behind prompts that work in production.",
-          "fa": "الگوهای ساختاری پشت پرامپت‌هایی که در محیط تولید کار می‌کنند."
-        }
-      },
-      {
-        "year": "2024",
-        "typeEn": "Engineering Article",
-        "typeFa": "مقاله‌ی مهندسی",
-        "type": "engineering",
-        "title": {
-          "en": "Why Most Production Prompt Pipelines Fail (And How to Build Ones That Don't)",
-          "fa": "چرا بیشتر خطوط پرامپت تولیدی شکست می‌خورند (و چگونه نسخه‌هایی بسازیم که نمی‌شکنند)"
-        },
-        "subtitle": {
-          "en": "Engineering Notes · 2024",
-          "fa": "یادداشت‌های مهندسی · ۲۰۲۴"
-        }
-      },
-      {
-        "year": "2022",
-        "typeEn": "Academic Paper",
-        "typeFa": "مقاله‌ی آکادمیک",
-        "type": "academic",
-        "title": {
-          "en": "Spam Detection in Social Networks with Natural Language Processing Based on BERT Network and Generative Adversarial Network (GAN) with Swarm Intelligence in Apache Spark Architecture",
-          "fa": "تشخیص هرزنامه در شبکه‌های اجتماعی با پردازش زبان طبیعی مبتنی بر شبکه‌ی BERT و شبکه‌ی مولد تخاصمی (GAN) با هوش ازدحامی در معماری Apache Spark"
-        },
-        "subtitle": {
-          "en": "Springer Journal (Germany)",
-          "fa": "نشریه Springer (آلمان)"
-        }
-      },
-      {
-        "year": "2022",
-        "typeEn": "Academic Paper",
-        "typeFa": "مقاله‌ی آکادمیک",
-        "type": "academic",
-        "title": {
-          "en": "Local Sequence Alignment with a Parallel Hash Based Model",
-          "fa": "ترازبندی توالی محلی با مدل موازی مبتنی بر هش"
-        },
-        "subtitle": {
-          "en": "International Conference on Distributed Computing and Distributed Systems",
-          "fa": "کنفرانس بین‌المللی محاسبات توزیع‌شده و سامانه‌های توزیع‌شده"
-        }
-      }
-    ]
-  },
   "consulting": {
     "title": {
       "en": "Professional Activities",
@@ -14065,5 +13639,44 @@
       "Removed broken initRadarCharts IIFE (was also corrupted by regex cleanup)",
       "Removed __redrawRadarCharts call sites (radar feature fully removed)"
     ]
+  },
+  "bugfixRoundDocumentation": {
+    "description": "Bugfix round — fixed Publications modal, animation smoothness, mobile performance, reverted fonts and sidebar",
+    "fixes": [
+      "Fonts reverted to Inter + Estedad only (removed Plus Jakarta Sans, Vazirmatn, JetBrains Mono, Source Serif 4)",
+      "Sidebar (Resume + Contact) reverted to original button style and shape",
+      "Name card at top of sidebar kept (only font reverted to Inter/Estedad)",
+      "Publications modal: fixed scrollability (overflow-x: hidden, touch scrolling)",
+      "Publications modal: fixed book info display (removed gradient text on title)",
+      "Publications header: removed gradient text that was causing mixed colors",
+      "Animations: removed universal transition rule that was breaking all existing transitions",
+      "Animations: removed section-fade-in that was causing jank on every section switch",
+      "Animations: removed excessive will-change declarations causing GPU pressure on mobile",
+      "Animations: removed hero breathing, panel-rise, detail-enter, name-card-enter animations that conflicted with JS",
+      "Mobile: simplified backdrop-filter blur reduction (removed profile-info-card from override list to restore original style)"
+    ]
+  },
+  "perfSmoothnessPassDocumentation": {
+    "description": "Performance / smoothness / visual-polish pass — no new features or content; existing animations and visual effects refined to run smoother. Existing at-rest visuals, colors, and timing intent preserved.",
+    "scope": "html.html only (site-data.json documentation strings updated to reflect the pass)",
+    "fixes": [
+      "Replaced 30 `transition: all` declarations with explicit per-property transition lists so the browser no longer watches non-animatable properties (padding, margin, width, height) for changes on hover/state.",
+      "Removed backdrop-filter from .entry-block and .bento-item — these cards live inside #content-workspace which already applies the glass blur, so the per-card blur was a redundant nested-blur cost (the single biggest per-frame GPU cost on long card lists). Background opacities nudged up ~5-7% to preserve the at-rest glass feel.",
+      "Standardised GPU-layer promotion: dropped redundant `translateZ(0)` from the multi-selector card-layer rule and from the .entry-block/.profile-info-card tilt transform chain; kept `will-change: transform` as the canonical hint for hover/interaction-driven elements, and kept `translateZ(0)` only on .hero-text-overlay (always-running heroBreath animation).",
+      "Consolidated inline cubic-bezier() values onto --ease-smooth / --ease-elastic CSS variables wherever they matched (scrollReveal animation, ws-cat-panel collapsible, ws-cat-chevron, stripe-tooltip, sidebar-collapse transition, workshop-category border-color). Kept the two Material-style one-off curves used by view-transition old/new root with an explanatory comment.",
+      "Tilt-reset listener switched from per-element `mouseleave` (which only covered the initial card set) to a delegated `mouseout` on document with a relatedTarget containment check, so dynamically-added .entry-block / .profile-info-card cards reset their 3D tilt correctly when the pointer leaves them.",
+      "Tooltip-hiding scroll listener now uses { passive: true, capture: true } and is RAF-throttled, matching the canvas rect-tracking scroll listener pattern (was previously an unthrottled, non-passive class mutation on every scroll event).",
+      "Deleted orphaned @keyframes focusPulse — dead code left over from an earlier fix that replaced the focus pulse animation with a static :focus-visible outline.",
+      "Rewrote the stale AUDIT SUMMARY comment block at the top of <style> — removed references to selectors (.matrix-table, .explore-section, .config-fab, .config-modal-panel, .px-card, .prof-prof-item) that were removed in the dead-code cleanup, and added a PERF / SMOOTHNESS PASS section documenting this round's changes."
+    ],
+    "additionalPolishFixes": [
+      "Converted .ws-visual-map-pill::after / .graph-back-btn::after sheen animation from `left: -100% → 100%` to `transform: translateX(-100%) → translateX(250%)`. Animating `left` forces layout recalculation each frame; `transform` runs on the compositor thread. Visual identical — the gradient sheen still sweeps across the button on hover.",
+      "Converted .track-card::before accent-strip hover animation from `width: 8px → 12px` to `transform: scaleX(1) → scaleX(1.5)` with `transform-origin: left`. Same reasoning — `width` forces layout, `transform` is compositor-friendly. Updated both :hover and .active variants for consistency."
+    ],
+    "skipped": [
+      "Box-shadow-on-hover refactor for repeated cards (.entry-block, .skill-row, .timeline-content): the hover state uses multi-layer neumorphic shadows that don't have a clean drop-shadow pseudo-element equivalent; refactoring would alter the at-rest visual, which is out of scope per the keep-visual-design constraint. The explicit transition list (covered above) is the safe improvement; the box-shadow repaint cost on hover remains.",
+      "max-height → grid-template-rows conversion for collapsibles: the only remaining max-height transition in the file is inside `@supports not (grid-template-rows: 1fr)`, which is the graceful-degradation fallback for browsers that don't support the modern technique. The main .ws-cat-panel rule already uses grid-template-rows: 0fr → 1fr. Nothing to convert."
+    ],
+    "highestImpactChange": "Removing backdrop-filter from .entry-block. There can be 10-20 entry-blocks visible at once inside #content-workspace (which already applies the same blur), so the second per-card blur was paying full GPU cost for a visually redundant double-blur. This single change removes more per-frame GPU work than all the transition-property-list fixes combined."
   }
 }
