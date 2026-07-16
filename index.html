@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <link href="https://parsaeian.ai" rel="canonical"/>
-<link href="https://parsaeian.ai#fa" hreflang="fa" rel="alternate"/>
-<link href="https://parsaeian.ai#en" hreflang="en" rel="alternate"/>
+<link href="https://parsaeian.ai/fa" hreflang="fa" rel="alternate"/>
+<link href="https://parsaeian.ai/en" hreflang="en" rel="alternate"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV</title>
 <meta content="Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV. Specialist in LLM Prompt Engineering, Human-AI Interaction, and Cognitive Science." name="description"/>
@@ -25,7 +25,7 @@
 <meta content="https://parsaeian.ai/assets/og-preview.png" name="twitter:image"/>
 <meta content="Seyed Ehsan Parsaeian — AI Portfolio &amp; Research CV" name="twitter:image:alt"/>
 <link href="https://parsaeian.ai/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="data:," rel="icon" sizes="any"/>
+<link href="https://parsaeian.ai/assets/favicon.ico" rel="icon" sizes="any"/>
 <link href="https://parsaeian.ai/assets/apple-touch-icon.png" rel="icon" type="image/png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -93,6 +93,7 @@
 
         class ScrollTellingEngine {
             constructor() {
+                this.observer = null;
                 if (window.innerWidth >= 968) this.setupScrollTriggers();
             }
 
@@ -103,7 +104,7 @@
                 // the position of the element within the current intersection batch
                 // (capped at 0.6s), so cards far down the page no longer accumulate
                 // multi-second delays before they animate in.
-                const observer = new IntersectionObserver((entries) => {
+                this.observer = new IntersectionObserver((entries) => {
                     if (window.innerWidth < 968) return;
                     entries.forEach((entry, batchIndex) => {
                         if (entry.isIntersecting) {
@@ -117,7 +118,14 @@
                         }
                     });
                 }, { threshold: 0.3 });
-                elements.forEach(el => observer.observe(el));
+                elements.forEach(el => this.observer.observe(el));
+            }
+
+            destroy() {
+                if (this.observer) {
+                    this.observer.disconnect();
+                    this.observer = null;
+                }
             }
         }
 
@@ -130,15 +138,32 @@
 <script>
         document.documentElement.classList.add('js-enabled');
 
-        const savedLang = localStorage.getItem('lang') || 'en';
+        // Safe localStorage access with try-catch to handle private browsing or storage restrictions
+        function safeGetLocalStorage(key, defaultValue) {
+            try {
+                return localStorage.getItem(key) || defaultValue;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+
+        function safeSetLocalStorage(key, value) {
+            try {
+                localStorage.setItem(key, value);
+            } catch (e) {
+                // Silently fail in private browsing or restricted contexts
+            }
+        }
+
+        const savedLang = safeGetLocalStorage('lang', 'en');
         // Auto-detect dark mode on first visit if user hasn't set a theme yet
-        if (!localStorage.getItem('theme')) {
+        if (!safeGetLocalStorage('theme', null)) {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
         } else {
-            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+            document.documentElement.setAttribute('data-theme', safeGetLocalStorage('theme', 'light'));
         }
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = safeGetLocalStorage('theme', 'light');
 
         document.documentElement.setAttribute('lang', savedLang);
         document.documentElement.setAttribute('dir', savedLang === 'fa' ? 'rtl' : 'ltr');
@@ -9709,7 +9734,7 @@ function initSiteScripts() {
                 startViewTransition(() => {
                     const isDark = root.getAttribute('data-theme') === 'dark';
                     root.setAttribute('data-theme', isDark ? 'light' : 'dark');
-                    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+                    safeSetLocalStorage('theme', isDark ? 'light' : 'dark');
                     updateThemeUI();
                     // radar charts removed
                     if (window.__redrawGraph) window.__redrawGraph();
@@ -9759,7 +9784,7 @@ function initSiteScripts() {
             function setDocumentLanguage(lang) {
                 root.setAttribute('lang', lang);
                 root.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
-                localStorage.setItem('lang', lang);
+                safeSetLocalStorage('lang', lang);
                 document.title = lang === 'fa'
                     ? "سید احسان پارسائیان — رزومه تخصصی هوش مصنوعی"
                     : "Seyed Ehsan Parsaeian — AI Portfolio & Research CV";
@@ -10204,11 +10229,11 @@ function initSiteScripts() {
         // radar charts removed
         if (window.__redrawGraph) window.__redrawGraph();
         if (window.__initWorkshopAccordion) window.__initWorkshopAccordion();
-        if (window.__initAaif) { try { window.__initAaif(); } catch (e) { console.error('[AAIF reinit]', e); } }
+        if (window.__initAaif) { try { window.__initAaif(); } catch (e) { /* Production-safe: silent fail or send to logging service */ } }
         // Item 4 — re-render the Stripe-Docs curriculum explorer so it picks up
         // refreshed aaif data (domains / modules / domainLayers) after SWR refresh.
         if (window.__renderCurriculumExplorer) {
-            try { window.__renderCurriculumExplorer(window.__siteData); } catch (e) { console.error('[Curriculum Explorer reinit]', e); }
+            try { window.__renderCurriculumExplorer(window.__siteData); } catch (e) { /* Production-safe: silent fail or send to logging service */ }
         }
     };
 }
@@ -10227,10 +10252,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(resp => resp.ok ? resp.json() : null)
                 .then(newData => {
                     if (newData) {
-                        const oldDataStr = localStorage.getItem('site_resume_data');
+                        const oldDataStr = safeGetLocalStorage('site_resume_data');
                         const newDataStr = JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: newData });
                         if (oldDataStr !== newDataStr) {
-                            localStorage.setItem('site_resume_data', newDataStr);
+                            safeSetLocalStorage('site_resume_data', newDataStr);
                             window.__siteData = newData; window.__renderSite(newData);
                             if (window.__reinitDynamicComponents) {
                                 window.__reinitDynamicComponents();
@@ -10240,7 +10265,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).catch(() => {});
             return;
         } catch (e) {
-            localStorage.removeItem('site_resume_data');
+            try { localStorage.removeItem('site_resume_data'); } catch (ex) {}
         }
     }
 
@@ -10250,12 +10275,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return resp.json();
         })
         .then(function (data) {
-            localStorage.setItem('site_resume_data', JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: data }));
+            safeSetLocalStorage('site_resume_data', JSON.stringify({ v: window.SITE_DATA_CACHE_VERSION || 1, data: data }));
             window.__siteData = data; window.__renderSite(data);
             initSiteScripts();
         })
         .catch(function (err) {
-            console.error('[site-renderer] Failed to load site data:', err);
+            // Production-safe error handling - silent fail or send to logging service
+            // console.error('[site-renderer] Failed to load site data:', err);
         });
 });
 </script>
