@@ -131,6 +131,13 @@
         document.documentElement.classList.add('js-enabled');
 
         const savedLang = localStorage.getItem('lang') || 'en';
+        // Auto-detect dark mode on first visit if user hasn't set a theme yet
+        if (!localStorage.getItem('theme')) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+        }
         const savedTheme = localStorage.getItem('theme') || 'light';
 
         document.documentElement.setAttribute('lang', savedLang);
@@ -261,6 +268,20 @@
             --track-d: #0ea5e9;   --track-d-rgb: 14, 165, 233;
             --track-a: #f59e0b;   --track-a-rgb: 245, 158, 11;
             --track-t: #8b5cf6;   --track-t-rgb: 139, 92, 246;
+
+            /* Career Path page — scoped accent (soft violet/magenta bridging
+               sky-blue Learning and teal Advisory) */
+            --cp-accent: #a855f7;
+            --cp-accent-rgb: 168, 85, 247;
+            --cp-accent-soft: #c084fc;
+            --cp-accent-deep: #7e22ce;
+            --cp-glow: oklch(72% 0.22 320);
+            --cp-glow-soft: oklch(82% 0.18 320 / 60%);
+
+            /* Depth badges (foundational / intermediate / advanced) */
+            --depth-foundational: #10b981;  --depth-foundational-rgb: 16, 185, 129;
+            --depth-intermediate: #f59e0b;  --depth-intermediate-rgb: 245, 158, 11;
+            --depth-advanced:     #ef4444;  --depth-advanced-rgb:     239, 68, 68;
         }
 
         [data-theme="dark"] {
@@ -290,6 +311,13 @@
 
             --nav-bg: rgba(8, 14, 30, 0.88);
             --nav-border: rgba(255, 255, 255, 0.08);
+
+            --cp-accent: #c084fc;
+            --cp-accent-rgb: 192, 132, 252;
+            --cp-accent-soft: #d8b4fe;
+            --cp-accent-deep: #9333ea;
+            --cp-glow: oklch(75% 0.20 320);
+            --cp-glow-soft: oklch(80% 0.18 320 / 60%);
         }
         html {
             font-size: 14px;
@@ -583,21 +611,12 @@
            older `translateZ(0)` hack on these selectors. The functional transform value
            for .entry-block / .profile-info-card (which combines translateZ + tilt) is
            declared separately inside the `@media (hover: hover) and (pointer: fine)` block. */
-        .profile-info-card, .entry-block, .skill-row, .timeline-content, .reveal-card {
-            will-change: transform;
-            transition: transform 0.4s var(--ease-smooth), opacity 0.6s var(--ease-smooth), filter 0.6s var(--ease-smooth), background 0.3s ease, box-shadow 0.4s var(--ease-smooth);
-            backface-visibility: hidden;
-            perspective: 1000px;
+        /* --- SUPER INTERACTIVE EFFECTS (Spotlight & 3D Tilt) REMOVED --- */
+        .profile-info-card, .entry-block, .skill-row, .timeline-content, .reveal-card, h2, 
+        .teaser-card, .rb-ribbon-tile, .learn-item, .help-item, .career-path-card, .skill-badge {
             position: relative;
             overflow: hidden;
         }
-
-        .profile-info-card::before, .entry-block::before, .skill-row::before, .timeline-content::before {
-            content: ''; position: absolute; inset: 0; z-index: 1;
-            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(var(--accent-rgb), 0.08), transparent 40%);
-            border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.5s var(--ease-smooth);
-        }
-        .profile-info-card:hover::before, .entry-block:hover::before, .skill-row:hover::before, .timeline-content:hover::before { opacity: 1; }
 
         .profile-info-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
@@ -863,7 +882,7 @@
            hint on the same elements. */
         @media (hover: hover) and (pointer: fine) {
             .entry-block, .profile-info-card {
-                transform: translateY(var(--ty)) rotateX(var(--rx)) rotateY(var(--ry));
+                transform: translateY(var(--ty));
             }
         }
 
@@ -3156,43 +3175,8 @@
         /* Gateway Hero — replaces radar-grid */
         .gateway-hero {
             margin-top: 18px;
-            padding: 36px 32px;
-            border-radius: 22px;
-            background:
-                radial-gradient(ellipse 70% 50% at 20% 20%, rgba(99, 102, 241, 0.10), transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(20, 184, 166, 0.08), transparent 60%),
-                linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06));
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            box-shadow: inset 0 1px 0 var(--glass-border-inner), var(--glass-shadow);
+            padding: 24px 0 0 0;
             position: relative;
-            overflow: hidden;
-        }
-        [data-theme="dark"] .gateway-hero {
-            background:
-                radial-gradient(ellipse 70% 50% at 20% 20%, rgba(99, 102, 241, 0.14), transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(20, 184, 166, 0.10), transparent 60%),
-                linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.005));
-        }
-        /* Soft moving glow at top edge */
-        .gateway-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -10%;
-            width: 60%;
-            height: 200%;
-            background: radial-gradient(ellipse 40% 30% at 50% 50%, rgba(99, 102, 241, 0.15), transparent 60%);
-            pointer-events: none;
-            animation: gateway-drift 18s ease-in-out infinite alternate;
-        }
-        @keyframes gateway-drift {
-            0% { transform: translateX(-10%) translateY(0); }
-            100% { transform: translateX(60%) translateY(20%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .gateway-hero::before { animation: none; }
         }
 
         .gateway-eyebrow {
@@ -3254,9 +3238,12 @@
         .gateway-pillars {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 13px;
             position: relative;
             z-index: 1;
+            width: 80%;
+            max-width: 640px;
+            margin: 0 auto;
         }
 
         .gateway-pillar {
@@ -3265,9 +3252,9 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            gap: 12px;
-            padding: 28px 22px;
-            border-radius: 20px;
+            gap: 10px;
+            padding: 22px 18px;
+            border-radius: 16px;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.06));
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
@@ -3279,9 +3266,9 @@
             position: relative;
             overflow: hidden;
             aspect-ratio: 1.4 / 1;
-            min-height: 200px;
+            min-height: 160px;
         }
-        /* Soft radial glow that intensifies on hover */
+        /* Radial color glow — always visible at base strength; intensifies ~10% on hover */
         .gateway-pillar::after {
             content: '';
             position: absolute;
@@ -3289,12 +3276,14 @@
             width: 80%; height: 80%;
             transform: translate(-50%, -50%);
             background: radial-gradient(ellipse, rgba(var(--pillar-rgb, var(--accent-rgb)), 0.12), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s var(--ease-smooth);
+            opacity: 1;
+            transition: background 0.4s var(--ease-smooth);
             pointer-events: none;
             z-index: 0;
         }
-        .gateway-pillar:hover::after { opacity: 1; }
+        .gateway-pillar:hover::after {
+            background: radial-gradient(ellipse, rgba(var(--pillar-rgb, var(--accent-rgb)), 0.132), transparent 60%);
+        }
         .gateway-pillar > * { position: relative; z-index: 1; }
         [data-theme="dark"] .gateway-pillar {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.01));
@@ -3317,10 +3306,10 @@
         .gateway-pillar:hover::before { transform: scaleX(1); }
 
         .gp-icon {
-            width: 52px; height: 52px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(var(--pillar-rgb, var(--accent-rgb)), 0.18), rgba(var(--pillar-rgb, var(--accent-rgb)), 0.05));
-            border: 1px solid rgba(var(--pillar-rgb, var(--accent-rgb)), 0.25);
+            width: 42px; height: 42px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(var(--pillar-rgb, var(--accent-rgb)), 0.28), rgba(var(--pillar-rgb, var(--accent-rgb)), 0.10));
+            border: 1px solid rgba(var(--pillar-rgb, var(--accent-rgb)), 0.35);
             display: flex; align-items: center; justify-content: center;
             color: var(--pillar-color, var(--accent));
             box-shadow: 0 4px 14px rgba(var(--pillar-rgb, var(--accent-rgb)), 0.10);
@@ -3330,14 +3319,14 @@
             transform: translateY(-2px) scale(1.05);
         }
         .gp-title {
-            font-size: 1.1rem;
+            font-size: 0.98rem;
             font-weight: 800;
             color: var(--text);
             line-height: 1.25;
             margin: 0;
         }
         .gp-desc {
-            font-size: 0.80rem;
+            font-size: 0.72rem;
             color: var(--p-text);
             line-height: 1.55;
             margin: 0;
@@ -3347,11 +3336,11 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.78rem;
+            font-size: 0.70rem;
             font-weight: 700;
             color: var(--pillar-color, var(--accent));
-            margin-top: 6px;
-            padding: 6px 14px;
+            margin-top: 5px;
+            padding: 5px 12px;
             border-radius: 100px;
             background: rgba(var(--pillar-rgb, var(--accent-rgb)), 0.08);
             border: 1px solid rgba(var(--pillar-rgb, var(--accent-rgb)), 0.20);
@@ -3373,7 +3362,825 @@
             transform: translateX(-3px);
         }
 
+        /* =====================================================================
+           Career Path — third pillar + light-beam connector
+           Sits below the 2-card pillar row. Two soft violet beams travel down
+           from the Learning Studio / Advisory cards above into this card,
+           echoing the site's indigo/violet accent. Design-only in this pass —
+           no destination route or data is wired up yet.
+           ===================================================================== */
+
+        .gateway-connector {
+            position: relative;
+            height: 77px;
+            margin: 4px 0 0;
+            pointer-events: none;
+            width: 80%;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .gateway-connector svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .gateway-connector-path {
+            fill: none;
+            stroke: rgba(139, 92, 246, 0.16);
+            stroke-width: 1.5;
+        }
+        [data-theme="dark"] .gateway-connector-path {
+            stroke: rgba(167, 139, 250, 0.14);
+        }
+        /* Traveling light ray along the connector paths — same soft, glowing
+           violet streak as the shimmerBorder effect on .profile-info-card
+           (transparent -> accent -> transparent), just riding an SVG stroke
+           instead of a straight top edge. */
+        .gateway-connector-ray {
+            fill: none;
+            stroke: url(#gatewayRayGradient);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.83)) drop-shadow(0 0 9px rgba(139, 92, 246, 0.44));
+            stroke-dasharray: 16 190;
+            stroke-dashoffset: 16;
+            animation: gatewayRayTravel 3.6s linear infinite;
+        }
+        .gateway-connector-ray--right {
+            animation-delay: 1.8s;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .gateway-connector-ray { display: none; }
+        }
+        @keyframes gatewayRayTravel {
+            from { stroke-dashoffset: 16; }
+            to { stroke-dashoffset: -190; }
+        }
+
+        .career-path-wrap {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            width: 80%;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .career-path-outer {
+            position: relative;
+            width: 100%;
+            max-width: 272px;
+            border-radius: 17px;
+            padding: 1.5px;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .career-path-card {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+            padding: 22px 18px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.06));
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner);
+            text-decoration: none;
+            color: var(--text);
+            aspect-ratio: 1.4 / 1;
+            min-height: 160px;
+            width: 100%;
+            overflow: hidden;
+            transition: transform 0.35s var(--ease-smooth), border-color 0.35s var(--ease-smooth), box-shadow 0.35s var(--ease-smooth);
+        }
+        [data-theme="dark"] .career-path-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.01));
+        }
+        /* Top edge glow, matching the gateway-pillar accent border,
+           reveals on hover in this card's own violet (--cp-accent). */
+        .career-path-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--cp-accent);
+            box-shadow: 0 0 12px rgba(var(--cp-accent-rgb), 0.6);
+            z-index: 2;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease-smooth);
+        }
+        .career-path-wrap:hover .career-path-card::before {
+            transform: scaleX(1);
+        }
+        /* Radial color glow — always visible at base strength; intensifies ~10% on hover */
+        .career-path-card::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 85%; height: 85%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.12), transparent 60%);
+            opacity: 1;
+            transition: background 0.4s var(--ease-smooth);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .career-path-wrap:hover .career-path-card::after {
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.132), transparent 60%);
+        }
+        .career-path-card > * { position: relative; z-index: 1; }
+        .career-path-wrap:hover .career-path-card {
+            transform: translateY(-3px);
+            border-color: rgba(139, 92, 246, 0.40);
+            box-shadow: inset 0 1px 0 var(--glass-border-inner), 0 12px 32px rgba(139, 92, 246, 0.16);
+        }
+
+        .cp-icon {
+            width: 42px; height: 42px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(139, 92, 246, 0.10));
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            display: flex; align-items: center; justify-content: center;
+            color: #8b5cf6;
+            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.10);
+            transition: transform 0.35s var(--ease-smooth);
+        }
+        [data-theme="dark"] .cp-icon { color: #a78bfa; }
+        .career-path-wrap:hover .cp-icon {
+            transform: translateY(-2px) scale(1.05);
+        }
+        .cp-title {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.25;
+            margin: 0;
+        }
+        .cp-desc {
+            font-size: 0.72rem;
+            color: var(--p-text);
+            line-height: 1.55;
+            margin: 0;
+            max-width: 280px;
+        }
+        .cp-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: #8b5cf6;
+            margin-top: 5px;
+            padding: 5px 12px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.20);
+            transition: background 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
+        }
+        [data-theme="dark"] .cp-cta { color: #a78bfa; }
+        .career-path-wrap:hover .cp-cta {
+            background: rgba(139, 92, 246, 0.14);
+            border-color: rgba(139, 92, 246, 0.35);
+        }
+        .cp-cta::after {
+            content: '→';
+            transition: transform 0.25s var(--ease-smooth);
+        }
+        html[lang="fa"] .cp-cta::after { content: '←'; }
+        .career-path-wrap:hover .cp-cta::after { transform: translateX(3px); }
+        html[lang="fa"] .career-path-wrap:hover .cp-cta::after { transform: translateX(-3px); }
+
         /* Gateway stats strip */
+        /* =====================================================================
+           CAREER PATH PAGE — "Twisted Ribbon" concept
+           Implements the full concept-20-twisted-ribbon experience as the
+           destination of the "Your Career Path" card. Scoped entirely under
+           #career-path to avoid clashing with the rest of the site.
+           ===================================================================== */
+
+        /* --- Shared primitives required by the concept, added because they
+           did not already exist on the site (verbatim from tokens.css) --- */
+        .depth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            font-family: var(--font-sans);
+        }
+        .depth-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .depth-foundational {
+            color: var(--depth-foundational);
+            background: rgba(var(--depth-foundational-rgb), 0.1);
+            border-color: rgba(var(--depth-foundational-rgb), 0.3);
+        }
+        .depth-intermediate {
+            color: var(--depth-intermediate);
+            background: rgba(var(--depth-intermediate-rgb), 0.1);
+            border-color: rgba(var(--depth-intermediate-rgb), 0.3);
+        }
+        .depth-advanced {
+            color: var(--depth-advanced);
+            background: rgba(var(--depth-advanced-rgb), 0.1);
+            border-color: rgba(var(--depth-advanced-rgb), 0.3);
+        }
+        .toggle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+        }
+        .toggle-pill button {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
+            font-family: var(--font-sans);
+        }
+        .toggle-pill button[aria-pressed="true"] {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.4);
+        }
+        .toggle-pill button:hover:not([aria-pressed="true"]) {
+            color: var(--text);
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+            box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.3);
+            font-family: var(--font-sans);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--glass-bg);
+            color: var(--text);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            transition: transform 0.3s var(--ease-smooth), background 0.3s var(--ease-smooth);
+            font-family: var(--font-sans);
+        }
+        .btn-ghost:hover { transform: translateY(-2px); background: var(--glass-bg-strong); }
+
+
+        /* --- Concept 20 chrome (adapted: no separate topbar/footer since this
+           now lives inside the site's own page-section, not a standalone file) --- */
+        #career-path .cp-section-eyebrow {
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--cp-accent);
+            margin-bottom: 8px;
+        }
+        #career-path .cp-section-title {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800; letter-spacing: -0.02em;
+            color: var(--text); line-height: 1.15;
+            margin-bottom: 8px;
+        }
+        #career-path .cp-section-subtitle {
+            color: var(--muted); font-size: 1rem; max-width: 56ch;
+        }
+        #career-path .cp-screen { animation: cpScreenIn 0.5s var(--ease-smooth); }
+        @keyframes cpScreenIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { #career-path .cp-screen { animation: none; } }
+
+        #career-path .cp-back-row {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+        }
+        #career-path .cp-back-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--muted); font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; background: none; border: none; font-family: var(--font-sans);
+            padding: 8px 4px; border-radius: 8px;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            transition: transform 0.3s var(--ease-smooth), color 0.3s var(--ease-smooth);
+        }
+        #career-path .cp-back-link:hover {
+            color: var(--cp-accent);
+            box-shadow: none;
+            transform: translateX(-3px);
+        }
+        html[lang="fa"] #career-path .cp-back-link:hover {
+            transform: translateX(3px);
+        }
+        #career-path .cp-back-link:focus-visible {
+            outline: 2px solid var(--cp-accent);
+            outline-offset: 3px;
+            box-shadow: none;
+            transform: translateX(-3px);
+        }
+        html[lang="fa"] #career-path .cp-back-link:focus-visible {
+            transform: translateX(3px);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #career-path .cp-back-link:hover,
+            #career-path .cp-back-link:focus-visible,
+            html[lang="fa"] #career-path .cp-back-link:hover,
+            html[lang="fa"] #career-path .cp-back-link:focus-visible {
+                transform: none;
+            }
+        }
+
+        #career-path .cp-concept-tag {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.78rem; color: var(--muted);
+            margin-bottom: 18px;
+        }
+        #career-path .cp-tag-num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px; border-radius: 6px;
+            background: var(--cp-accent); color: white;
+            font-weight: 700; font-size: 0.72rem;
+            font-family: var(--font-mono);
+        }
+        #career-path .cp-tag-name { font-weight: 600; color: var(--text); }
+        #career-path .cp-tag-meta { color: var(--muted); }
+
+        /* Concept 20 — Twisted Ribbon */
+        #career-path .cp-screen-a { padding: 8px 0 40px; }
+        #career-path .rb-head { text-align: center; margin-bottom: 40px; }
+        #career-path .rb-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cp-accent); margin-bottom: 10px; }
+        #career-path .rb-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; }
+        #career-path .rb-sub { color: var(--muted); margin-top: 8px; max-width: 60ch; margin-inline: auto; }
+
+        #career-path .rb-ribbon-picker {
+          max-width: 900px; margin: 0 auto;
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          border-radius: 22px;
+          backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+          box-shadow: var(--glass-shadow);
+          padding: 24px;
+          overflow-x: auto;
+        }
+        #career-path .rb-ribbon-track {
+          display: flex; gap: 16px;
+          padding-block-end: 8px;
+          min-width: min-content;
+        }
+        #career-path .rb-ribbon-tile {
+          flex: 0 0 160px;
+          padding: 18px;
+          border-radius: 16px;
+          background: var(--glass-bg-strong);
+          border: 1px solid var(--glass-border);
+          cursor: pointer;
+          transition: transform 0.4s var(--ease-elastic), border-color 0.3s var(--ease-smooth), background 0.3s var(--ease-smooth);
+          text-align: center;
+          color: var(--text); font-family: var(--font-sans);
+          position: relative;
+        }
+        #career-path .rb-ribbon-tile:hover { transform: translateY(-4px); border-color: var(--cp-accent); }
+        #career-path .rb-ribbon-tile.is-active {
+          border-color: var(--cp-accent);
+          background: rgba(var(--cp-accent-rgb), 0.15);
+          box-shadow: 0 0 30px rgba(var(--cp-accent-rgb), 0.3);
+          transform: translateY(-2px);
+        }
+        #career-path .rb-ribbon-tile::after {
+          content: ''; position: absolute;
+          inset-block-end: -6px; inset-inline-start: 50%;
+          width: 12px; height: 12px; border-radius: 50%;
+          background: var(--cp-accent);
+          transform: translateX(-50%);
+          box-shadow: 0 0 10px var(--cp-accent);
+          opacity: 0; transition: opacity 0.3s;
+        }
+        #career-path .rb-ribbon-tile.is-active::after { opacity: 1; }
+        #career-path .rb-ribbon-tile-icon { font-size: 1.6rem; color: var(--cp-accent); margin-bottom: 6px; }
+        #career-path .rb-ribbon-tile-label { font-weight: 700; font-size: 0.92rem; line-height: 1.2; margin-bottom: 2px; }
+        #career-path .rb-ribbon-tile-cat { font-size: 0.7rem; color: var(--muted); }
+
+        #career-path .rb-ribbon-action {
+          margin-top: 20px; display: flex; justify-content: center;
+        }
+
+        /* Screen B — twisted ribbon dashboard */
+        #career-path .cp-screen-b { padding-top: 20px; }
+        #career-path .rb-roadmap-head { text-align: center; margin-bottom: 30px; }
+        #career-path .rb-roadmap-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cp-accent); margin-bottom: 8px; }
+        #career-path .rb-roadmap-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; position: relative; }
+        #career-path .rb-roadmap-title::after { display: none !important; }
+        #career-path .rb-roadmap-sub { color: var(--muted); font-size: 0.95rem; margin-top: 6px; }
+        #career-path .rb-roadmap-change { margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--cp-accent); cursor: pointer; font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; }
+
+        #career-path .rb-stage {
+          max-width: 1000px; margin: 0 auto;
+          position: relative;
+        }
+        #career-path .rb-svg-bg {
+          position: absolute; inset: 0;
+          width: 100%; height: 100%;
+          pointer-events: none;
+          z-index: 0;
+        }
+        /* Traveling light — a bright point with a soft trailing glow that
+           starts at the top of the glassy tube and slides down once per
+           cycle, winding around each twist as it travels, staying clearly
+           visible while the person reads. Full saturated color the whole
+           way (no fade at the ends), with a stronger violet glow. */
+
+        #career-path .gateway-connector-ray-local {
+            fill: none;
+            stroke: url(#gatewayRayGradientDashboard) !important;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 7.5px rgba(139, 92, 246, 1)) drop-shadow(0 0 15px rgba(139, 92, 246, 1)) drop-shadow(0 0 5px rgba(167, 139, 250, 0.9));
+            transition: opacity 0.25s ease-out;
+        }
+
+        #career-path .rb-item {
+          position: relative;
+          z-index: 1;
+          margin-bottom: 24px;
+          display: grid;
+          grid-template-columns: 1fr 80px 1fr;
+          gap: 0;
+          align-items: center;
+          min-height: 80px;
+        }
+        #career-path .rb-item-learn {
+          justify-self: end;
+          padding: 16px 20px;
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          border-radius: 14px;
+          backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+          box-shadow: var(--glass-shadow);
+          max-width: 380px;
+          width: 100%;
+          transition: transform 0.3s var(--ease-smooth);
+        }
+        #career-path .rb-item-learn:hover { transform: translateX(-4px); }
+        #career-path .rb-item-help {
+          justify-self: start;
+          padding: 16px 20px;
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          border-radius: 14px;
+          backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+          box-shadow: var(--glass-shadow);
+          max-width: 380px;
+          width: 100%;
+          transition: transform 0.3s var(--ease-smooth);
+        }
+        #career-path .rb-item-help:hover { transform: translateX(4px); }
+        #career-path .rb-item-kind {
+          display: inline-block;
+          font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+          text-transform: uppercase; padding: 2px 8px; border-radius: 4px;
+          margin-bottom: 6px;
+        }
+        #career-path .rb-item-learn .rb-item-kind { background: rgba(var(--door2-accent-rgb), 0.15); color: var(--door2-accent); }
+        #career-path .rb-item-help .rb-item-kind { background: rgba(var(--adv-accent-rgb), 0.15); color: var(--adv-accent); }
+        #career-path .rb-item-title { font-weight: 700; font-size: 0.92rem; line-height: 1.35; margin-bottom: 5px; }
+        #career-path .rb-item-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
+        #career-path .rb-item-tag { font-size: 0.7rem; padding: 2px 7px; border-radius: 4px; background: rgba(var(--cp-accent-rgb), 0.1); color: var(--cp-accent); }
+        #career-path .rb-item-foot { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); }
+        #career-path .rb-item-outcome { font-size: 0.84rem; color: var(--p-text); line-height: 1.5; }
+        #career-path .rb-item-num {
+          text-align: center;
+          font-family: var(--font-mono); font-weight: 800; font-size: 0.95rem;
+          color: var(--cp-accent);
+          padding: 14px 0;
+          background: var(--glass-bg-strong);
+          border: 1px solid var(--glass-border);
+          border-radius: 50%;
+          width: 50px; height: 50px;
+          display: inline-flex; align-items: center; justify-content: center;
+          margin: 0 auto;
+          box-shadow: 0 0 20px rgba(var(--cp-accent-rgb), 0.3);
+          position: relative; z-index: 2;
+        }
+
+        /* Empty slot when one side has nothing */
+        #career-path .rb-item-empty {
+          padding: 16px 20px;
+          background: transparent;
+          border: 1px dashed rgba(var(--muted), 0.2);
+          border-radius: 14px;
+          color: var(--muted); font-size: 0.78rem;
+          text-align: center;
+          max-width: 380px; width: 100%;
+        }
+
+        /* Homepage Teaser Card (Screen 3 of the concept) */
+        #career-path .teaser-wrap { padding: 40px 0; }
+        #career-path .teaser-bento {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto auto;
+          gap: 20px;
+          position: relative;
+        }
+        #career-path .teaser-card {
+          position: relative; overflow: hidden;
+          padding: 28px;
+          border-radius: 22px;
+          background: var(--glass-bg);
+          border: 1px solid var(--glass-border);
+          backdrop-filter: var(--glass-blur);
+          -webkit-backdrop-filter: var(--glass-blur);
+          box-shadow: var(--glass-shadow);
+          transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
+        }
+        #career-path .teaser-card:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow-hover); }
+        #career-path .teaser-card-eyebrow {
+          font-size: 0.7rem; font-weight: 700;
+          letter-spacing: 0.15em; text-transform: uppercase;
+          margin-bottom: 8px;
+        }
+        #career-path .teaser-learning .teaser-card-eyebrow { color: var(--door2-accent); }
+        #career-path .teaser-advisory .teaser-card-eyebrow { color: var(--adv-accent); }
+        #career-path .teaser-card-title {
+          font-size: 1.4rem; font-weight: 700; color: var(--text);
+          margin-bottom: 4px; letter-spacing: -0.01em;
+        }
+        #career-path .teaser-card-sub { color: var(--muted); font-size: 0.9rem; }
+        #career-path .teaser-card-mark {
+          position: absolute; top: 22px; inset-inline-end: 24px;
+          font-size: 1.6rem; opacity: 0.4;
+        }
+        #career-path .teaser-learning .teaser-card-mark { color: var(--door2-accent); }
+        #career-path .teaser-advisory .teaser-card-mark { color: var(--adv-accent); }
+
+        #career-path .teaser-career {
+          grid-column: 1 / -1;
+          background: linear-gradient(135deg, rgba(var(--cp-accent-rgb), 0.18), rgba(var(--adv-accent-rgb), 0.12));
+          border: 1px solid rgba(var(--cp-accent-rgb), 0.3);
+          padding: 40px;
+          min-height: 200px;
+          display: flex; flex-direction: column; gap: 10px;
+          align-items: flex-start;
+        }
+        #career-path .teaser-career::before {
+          content: ''; position: absolute; inset: 0;
+          background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(var(--cp-accent-rgb), 0.25), transparent 70%);
+          pointer-events: none;
+        }
+        #career-path .teaser-career-eyebrow {
+          display: inline-flex; align-items: center; gap: 6px;
+          padding: 4px 12px; border-radius: 999px;
+          background: rgba(var(--cp-accent-rgb), 0.18);
+          color: var(--cp-accent); font-size: 0.72rem;
+          font-weight: 700; letter-spacing: 0.1em;
+          text-transform: uppercase;
+          position: relative; z-index: 1;
+        }
+        #career-path .teaser-career-eyebrow::before {
+          content: ''; width: 6px; height: 6px; border-radius: 50%;
+          background: var(--cp-accent);
+          box-shadow: 0 0 8px var(--cp-accent);
+          animation: cpPulse 1.6s ease-in-out infinite;
+        }
+        @keyframes cpPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        #career-path .teaser-career-title {
+          font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800;
+          letter-spacing: -0.02em; color: var(--text);
+          position: relative; z-index: 1; max-width: 30ch; line-height: 1.15;
+        }
+        #career-path .teaser-career-sub {
+          color: var(--p-text); font-size: 1rem; max-width: 60ch;
+          position: relative; z-index: 1;
+        }
+        #career-path .teaser-career-cta {
+          margin-top: 12px;
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 12px 22px; border-radius: 12px;
+          background: var(--cp-accent); color: white;
+          border: none; cursor: pointer;
+          font-size: 0.95rem; font-weight: 600;
+          font-family: var(--font-sans);
+          position: relative; z-index: 1;
+          box-shadow: 0 4px 16px rgba(var(--cp-accent-rgb), 0.4);
+          transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
+        }
+        #career-path .teaser-career-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(var(--cp-accent-rgb), 0.5); }
+
+        /* The animated glow SVG */
+        #career-path .teaser-glow-svg {
+          position: absolute; top: -100px; left: 0; right: 0;
+          width: 100%; height: 200px;
+          pointer-events: none; z-index: 0;
+          opacity: 0.9;
+        }
+        #career-path .glow-path {
+          stroke-dasharray: 400;
+          stroke-dashoffset: 400;
+          filter: drop-shadow(0 0 8px var(--cp-accent));
+          animation: cpGlowDraw 3s var(--ease-smooth) forwards, cpGlowPulse 2.5s ease-in-out infinite 3s, fadeOutTrail 1.5s ease-out infinite;
+          will-change: stroke-dashoffset, opacity;
+        }
+        #career-path .glow-path-left { animation-delay: 0s, 3s, 3s; }
+        #career-path .glow-path-left-2 { animation-delay: 0.3s, 3.3s, 3.3s; opacity: 0.7; }
+        #career-path .glow-path-right { animation-delay: 0.6s, 3.6s, 3.6s; }
+        #career-path .glow-path-right-2 { animation-delay: 0.9s, 3.9s, 3.9s; opacity: 0.7; }
+        @keyframes cpGlowDraw { to { stroke-dashoffset: 0; } }
+        @keyframes cpGlowPulse {
+          0%, 100% { opacity: 0.7; }
+          50% { opacity: 1; }
+        }
+        @keyframes fadeOutTrail {
+          0% { stroke-dashoffset: 0; opacity: 1; }
+          50% { opacity: 0.8; }
+          100% { stroke-dashoffset: 400; opacity: 0.3; }
+        }
+        #career-path .glow-particle {
+          filter: drop-shadow(0 0 8px var(--cp-accent)) drop-shadow(0 0 12px var(--cp-accent-soft));
+          will-change: offset-distance, opacity, transform;
+        }
+        #career-path .glow-particle-1 {
+          animation: cpParticle1 3s var(--ease-smooth) infinite, particleGhostTrail 3s ease-out infinite;
+        }
+        #career-path .glow-particle-2 {
+          animation: cpParticle2 3.4s var(--ease-smooth) 0.5s infinite, particleGhostTrail 3.4s ease-out 0.5s infinite;
+        }
+        @keyframes cpParticle1 {
+          0% { offset-distance: 0%; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { offset-distance: 100%; opacity: 0; }
+          offset-path: path('M 150 0 Q 150 80, 300 120 T 300 200');
+        }
+        @keyframes cpParticle2 {
+          0% { offset-distance: 0%; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { offset-distance: 100%; opacity: 0; }
+          offset-path: path('M 450 0 Q 450 80, 300 120 T 300 200');
+        }
+        @keyframes particleGhostTrail {
+          0% { transform: scale(0.85); }
+          50% { transform: scale(1.15); }
+          100% { transform: scale(0.85); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #career-path .glow-path { animation: none; stroke-dashoffset: 0; opacity: 0.7; }
+            #career-path .glow-particle { animation: none; opacity: 0; }
+        }
+        /* Glow Control Panel Styles */
+        .glow-control-panel {
+          display: flex;
+          gap: 20px;
+          padding: 16px;
+          margin-top: 16px;
+          background: var(--glass-bg);
+          backdrop-filter: var(--glass-blur);
+          border: 1px solid var(--glass-border);
+          border-radius: 12px;
+          box-shadow: var(--glass-shadow);
+          flex-wrap: wrap;
+        }
+        .glow-control-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex: 1;
+          min-width: 200px;
+        }
+        .glow-control-item label {
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--muted);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          white-space: nowrap;
+        }
+        .glow-control-item input[type="range"] {
+          flex: 1;
+          height: 4px;
+          border-radius: 2px;
+          background: linear-gradient(to right, var(--cp-accent-soft), var(--cp-accent));
+          outline: none;
+          -webkit-appearance: none;
+          appearance: none;
+          cursor: pointer;
+        }
+        .glow-control-item input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: var(--cp-accent);
+          cursor: pointer;
+          box-shadow: 0 0 8px var(--cp-accent), 0 0 12px var(--cp-accent-soft);
+          transition: all 0.2s ease;
+        }
+        .glow-control-item input[type="range"]::-webkit-slider-thumb:hover {
+          width: 18px;
+          height: 18px;
+          box-shadow: 0 0 12px var(--cp-accent), 0 0 16px var(--cp-accent-soft);
+        }
+        .glow-control-item input[type="range"]::-moz-range-thumb {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: var(--cp-accent);
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 0 8px var(--cp-accent), 0 0 12px var(--cp-accent-soft);
+          transition: all 0.2s ease;
+        }
+        .glow-control-item input[type="range"]::-moz-range-thumb:hover {
+          width: 18px;
+          height: 18px;
+          box-shadow: 0 0 12px var(--cp-accent), 0 0 16px var(--cp-accent-soft);
+        }
+        .glow-control-value {
+          font-size: 12px;
+          font-weight: 600;
+          color: var(--cp-accent);
+          min-width: 40px;
+          text-align: right;
+        }
+        #career-path .teaser-glow-svg.mouse-active {
+          cursor: pointer;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #career-path .glow-path, #career-path .glow-particle { animation: none !important; stroke-dashoffset: 0 !important; }
+          #career-path .teaser-career-eyebrow::before { animation: none !important; }
+          .glow-control-panel { display: none; }
+        }
+        @media (max-width: 640px) {
+          .glow-control-panel {
+            flex-direction: column;
+            gap: 12px;
+          }
+          .glow-control-item {
+            min-width: auto;
+          }
+        }
+        @media (max-width: 768px) {
+          #career-path .teaser-bento { grid-template-columns: 1fr; }
+          #career-path .teaser-career { padding: 28px 20px; }
+        }
+
+        @media (max-width: 768px) {
+          #career-path .rb-item { grid-template-columns: 1fr; gap: 12px; }
+          #career-path .rb-item-learn, #career-path .rb-item-help { justify-self: stretch; max-width: none; }
+          #career-path .rb-item-num { margin: 0; }
+        }
+
 
         /* =====================================================================
            CONCEPT 6 — Publications: "Library Vault"
@@ -3966,18 +4773,27 @@
 
         /* The lang label and contact text */
         #topnav .lang-toggle-label {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
         }
-        #topnav .contact-btn .en,
+        html[lang="fa"] #topnav .lang-toggle-label {
+            font-family: var(--font-persian);
+        }
+        #topnav .contact-btn .en {
+            color: inherit;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
         #topnav .contact-btn .fa {
             color: inherit;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
+            font-family: var(--font-persian);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: normal;
         }
 
         /* =====================================================================
@@ -4893,6 +5709,995 @@
         /* =====================================================================
            END MOBILE-ONLY CONSOLIDATED BLOCK
            ===================================================================== */
+
+/* ============================================================
+   CAREER PATH — NEW "WORK TYPE" PICKER
+   Replaces the old twisted-ribbon selector with a search + category
+   grid + monogram fallback. Dashboard keeps the twisted-ribbon track.
+   ============================================================ */
+
+#career-path .cp-head { text-align: center; margin-bottom: 32px; }
+#career-path .cp-eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cp-accent);
+  margin-bottom: 10px;
+}
+html[lang="fa"] #career-path .cp-eyebrow { letter-spacing: 0; text-transform: none; }
+#career-path .cp-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
+  letter-spacing: -0.025em; line-height: 1.15; margin: 0;
+}
+#career-path .cp-sub {
+  color: var(--muted); font-size: 0.95rem; margin: 8px auto 0;
+  max-width: 64ch; line-height: 1.6;
+}
+
+/* ---------- Search ---------- */
+#career-path .cp-search-wrap { max-width: 640px; margin: 24px auto 0; }
+#career-path .cp-search-box {
+  position: relative; display: flex; align-items: center;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 var(--glass-border-inner);
+  transition: border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
+}
+#career-path .cp-search-box:focus-within {
+  border-color: rgba(var(--cp-accent-rgb), 0.55);
+  box-shadow: 0 0 0 4px rgba(var(--cp-accent-rgb), 0.10),
+              0 8px 28px rgba(var(--cp-accent-rgb), 0.15),
+              inset 0 1px 0 var(--glass-border-inner);
+}
+#career-path .cp-search-icon {
+  position: absolute; inset-inline-start: 14px;
+  width: 18px; height: 18px; color: var(--muted);
+  pointer-events: none;
+}
+#career-path .cp-search-box input {
+  flex: 1; background: transparent; border: none; outline: none;
+  padding: 14px 44px 14px 44px; font-size: 0.95rem;
+  color: var(--text); font-family: inherit;
+  border-radius: 14px;
+}
+html[lang="fa"] #career-path .cp-search-box input { padding: 14px 44px; }
+#career-path .cp-search-clear {
+  position: absolute; inset-inline-end: 10px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(var(--cp-accent-rgb), 0.10);
+  border: 1px solid rgba(var(--cp-accent-rgb), 0.20);
+  color: var(--cp-accent); font-size: 1.1rem; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s var(--ease-smooth);
+}
+#career-path .cp-search-clear:hover { background: rgba(var(--cp-accent-rgb), 0.22); }
+
+#career-path .cp-search-results {
+  margin-top: 8px; background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px; overflow: hidden;
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+#career-path .cp-sr-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; cursor: pointer;
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.15s var(--ease-smooth);
+}
+#career-path .cp-sr-item:last-child { border-bottom: none; }
+#career-path .cp-sr-item:hover,
+#career-path .cp-sr-item.is-active {
+  background: rgba(var(--cp-accent-rgb), 0.10);
+}
+#career-path .cp-sr-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; flex-shrink: 0;
+  background: rgba(var(--cp-accent-rgb), 0.12);
+  color: var(--cp-accent); border: 1px solid rgba(var(--cp-accent-rgb), 0.22);
+}
+#career-path .cp-sr-text { flex: 1; min-width: 0; }
+#career-path .cp-sr-label { font-weight: 600; font-size: 0.92rem; color: var(--text); line-height: 1.3; }
+#career-path .cp-sr-meta { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+#career-path .cp-search-hint {
+  margin-top: 8px; padding: 10px 14px; font-size: 0.85rem;
+  color: var(--muted); background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+  border-radius: 10px;
+}
+
+/* ---------- Divider ---------- */
+#career-path .cp-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 32px auto 24px; max-width: 640px;
+  color: var(--muted); font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+html[lang="fa"] #career-path .cp-divider { letter-spacing: 0; text-transform: none; }
+#career-path .cp-divider::before,
+#career-path .cp-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+}
+
+/* ---------- Category grid ---------- */
+#career-path .cp-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 920px; margin: 0 auto;
+}
+@media (max-width: 768px) { #career-path .cp-cat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { #career-path .cp-cat-grid { grid-template-columns: 1fr; } }
+
+#career-path .cp-cat {
+  position: relative; overflow: hidden;
+  padding: 22px 20px;
+  border-radius: 18px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  cursor: pointer; text-align: start;
+  font-family: inherit;
+  transition: transform 0.3s var(--ease-smooth),
+              border-color 0.3s var(--ease-smooth),
+              box-shadow 0.3s var(--ease-smooth);
+  display: flex; flex-direction: column; gap: 10px;
+}
+#career-path .cp-cat::before {
+  content: ''; position: absolute; top: 0; inset-inline: 0;
+  height: 3px; opacity: 0; transition: opacity 0.3s var(--ease-smooth);
+  background: var(--cat-grad, var(--cp-accent));
+}
+#career-path .cp-cat::after {
+  content: ''; position: absolute; top: 50%; inset-inline-start: 50%;
+  width: 80%; height: 80%; transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, var(--cat-grad-soft, rgba(168,85,247,0.10)), transparent 70%);
+  opacity: 0; transition: opacity 0.4s var(--ease-smooth);
+  pointer-events: none; z-index: 0;
+}
+html[lang="fa"] #career-path .cp-cat::after { transform: translate(50%, -50%); }
+#career-path .cp-cat:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--cp-accent-rgb), 0.4);
+  box-shadow: var(--glass-shadow-hover);
+}
+#career-path .cp-cat:hover::before { opacity: 1; }
+#career-path .cp-cat:hover::after { opacity: 1; }
+#career-path .cp-cat.is-active {
+  border-color: var(--cp-accent);
+  box-shadow: 0 0 0 2px rgba(var(--cp-accent-rgb), 0.35),
+              0 12px 36px rgba(var(--cp-accent-rgb), 0.18);
+}
+#career-path .cp-cat.is-active::before { opacity: 1; }
+#career-path .cp-cat.is-active::after { opacity: 1; }
+#career-path .cp-cat > * { position: relative; z-index: 1; }
+
+#career-path .cp-cat-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 700;
+  background: var(--cat-grad, linear-gradient(135deg, #6366f1, #0ea5e9));
+  color: white;
+  box-shadow: 0 4px 16px var(--cat-shadow, rgba(99,102,241,0.25));
+}
+#career-path .cp-cat-label {
+  font-size: 1rem; font-weight: 800; color: var(--text);
+  line-height: 1.2;
+}
+#career-path .cp-cat-tagline {
+  font-size: 0.78rem; color: var(--p-text); line-height: 1.5;
+  flex: 1;
+}
+#career-path .cp-cat-examples {
+  font-size: 0.7rem; color: var(--muted); line-height: 1.5;
+  padding-top: 8px; border-top: 1px dashed rgba(var(--muted), 0.25);
+}
+
+/* ---------- CTA ---------- */
+#career-path .cp-action-row { text-align: center; margin-top: 28px; }
+#career-path .cp-cta-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 12px;
+  background: var(--cp-accent); color: white;
+  border: none; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: 0.95rem;
+  box-shadow: 0 4px 18px rgba(var(--cp-accent-rgb), 0.35);
+  transition: transform 0.25s var(--ease-smooth),
+              box-shadow 0.25s var(--ease-smooth),
+              opacity 0.25s var(--ease-smooth);
+}
+#career-path .cp-cta-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(var(--cp-accent-rgb), 0.45);
+}
+#career-path .cp-cta-primary:disabled {
+  opacity: 0.45; cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Screen B — Dashboard ---------- */
+#career-path .cp-screen-b { padding-top: 12px; }
+#career-path .cp-roadmap-head { text-align: center; margin-bottom: 24px; }
+#career-path .cp-roadmap-eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cp-accent);
+  margin-bottom: 12px;
+}
+html[lang="fa"] #career-path .cp-roadmap-eyebrow { letter-spacing: 0; text-transform: none; }
+#career-path .cp-roadmap-icon-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; flex-wrap: wrap;
+}
+#career-path .cp-roadmap-icon {
+  width: 64px; height: 64px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; font-weight: 700; color: white;
+  background: var(--cat-grad, linear-gradient(135deg, #8b5cf6, #ec4899));
+  box-shadow: 0 8px 28px rgba(var(--cp-accent-rgb), 0.30);
+  flex-shrink: 0;
+}
+#career-path .cp-roadmap-icon.is-monogram {
+  background: var(--glass-bg-strong);
+  border: 2px solid var(--cp-accent);
+  color: var(--cp-accent);
+  font-family: var(--font-mono);
+  letter-spacing: -0.04em;
+}
+#career-path .cp-roadmap-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.15; margin: 0;
+  color: var(--text);
+}
+#career-path .cp-roadmap-sub {
+  color: var(--p-text); font-size: 0.95rem; margin-top: 6px;
+  max-width: 60ch; line-height: 1.6;
+}
+#career-path .cp-roadmap-meta {
+  margin-top: 10px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #d97706; font-size: 0.78rem; font-weight: 600;
+}
+[data-theme="dark"] #career-path .cp-roadmap-meta { color: #fbbf24; }
+#career-path .cp-roadmap-change {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 999px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  color: var(--cp-accent); cursor: pointer;
+  font-family: inherit; font-size: 0.85rem; font-weight: 600;
+  transition: background 0.2s var(--ease-smooth);
+}
+#career-path .cp-roadmap-change:hover { background: rgba(var(--cp-accent-rgb), 0.10); }
+
+/* ---------- Why this matters ---------- */
+#career-path .cp-pain-card {
+  max-width: 760px; margin: 0 auto 32px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), rgba(245, 158, 11, 0.04));
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 14px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+#career-path .cp-pain-label {
+  flex-shrink: 0;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #dc2626;
+  padding: 4px 10px; border-radius: 6px;
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  white-space: nowrap;
+}
+html[lang="fa"] #career-path .cp-pain-label { letter-spacing: 0; text-transform: none; }
+[data-theme="dark"] #career-path .cp-pain-label { color: #f87171; }
+#career-path .cp-pain-text {
+  color: var(--p-text); font-size: 0.92rem; line-height: 1.65; flex: 1;
+}
+
+/* ---------- Twisted ribbon (kept for screen B) ---------- */
+#career-path .rb-stage { max-width: 1000px; margin: 0 auto; position: relative; }
+#career-path .rb-svg-bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+#career-path .gateway-connector-ray-local {
+  fill: none;
+  stroke: url(#gatewayRayGradientDashboard) !important;
+  stroke-width: 2.2; stroke-linecap: round;
+  filter: drop-shadow(0 0 7.5px rgba(139,92,246,1)) drop-shadow(0 0 15px rgba(139,92,246,1)) drop-shadow(0 0 5px rgba(167,139,250,0.9));
+  transition: opacity 0.25s ease-out;
+}
+#career-path .rb-item {
+  position: relative; z-index: 1; margin-bottom: 24px;
+  display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0;
+  align-items: center; min-height: 80px;
+}
+#career-path .rb-item-learn, #career-path .rb-item-help {
+  padding: 16px 20px; background: var(--glass-bg);
+  border: 1px solid var(--glass-border); border-radius: 14px;
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow); max-width: 380px; width: 100%;
+  transition: transform 0.3s var(--ease-smooth);
+}
+#career-path .rb-item-learn { justify-self: end; }
+#career-path .rb-item-help { justify-self: start; }
+#career-path .rb-item-learn:hover { transform: translateX(-4px); }
+#career-path .rb-item-help:hover { transform: translateX(4px); }
+html[lang="fa"] #career-path .rb-item-learn:hover { transform: translateX(4px); }
+html[lang="fa"] #career-path .rb-item-help:hover { transform: translateX(-4px); }
+#career-path .rb-item-kind {
+  display: inline-block; font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; margin-bottom: 6px;
+}
+html[lang="fa"] #career-path .rb-item-kind { letter-spacing: 0; text-transform: none; }
+#career-path .rb-item-learn .rb-item-kind {
+  background: rgba(var(--door2-accent-rgb), 0.15); color: var(--door2-accent);
+}
+#career-path .rb-item-help .rb-item-kind {
+  background: rgba(var(--adv-accent-rgb), 0.15); color: var(--adv-accent);
+}
+#career-path .rb-item-title { font-weight: 700; font-size: 0.92rem; line-height: 1.35; margin-bottom: 5px; color: var(--text); }
+#career-path .rb-item-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
+#career-path .rb-item-tag {
+  font-size: 0.7rem; padding: 2px 7px; border-radius: 4px;
+  background: rgba(var(--cp-accent-rgb), 0.10); color: var(--cp-accent);
+}
+#career-path .rb-item-foot { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); }
+#career-path .rb-item-outcome { font-size: 0.84rem; color: var(--p-text); line-height: 1.5; }
+#career-path .rb-item-num {
+  text-align: center; font-family: var(--font-mono); font-weight: 800; font-size: 0.95rem;
+  color: var(--cp-accent); padding: 14px 0;
+  background: var(--glass-bg-strong); border: 1px solid var(--glass-border);
+  border-radius: 50%; width: 50px; height: 50px;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(var(--cp-accent-rgb), 0.30);
+  position: relative; z-index: 2;
+}
+#career-path .rb-item-empty {
+  padding: 16px 20px; background: transparent;
+  border: 1px dashed rgba(var(--muted), 0.20);
+  border-radius: 14px; color: var(--muted); font-size: 0.78rem;
+  text-align: center; max-width: 380px; width: 100%;
+}
+@media (max-width: 768px) {
+  #career-path .rb-item { grid-template-columns: 1fr; gap: 12px; }
+  #career-path .rb-item-learn, #career-path .rb-item-help { justify-self: stretch; max-width: none; }
+  #career-path .rb-item-num { margin: 0; }
+}
+
+/* Hide old screen teaser; not used in new layout */
+#career-path .cp-screen-teaser { display: none !important; }
+
+
+/* ============================================================
+   SITE-WIDE VISUAL POLISH (2025 techniques)
+   - All additions are progressive enhancements: browsers without
+     support silently ignore the rule. No structure changes.
+   ============================================================ */
+
+/* 1) Auto dark mode on first visit (before user explicitly toggles) —
+      only if no theme is saved yet. The site's existing toggle still wins. */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme]) {
+        /* Defer to the existing dark-theme rule set by setting data-theme="dark".
+           This is a hint-only block — actual swap happens via JS at first paint. */
+        color-scheme: dark;
+    }
+}
+
+/* 2) Refined scrollbars — slimmer, smoother, theme-aware via color-mix.
+      Fallback keeps the existing gradient for older engines. */
+::-webkit-scrollbar { width: 10px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--accent) 35%, transparent);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--accent) 55%, transparent);
+    background-clip: padding-box;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--accent) 45%, transparent);
+    background-clip: padding-box;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--accent) 65%, transparent);
+    background-clip: padding-box;
+}
+/* Firefox */
+html { scrollbar-color: color-mix(in oklch, var(--accent) 35%, transparent) transparent; }
+[data-theme="dark"] html { scrollbar-color: color-mix(in oklch, var(--accent) 45%, transparent) transparent; }
+
+/* 3) Scroll-driven reveal animations — progressive enhancement.
+      Browsers without animation-timeline: view() support fall back to
+      the existing JS-driven IntersectionObserver reveal. */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .reveal-card,
+        .timeline-item,
+        .workshop-category,
+        .entry-block {
+            animation: cpRevealUp linear both;
+            animation-timeline: view();
+            animation-range: entry 0% cover 22%;
+        }
+        @keyframes cpRevealUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        /* Don't double-animate items the JS observer already revealed */
+        .reveal-card.reveal-in,
+        .timeline-item.reveal-in,
+        .workshop-category.reveal-in,
+        .entry-block.reveal-in {
+            animation: none;
+        }
+    }
+}
+
+/* 4) Modern focus-visible ring — accent-colored, respects dark mode */
+:focus-visible {
+    outline: 2px solid color-mix(in oklch, var(--accent) 70%, white 10%);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+/* Remove default focus ring (we use focus-visible) */
+:focus:not(:focus-visible) { outline: none; }
+
+/* 5) Better line-break quality for body text in both languages */
+p, li { text-wrap: pretty; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+
+/* 6) Reduced motion safety net for the new animations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* 7) Tighter ::selection — accent tinted, works on both themes */
+::selection {
+    background: color-mix(in oklch, var(--accent) 30%, transparent);
+    color: var(--text);
+}
+::-moz-selection {
+    background: color-mix(in oklch, var(--accent) 30%, transparent);
+    color: var(--text);
+}
+
+/* 8) Subtle backdrop saturation boost on hover for glass cards —
+      makes the depth more tactile without changing structure. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .entry-block:hover,
+    .workshop-category:hover,
+    .bento-item:hover,
+    .teaser-card:hover {
+        backdrop-filter: var(--glass-blur-strong);
+        -webkit-backdrop-filter: var(--glass-blur-strong);
+    }
+}
+
+/* 9) New: smooth anchor scrolling with offset for the fixed topnav
+      — replaces inline JS handling, more reliable. */
+html { scroll-padding-top: 80px; }
+
+/* 10) New: respect prefers-contrast: more for users who need it */
+@media (prefers-contrast: more) {
+    :root {
+        --glass-bg: rgba(255, 255, 255, 0.92);
+        --glass-bg-strong: rgba(255, 255, 255, 0.98);
+        --glass-border: rgba(0, 0, 0, 0.4);
+    }
+    [data-theme="dark"] {
+        --glass-bg: rgba(0, 0, 0, 0.85);
+        --glass-bg-strong: rgba(0, 0, 0, 0.95);
+        --glass-border: rgba(255, 255, 255, 0.3);
+    }
+}
+
+
+/* ============================================================
+   CAREER PATH — V2: gateway-pillar tiles + clean glass dashboard
+   ============================================================ */
+
+#career-path .cp-head { text-align: center; margin-bottom: 32px; }
+#career-path .cp-eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cp-accent);
+  margin-bottom: 10px;
+}
+html[lang="fa"] #career-path .cp-eyebrow { letter-spacing: 0; text-transform: none; }
+#career-path .cp-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800;
+  letter-spacing: -0.025em; line-height: 1.15; margin: 0;
+}
+#career-path .cp-sub {
+  color: var(--muted); font-size: 0.95rem; margin: 8px auto 0;
+  max-width: 64ch; line-height: 1.6;
+}
+
+/* ---------- Search (unchanged) ---------- */
+#career-path .cp-search-wrap { max-width: 640px; margin: 24px auto 0; }
+#career-path .cp-search-box {
+  position: relative; display: flex; align-items: center;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  backdrop-filter: var(--glass-blur-strong);
+  -webkit-backdrop-filter: var(--glass-blur-strong);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 var(--glass-border-inner);
+  transition: border-color 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
+}
+#career-path .cp-search-box:focus-within {
+  border-color: rgba(var(--cp-accent-rgb), 0.55);
+  box-shadow: 0 0 0 4px rgba(var(--cp-accent-rgb), 0.10),
+              0 8px 28px rgba(var(--cp-accent-rgb), 0.15),
+              inset 0 1px 0 var(--glass-border-inner);
+}
+#career-path .cp-search-icon {
+  position: absolute; inset-inline-start: 14px;
+  width: 18px; height: 18px; color: var(--muted);
+  pointer-events: none;
+}
+#career-path .cp-search-box input {
+  flex: 1; background: transparent; border: none; outline: none;
+  padding: 14px 44px 14px 44px; font-size: 0.95rem;
+  color: var(--text); font-family: inherit;
+  border-radius: 14px;
+}
+html[lang="fa"] #career-path .cp-search-box input { padding: 14px 44px; }
+#career-path .cp-search-clear {
+  position: absolute; inset-inline-end: 10px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(var(--cp-accent-rgb), 0.10);
+  border: 1px solid rgba(var(--cp-accent-rgb), 0.20);
+  color: var(--cp-accent); font-size: 1.1rem; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s var(--ease-smooth);
+}
+#career-path .cp-search-clear:hover { background: rgba(var(--cp-accent-rgb), 0.22); }
+
+#career-path .cp-search-results {
+  margin-top: 8px; background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px; overflow: hidden;
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+#career-path .cp-sr-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; cursor: pointer;
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.15s var(--ease-smooth);
+}
+#career-path .cp-sr-item:last-child { border-bottom: none; }
+#career-path .cp-sr-item:hover,
+#career-path .cp-sr-item.is-active {
+  background: rgba(var(--cp-accent-rgb), 0.10);
+}
+#career-path .cp-sr-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(var(--cp-accent-rgb), 0.28), rgba(var(--cp-accent-rgb), 0.10));
+  border: 1px solid rgba(var(--cp-accent-rgb), 0.35);
+  color: var(--cp-accent);
+}
+#career-path .cp-sr-icon svg { width: 18px; height: 18px; }
+#career-path .cp-sr-text { flex: 1; min-width: 0; }
+#career-path .cp-sr-label { font-weight: 600; font-size: 0.92rem; color: var(--text); line-height: 1.3; }
+#career-path .cp-sr-meta { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+#career-path .cp-search-hint {
+  margin-top: 8px; padding: 10px 14px; font-size: 0.85rem;
+  color: var(--muted); background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+  border-radius: 10px;
+}
+
+/* ---------- Divider ---------- */
+#career-path .cp-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 32px auto 24px; max-width: 640px;
+  color: var(--muted); font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+html[lang="fa"] #career-path .cp-divider { letter-spacing: 0; text-transform: none; }
+#career-path .cp-divider::before,
+#career-path .cp-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+}
+
+/* ---------- Category grid — gateway-pillar style ----------
+   The .gateway-pillars grid is already defined globally (3 columns on desktop).
+   We override only what's needed so the cp-cat tiles look identical to
+   homepage pillars but use the category-specific --pillar-color.
+   The .cp-cat class adds the gateway-pillar visual treatment while
+   keeping the cp-cat-grid layout. */
+#career-path .cp-cat-grid {
+  /* Inherits display: grid; grid-template-columns: repeat(2, 1fr); from .gateway-pillars */
+  width: 100%; max-width: 860px; margin: 0 auto;
+}
+@media (min-width: 768px) {
+  #career-path .cp-cat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+#career-path .cp-cat {
+  /* Mirror .gateway-pillar exactly — minimalist glass card with tinted glow */
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 12px; padding: 26px 20px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.06));
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-border-inner);
+  text-decoration: none; color: var(--text);
+  transition: transform 0.35s var(--ease-smooth),
+              border-color 0.35s var(--ease-smooth),
+              box-shadow 0.35s var(--ease-smooth);
+  position: relative; overflow: hidden;
+  aspect-ratio: 1.22 / 1;
+  min-height: 185px;
+  cursor: pointer; font-family: inherit;
+  border: none;
+}
+[data-theme="dark"] #career-path .cp-cat {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.01));
+}
+/* Radial color glow — always visible at base strength; intensifies on hover */
+#career-path .cp-cat::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 80%; height: 80%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.12), transparent 60%);
+  opacity: 1;
+  transition: background 0.4s var(--ease-smooth);
+  pointer-events: none; z-index: 0;
+}
+#career-path .cp-cat:hover::after {
+  background: radial-gradient(ellipse, rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.132), transparent 60%);
+}
+#career-path .cp-cat > * { position: relative; z-index: 1; }
+/* Top edge glow — reveals on hover in this card's own color */
+#career-path .cp-cat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--pillar-color, var(--cp-accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-smooth);
+}
+#career-path .cp-cat:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.40);
+  box-shadow: inset 0 1px 0 var(--glass-border-inner),
+              0 12px 32px rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.12);
+}
+#career-path .cp-cat:hover::before { transform: scaleX(1); }
+#career-path .cp-cat.is-active {
+  border-color: rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.55);
+  box-shadow: inset 0 1px 0 var(--glass-border-inner),
+              0 0 0 2px rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.30),
+              0 12px 32px rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.18);
+}
+#career-path .cp-cat.is-active::before { transform: scaleX(1); }
+
+/* Icon container — mirror .gp-icon exactly: rounded square, tinted bg+border, accent color */
+#career-path .cp-cat-icon {
+  width: 42px; height: 42px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.28), rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.10));
+  border: 1px solid rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.35);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--pillar-color, var(--cp-accent));
+  box-shadow: 0 4px 14px rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.10);
+  transition: transform 0.35s var(--ease-smooth);
+}
+#career-path .cp-cat-icon svg { width: 22px; height: 22px; }
+#career-path .cp-cat:hover .cp-cat-icon { transform: translateY(-2px) scale(1.05); }
+#career-path .cp-cat-label {
+  font-size: 1.05rem; font-weight: 800; color: var(--text);
+  line-height: 1.25; margin: 0;
+}
+#career-path .cp-cat-tagline {
+  font-size: 0.76rem; color: var(--p-text); line-height: 1.55;
+  max-width: 280px; margin: 0;
+}
+#career-path .cp-cat-examples {
+  font-size: 0.70rem; color: var(--muted); line-height: 1.5;
+  margin-top: 4px; padding-top: 6px;
+  border-top: 1px dashed rgba(var(--muted), 0.20);
+}
+
+/* ---------- Screen B — Dashboard ---------- */
+#career-path .cp-screen-b {
+  padding-top: 12px;
+  /* Glassmorphism background — clean, no DNA tubes */
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(var(--cp-accent-rgb), 0.06), transparent 70%),
+    radial-gradient(ellipse 60% 80% at 80% 100%, rgba(var(--adv-accent-rgb), 0.04), transparent 70%);
+  border-radius: 22px;
+  padding: 28px 24px;
+}
+#career-path .cp-roadmap-head { text-align: center; margin-bottom: 24px; }
+#career-path .cp-roadmap-eyebrow {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cp-accent);
+  margin-bottom: 12px;
+}
+html[lang="fa"] #career-path .cp-roadmap-eyebrow { letter-spacing: 0; text-transform: none; }
+#career-path .cp-roadmap-icon-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; flex-wrap: wrap;
+}
+#career-path .cp-roadmap-icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--pillar-color, var(--cp-accent));
+  background: linear-gradient(135deg, rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.28), rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.10));
+  border: 1px solid rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.35);
+  box-shadow: 0 4px 14px rgba(var(--pillar-rgb, var(--cp-accent-rgb)), 0.10);
+  flex-shrink: 0;
+}
+#career-path .cp-roadmap-icon svg { width: 20px; height: 20px; }
+#career-path .cp-roadmap-icon.is-monogram {
+  background: var(--glass-bg-strong);
+  border: 2px solid var(--cp-accent);
+  color: var(--cp-accent);
+  font-family: var(--font-mono);
+  letter-spacing: -0.04em;
+  font-size: 1.1rem; font-weight: 800;
+}
+#career-path .cp-roadmap-title {
+  font-size: 1.25rem; font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1.25; margin: 0;
+  color: var(--text);
+}
+#career-path .cp-roadmap-title::after {
+  content: none !important;
+}
+#career-path .cp-roadmap-sub {
+  color: var(--p-text); font-size: 0.95rem; margin-top: 6px;
+  max-width: 60ch; line-height: 1.6;
+}
+#career-path .cp-roadmap-meta {
+  margin-top: 10px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 999px;
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #d97706; font-size: 0.78rem; font-weight: 600;
+}
+[data-theme="dark"] #career-path .cp-roadmap-meta { color: #fbbf24; }
+#career-path .cp-roadmap-change {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 18px; border-radius: 999px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  color: var(--cp-accent); cursor: pointer;
+  font-family: inherit; font-size: 0.85rem; font-weight: 600;
+  transition: background 0.2s var(--ease-smooth);
+}
+#career-path .cp-roadmap-change:hover { background: rgba(var(--cp-accent-rgb), 0.10); }
+
+/* ---------- Why this matters ---------- */
+#career-path .cp-pain-card {
+  max-width: 760px; margin: 0 auto 32px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.06), rgba(245, 158, 11, 0.04));
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 14px;
+  display: flex; gap: 16px; align-items: flex-start;
+}
+#career-path .cp-pain-label {
+  flex-shrink: 0;
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #dc2626;
+  padding: 4px 10px; border-radius: 6px;
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  white-space: nowrap;
+}
+html[lang="fa"] #career-path .cp-pain-label { letter-spacing: 0; text-transform: none; }
+[data-theme="dark"] #career-path .cp-pain-label { color: #f87171; }
+#career-path .cp-pain-text {
+  color: var(--p-text); font-size: 0.92rem; line-height: 1.65; flex: 1;
+}
+
+/* ---------- Staircase items — left/right with center numbered circles.
+           NO DNA SVG. Glassmorphism card style. ---------- */
+#career-path .rb-stage {
+  max-width: 1000px; margin: 0 auto;
+  position: relative;
+  /* Subtle glass backdrop for the whole stage */
+  padding: 24px 16px;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+}
+[data-theme="dark"] #career-path .rb-stage {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.005));
+}
+
+/* ---------- Ambient light-orb background layer for the roadmap stage.
+   Layer order: cards (z-index: 3) > glass overlay (z-index: 2) > light orbs (z-index: 1) > gradient base. ---------- */
+@keyframes lightPulse {
+  0%, 100% { opacity: var(--orb-op-min, 0.3); filter: blur(var(--orb-blur, 120px)); }
+  50% { opacity: var(--orb-op-max, 0.7); filter: blur(calc(var(--orb-blur, 120px) * 1.3)); }
+}
+@keyframes lightDrift {
+  0%, 100% { transform: translateZ(0) translate(0, 0) scale(1); }
+  25% { transform: translateZ(0) translate(20px, -30px) scale(1.05); }
+  50% { transform: translateZ(0) translate(-10px, 15px) scale(0.98); }
+  75% { transform: translateZ(0) translate(15px, 25px) scale(1.02); }
+}
+#career-path .rb-stage { overflow: hidden; }
+#career-path .light-orb {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+  animation: lightPulse var(--orb-pulse-dur, 7s) ease-in-out infinite,
+             lightDrift var(--orb-drift-dur, 12s) ease-in-out infinite;
+}
+#career-path .light-orb-primary {
+  top: -20%; left: 30%;
+  width: 280px; height: 280px;
+  background: rgba(154, 125, 216, 0.08);
+  --orb-op-min: 0.3; --orb-op-max: 0.7; --orb-blur: 120px;
+  --orb-pulse-dur: 8s; --orb-drift-dur: 12s;
+}
+#career-path .light-orb-secondary {
+  bottom: -10%; right: 10%;
+  width: 200px; height: 200px;
+  background: rgba(140, 200, 220, 0.06);
+  --orb-op-min: 0.25; --orb-op-max: 0.6; --orb-blur: 100px;
+  --orb-pulse-dur: 6s; --orb-drift-dur: 15s;
+  animation-delay: 0.5s, 0.5s;
+}
+#career-path .light-orb-tertiary {
+  top: 60%; right: -5%;
+  width: 150px; height: 150px;
+  background: rgba(200, 180, 255, 0.05);
+  --orb-op-min: 0.2; --orb-op-max: 0.5; --orb-blur: 90px;
+  --orb-pulse-dur: 7s; --orb-drift-dur: 10s;
+  animation-delay: 1s, 1s;
+}
+#career-path .rb-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+[data-theme="dark"] #career-path .rb-stage::before {
+  background: rgba(255, 255, 255, 0.02);
+}
+[data-theme="dark"] #career-path .light-orb-primary { opacity: 0.1; }
+[data-theme="dark"] #career-path .light-orb-secondary { opacity: 0.08; }
+[data-theme="dark"] #career-path .light-orb-tertiary { opacity: 0.06; }
+
+/* Interactive glow: brighten the primary orb while a roadmap card is hovered */
+#career-path .rb-stage:has(.rb-item-learn:hover) .light-orb-primary,
+#career-path .rb-stage:has(.rb-item-help:hover) .light-orb-primary {
+  filter: blur(96px);
+  box-shadow: 0 0 60px rgba(154, 125, 216, 0.25);
+  transition: filter 300ms ease-out, box-shadow 300ms ease-out;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  #career-path .light-orb-primary { width: 238px; height: 238px; --orb-blur: 108px; --orb-pulse-dur: 7.2s; --orb-drift-dur: 10.8s; }
+  #career-path .light-orb-secondary { width: 170px; height: 170px; --orb-blur: 90px; --orb-pulse-dur: 5.4s; --orb-drift-dur: 13.5s; }
+  #career-path .light-orb-tertiary { width: 128px; height: 128px; --orb-blur: 81px; --orb-pulse-dur: 6.3s; --orb-drift-dur: 9s; }
+}
+@media (max-width: 768px) {
+  #career-path .light-orb-primary { width: 196px; height: 196px; filter: blur(84px); --orb-blur: 84px; }
+  #career-path .light-orb-secondary { width: 140px; height: 140px; filter: blur(70px); --orb-blur: 70px; }
+  #career-path .light-orb-tertiary { display: none; }
+  #career-path .rb-stage:has(.rb-item-learn:hover) .light-orb-primary,
+  #career-path .rb-stage:has(.rb-item-help:hover) .light-orb-primary {
+    filter: blur(var(--orb-blur, 84px));
+    box-shadow: none;
+  }
+}
+
+#career-path .rb-item {
+  position: relative; z-index: 3; margin-bottom: 24px;
+  display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0;
+  align-items: center; min-height: 80px;
+}
+#career-path .rb-item-learn, #career-path .rb-item-help {
+  padding: 16px 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border); border-radius: 14px;
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  max-width: 380px; width: 100%;
+  transition: transform 0.3s var(--ease-smooth),
+              box-shadow 0.3s var(--ease-smooth),
+              border-color 0.3s var(--ease-smooth);
+}
+#career-path .rb-item-learn { justify-self: end; }
+#career-path .rb-item-help { justify-self: start; }
+#career-path .rb-item-learn:hover {
+  transform: translateX(-4px);
+  border-color: rgba(var(--door2-accent-rgb), 0.40);
+  box-shadow: var(--glass-shadow-hover);
+}
+#career-path .rb-item-help:hover {
+  transform: translateX(4px);
+  border-color: rgba(var(--adv-accent-rgb), 0.40);
+  box-shadow: var(--glass-shadow-hover);
+}
+html[lang="fa"] #career-path .rb-item-learn:hover { transform: translateX(4px); }
+html[lang="fa"] #career-path .rb-item-help:hover { transform: translateX(-4px); }
+#career-path .rb-item-kind {
+  display: inline-block; font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; margin-bottom: 6px;
+}
+html[lang="fa"] #career-path .rb-item-kind { letter-spacing: 0; text-transform: none; }
+#career-path .rb-item-learn .rb-item-kind {
+  background: rgba(var(--door2-accent-rgb), 0.15); color: var(--door2-accent);
+}
+#career-path .rb-item-help .rb-item-kind {
+  background: rgba(var(--adv-accent-rgb), 0.15); color: var(--adv-accent);
+}
+#career-path .rb-item-title { font-weight: 700; font-size: 0.92rem; line-height: 1.35; margin-bottom: 5px; color: var(--text); }
+#career-path .rb-item-meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 4px; }
+#career-path .rb-item-tag {
+  font-size: 0.7rem; padding: 2px 7px; border-radius: 4px;
+  background: rgba(var(--cp-accent-rgb), 0.10); color: var(--cp-accent);
+}
+#career-path .rb-item-foot { font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono); }
+#career-path .rb-item-outcome { font-size: 0.84rem; color: var(--p-text); line-height: 1.5; }
+#career-path .rb-item-num {
+  text-align: center; font-family: var(--font-mono); font-weight: 800; font-size: 0.95rem;
+  color: var(--cp-accent); padding: 14px 0;
+  background: var(--glass-bg-strong); border: 1px solid var(--glass-border);
+  border-radius: 50%; width: 50px; height: 50px;
+  display: inline-flex; align-items: center; justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(var(--cp-accent-rgb), 0.30);
+  position: relative; z-index: 4;
+}
+#career-path .rb-item-empty {
+  padding: 16px 20px; background: transparent;
+  border: 1px dashed rgba(var(--muted), 0.20);
+  border-radius: 14px; color: var(--muted); font-size: 0.78rem;
+  text-align: center; max-width: 380px; width: 100%;
+}
+@media (max-width: 768px) {
+  #career-path .rb-item { grid-template-columns: 1fr; gap: 12px; }
+  #career-path .rb-item-learn, #career-path .rb-item-help { justify-self: stretch; max-width: none; }
+  #career-path .rb-item-num { margin: 0; }
+}
+
+/* Hide old screen teaser; not used in new layout */
+#career-path .cp-screen-teaser { display: none !important; }
+
 </style>
 </head>
 <body>
@@ -4931,10 +6736,10 @@ window.BOOK_COVERS = BOOK_COVERS;
 <span class="en">Start Here</span><span class="fa">درباره من</span>
 </a>
 <a aria-controls="workshops" aria-selected="false" href="#workshops" id="nav-workshops" role="tab" tabindex="-1">
-<span class="en">Learning Studio</span><span class="fa">کارگاه آموزش</span>
+<span class="en">AI Learning Studio</span><span class="fa">کارگاه آموزش هوش مصنوعی</span>
 </a>
 <a aria-controls="services" aria-selected="false" href="#services" id="nav-services" role="tab" tabindex="-1">
-<span class="en">Advisory &amp; Diagnosis</span><span class="fa">مشاوره و تشخیص</span>
+<span class="en">AI Advisory &amp; Diagnosis</span><span class="fa">مشاوره و تشخیص هوش مصنوعی</span>
 </a>
 <a aria-controls="publications" aria-selected="false" href="#publications" id="nav-publications" role="tab" tabindex="-1">
 <span class="en">Publications</span><span class="fa">مقالات علمی</span>
@@ -4980,13 +6785,13 @@ window.BOOK_COVERS = BOOK_COVERS;
 </div>
 <div class="mobile-drawer-group">
 <div class="mobile-drawer-group-label"><span class="en">Teaching &amp; Learning</span><span class="fa">تدریس و یادگیری</span></div>
-<a class="mobile-drawer-link" data-drawer-link="workshops" href="#workshops"><span class="en">Learning Studio</span><span class="fa">کارگاه آموزش</span></a>
+<a class="mobile-drawer-link" data-drawer-link="workshops" href="#workshops"><span class="en">AI Learning Studio</span><span class="fa">کارگاه آموزش هوش مصنوعی</span></a>
 <a class="mobile-drawer-link" data-drawer-link="teaching" href="#teaching"><span class="en">Teaching Experience</span><span class="fa">سوابق تدریس و آموزش</span></a>
 <a class="mobile-drawer-link" data-drawer-link="skills" href="#skills"><span class="en">Technical Skills</span><span class="fa">حوزه‌های تخصصی</span></a>
 </div>
 <div class="mobile-drawer-group">
 <div class="mobile-drawer-group-label"><span class="en">Work</span><span class="fa">کار</span></div>
-<a class="mobile-drawer-link" data-drawer-link="services" href="#services"><span class="en">Advisory &amp; Diagnosis</span><span class="fa">مشاوره و تشخیص</span></a>
+<a class="mobile-drawer-link" data-drawer-link="services" href="#services"><span class="en">AI Advisory &amp; Diagnosis</span><span class="fa">مشاوره و تشخیص هوش مصنوعی</span></a>
 <a class="mobile-drawer-link" data-drawer-link="consulting" href="#consulting"><span class="en">Professional Activities</span><span class="fa">فعالیت‌های حرفه‌ای</span></a>
 <a class="mobile-drawer-link" data-drawer-link="publications" href="#publications"><span class="en">Publications</span><span class="fa">مقالات علمی</span></a>
 </div>
@@ -5018,8 +6823,8 @@ window.BOOK_COVERS = BOOK_COVERS;
 </h2></section>
 <section aria-labelledby="nav-workshops" class="page-section" id="workshops" role="tabpanel"><div class="ws-heading-row">
 <h2>
-<span class="en">Learning Studio</span>
-<span class="fa">کارگاه آموزش</span>
+<span class="en">AI Learning Studio</span>
+<span class="fa">کارگاه آموزش هوش مصنوعی</span>
 </h2>
 <a aria-label="Explore the Full Map" class="ws-visual-map-pill" href="#graph">
 <span class="pill-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
@@ -5028,8 +6833,8 @@ window.BOOK_COVERS = BOOK_COVERS;
 </a>
 </div></section>
 <section aria-labelledby="nav-services" class="page-section" id="services" role="tabpanel"><h2>
-<span class="en">Advisory &amp; Diagnosis</span>
-<span class="fa">مشاوره و تشخیص</span>
+<span class="en">AI Advisory &amp; Diagnosis</span>
+<span class="fa">مشاوره و تشخیص هوش مصنوعی</span>
 </h2></section>
 <section aria-labelledby="nav-skills" class="page-section" id="skills" role="tabpanel"><h2>
 <span class="en">Technical Skills</span>
@@ -5043,6 +6848,77 @@ window.BOOK_COVERS = BOOK_COVERS;
 <span class="en">Professional Activities</span>
 <span class="fa">فعالیت‌های حرفه‌ای و مشاوره‌ها</span>
 </h2></section>
+<section aria-labelledby="nav-career-path" class="page-section" id="career-path" role="tabpanel">
+<div class="cp-back-row">
+<button class="cp-back-link" onclick="window.location.hash='#about';"><span class="en">&larr; Back to Home</span><span class="fa">&larr; بازگشت به خانه</span></button>
+</div>
+<!-- Screen A — Work-Type Picker -->
+<section class="cp-screen cp-screen-a" data-screen="a">
+
+<div class="cp-head">
+  <h1 class="cp-title" data-cp-ui="screenATitle"></h1>
+  <p class="cp-sub" data-cp-ui="screenASub"></p>
+</div>
+
+<!-- Search -->
+<div class="cp-search-wrap">
+  <div class="cp-search-box">
+    <svg class="cp-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+    <input type="text" id="cpSearch" autocomplete="off" spellcheck="false" data-cp-ui="searchPlaceholder" data-cp-ui-attr="placeholder" />
+    <button type="button" id="cpSearchClear" class="cp-search-clear" aria-label="Clear" hidden>&times;</button>
+  </div>
+  <div class="cp-search-results" id="cpSearchResults" hidden></div>
+  <div class="cp-search-hint" id="cpSearchHint" hidden></div>
+</div>
+
+<!-- Divider -->
+<div class="cp-divider"><span data-cp-ui-en>or pick a category</span><span data-cp-ui-fa>یا یک دسته انتخاب کنید</span></div>
+
+<!-- Category grid — gateway-pillar style -->
+<div class="gateway-pillars cp-cat-grid" id="cpCatGrid"></div>
+
+</section>
+
+<!-- Screen B — Result Dashboard (NO DNA SVG, glassmorphism background) -->
+<section class="cp-screen cp-screen-b" data-screen="b" hidden>
+
+<div class="cp-roadmap-head">
+  <div class="cp-roadmap-eyebrow" data-cp-ui="screenBEyebrow"></div>
+  <div class="cp-roadmap-icon-row">
+    <div class="cp-roadmap-icon" id="cpRoadmapIcon"></div>
+    <div>
+      <h2 class="cp-roadmap-title" id="cpRoadmapTitle"></h2>
+      <div class="cp-roadmap-sub" id="cpRoadmapSubtitle"></div>
+    </div>
+  </div>
+  <div class="cp-roadmap-meta" id="cpRoadmapMeta" hidden></div>
+  <button class="cp-roadmap-change" id="cpChangeBtn">
+    <span data-cp-ui-en>&#8634; Change selection</span>
+    <span data-cp-ui-fa>&#8634; تغییر انتخاب</span>
+  </button>
+</div>
+
+<!-- Why this matters -->
+<div class="cp-pain-card" id="cpPainCard">
+  <div class="cp-pain-label" data-cp-ui="painLabel"></div>
+  <div class="cp-pain-text" id="cpPainText"></div>
+</div>
+
+<!-- Staircase items — left/right with center numbered circles.
+     Glassmorphism background, no DNA tubes. -->
+<div class="rb-stage" id="rbStage">
+  <div class="light-orb light-orb-primary" aria-hidden="true"></div>
+  <div class="light-orb light-orb-secondary" aria-hidden="true"></div>
+  <div class="light-orb light-orb-tertiary" aria-hidden="true"></div>
+  <div id="rbItems"></div>
+</div>
+
+</section>
+
+</section>
+
+
+
 <section aria-labelledby="graph-heading" class="page-section" id="graph" role="tabpanel">
 <div class="ws-heading-row graph-heading-row">
 <h2 id="graph-heading">
@@ -5203,14 +7079,7 @@ window.BOOK_COVERS = BOOK_COVERS;
         // Build the Gateway Hero — 4 pillars linking to Learning Studio, Advisory, Publications, Curriculum Matrix
         const gatewayHtml = `
             <div class="gateway-hero">
-                <div class="gateway-eyebrow">
-                    <span class="en">KNOWLEDGE GATEWAY · START HERE</span>
-                    <span class="fa">دروازهٔ دانش · از اینجا شروع کنید</span>
-                </div>
-                <h1 class="gateway-title">
-                    <span class="en">Four doors into the work — pick yours.</span>
-                    <span class="fa">چهار در به سوی کار — درِ خود را انتخاب کنید.</span>
-                </h1>
+
                 <p class="gateway-tagline">
                     <span class="en">Ehsan's practice spans teaching, advising, writing, and curriculum design. Each pillar below opens a different facet of the same body of work — explore what fits you.</span>
                     <span class="fa">رسالت احسان آموزش، مشاوره، نگارش و طراحی سرفصل را در بر می‌گیرد. هر ستون زیر چهره‌ای متفاوت از یک کار واحد را باز می‌کند — آنچه به شما می‌خورد را کاوش کنید.</span>
@@ -5220,30 +7089,45 @@ window.BOOK_COVERS = BOOK_COVERS;
                         <div class="gp-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
                         </div>
-                        <h3 class="gp-title"><span class="en">Learning Studio</span><span class="fa">کارگاه آموزش</span></h3>
+                        <h3 class="gp-title"><span class="en">AI Learning Studio</span><span class="fa">کارگاه آموزش هوش مصنوعی</span></h3>
                         <div class="gp-cta"><span class="en">Enter Studio</span><span class="fa">ورود به استودیو</span></div>
                     </a>
                     <a class="gateway-pillar" href="#services" style="--pillar-color: #14b8a6; --pillar-rgb: 20, 184, 166;">
                         <div class="gp-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                         </div>
-                        <h3 class="gp-title"><span class="en">Advisory &amp; Diagnosis</span><span class="fa">مشاوره و تشخیص</span></h3>
+                        <h3 class="gp-title"><span class="en">AI Advisory &amp; Diagnosis</span><span class="fa">مشاوره و تشخیص هوش مصنوعی</span></h3>
                         <div class="gp-cta"><span class="en">See Engagements</span><span class="fa">دیدن تعامل‌ها</span></div>
                     </a>
-                    <a class="gateway-pillar" href="#publications" style="--pillar-color: #8b5cf6; --pillar-rgb: 139, 92, 246;">
-                        <div class="gp-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+
+                <div class="gateway-connector" aria-hidden="true">
+                    <svg viewBox="0 0 100 96" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gatewayRayGradient" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#a78bfa" stop-opacity="0"/>
+                                <stop offset="50%" stop-color="#8b5cf6" stop-opacity="1"/>
+                                <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path id="cpPathLeft" class="gateway-connector-path" d="M 25,0 C 25,45 50,38 50,96" vector-effect="non-scaling-stroke"/>
+                        <path id="cpPathRight" class="gateway-connector-path" d="M 75,0 C 75,45 50,38 50,96" vector-effect="non-scaling-stroke"/>
+                        <path class="gateway-connector-ray" d="M 25,0 C 25,45 50,38 50,96" vector-effect="non-scaling-stroke"/>
+                        <path class="gateway-connector-ray gateway-connector-ray--right" d="M 75,0 C 75,45 50,38 50,96" vector-effect="non-scaling-stroke"/>
+                    </svg>
+                </div>
+
+                <div class="career-path-wrap" role="button" tabindex="0" aria-label="Your Career Path" onclick="window.location.hash='#career-path';" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.hash='#career-path';}" style="cursor:pointer;">
+                    <div class="career-path-outer">
+                        <div class="career-path-card">
+                            <div class="cp-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <h3 class="cp-title"><span class="en">Your Career Path</span><span class="fa">مسیر شغلی شما</span></h3>
+                            <p class="cp-desc"><span class="en">Tell us your profession — get the learning and advisory built specifically for it.</span><span class="fa">شغل خود را بگویید — آموزش و مشاورهٔ مختص همان حرفه را دریافت کنید.</span></p>
+                            <div class="cp-cta"><span class="en">Find Your Path</span><span class="fa">یافتن مسیر شما</span></div>
                         </div>
-                        <h3 class="gp-title"><span class="en">Publications</span><span class="fa">مقالات علمی</span></h3>
-                        <div class="gp-cta"><span class="en">Browse Library</span><span class="fa">مرور کتابخانه</span></div>
-                    </a>
-                    <a class="gateway-pillar" href="#graph" style="--pillar-color: #f59e0b; --pillar-rgb: 245, 158, 11;">
-                        <div class="gp-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                        </div>
-                        <h3 class="gp-title"><span class="en">Knowledge Atlas</span><span class="fa">اطلس دانش</span></h3>
-                        <div class="gp-cta"><span class="en">Open Atlas</span><span class="fa">گشودن اطلس</span></div>
-                    </a>
+                    </div>
                 </div>
             </div>
         `;
@@ -7515,6 +9399,7 @@ window.BOOK_COVERS = BOOK_COVERS;
     window.__renderCurriculumExplorer = renderCurriculumExplorer;
 
     function renderAll(data) {
+        if (window.cpLoadTracks && data && data.careerTracks) window.cpLoadTracks(data.careerTracks);
         renderSidebarNav(data.sidebarNav || []);
         renderSidebarContact(data.sidebarContact || { items: [] });
         renderAbout(data.about || []);
@@ -7581,48 +9466,7 @@ function initSiteScripts() {
             const sunIcon = document.querySelector('#theme-toggle .sun-icon');
             const moonIcon = document.querySelector('#theme-toggle .moon-icon');
 
-            const spotlightSelector = '.entry-block, .profile-info-card, .timeline-content, .reveal-card';
-            const tiltSelector = '.entry-block, .profile-info-card';
-            let interactionRAF = null;
-            let interactionEvent = null;
-            let interactionTarget = null;
-            document.addEventListener('mousemove', (e) => {
-                interactionEvent = e;
-                if (interactionRAF) return;
-                interactionRAF = requestAnimationFrame(() => {
-                    interactionRAF = null;
-                    const ev = interactionEvent;
-                    interactionTarget = null;
-                    interactionEvent = null;
-                    if (!ev || !ev.target || !ev.target.closest) return;
-                    const card = ev.target.closest(spotlightSelector);
-                    if (!card) return;
-                    const rect = card.getBoundingClientRect();
-                    card.style.setProperty('--mouse-x', `${ev.clientX - rect.left}px`);
-                    card.style.setProperty('--mouse-y', `${ev.clientY - rect.top}px`);
-                    if (card.matches(tiltSelector)) {
-                        const cx = rect.width / 2;
-                        const cy = rect.height / 2;
-                        card.style.setProperty('--rx', `${(ev.clientY - rect.top - cy) / cy * -4}deg`);
-                        card.style.setProperty('--ry', `${(ev.clientX - rect.left - cx) / cx * 4}deg`);
-                    }
-                });
-            });
 
-            // Tilt-reset via event delegation on document — covers cards added
-            // dynamically (language re-render, SWR-style refresh, dynamic
-            // sections) without needing to re-bind. `mouseout` bubbles (unlike
-            // `mouseleave`), so a single listener handles every card. The
-            // relatedTarget check filters out moves between child elements so
-            // we only reset when the pointer actually leaves the card.
-            document.addEventListener('mouseout', function (e) {
-                const card = e.target.closest(tiltSelector);
-                if (!card) return;
-                if (e.relatedTarget && card.contains(e.relatedTarget)) return;
-                if (interactionRAF) { cancelAnimationFrame(interactionRAF); interactionRAF = null; }
-                card.style.setProperty('--rx', '0deg');
-                card.style.setProperty('--ry', '0deg');
-            });
 
             let rearrangeRAF = null;
             // Mobile drawer DOM refs — used by rearrangeLayout() to host the
@@ -7738,7 +9582,7 @@ function initSiteScripts() {
 
                 const layoutWrapper = document.getElementById('layout-wrapper');
                 if (layoutWrapper) {
-                    if (hash === 'workshops' || hash === 'services' || hash === 'graph' || hash === 'publications') {
+                    if (hash === 'workshops' || hash === 'services' || hash === 'graph' || hash === 'publications' || hash === 'career-path') {
                         layoutWrapper.classList.add('sidebar-collapsed');
                     } else {
                         layoutWrapper.classList.remove('sidebar-collapsed');
@@ -7922,6 +9766,8 @@ function initSiteScripts() {
                 updateGetInTouchLink(lang);
                 updateLangToggleUI(lang);
                 updateAriaLabels(lang);
+                // Notify career-path picker (and any other listeners) of the language change
+                window.dispatchEvent(new CustomEvent('cp:langchange', { detail: { lang: lang } }));
             }
 
             langToggleBtn.addEventListener('click', () => {
@@ -8417,6 +10263,708 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+<script>
+/* =====================================================================
+   CAREER PATH PAGE — "Twisted Ribbon" concept logic
+   Verbatim adaptation of concept-20-twisted-ribbon/index.html's script,
+   scoped to run inside the #career-path page-section.
+   ===================================================================== */
+(function () {
+    'use strict';
+
+    // --- Sample role data (verbatim from shared/sample-roles.js) -------
+    // --- Career Path data is now loaded from site-data.json (careerTracks key) ---
+    // Loader runs after site-data.json fetch completes. Legacy inline data removed.
+    window.cpRoles = {};
+    window.cpRoleKeys = [];
+    window.cpDefaultRole = null;
+    window.cpCategories = [];
+    window.cpFallbackByCategory = {};
+    window.cpProfessionsByKey = {};
+    window.cpAliasIndex = []; // [{alias, profKey}]
+    window.cpUi = { en: {}, fa: {} };
+
+    window.cpLoadTracks = function (tracks) {
+        if (!tracks) return;
+        window.cpCategories = tracks.categories || [];
+        window.cpFallbackByCategory = tracks.fallbackByCategory || {};
+        window.cpUi = tracks.ui || { en: {}, fa: {} };
+        window.cpRoles = {};
+        window.cpRoleKeys = [];
+        window.cpProfessionsByKey = {};
+        window.cpAliasIndex = [];
+        (tracks.professions || []).forEach(function (p) {
+            window.cpRoles[p.key] = p;
+            window.cpRoleKeys.push(p.key);
+            window.cpProfessionsByKey[p.key] = p;
+            (p.aliases || []).forEach(function (a) {
+                window.cpAliasIndex.push({ alias: a.toLowerCase().trim(), profKey: p.key });
+            });
+        });
+        if (window.cpRoleKeys.length) window.cpDefaultRole = window.cpRoleKeys[0];
+        // Notify any listeners that career tracks are ready
+        document.dispatchEvent(new CustomEvent('cp:tracks-ready'));
+    };
+
+    // Fuzzy matcher — normalizes Persian/Arabic chars and matches on token overlap.
+    window.cpNormalizeText = function (s) {
+        if (!s) return '';
+        return String(s).toLowerCase()
+            .replace(/[\u064a\u0649]/g, '\u06cc') // unify yeh
+            .replace(/[\u0643]/g, '\u06a9')         // unify kaf
+            .replace(/[\u0629]/g, '\u0647')         // unify ta marbuta
+            .replace(/[\u200c\u200d]/g, '')          // strip ZWNJ
+            .replace(/[-_\\.،,]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    };
+
+    // Returns [{profKey, score, matchedAlias}]
+    window.cpMatchProfession = function (query) {
+        var q = window.cpNormalizeText(query);
+        if (!q) return [];
+        var tokens = q.split(' ').filter(Boolean);
+        var results = [];
+        window.cpAliasIndex.forEach(function (entry) {
+            var a = window.cpNormalizeText(entry.alias);
+            var score = 0;
+            if (a === q) score = 100;
+            else if (a.indexOf(q) >= 0 || q.indexOf(a) >= 0) score = 70;
+            else {
+                // token overlap
+                var aTokens = a.split(' ').filter(Boolean);
+                var overlap = 0;
+                tokens.forEach(function (t) {
+                    if (aTokens.indexOf(t) >= 0) overlap++;
+                });
+                if (overlap > 0) score = 30 + (overlap * 10);
+            }
+            if (score > 0) results.push({ profKey: entry.profKey, score: score, matchedAlias: entry.alias });
+        });
+        // de-dup by profKey keeping the highest score
+        var seen = {};
+        var dedup = [];
+        results.sort(function (a, b) { return b.score - a.score; });
+        results.forEach(function (r) {
+            if (seen[r.profKey]) return;
+            seen[r.profKey] = true;
+            dedup.push(r);
+        });
+        return dedup;
+    };
+
+    // Monogram generator — 2-letter, color derived from string hash → HSL
+    window.cpMakeMonogram = function (label) {
+        var words = String(label || '?').trim().split(/\s+/).filter(Boolean);
+        var m;
+        if (words.length >= 2) m = (words[0][0] + words[1][0]).toUpperCase();
+        else if (words.length === 1) m = (words[0].slice(0, 2)).toUpperCase();
+        else m = '?';
+        // hash → hue
+        var h = 0;
+        for (var i = 0; i < label.length; i++) h = (h * 31 + label.charCodeAt(i)) % 360;
+        var hue = h;
+        var grad = 'linear-gradient(135deg, hsl(' + hue + ', 70%, 55%), hsl(' + ((hue + 40) % 360) + ', 75%, 60%))';
+        var soft = 'hsla(' + hue + ', 70%, 55%, 0.18)';
+        return { text: m, gradient: grad, soft: soft };
+    };
+
+
+    // --- Depth badge helpers ---------------------------------------
+    function depthBadgeHTML(depth) {
+        return '<span class="depth-badge depth-' + depth + '">' +
+               ({foundational:'Foundational', intermediate:'Intermediate', advanced:'Advanced'}[depth] || depth) +
+               '</span>';
+    }
+    function depthBadgeFA(depth) {
+        return '<span class="depth-badge depth-' + depth + '">' +
+               ({foundational:'پایه', intermediate:'میانه', advanced:'پیشرفته'}[depth] || depth) +
+               '</span>';
+    }
+    window.depthBadgeHTML = depthBadgeHTML;
+    window.depthBadgeFA = depthBadgeFA;
+
+    function renderLearnItem(m, i, lang) {
+        const badge = lang === 'fa' ? depthBadgeFA(m.depth) : depthBadgeHTML(m.depth);
+        return '<article class="learn-item" data-depth="' + m.depth + '">' +
+            '<div class="learn-item-num">' + String(i+1).padStart(2,'0') + '</div>' +
+            '<div class="learn-item-body">' +
+              '<div class="learn-item-meta">' + badge + '<span class="learn-item-tag">' + m.tag + '</span></div>' +
+              '<h4 class="learn-item-title">' + m.title + '</h4>' +
+              '<div class="learn-item-foot"><span>' + m.meta + '</span></div>' +
+            '</div></article>';
+    }
+
+    function renderHelpItem(s, i, lang) {
+        return '<article class="help-item">' +
+            '<div class="help-item-num">' + String(i+1).padStart(2,'0') + '</div>' +
+            '<div class="help-item-body">' +
+              '<h4 class="help-item-title">' + s.title + '</h4>' +
+              '<p class="help-item-outcome">' + s.outcome + '</p>' +
+            '</div></article>';
+    }
+
+    // (Legacy cpApplyRole removed — new picker handles role rendering via cpOpenDashboard.)
+
+    // (Legacy cp:langchange listener removed — new picker handles language re-render.)
+
+    // --- Screen navigation within #career-path (a / b / teaser) --------
+    function showCpScreen(name) {
+        const scope = document.getElementById('career-path');
+        if (!scope) return;
+        scope.querySelectorAll('.cp-screen').forEach(s => {
+            s.toggleAttribute('hidden', s.dataset.screen !== name);
+        });
+        scope.querySelectorAll('[data-screen-nav]').forEach(b => {
+            b.setAttribute('aria-pressed', String(b.dataset.screenNav === name));
+        });
+    }
+
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('#career-path [data-screen-nav]');
+        if (!btn) return;
+        showCpScreen(btn.dataset.screenNav);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // --- Concept 20 — Career Path picker (v2: gateway-pillar tiles, no CTA) ---
+    var cpState = { selectedKey: null, selectedCat: null, isFallback: false, monogramText: null, monogramGrad: null, monogramQuery: null };
+
+    function cpEsc(s) {
+        return String(s == null ? '' : s)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    // Build the category grid — gateway-pillar style with SVG icons
+    function cpRenderCategories() {
+        var grid = document.getElementById('cpCatGrid');
+        if (!grid || !window.cpCategories) return;
+        var lang = document.documentElement.getAttribute('lang') || 'en';
+        grid.innerHTML = window.cpCategories.map(function (cat) {
+            var data = cat[lang] || cat.en;
+            var iconSvg = cat.iconSvg || '<circle cx="12" cy="12" r="10"/>';
+            return '<button class="cp-cat gateway-pillar-style" data-cat="' + cat.key + '" '
+                + 'style="--pillar-color:' + cat.pillarColor + '; --pillar-rgb:' + cat.pillarRgb + ';" '
+                + 'type="button">'
+                + '<div class="cp-cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + iconSvg + '</svg></div>'
+                + '<div class="cp-cat-label">' + cpEsc(data.label) + '</div>'
+                + '<div class="cp-cat-tagline">' + cpEsc(data.tagline) + '</div>'
+                + '<div class="cp-cat-examples">' + cpEsc(data.examples) + '</div>'
+                + '</button>';
+        }).join('');
+    }
+
+    // Apply localized UI strings to all [data-cp-ui] and [data-cp-ui-en/fa] elements
+    function cpApplyUiStrings() {
+        var lang = document.documentElement.getAttribute('lang') || 'en';
+        var ui = (window.cpUi && window.cpUi[lang]) || {};
+        document.querySelectorAll('#career-path [data-cp-ui]').forEach(function (el) {
+            var key = el.getAttribute('data-cp-ui');
+            if (ui[key] != null) el.textContent = ui[key];
+        });
+        document.querySelectorAll('#career-path [data-cp-ui-attr]').forEach(function (el) {
+            var attr = el.getAttribute('data-cp-ui-attr');
+            var key = el.getAttribute('data-cp-ui');
+            if (ui[key] != null) el.setAttribute(attr, ui[key]);
+        });
+        document.querySelectorAll('#career-path [data-cp-ui-en]').forEach(function (el) {
+            el.style.display = (lang === 'en') ? '' : 'none';
+        });
+        document.querySelectorAll('#career-path [data-cp-ui-fa]').forEach(function (el) {
+            el.style.display = (lang === 'fa') ? '' : 'none';
+        });
+    }
+
+    // Open the dashboard immediately (NO CTA — direct navigation on selection)
+    function cpOpenDashboardImmediately() {
+        cpOpenDashboard();
+    }
+
+    // Handle a category tile click — go directly to dashboard
+    function cpSelectCategoryAndOpen(catKey) {
+        cpState.selectedCat = catKey;
+        cpState.selectedKey = null;
+        cpState.isFallback = false;
+        cpState.monogramText = null;
+        // Visual active state
+        document.querySelectorAll('#career-path .cp-cat').forEach(function (el) {
+            el.classList.toggle('is-active', el.getAttribute('data-cat') === catKey);
+        });
+        // Open dashboard immediately
+        cpOpenDashboard();
+    }
+
+    // Handle a search-result click (specific profession match) — go directly to dashboard
+    function cpSelectProfessionAndOpen(profKey) {
+        var p = window.cpProfessionsByKey[profKey];
+        if (!p) return;
+        cpState.selectedKey = profKey;
+        cpState.selectedCat = p.category;
+        cpState.isFallback = false;
+        cpState.monogramText = null;
+        document.querySelectorAll('#career-path .cp-cat').forEach(function (el) {
+            el.classList.toggle('is-active', el.getAttribute('data-cat') === p.category);
+        });
+        // Hide search results + clear search box
+        var sr = document.getElementById('cpSearchResults');
+        if (sr) { sr.hidden = true; sr.innerHTML = ''; }
+        var hint = document.getElementById('cpSearchHint');
+        if (hint) hint.hidden = true;
+        var input = document.getElementById('cpSearch');
+        if (input) input.value = '';
+        var clear = document.getElementById('cpSearchClear');
+        if (clear) clear.hidden = true;
+        // Open dashboard immediately
+        cpOpenDashboard();
+    }
+
+    // Render the search-results dropdown
+    function cpRenderSearchResults(query) {
+        var sr = document.getElementById('cpSearchResults');
+        var hint = document.getElementById('cpSearchHint');
+        if (!sr || !hint) return;
+        var matches = window.cpMatchProfession(query);
+        var lang = document.documentElement.getAttribute('lang') || 'en';
+        if (matches.length === 0) {
+            sr.hidden = true; sr.innerHTML = '';
+            hint.hidden = false;
+            hint.textContent = (window.cpUi[lang] || {}).searchNoResult || '';
+            // Auto-pick a likely category from the query using category example tokens
+            var q = window.cpNormalizeText(query);
+            var bestCat = null;
+            (window.cpCategories || []).forEach(function (cat) {
+                var data = cat[lang] || cat.en;
+                var exTokens = window.cpNormalizeText(data.examples).split(/[·,\s]+/).filter(Boolean);
+                var hit = exTokens.some(function (t) { return t && q.indexOf(t) >= 0; });
+                if (hit && !bestCat) bestCat = cat.key;
+            });
+            if (bestCat) {
+                cpState.selectedCat = bestCat;
+                cpState.isFallback = true;
+                var mono = window.cpMakeMonogram(query);
+                cpState.monogramText = mono.text;
+                cpState.monogramGrad = mono.gradient;
+                cpState.monogramQuery = query;
+                cpState.selectedKey = null;
+                // Visual active state on the category
+                document.querySelectorAll('#career-path .cp-cat').forEach(function (el) {
+                    el.classList.toggle('is-active', el.getAttribute('data-cat') === bestCat);
+                });
+            }
+            return;
+        }
+        hint.hidden = true;
+        sr.hidden = false;
+        sr.innerHTML = matches.slice(0, 6).map(function (m, i) {
+            var p = window.cpProfessionsByKey[m.profKey];
+            var data = p[lang] || p.en;
+            var cat = (window.cpCategories || []).find(function (c) { return c.key === p.category; });
+            var catLabel = cat ? (cat[lang] || cat.en).label : '';
+            var iconSvg = p.iconSvg || (cat && cat.iconSvg) || '<circle cx="12" cy="12" r="10"/>';
+            return '<div class="cp-sr-item' + (i === 0 ? ' is-active' : '') + '" data-prof="' + m.profKey + '">'
+                + '<div class="cp-sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + iconSvg + '</svg></div>'
+                + '<div class="cp-sr-text">'
+                + '<div class="cp-sr-label">' + cpEsc(data.label) + '</div>'
+                + '<div class="cp-sr-meta">' + cpEsc(catLabel) + '</div>'
+                + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    // Build the dashboard from the current selection state
+    function cpOpenDashboard() {
+        var lang = document.documentElement.getAttribute('lang') || 'en';
+        var roleKey = cpState.selectedKey;
+        var catKey = cpState.selectedCat;
+        var role = roleKey ? window.cpRoles[roleKey] : null;
+        var cat = (window.cpCategories || []).find(function (c) { return c.key === catKey; });
+        if (!cat) return;
+
+        var data;
+        if (role) {
+            data = role[lang] || role.en;
+        } else {
+            var fb = (window.cpFallbackByCategory || {})[catKey] || {};
+            data = fb[lang] || fb.en || (cat[lang] || cat.en);
+        }
+        var iconSvg = cat.iconSvg;
+        var isMonogram = false;
+
+        // Inject category gradient as a CSS var on the section
+        var sec = document.getElementById('career-path');
+        if (sec) sec.style.setProperty('--cat-grad', cat.gradient);
+
+        // Populate header
+        var iconEl = document.getElementById('cpRoadmapIcon');
+        if (iconEl) {
+            iconEl.classList.remove('is-monogram');
+            iconEl.style.setProperty('--pillar-color', cat.pillarColor);
+            iconEl.style.setProperty('--pillar-rgb', cat.pillarRgb);
+            iconEl.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + (iconSvg || '') + '</svg>';
+        }
+        var titleEl = document.getElementById('cpRoadmapTitle');
+        if (titleEl) {
+            titleEl.textContent = (cat[lang] || cat.en).label;
+            titleEl.style.color = cat.pillarColor;
+        }
+        var subEl = document.getElementById('cpRoadmapSubtitle');
+        if (subEl) subEl.textContent = '';
+        var metaEl = document.getElementById('cpRoadmapMeta');
+        if (metaEl) {
+            if (cpState.isFallback || !role) {
+                var ui = (window.cpUi || {})[lang] || {};
+                var note = (ui.categoryFallbackNote || '').replace('{category}', (cat[lang] || cat.en).label);
+                metaEl.textContent = note;
+                metaEl.hidden = !note;
+            } else {
+                metaEl.hidden = true;
+            }
+        }
+
+        // Pain card
+        var painLabelEl = document.querySelector('#career-path [data-cp-ui="painLabel"]');
+        if (painLabelEl) painLabelEl.textContent = ((window.cpUi || {})[lang] || {}).painLabel || '';
+        var painTextEl = document.getElementById('cpPainText');
+        if (painTextEl) painTextEl.textContent = data.pain || '';
+
+        // Switch to screen B
+        showCpScreen('b');
+
+        // Render the staircase items (NO DNA SVG)
+        var pseudoRole = { en: role ? role.en : (window.cpFallbackByCategory[catKey] || {}).en, fa: role ? role.fa : (window.cpFallbackByCategory[catKey] || {}).fa };
+        pseudoRole[lang] = data;
+        renderStaircaseItems(pseudoRole, lang);
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Render staircase items only — no DNA SVG tubes
+    function renderStaircaseItems(role, lang) {
+        var itemsEl = document.getElementById('rbItems');
+        if (!itemsEl) return;
+        var data = role[lang] || role.en;
+        if (!data) return;
+
+        var rows = [];
+        for (var i = 0; i < Math.max((data.learn || []).length, (data.help || []).length); i++) {
+            if (data.learn && data.learn[i]) rows.push({ kind: 'learn', item: data.learn[i], idx: i });
+            if (data.help && data.help[i]) rows.push({ kind: 'help', item: data.help[i], idx: i });
+        }
+
+        var learnLabel = (lang === 'fa') ? 'یاد بگیرید' : 'Learn';
+        var helpLabel = (lang === 'fa') ? 'کمک' : 'Get Help';
+        var emptyLearn = (lang === 'fa') ? '— یادگیری —' : '— Learn —';
+        var emptyHelp = (lang === 'fa') ? '— مشاوره —' : '— Advisory —';
+
+        itemsEl.innerHTML = rows.map(function (row, i) {
+            var isLearn = row.kind === 'learn';
+            var badge = isLearn ? (lang === 'fa' ? window.depthBadgeFA(row.item.depth) : window.depthBadgeHTML(row.item.depth)) : '';
+            var content = isLearn ?
+                '<div class="rb-item-meta">' + badge + '<span class="rb-item-tag">' + cpEsc(row.item.tag) + '</span></div>'
+                    + '<div class="rb-item-title">' + cpEsc(row.item.title) + '</div>'
+                    + '<div class="rb-item-foot">' + cpEsc(row.item.meta) + '</div>'
+                :
+                '<div class="rb-item-title">' + cpEsc(row.item.title) + '</div>'
+                    + '<div class="rb-item-outcome">' + cpEsc(row.item.outcome) + '</div>';
+            return '<div class="rb-item">'
+                + (isLearn ?
+                    '<div class="rb-item-learn">'
+                        + '<span class="rb-item-kind">' + learnLabel + ' · ' + String(row.idx + 1).padStart(2, '0') + '</span>'
+                        + content
+                    + '</div>'
+                    + '<div class="rb-item-num">' + String(i + 1).padStart(2, '0') + '</div>'
+                    + '<div class="rb-item-empty">' + emptyHelp + '</div>'
+                :
+                    '<div class="rb-item-empty">' + emptyLearn + '</div>'
+                    + '<div class="rb-item-num">' + String(i + 1).padStart(2, '0') + '</div>'
+                    + '<div class="rb-item-help">'
+                        + '<span class="rb-item-kind">' + helpLabel + ' · ' + String(row.idx + 1).padStart(2, '0') + '</span>'
+                        + content
+                    + '</div>'
+                )
+                + '</div>';
+        }).join('');
+    }
+
+    // Wire up all the picker events once
+    function cpInitPicker() {
+        if (window.__cpPickerInit) return;
+        window.__cpPickerInit = true;
+
+        var grid = document.getElementById('cpCatGrid');
+        if (grid) {
+            grid.addEventListener('click', function (e) {
+                var btn = e.target.closest('[data-cat]');
+                if (!btn) return;
+                cpSelectCategoryAndOpen(btn.getAttribute('data-cat'));
+            });
+        }
+
+        var input = document.getElementById('cpSearch');
+        var clear = document.getElementById('cpSearchClear');
+        var sr = document.getElementById('cpSearchResults');
+        if (input) {
+            var debounceT;
+            input.addEventListener('input', function () {
+                if (clear) clear.hidden = !input.value;
+                clearTimeout(debounceT);
+                debounceT = setTimeout(function () {
+                    if (!input.value.trim()) {
+                        if (sr) { sr.hidden = true; sr.innerHTML = ''; }
+                        var hint = document.getElementById('cpSearchHint');
+                        if (hint) hint.hidden = true;
+                        return;
+                    }
+                    cpRenderSearchResults(input.value);
+                }, 180);
+            });
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    // Pick the first result if any
+                    var first = sr && sr.querySelector('.cp-sr-item');
+                    if (first) cpSelectProfessionAndOpen(first.getAttribute('data-prof'));
+                    // Otherwise, if we have a fallback state set, open the dashboard with it
+                    else if (cpState.selectedCat && (cpState.isFallback || cpState.selectedKey === null)) {
+                        cpOpenDashboard();
+                    }
+                }
+            });
+        }
+        if (clear) {
+            clear.addEventListener('click', function () {
+                if (input) { input.value = ''; input.focus(); }
+                clear.hidden = true;
+                if (sr) { sr.hidden = true; sr.innerHTML = ''; }
+                var hint = document.getElementById('cpSearchHint');
+                if (hint) hint.hidden = true;
+            });
+        }
+        if (sr) {
+            sr.addEventListener('click', function (e) {
+                var item = e.target.closest('[data-prof]');
+                if (!item) return;
+                cpSelectProfessionAndOpen(item.getAttribute('data-prof'));
+            });
+        }
+
+        var changeBtn = document.getElementById('cpChangeBtn');
+        if (changeBtn) changeBtn.addEventListener('click', function () {
+            showCpScreen('a');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    function cpBootIfReady() {
+        if (!window.cpCategories || !window.cpCategories.length) return;
+        if (!document.getElementById('cpCatGrid')) return;
+        cpApplyUiStrings();
+        cpRenderCategories();
+        cpInitPicker();
+    }
+    document.addEventListener('cp:tracks-ready', cpBootIfReady);
+    document.addEventListener('DOMContentLoaded', cpBootIfReady);
+    window.addEventListener('cp:langchange', function () {
+        cpApplyUiStrings();
+        cpRenderCategories();
+        var sec = document.getElementById('career-path');
+        if (sec) {
+            var b = sec.querySelector('[data-screen="b"]');
+            if (b && !b.hasAttribute('hidden') && (cpState.selectedKey || cpState.selectedCat)) {
+                cpOpenDashboard();
+            }
+        }
+    });
+
+    // =====================================================================
+    // FEATURE 3: Interactive Glow Effects with Mouse Interaction
+    // =====================================================================
+    
+    function initGlowInteraction() {
+        const svg = document.querySelector('#career-path .teaser-glow-svg');
+        if (!svg) return;
+        
+        const glowPaths = svg.querySelectorAll('.glow-path');
+        const glowParticles = svg.querySelectorAll('.glow-particle');
+        
+        // Mouse tracking variables
+        let mouseX = 0, mouseY = 0;
+        let isMouseOverSvg = false;
+        
+        // Create control panel for animation speed and intensity
+        const controlPanel = document.createElement('div');
+        controlPanel.className = 'glow-control-panel';
+        controlPanel.innerHTML = `
+            <div class="glow-control-item">
+                <label for="glowSpeed">سرعت انیمیشن</label>
+                <input type="range" id="glowSpeed" min="0.5" max="2" step="0.1" value="1" />
+                <span class="glow-control-value">1x</span>
+            </div>
+            <div class="glow-control-item">
+                <label for="glowIntensity">شدت درخشش</label>
+                <input type="range" id="glowIntensity" min="0.3" max="1.5" step="0.1" value="1" />
+                <span class="glow-control-value">100%</span>
+            </div>
+        `;
+        
+        const careerCard = document.querySelector('#career-path .teaser-career');
+        if (careerCard && !careerCard.querySelector('.glow-control-panel')) {
+            careerCard.appendChild(controlPanel);
+        } else if (careerCard) {
+            return; // Already initialized
+        }
+        
+        // Speed control
+        const speedInput = controlPanel.querySelector('#glowSpeed');
+        const speedValue = controlPanel.querySelector('.glow-control-item:nth-child(1) .glow-control-value');
+        speedInput.addEventListener('input', function(e) {
+            const speed = parseFloat(e.target.value);
+            speedValue.textContent = speed.toFixed(1) + 'x';
+            
+            glowPaths.forEach(path => {
+                const animations = path.style.animation;
+                if (animations) {
+                    const newAnimations = animations.replace(/\d+\.?\d*s/g, (match) => {
+                        const time = parseFloat(match);
+                        return (time / speed) + 's';
+                    });
+                    path.style.animation = newAnimations;
+                }
+            });
+            
+            glowParticles.forEach(particle => {
+                const animations = particle.style.animation;
+                if (animations) {
+                    const newAnimations = animations.replace(/\d+\.?\d*s/g, (match) => {
+                        const time = parseFloat(match);
+                        return (time / speed) + 's';
+                    });
+                    particle.style.animation = newAnimations;
+                }
+            });
+        });
+        
+        // Intensity control
+        const intensityInput = controlPanel.querySelector('#glowIntensity');
+        const intensityValue = controlPanel.querySelector('.glow-control-item:nth-child(2) .glow-control-value');
+        intensityInput.addEventListener('input', function(e) {
+            const intensity = parseFloat(e.target.value);
+            intensityValue.textContent = Math.round(intensity * 100) + '%';
+            
+            // Update CSS variable for glow intensity
+            svg.style.setProperty('--glow-intensity', intensity);
+            
+            glowPaths.forEach(path => {
+                const filter = path.getAttribute('filter');
+                if (filter) {
+                    const opacity = 0.7 * intensity;
+                    path.style.opacity = Math.min(opacity, 1);
+                }
+            });
+            
+            glowParticles.forEach(particle => {
+                const currentOpacity = parseFloat(window.getComputedStyle(particle).opacity);
+                particle.style.opacity = Math.min(currentOpacity * intensity, 1);
+            });
+        });
+        
+        // Mouse interaction: glow follows mouse
+        svg.addEventListener('mouseenter', function() {
+            isMouseOverSvg = true;
+            svg.classList.add('mouse-active');
+        });
+        
+        svg.addEventListener('mouseleave', function() {
+            isMouseOverSvg = false;
+            svg.classList.remove('mouse-active');
+            glowPaths.forEach(path => path.style.filter = '');
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!isMouseOverSvg) return;
+            lastMouseEvent = e;
+            if (glowMoveRAF) return;
+            glowMoveRAF = requestAnimationFrame(updateGlowFromMouse);
+        });
+
+        let glowMoveRAF = null;
+        let lastMouseEvent = null;
+        function updateGlowFromMouse() {
+            glowMoveRAF = null;
+            const e = lastMouseEvent;
+            if (!e || !isMouseOverSvg) return;
+
+            const svgRect = svg.getBoundingClientRect();
+            mouseX = e.clientX - svgRect.left;
+            mouseY = e.clientY - svgRect.top;
+            
+            // Calculate distance from mouse to each glow path
+            glowPaths.forEach((path, index) => {
+                const pathLength = path.getTotalLength ? path.getTotalLength() : 400;
+                
+                // Get a point on the path (roughly at the middle)
+                let point;
+                try {
+                    point = path.getPointAtLength(pathLength * 0.5);
+                } catch (e) {
+                    return;
+                }
+                
+                const distance = Math.sqrt(
+                    Math.pow(mouseX - point.x, 2) + 
+                    Math.pow(mouseY - point.y, 2)
+                );
+                
+                // If mouse is close, increase glow
+                const maxDistance = 150;
+                const glowAmount = Math.max(0, 1 - (distance / maxDistance));
+                const glowIntensity = parseFloat(intensityInput.value);
+                const baseGlow = 8 + (glowAmount * 12 * glowIntensity);
+                
+                path.style.filter = `drop-shadow(0 0 ${baseGlow}px var(--cp-accent)) drop-shadow(0 0 ${baseGlow * 0.6}px var(--cp-accent-soft))`;
+            });
+        }
+    }
+    
+    function initCareerPath() {
+        // Twisted-ribbon picker is replaced by cpInitPicker(); glow interaction
+        // was tied to the removed teaser card. We just show screen A.
+        showCpScreen('a');
+    }
+
+    // Initialize once DOM is ready, and again whenever the user navigates
+    // to the #career-path section (in case it was not yet initialized).
+    document.addEventListener('DOMContentLoaded', function() {
+        initCareerPath();
+        // Reinitialize glow interaction on language change
+        // Only observe specific elements to avoid infinite loops if DOM is modified
+        const observer = new MutationObserver(function(mutations) {
+            // Check if the change was actually a language toggle (e.g. text content or lang attribute)
+            // and not just our own control panel being added
+            const isSelfTriggered = mutations.some(m => 
+                Array.from(m.addedNodes).some(node => node.classList && node.classList.contains('glow-control-panel'))
+            );
+            if (!isSelfTriggered) {
+                initGlowInteraction();
+            }
+        });
+        const careerPath = document.getElementById('career-path');
+        if (careerPath) {
+            observer.observe(careerPath, { childList: true, subtree: true });
+        }
+    });
+    window.addEventListener('hashchange', function () {
+        if (window.location.hash.replace('#', '') === 'career-path') {
+            initCareerPath();
+        }
+    });
+    if (window.location.hash.replace('#', '') === 'career-path') {
+        initCareerPath();
+    }
+})();
+</script>
 
 </body>
 </html>
